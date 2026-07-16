@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="google" content="notranslate" />
+    <title>STEMBridge Speak — German Practice</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 600px;
+        margin: 60px auto;
+        text-align: center;
+      }
+      button {
+        font-size: 18px;
+        padding: 12px 24px;
+        margin: 10px;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      #userSaid {
+        margin-top: 20px;
+        padding: 10px;
+        background: #eef;
+        border-radius: 8px;
+        min-height: 20px;
+      }
+      #tutorReply {
+        margin-top: 10px;
+        padding: 10px;
+        background: #efe;
+        border-radius: 8px;
+        min-height: 20px;
+        white-space: pre-wrap;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>STEMBridge Speak</h1>
+    <p>German practice — restaurant scenario</p>
+
+    <button id="startBtn">🎤 Start Speaking</button>
+    <button id="speakTestBtn">🔊 Meet Your Tutor</button>
+    <button id="resetBtn">🔄 Reset Conversation</button>
+
+    <div style="margin-top: 20px">
+      <input
+        type="text"
+        id="textInput"
+        placeholder="Or type in German here..."
+        style="padding: 8px; width: 300px"
+      />
+      <button id="sendTextBtn">Send</button>
+    </div>
+
+    <div id="userSaid">Your speech will appear here...</div>
+    <div id="tutorReply" translate="no"></div>
+
+    <script>
+      let exchangeCount = 0;
+      const MAX_EXCHANGES = 15;
+      let mediaRecorder;
+      let audioChunks = [];
+
+      const startBtn = document.getElementById("startBtn");
+      const userSaidDiv = document.getElementById("userSaid");
+      const tutorReplyDiv = document.getElementById("tutorReply");
+
+      function checkExchangeLimit() {
+        exchangeCount++;
+        if (exchangeCount >= MAX_EXCHANGES) {
+          startBtn.disabled = true;
+          tutorReplyDiv.textContent +=
+            "\n\n[Session limit reached. Click Reset to start a new conversation.]";
+        }
+      }
+
+      startBtn.addEventListener("click", async () => {
+        if (startBtn.textContent.includes("Start")) {
+          // Start recording
+          let stream;
+          try {
+            stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          } catch (err) {
+            userSaidDiv.textContent =
+              "Microphone access is needed to practice speaking. Please allow microphone permission and try again.";
+            return;
+          }
+
+          mediaRecorder = new MediaRecorder(stream);
+          audioChunks = [];
+          mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+          window.speechSynthesis.cancel(); // Stop any ongoing speech synthesis
+          mediaRecorder.start();
+
+          startBtn.textContent = "⏹️ Stop Speaking";
+          userSaidDiv.textContent = "Recording... click again to stop.";
+          tutorReplyDiv.textContent = "";
+        } else {
+          // Stop recording and send
+          mediaRecorder.stop();
+          startBtn.textContent = "🎤 Start Speaking";
+
+          mediaRecorder.onstop = async () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+            userSaidDiv.textContent = "Processing your speech...";
+            tutorReplyDiv.textContent = "Thinking...";
+
+            const reader = new FileReader();
+            reader.readAsDataURL(audioBlob);
+            reader.onloadend = async () => {
+              const base64Audio = reader.result.split(",")[1];
+
+              try {
+                const response = await fetch("/chat-audio", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ audio: base64Audio }),
+                });
+                const data = await response.json();
+
+                userSaidDiv.textContent = `You said: "${data.transcription}"`;
+                tutorReplyDiv.textContent = data.reply;
+
+                const utterance = new SpeechSynthesisUtterance(data.reply);
+                utterance.lang = "de-DE";
+                window.speechSynthesis.speak(utterance);
+
+                checkExchangeLimit();
+              } catch (err) {
+                tutorReplyDiv.textContent = "Error: " + err.message;
+                startBtn.textContent = "🎤 Start Speaking";
+              }
+            };
+          };
+        }
+      });
+
+      const speakTestBtn = document.getElementById("speakTestBtn");
+      speakTestBtn.addEventListener("click", () => {
+        const utterance = new SpeechSynthesisUtterance(
+          "Hallo, ich bin STEMBridge Speaks, dein persönlicher Sprachpartner zum Deutschlernen.",
+        );
+        utterance.lang = "de-DE";
+        window.speechSynthesis.speak(utterance);
+      });
+
+      document
+        .getElementById("sendTextBtn")
+        .addEventListener("click", async () => {
+          const typedText = document.getElementById("textInput").value;
+          if (!typedText.trim()) return;
+
+          userSaidDiv.textContent = `You said: "${typedText}"`;
+          tutorReplyDiv.textContent = "Thinking...";
+
+          try {
+            const response = await fetch("/chat", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: typedText }),
+            });
+            const data = await response.json();
+
+            tutorReplyDiv.textContent = data.reply;
+
+            const utterance = new SpeechSynthesisUtterance(data.reply);
+            utterance.lang = "de-DE";
+            window.speechSynthesis.speak(utterance);
+
+            checkExchangeLimit();
+          } catch (err) {
+            tutorReplyDiv.textContent = "Error: " + err.message;
+          }
+
+          document.getElementById("textInput").value = "";
+        });
+
+      document
+        .getElementById("resetBtn")
+        .addEventListener("click", async () => {
+          window.speechSynthesis.cancel();
+          await fetch("/reset", { method: "POST" });
+          exchangeCount = 0;
+          startBtn.disabled = false;
+          startBtn.textContent = "🎤 Start Speaking";
+          userSaidDiv.textContent =
+            "Conversation reset. Say something to start again!";
+          tutorReplyDiv.textContent = "";
+        });
+    </script>
+  </body>
+</html>
