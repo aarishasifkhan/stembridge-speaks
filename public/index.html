@@ -41,7 +41,17 @@
   </head>
   <body>
     <h1>STEMBridge Speak</h1>
-    <p>German practice — restaurant scenario</p>
+    <p>German practice</p>
+
+    <div style="margin-bottom: 10px">
+      <label for="scenarioSelect">Choose a scenario: </label>
+      <select id="scenarioSelect">
+        <option value="restaurant">🍽️ Ordering at a restaurant</option>
+        <option value="directions">🗺️ Asking for directions</option>
+        <option value="shopping">🛍️ Shopping for clothes</option>
+        <option value="hotel">🏨 Checking into a hotel</option>
+      </select>
+    </div>
 
     <button id="startBtn">🎤 Start Speaking</button>
     <button id="speakTestBtn">🔊 Meet Your Tutor</button>
@@ -119,7 +129,10 @@
                 const response = await fetch("/chat-audio", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ audio: base64Audio }),
+                  body: JSON.stringify({
+                    audio: base64Audio,
+                    scenario: document.getElementById("scenarioSelect").value,
+                  }),
                 });
                 const data = await response.json();
 
@@ -162,7 +175,10 @@
             const response = await fetch("/chat", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ message: typedText }),
+              body: JSON.stringify({
+                message: typedText,
+                scenario: document.getElementById("scenarioSelect").value,
+              }),
             });
             const data = await response.json();
 

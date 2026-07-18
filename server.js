@@ -10,6 +10,49 @@ app.use(express.static("public"));
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+const scenarios = {
+  restaurant:
+    "a waiter in a restaurant in Germany, helping the user order food",
+  directions:
+    "a friendly local in a German city, helping the user who is lost find their way somewhere",
+  shopping:
+    "a shop assistant in a German clothing store, helping the user find and buy an item",
+  hotel:
+    "a hotel receptionist in Germany, helping the user check in and ask about their room",
+};
+
+function buildSystemInstruction(scenarioKey, mode) {
+  const scenarioDescription = scenarios[scenarioKey] || scenarios.restaurant;
+
+  const baseRules = `You are a friendly German conversation tutor. You are roleplaying as ${scenarioDescription}. The user is a German learner practicing this scenario.
+
+Rules:
+- Stay in character throughout, respond naturally in German to whatever they say.
+- Keep your in-character reply to ONE short sentence, maximum 15 words — like a real quick back-and-forth, not a monologue.
+- If the user made a grammar or vocabulary mistake, gently note the correction AFTER your in-character reply, under a line that says "Correction:". Keep this to 1-2 sentences max. If there's no mistake, skip this line entirely.
+- Keep the tone warm and encouraging, never harsh.
+- If the user goes off-topic, gently and naturally steer the conversation back to the scenario, still in character.
+- Brevity is critical — the user is listening to this out loud and needs to process it quickly.`;
+
+  if (mode === "audio") {
+    return `${baseRules}
+
+You will receive an audio clip of the user speaking.
+
+CRITICAL RULES for audio mode — follow exactly:
+1. "transcription" must be the EXACT words the user said, in the ORIGINAL language they spoke it in. Do NOT translate it.
+2. "reply" must ALWAYS be written in German, regardless of what language the user spoke.
+
+Respond with a JSON object only, no other text, in this exact format:
+{
+  "transcription": "the exact words the user said, in their original language, not translated",
+  "reply": "your German in-character reply, plus optional Correction: section"
+}`;
+  }
+
+  return baseRules;
+}
+
 app.get("/", (req, res) => {
   res.send("STEMBridge Speak backend is running.");
 });
@@ -28,24 +71,15 @@ app.post("/test-gemini", async (req, res) => {
   }
 });
 
-// Text-based chat route (typed input)
 let conversationHistory = [];
 
 app.post("/chat", async (req, res) => {
   try {
-    const { message } = req.body;
+    const { message, scenario } = req.body;
 
     const model = genAI.getGenerativeModel({
       model: "gemini-flash-latest",
-      systemInstruction: `You are a friendly German conversation tutor. You are roleplaying a waiter in a restaurant in Germany. The user is a German learner practicing ordering food.
-
-Rules:
-- Stay in character as the waiter, respond naturally in German to whatever they say.
-- Keep your in-character reply to ONE short sentence, maximum 15 words — like a real quick back-and-forth in a busy restaurant, not a monologue. If there's a Correction section, keep that to 1-2 sentences maximum as well. Brevity is critical — the user is listening to this out loud and needs to process it quickly.
-- If the user made a grammar or vocabulary mistake, gently note the correction AFTER your in-character reply, under a line that says "Correction:". If there's no mistake, skip this line entirely.
-- Keep the tone warm and encouraging, never harsh.
-- If the user goes off-topic, gently and naturally steer the conversation back to the restaurant scenario, still in character.
-- Remember what's already been said earlier in this conversation, and don't repeat yourself.`,
+      systemInstruction: buildSystemInstruction(scenario, "text"),
     });
 
     conversationHistory.push({ role: "user", parts: [{ text: message }] });
@@ -63,29 +97,13 @@ Rules:
   }
 });
 
-// Audio-based chat route (voice input)
 app.post("/chat-audio", async (req, res) => {
   try {
-    const { audio } = req.body;
+    const { audio, scenario } = req.body;
 
     const model = genAI.getGenerativeModel({
       model: "gemini-flash-latest",
-      systemInstruction: `You are a friendly German conversation tutor roleplaying a waiter in a restaurant in Germany. The user is a German learner practicing ordering food.
-
-You will receive an audio clip of the user speaking.
-
-CRITICAL RULES — follow exactly:
-1. "transcription" must be the EXACT words the user said, in the ORIGINAL language they spoke it in. Do NOT translate it.
-2. "reply" must ALWAYS be written in German, regardless of what language the user spoke.
-3. Stay in character as the waiter throughout the "reply" field.
-4. After the in-character German reply, if the user made a German grammar/vocabulary mistake, add a line "Correction:" followed by an explanation (this explanation can be in English for clarity). If there's no mistake, omit this section.
-5. Keep your in-character reply to ONE short sentence, maximum 15 words — like a real quick back-and-forth in a busy restaurant, not a monologue. If there's a Correction section, keep that to 1-2 sentences maximum as well. Brevity is critical — the user is listening to this out loud and needs to process it quickly.
-
-Respond with a JSON object only, no other text, in this exact format:
-{
-  "transcription": "the exact words the user said, in their original language, not translated",
-  "reply": "your German in-character waiter reply, plus optional Correction: section"
-}`,
+      systemInstruction: buildSystemInstruction(scenario, "audio"),
     });
 
     const result = await model.generateContent([
@@ -116,13 +134,12 @@ Respond with a JSON object only, no other text, in this exact format:
   }
 });
 
-// Reset conversation history (used by both routes' Reset button)
 app.post("/reset", (req, res) => {
   conversationHistory = [];
   res.json({ status: "Conversation reset." });
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
