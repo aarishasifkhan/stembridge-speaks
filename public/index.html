@@ -70,11 +70,83 @@
     <div id="userSaid">Your speech will appear here...</div>
     <div id="tutorReply" translate="no"></div>
 
+    <div id="feedbackBox" style="margin-top: 10px; display: none">
+      <span>Was this helpful?</span>
+      <button id="thumbsUp">👍</button>
+      <button id="thumbsDown">👎</button>
+      <div style="margin-top: 8px">
+        <input
+          type="text"
+          id="feedbackComment"
+          placeholder="Optional comment..."
+          style="padding: 6px; width: 250px"
+        />
+        <button id="submitFeedback" style="display: none">Submit</button>
+      </div>
+      <div
+        id="feedbackThanks"
+        style="margin-top: 6px; color: green; font-size: 14px"
+      ></div>
+    </div>
+
     <script>
       let exchangeCount = 0;
       const MAX_EXCHANGES = 15;
       let mediaRecorder;
       let audioChunks = [];
+
+      let lastUserMessage = "";
+      let lastTutorReply = "";
+      let selectedRating = null;
+
+      function showFeedbackBox(userMsg, tutorMsg) {
+        lastUserMessage = userMsg;
+        lastTutorReply = tutorMsg;
+        document.getElementById("feedbackBox").style.display = "block";
+        document.getElementById("feedbackThanks").textContent = "";
+        document.getElementById("submitFeedback").style.display = "none";
+      }
+
+      async function sendFeedback() {
+        try {
+          await fetch("/feedback", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              rating: selectedRating,
+              comment: document.getElementById("feedbackComment").value,
+              scenario: document.getElementById("scenarioSelect").value,
+              userMessage: lastUserMessage,
+              tutorReply: lastTutorReply,
+            }),
+          });
+          document.getElementById("feedbackThanks").textContent =
+            "Thanks for your feedback!";
+          document.getElementById("feedbackComment").value = "";
+          document.getElementById("submitFeedback").style.display = "none";
+        } catch (err) {
+          document.getElementById("feedbackThanks").textContent =
+            "Couldn't save feedback, sorry.";
+        }
+      }
+
+      document.getElementById("thumbsUp").addEventListener("click", () => {
+        selectedRating = "up";
+        document.getElementById("submitFeedback").style.display =
+          "inline-block";
+        sendFeedback();
+      });
+
+      document.getElementById("thumbsDown").addEventListener("click", () => {
+        selectedRating = "down";
+        document.getElementById("submitFeedback").style.display =
+          "inline-block";
+        sendFeedback();
+      });
+
+      document
+        .getElementById("submitFeedback")
+        .addEventListener("click", sendFeedback);
 
       const startBtn = document.getElementById("startBtn");
       const userSaidDiv = document.getElementById("userSaid");
@@ -91,7 +163,6 @@
 
       startBtn.addEventListener("click", async () => {
         if (startBtn.textContent.includes("Start")) {
-          // Start recording
           let stream;
           try {
             stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -104,14 +175,13 @@
           mediaRecorder = new MediaRecorder(stream);
           audioChunks = [];
           mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
-          window.speechSynthesis.cancel(); // Stop any ongoing speech synthesis
+          window.speechSynthesis.cancel();
           mediaRecorder.start();
 
           startBtn.textContent = "⏹️ Stop Speaking";
           userSaidDiv.textContent = "Recording... click again to stop.";
           tutorReplyDiv.textContent = "";
         } else {
-          // Stop recording and send
           mediaRecorder.stop();
           startBtn.textContent = "🎤 Start Speaking";
 
@@ -138,6 +208,7 @@
 
                 userSaidDiv.textContent = `You said: "${data.transcription}"`;
                 tutorReplyDiv.textContent = data.reply;
+                showFeedbackBox(data.transcription, data.reply);
 
                 const utterance = new SpeechSynthesisUtterance(data.reply);
                 utterance.lang = "de-DE";
@@ -183,6 +254,7 @@
             const data = await response.json();
 
             tutorReplyDiv.textContent = data.reply;
+            showFeedbackBox(typedText, data.reply);
 
             const utterance = new SpeechSynthesisUtterance(data.reply);
             utterance.lang = "de-DE";
@@ -207,6 +279,7 @@
           userSaidDiv.textContent =
             "Conversation reset. Say something to start again!";
           tutorReplyDiv.textContent = "";
+          document.getElementById("feedbackBox").style.display = "none";
         });
     </script>
   </body>

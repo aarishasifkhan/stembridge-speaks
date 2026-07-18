@@ -1,4 +1,5 @@
 require("dotenv").config();
+const fs = require("fs");
 const express = require("express");
 const cors = require("cors");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
@@ -137,6 +138,26 @@ app.post("/chat-audio", async (req, res) => {
 app.post("/reset", (req, res) => {
   conversationHistory = [];
   res.json({ status: "Conversation reset." });
+});
+
+app.post("/feedback", (req, res) => {
+  try {
+    const { rating, comment, scenario, userMessage, tutorReply } = req.body;
+    const entry = {
+      timestamp: new Date().toISOString(),
+      rating,
+      comment: comment || "",
+      scenario: scenario || "unknown",
+      userMessage: userMessage || "",
+      tutorReply: tutorReply || "",
+    };
+
+    fs.appendFileSync("feedback.log", JSON.stringify(entry) + "\n");
+    res.json({ status: "Feedback recorded. Thank you!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not save feedback." });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
