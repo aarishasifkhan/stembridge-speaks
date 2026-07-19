@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <title>STEMBridge Speaks — Conversational Practice</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --gold: #e8a33d;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+        line-height: 1.5;
+      }
+      h1 {
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        color: var(--forest-dark);
+      }
+      .mono {
+        font-family: "IBM Plex Mono", monospace;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 6vw;
+        background: var(--cream);
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--forest);
+        text-decoration: none;
+      }
+      header a.back {
+        font-size: 14px;
+        color: var(--forest-dark);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      main {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 48px 6vw 80px;
+        text-align: center;
+      }
+      main h1 {
+        font-size: 30px;
+        margin: 0 0 6px;
+      }
+      main p.tagline {
+        color: #4a4f42;
+        margin: 0 0 32px;
+        font-size: 15px;
+      }
+
+      .controls {
+        background: var(--sage);
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 20px;
+        text-align: left;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .controls .field {
+        flex: 1 1 220px;
+        min-width: 200px;
+      }
+      label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--brick);
+        display: block;
+        margin-bottom: 8px;
+      }
+      select,
+      input[type="text"] {
+        font-family: "Work Sans", sans-serif;
+        font-size: 15px;
+        padding: 10px 28px 10px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: var(--cream);
+        color: var(--ink);
+      }
+      select {
+        width: 100%;
+      }
+
+      .btn-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 20px 0;
+      }
+      button {
+        font-family: "Work Sans", sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 12px 20px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        background: var(--forest);
+        color: var(--cream);
+        transition:
+          transform 0.15s ease,
+          background 0.15s ease;
+      }
+      button:hover {
+        background: var(--forest-dark);
+        transform: translateY(-1px);
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+      #speakTestBtn {
+        background: var(--gold);
+        color: var(--forest-dark);
+      }
+      #speakTestBtn:hover {
+        background: #d6922e;
+      }
+      #resetBtn {
+        background: transparent;
+        color: var(--forest-dark);
+        border: 1.5px solid var(--forest-dark);
+      }
+      #resetBtn:hover {
+        background: rgba(27, 67, 50, 0.08);
+      }
+
+      .text-row {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin-bottom: 12px;
+      }
+      .text-row input {
+        flex: 1;
+        max-width: 320px;
+      }
+      .text-row button {
+        background: var(--forest);
+      }
+
+      .voice-note {
+        font-size: 12px;
+        color: #6b7062;
+        margin-bottom: 24px;
+      }
+
+      #userSaid {
+        text-align: left;
+        background: var(--sage);
+        border-radius: 10px;
+        padding: 14px 18px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 14px;
+        min-height: 20px;
+        margin-bottom: 12px;
+      }
+      #tutorReply {
+        text-align: left;
+        background: var(--forest-dark);
+        color: var(--cream);
+        border-radius: 10px;
+        padding: 18px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 14px;
+        white-space: pre-wrap;
+        min-height: 20px;
+      }
+      #userSaid[dir="rtl"],
+      #tutorReply[dir="rtl"] {
+        text-align: right;
+      }
+
+      #feedbackBox {
+        text-align: center;
+        margin-top: 16px;
+        background: var(--sage);
+        border-radius: 10px;
+        padding: 20px 18px;
+      }
+      #feedbackBox span {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      #feedbackBox button {
+        background: transparent;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        color: var(--ink);
+        padding: 6px 12px;
+        font-size: 16px;
+      }
+      #feedbackComment {
+        width: 60%;
+        margin-top: 4px;
+      }
+      #submitFeedback {
+        background: var(--forest);
+        color: var(--cream);
+        padding: 8px 14px;
+        font-size: 14px;
+      }
+      #feedbackThanks {
+        color: var(--forest-dark);
+        font-weight: 500;
+      }
+
+      @media (max-width: 560px) {
+        .controls {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">STEMBridge Speaks</a>
+      <a href="/" class="back">← Back home</a>
+    </header>
+
+    <main>
+      <h1>Conversational Practice</h1>
+      <p class="tagline">Pick a language and a scenario, then speak or type.</p>
+
+      <div class="controls">
+        <div class="field">
+          <label for="languageSelect">Language</label>
+          <select id="languageSelect">
+            <option value="german">🇩🇪 German</option>
+            <option value="english">🇬🇧 English</option>
+            <option value="spanish">🇪🇸 Spanish</option>
+            <option value="mandarin">🇨🇳 Mandarin</option>
+            <option value="russian">🇷🇺 Russian</option>
+            <option value="arabic">🇸🇦 Arabic</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="scenarioSelect">Scenario</label>
+          <select id="scenarioSelect">
+            <option value="restaurant">🍽️ Ordering at a restaurant</option>
+            <option value="directions">🗺️ Asking for directions</option>
+            <option value="shopping">🛍️ Shopping for clothes</option>
+            <option value="hotel">🏨 Checking into a hotel</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button id="startBtn">🎤 Start Speaking</button>
+        <button id="speakTestBtn">🔊 Meet Your Tutor</button>
+        <button id="resetBtn">🔄 Reset Conversation</button>
+      </div>
+
+      <div class="text-row">
+        <input
+          type="text"
+          id="textInput"
+          placeholder="Type in your chosen language..."
+        />
+        <button id="sendTextBtn">Send</button>
+      </div>
+      <p class="voice-note">
+        Voice playback quality depends on the voices installed on your device —
+        some languages may sound better than others.
+      </p>
+
+      <div id="userSaid">Your speech will appear here...</div>
+      <div id="tutorReply" translate="no"></div>
+
+      <div id="feedbackBox" style="display: none">
+        <span>Was this helpful?</span>
+        <button id="thumbsUp">👍</button>
+        <button id="thumbsDown">👎</button>
+        <div style="margin-top: 10px">
+          <input
+            type="text"
+            id="feedbackComment"
+            placeholder="Optional comment..."
+          />
+          <button id="submitFeedback" style="display: none">Submit</button>
+        </div>
+        <div id="feedbackThanks" style="margin-top: 8px; font-size: 14px"></div>
+      </div>
+    </main>
+
+    <script>
+      const languageTTS = {
+        german: "de-DE",
+        english: "en-US",
+        spanish: "es-ES",
+        mandarin: "zh-CN",
+        russian: "ru-RU",
+        arabic: "ar-SA",
+      };
+      const rtlLanguages = ["arabic"];
+
+      const introLines = {
+        german:
+          "Hallo, ich bin STEMBridge Speaks, dein persönlicher Sprachpartner zum Deutschlernen.",
+        english:
+          "Hello, I'm STEMBridge Speaks, your personal language partner for learning English.",
+        spanish:
+          "Hola, soy STEMBridge Speaks, tu compañero personal para aprender español.",
+        mandarin: "你好，我是 STEMBridge Speaks，你的中文学习伙伴。",
+        russian:
+          "Привет, я STEMBridge Speaks, твой личный partner по изучению русского языка.",
+        arabic:
+          "مرحباً، أنا STEMBridge Speaks، شريكك الشخصي لتعلم اللغة العربية.",
+      };
+
+      let exchangeCount = 0;
+      const MAX_EXCHANGES = 15;
+      let mediaRecorder;
+      let audioChunks = [];
+
+      let lastUserMessage = "";
+      let lastTutorReply = "";
+      let selectedRating = null;
+
+      const languageSelect = document.getElementById("languageSelect");
+      const scenarioSelect = document.getElementById("scenarioSelect");
+      const userSaidDiv = document.getElementById("userSaid");
+      const tutorReplyDiv = document.getElementById("tutorReply");
+      const startBtn = document.getElementById("startBtn");
+
+      function applyTextDirection() {
+        const isRTL = rtlLanguages.includes(languageSelect.value);
+        userSaidDiv.setAttribute("dir", isRTL ? "rtl" : "ltr");
+        tutorReplyDiv.setAttribute("dir", isRTL ? "rtl" : "ltr");
+      }
+      languageSelect.addEventListener("change", applyTextDirection);
+      applyTextDirection();
+
+      function showFeedbackBox(userMsg, tutorMsg) {
+        lastUserMessage = userMsg;
+        lastTutorReply = tutorMsg;
+        document.getElementById("feedbackBox").style.display = "block";
+        document.getElementById("feedbackThanks").textContent = "";
+        document.getElementById("submitFeedback").style.display = "none";
+      }
+
+      async function sendFeedback() {
+        try {
+          await fetch("/feedback", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              rating: selectedRating,
+              comment: document.getElementById("feedbackComment").value,
+              scenario: scenarioSelect.value,
+              language: languageSelect.value,
+              userMessage: lastUserMessage,
+              tutorReply: lastTutorReply,
+            }),
+          });
+          document.getElementById("feedbackThanks").textContent =
+            "Thanks for your feedback!";
+          document.getElementById("feedbackComment").value = "";
+          document.getElementById("submitFeedback").style.display = "none";
+        } catch (err) {
+          document.getElementById("feedbackThanks").textContent =
+            "Couldn't save feedback, sorry.";
+        }
+      }
+
+      document.getElementById("thumbsUp").addEventListener("click", () => {
+        selectedRating = "up";
+        document.getElementById("submitFeedback").style.display =
+          "inline-block";
+        sendFeedback();
+      });
+      document.getElementById("thumbsDown").addEventListener("click", () => {
+        selectedRating = "down";
+        document.getElementById("submitFeedback").style.display =
+          "inline-block";
+        sendFeedback();
+      });
+      document
+        .getElementById("submitFeedback")
+        .addEventListener("click", sendFeedback);
+
+      function checkExchangeLimit() {
+        exchangeCount++;
+        if (exchangeCount >= MAX_EXCHANGES) {
+          startBtn.disabled = true;
+          tutorReplyDiv.textContent +=
+            "\n\n[Session limit reached. Click Reset to start a new conversation.]";
+        }
+      }
+
+      function speak(text) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = languageTTS[languageSelect.value] || "en-US";
+        window.speechSynthesis.speak(utterance);
+      }
+
+      startBtn.addEventListener("click", async () => {
+        if (startBtn.textContent.includes("Start")) {
+          let stream;
+          try {
+            stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          } catch (err) {
+            userSaidDiv.textContent =
+              "Microphone access is needed to practice speaking. Please allow microphone permission and try again.";
+            return;
+          }
+
+          mediaRecorder = new MediaRecorder(stream);
+          audioChunks = [];
+          mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+          window.speechSynthesis.cancel();
+          mediaRecorder.start();
+
+          startBtn.textContent = "⏹️ Stop Speaking";
+          userSaidDiv.textContent = "Recording... click again to stop.";
+          tutorReplyDiv.textContent = "";
+        } else {
+          mediaRecorder.stop();
+          startBtn.textContent = "🎤 Start Speaking";
+
+          mediaRecorder.onstop = async () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+            userSaidDiv.textContent = "Processing your speech...";
+            tutorReplyDiv.textContent = "Thinking...";
+
+            const reader = new FileReader();
+            reader.readAsDataURL(audioBlob);
+            reader.onloadend = async () => {
+              const base64Audio = reader.result.split(",")[1];
+
+              try {
+                const response = await fetch("/chat-audio", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    audio: base64Audio,
+                    scenario: scenarioSelect.value,
+                    language: languageSelect.value,
+                  }),
+                });
+                const data = await response.json();
+
+                userSaidDiv.textContent = `You said: "${data.transcription}"`;
+                tutorReplyDiv.textContent = data.reply;
+                showFeedbackBox(data.transcription, data.reply);
+                speak(data.reply);
+                checkExchangeLimit();
+              } catch (err) {
+                tutorReplyDiv.textContent = "Error: " + err.message;
+                startBtn.textContent = "🎤 Start Speaking";
+              }
+            };
+          };
+        }
+      });
+
+      document.getElementById("speakTestBtn").addEventListener("click", () => {
+        const line = introLines[languageSelect.value] || introLines.english;
+        speak(line);
+      });
+
+      document
+        .getElementById("sendTextBtn")
+        .addEventListener("click", async () => {
+          const typedText = document.getElementById("textInput").value;
+          if (!typedText.trim()) return;
+
+          userSaidDiv.textContent = `You said: "${typedText}"`;
+          tutorReplyDiv.textContent = "Thinking...";
+
+          try {
+            const response = await fetch("/chat", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                message: typedText,
+                scenario: scenarioSelect.value,
+                language: languageSelect.value,
+              }),
+            });
+            const data = await response.json();
+
+            tutorReplyDiv.textContent = data.reply;
+            showFeedbackBox(typedText, data.reply);
+            speak(data.reply);
+            checkExchangeLimit();
+          } catch (err) {
+            tutorReplyDiv.textContent = "Error: " + err.message;
+          }
+
+          document.getElementById("textInput").value = "";
+        });
+
+      document
+        .getElementById("resetBtn")
+        .addEventListener("click", async () => {
+          window.speechSynthesis.cancel();
+          await fetch("/reset", { method: "POST" });
+          exchangeCount = 0;
+          startBtn.disabled = false;
+          startBtn.textContent = "🎤 Start Speaking";
+          userSaidDiv.textContent =
+            "Conversation reset. Say something to start again!";
+          tutorReplyDiv.textContent = "";
+          document.getElementById("feedbackBox").style.display = "none";
+        });
+    </script>
+  </body>
+</html>
