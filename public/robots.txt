@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stembridge-speaks.onrender.com/sitemap.xml
