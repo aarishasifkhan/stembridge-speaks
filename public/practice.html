@@ -454,7 +454,7 @@
         scrollToBottom();
       }
 
-      function addTutorMessage(fullText) {
+      function addTutorMessage(fullText, userMsgForFeedback) {
         removeEmptyState();
         const isRTL = rtlLanguages.includes(languageSelect.value);
         const [main, correction] = fullText.split(/\n?Correction:/i);
@@ -487,10 +487,10 @@
     `;
 
         fbRow.querySelector(".fb-up").addEventListener("click", () => {
-          submitFeedback(fbRow, main.trim(), fullText, "up");
+          submitFeedback(fbRow, userMsgForFeedback, fullText, "up");
         });
         fbRow.querySelector(".fb-down").addEventListener("click", () => {
-          submitFeedback(fbRow, main.trim(), fullText, "down");
+          submitFeedback(fbRow, userMsgForFeedback, fullText, "down");
         });
         fbRow.querySelector(".fb-copy").addEventListener("click", () => {
           navigator.clipboard.writeText(main.trim());
@@ -602,7 +602,7 @@
             }),
           });
           const data = await response.json();
-          addTutorMessage(data.reply);
+          addTutorMessage(data.reply, text);
           speak(data.reply);
           checkExchangeLimit();
         } catch (err) {
@@ -663,7 +663,7 @@
                 const data = await response.json();
                 chatInner.lastChild.remove(); // remove "Processing..." message
                 addUserMessage(data.transcription);
-                addTutorMessage(data.reply);
+                addTutorMessage(data.reply, data.transcription);
                 speak(data.reply);
                 checkExchangeLimit();
               } catch (err) {
