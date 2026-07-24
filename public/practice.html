@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -24,225 +24,327 @@
       * {
         box-sizing: border-box;
       }
+      html,
       body {
+        height: 100%;
         margin: 0;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
         background: var(--cream);
         color: var(--ink);
         font-family: "Work Sans", sans-serif;
-        line-height: 1.5;
-      }
-      h1 {
-        font-family: "Fraunces", serif;
-        font-weight: 600;
-        color: var(--forest-dark);
-      }
-      .mono {
-        font-family: "IBM Plex Mono", monospace;
       }
 
       header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 24px 6vw;
+        padding: 14px 5vw;
         background: var(--cream);
         border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+        flex-wrap: wrap;
+        gap: 10px;
+        flex-shrink: 0;
       }
       .logo {
         font-family: "Fraunces", serif;
         font-weight: 700;
-        font-size: 20px;
+        font-size: 18px;
         color: var(--forest);
         text-decoration: none;
       }
-      header a.back {
-        font-size: 14px;
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        row-gap: 8px;
+      }
+      .back {
+        font-size: 13px;
         color: var(--forest-dark);
         text-decoration: none;
         font-weight: 500;
+        margin-right: 4px;
+        white-space: nowrap;
       }
 
-      main {
-        max-width: 640px;
-        margin: 0 auto;
-        padding: 48px 6vw 80px;
-        text-align: center;
-      }
-      main h1 {
-        font-size: 30px;
-        margin: 0 0 6px;
-      }
-      main p.tagline {
-        color: #4a4f42;
-        margin: 0 0 32px;
-        font-size: 15px;
-      }
-
-      .controls {
-        background: var(--sage);
-        border-radius: 14px;
-        padding: 24px;
-        margin-bottom: 20px;
-        text-align: left;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-      .controls .field {
-        flex: 1 1 220px;
-        min-width: 200px;
-      }
-      label {
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: var(--brick);
-        display: block;
-        margin-bottom: 8px;
-      }
-      select,
-      input[type="text"] {
-        font-family: "Work Sans", sans-serif;
-        font-size: 15px;
-        padding: 10px 28px 10px 12px;
-        border-radius: 8px;
-        border: 1px solid rgba(27, 67, 50, 0.25);
-        background: var(--cream);
-        color: var(--ink);
-      }
       select {
-        width: 100%;
-      }
-
-      .btn-row {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin: 20px 0;
-      }
-      button {
         font-family: "Work Sans", sans-serif;
-        font-size: 15px;
-        font-weight: 600;
-        padding: 12px 20px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        background: var(--forest);
-        color: var(--cream);
-        transition:
-          transform 0.15s ease,
-          background 0.15s ease;
+        font-size: 13px;
+        padding: 7px 10px;
+        border-radius: 7px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: var(--sage);
+        color: var(--ink);
+        max-width: 160px;
       }
-      button:hover {
-        background: var(--forest-dark);
-        transform: translateY(-1px);
-      }
-      button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        transform: none;
-      }
-      #speakTestBtn {
-        background: var(--gold);
-        color: var(--forest-dark);
-      }
-      #speakTestBtn:hover {
-        background: #d6922e;
-      }
-      #resetBtn {
+      .icon-btn {
+        font-size: 13px;
+        padding: 7px 12px;
+        border-radius: 7px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
         background: transparent;
         color: var(--forest-dark);
-        border: 1.5px solid var(--forest-dark);
+        cursor: pointer;
+        font-weight: 500;
+        white-space: nowrap;
       }
-      #resetBtn:hover {
+      .icon-btn:hover {
         background: rgba(27, 67, 50, 0.08);
       }
 
-      .text-row {
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-        margin-bottom: 12px;
-      }
-      .text-row input {
+      /* Chat thread */
+      #chatArea {
         flex: 1;
+        overflow-y: auto;
+        padding: 24px 5vw 12px;
+        display: flex;
+        flex-direction: column;
+      }
+      #chatInner {
+        max-width: 760px;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        flex: 1;
+      }
+
+      .empty-state {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 10px;
+        color: #6b7062;
+        padding: 20px;
+      }
+      .empty-state .glyph {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--sage);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+      }
+      .empty-state p {
+        margin: 0;
+        font-size: 14px;
         max-width: 320px;
       }
-      .text-row button {
-        background: var(--forest);
+
+      .msg-row {
+        display: flex;
+        width: 100%;
+      }
+      .msg-row.user {
+        justify-content: flex-end;
+      }
+      .msg-row.tutor {
+        justify-content: flex-start;
       }
 
-      .voice-note {
-        font-size: 12px;
-        color: #6b7062;
-        margin-bottom: 24px;
+      .bubble {
+        max-width: 78%;
+        padding: 12px 16px;
+        border-radius: 14px;
+        font-size: 15px;
+        line-height: 1.5;
+        white-space: pre-wrap;
       }
-
-      #userSaid {
-        text-align: left;
+      .bubble.user {
         background: var(--sage);
-        border-radius: 10px;
-        padding: 14px 18px;
+        color: var(--ink);
+        border-bottom-right-radius: 4px;
         font-family: "IBM Plex Mono", monospace;
         font-size: 14px;
-        min-height: 20px;
-        margin-bottom: 12px;
       }
-      #tutorReply {
-        text-align: left;
+      .bubble.tutor {
         background: var(--forest-dark);
         color: var(--cream);
-        border-radius: 10px;
-        padding: 18px;
+        border-bottom-left-radius: 4px;
         font-family: "IBM Plex Mono", monospace;
         font-size: 14px;
-        white-space: pre-wrap;
-        min-height: 20px;
       }
-      #userSaid[dir="rtl"],
-      #tutorReply[dir="rtl"] {
+      .bubble.tutor[dir="rtl"],
+      .bubble.user[dir="rtl"] {
         text-align: right;
       }
 
-      #feedbackBox {
-        text-align: center;
-        margin-top: 16px;
-        background: var(--sage);
-        border-radius: 10px;
-        padding: 20px 18px;
+      .correction {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 12.5px;
+        font-style: italic;
+        opacity: 0.85;
       }
-      #feedbackBox span {
-        font-size: 14px;
-        font-weight: 500;
-      }
-      #feedbackBox button {
+      .bubble.system {
         background: transparent;
-        border: 1px solid rgba(27, 67, 50, 0.25);
-        color: var(--ink);
-        padding: 6px 12px;
-        font-size: 16px;
-      }
-      #feedbackComment {
-        width: 60%;
-        margin-top: 4px;
-      }
-      #submitFeedback {
-        background: var(--forest);
-        color: var(--cream);
-        padding: 8px 14px;
-        font-size: 14px;
-      }
-      #feedbackThanks {
-        color: var(--forest-dark);
-        font-weight: 500;
+        color: #6b7062;
+        font-family: "Work Sans", sans-serif;
+        font-size: 13px;
+        text-align: center;
+        max-width: 100%;
+        width: 100%;
       }
 
-      @media (max-width: 560px) {
-        .controls {
-          grid-template-columns: 1fr;
+      .feedback-row {
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        flex-wrap: wrap;
+      }
+      .feedback-row button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        opacity: 0.7;
+        padding: 2px 4px;
+      }
+      .feedback-row button:hover {
+        opacity: 1;
+      }
+      .feedback-row .fb-note {
+        font-size: 11px;
+        opacity: 0.7;
+      }
+
+      /* Input bar */
+      #inputBar {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 5vw 20px;
+        background: var(--cream);
+        border-top: 1px solid rgba(27, 67, 50, 0.1);
+        max-width: 760px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      #textInput {
+        flex: 1;
+        min-width: 0;
+        font-family: "Work Sans", sans-serif;
+        font-size: 15px;
+        padding: 12px 16px;
+        border-radius: 24px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: var(--sage);
+        color: var(--ink);
+      }
+      #textInput:disabled {
+        opacity: 0.6;
+      }
+
+      #micBtn,
+      #sendBtn {
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #micBtn {
+        background: var(--forest);
+        color: var(--cream);
+      }
+      #micBtn.recording {
+        background: var(--brick);
+        animation: pulse 1.2s infinite;
+      }
+      #sendBtn {
+        background: var(--gold);
+        color: var(--forest-dark);
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(140, 74, 58, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 0 8px rgba(140, 74, 58, 0);
+        }
+      }
+
+      #voiceNote {
+        text-align: center;
+        font-size: 11px;
+        color: #8a8f7d;
+        padding: 0 5vw 8px;
+        flex-shrink: 0;
+      }
+
+      /* Tablet */
+      @media (max-width: 900px) {
+        #chatInner,
+        #inputBar {
+          max-width: 100%;
+        }
+      }
+
+      /* Mobile */
+      @media (max-width: 600px) {
+        header {
+          padding: 12px 4vw;
+        }
+        .logo {
+          font-size: 16px;
+        }
+        .header-right {
+          width: 100%;
+          justify-content: flex-start;
+        }
+        select {
+          max-width: 130px;
+          font-size: 12px;
+        }
+        .icon-btn {
+          font-size: 12px;
+          padding: 6px 10px;
+        }
+        .bubble {
+          max-width: 88%;
+          font-size: 13.5px;
+        }
+        #inputBar {
+          padding: 10px 4vw 16px;
+        }
+        #textInput {
+          font-size: 14px;
+          padding: 10px 14px;
+        }
+        #micBtn,
+        #sendBtn {
+          width: 40px;
+          height: 40px;
+          font-size: 16px;
+        }
+        .empty-state .glyph {
+          width: 48px;
+          height: 48px;
+          font-size: 20px;
+        }
+        .empty-state p {
+          font-size: 13px;
         }
       }
     </style>
@@ -250,85 +352,57 @@
   <body>
     <header>
       <a href="/" class="logo">STEMBridge Speaks</a>
-      <a href="/" class="back">← Back home</a>
+      <div class="header-right">
+        <a href="/" class="back">← Home</a>
+        <select id="languageSelect">
+          <option value="german">🇩🇪 German</option>
+          <option value="english">🇬🇧 English</option>
+          <option value="spanish">🇪🇸 Spanish</option>
+          <option value="mandarin">🇨🇳 Mandarin</option>
+          <option value="russian">🇷🇺 Russian</option>
+          <option value="arabic">🇸🇦 Arabic</option>
+        </select>
+        <select id="scenarioSelect">
+          <option value="restaurant">🍽️ Restaurant</option>
+          <option value="directions">🗺️ Directions</option>
+          <option value="shopping">🛍️ Shopping</option>
+          <option value="hotel">🏨 Hotel</option>
+        </select>
+        <button class="icon-btn" id="speakTestBtn">🔊 Intro</button>
+        <button class="icon-btn" id="resetBtn">🔄 Reset</button>
+      </div>
     </header>
 
-    <main>
-      <h1>Conversational Practice</h1>
-      <p class="tagline">Pick a language and a scenario, then speak or type.</p>
-
-      <div class="controls">
-        <div class="field">
-          <label for="languageSelect">Language</label>
-          <select id="languageSelect">
-            <option value="german">🇩🇪 German</option>
-            <option value="english">🇬🇧 English</option>
-            <option value="spanish">🇪🇸 Spanish</option>
-            <option value="mandarin">🇨🇳 Mandarin</option>
-            <option value="russian">🇷🇺 Russian</option>
-            <option value="arabic">🇸🇦 Arabic</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="scenarioSelect">Scenario</label>
-          <select id="scenarioSelect">
-            <option value="restaurant">🍽️ Ordering at a restaurant</option>
-            <option value="directions">🗺️ Asking for directions</option>
-            <option value="shopping">🛍️ Shopping for clothes</option>
-            <option value="hotel">🏨 Checking into a hotel</option>
-          </select>
+    <div id="chatArea">
+      <div id="chatInner">
+        <div class="empty-state" id="emptyState">
+          <div class="glyph">💬</div>
+          <p>
+            Pick a language and scenario above, then type or tap the mic to
+            start practicing.
+          </p>
         </div>
       </div>
+    </div>
 
-      <div class="btn-row">
-        <button id="startBtn">🎤 Start Speaking</button>
-        <button id="speakTestBtn">🔊 Meet Your Tutor</button>
-        <button id="resetBtn">🔄 Reset Conversation</button>
-      </div>
+    <p id="voiceNote">
+      Voice replies are generated automatically for every language.
+    </p>
 
-      <div class="text-row">
-        <input
-          type="text"
-          id="textInput"
-          placeholder="Type in your chosen language..."
-        />
-        <button id="sendTextBtn">Send</button>
-      </div>
-      <p class="voice-note">
-        Voice playback quality depends on the voices installed on your device —
-        some languages may sound better than others.
-      </p>
-
-      <div id="userSaid">Your speech will appear here...</div>
-      <div id="tutorReply" translate="no"></div>
-
-      <div id="feedbackBox" style="display: none">
-        <span>Was this helpful?</span>
-        <button id="thumbsUp">👍</button>
-        <button id="thumbsDown">👎</button>
-        <div style="margin-top: 10px">
-          <input
-            type="text"
-            id="feedbackComment"
-            placeholder="Optional comment..."
-          />
-          <button id="submitFeedback" style="display: none">Submit</button>
-        </div>
-        <div id="feedbackThanks" style="margin-top: 8px; font-size: 14px"></div>
-      </div>
-    </main>
+    <div id="inputBar">
+      <button id="micBtn" title="Speak">🎤</button>
+      <input type="text" id="textInput" placeholder="Type your message..." />
+      <button id="sendBtn" title="Send">➤</button>
+    </div>
 
     <script>
-      const languageTTS = {
-        german: "de-DE",
-        english: "en-US",
-        spanish: "es-ES",
-        mandarin: "zh-CN",
-        russian: "ru-RU",
-        arabic: "ar-SA",
-      };
-      const rtlLanguages = ["arabic"];
+      let exchangeCount = 0;
+      const MAX_EXCHANGES = 15;
+      let mediaRecorder;
+      let audioChunks = [];
+      let isRecording = false;
 
+      const rtlLanguages = ["arabic"];
       const introLines = {
         german:
           "Hallo, ich bin STEMBridge Speaks, dein persönlicher Sprachpartner zum Deutschlernen.",
@@ -338,131 +412,244 @@
           "Hola, soy STEMBridge Speaks, tu compañero personal para aprender español.",
         mandarin: "你好，我是 STEMBridge Speaks，你的中文学习伙伴。",
         russian:
-          "Привет, я STEMBridge Speaks, твой личный partner по изучению русского языка.",
+          "Привет, я STEMBridge Speaks, твой личный партнёр по изучению русского языка.",
         arabic:
           "مرحباً، أنا STEMBridge Speaks، شريكك الشخصي لتعلم اللغة العربية.",
       };
 
-      let exchangeCount = 0;
-      const MAX_EXCHANGES = 15;
-      let mediaRecorder;
-      let audioChunks = [];
-
-      let lastUserMessage = "";
-      let lastTutorReply = "";
-      let selectedRating = null;
-
+      const chatArea = document.getElementById("chatArea");
+      const chatInner = document.getElementById("chatInner");
+      const emptyState = document.getElementById("emptyState");
       const languageSelect = document.getElementById("languageSelect");
       const scenarioSelect = document.getElementById("scenarioSelect");
-      const userSaidDiv = document.getElementById("userSaid");
-      const tutorReplyDiv = document.getElementById("tutorReply");
-      const startBtn = document.getElementById("startBtn");
+      const textInput = document.getElementById("textInput");
+      const micBtn = document.getElementById("micBtn");
+      const sendBtn = document.getElementById("sendBtn");
 
-      function applyTextDirection() {
+      function removeEmptyState() {
+        if (emptyState && emptyState.parentNode) emptyState.remove();
+      }
+
+      function scrollToBottom() {
+        chatArea.scrollTop = chatArea.scrollHeight;
+      }
+
+      function addSystemMessage(text) {
+        removeEmptyState();
+        const row = document.createElement("div");
+        row.className = "msg-row tutor";
+        row.innerHTML = `<div class="bubble system">${text}</div>`;
+        chatInner.appendChild(row);
+        scrollToBottom();
+      }
+
+      function addUserMessage(text) {
+        removeEmptyState();
         const isRTL = rtlLanguages.includes(languageSelect.value);
-        userSaidDiv.setAttribute("dir", isRTL ? "rtl" : "ltr");
-        tutorReplyDiv.setAttribute("dir", isRTL ? "rtl" : "ltr");
-      }
-      languageSelect.addEventListener("change", applyTextDirection);
-      applyTextDirection();
-
-      function showFeedbackBox(userMsg, tutorMsg) {
-        lastUserMessage = userMsg;
-        lastTutorReply = tutorMsg;
-        document.getElementById("feedbackBox").style.display = "block";
-        document.getElementById("feedbackThanks").textContent = "";
-        document.getElementById("submitFeedback").style.display = "none";
+        const row = document.createElement("div");
+        row.className = "msg-row user";
+        row.innerHTML = `<div class="bubble user" dir="${isRTL ? "rtl" : "ltr"}"></div>`;
+        row.querySelector(".bubble").textContent = text;
+        chatInner.appendChild(row);
+        scrollToBottom();
       }
 
-      async function sendFeedback() {
+      function addTutorMessage(fullText) {
+        removeEmptyState();
+        const isRTL = rtlLanguages.includes(languageSelect.value);
+        const [main, correction] = fullText.split(/\n?Correction:/i);
+
+        const row = document.createElement("div");
+        row.className = "msg-row tutor";
+        const bubble = document.createElement("div");
+        bubble.className = "bubble tutor";
+        bubble.setAttribute("dir", isRTL ? "rtl" : "ltr");
+
+        const mainSpan = document.createElement("div");
+        mainSpan.textContent = main.trim();
+        bubble.appendChild(mainSpan);
+
+        if (correction && correction.trim()) {
+          const corrDiv = document.createElement("div");
+          corrDiv.className = "correction";
+          corrDiv.textContent = "Correction: " + correction.trim();
+          bubble.appendChild(corrDiv);
+        }
+
+        const fbRow = document.createElement("div");
+        fbRow.className = "feedback-row";
+        fbRow.innerHTML = `
+      <button class="fb-up">👍</button>
+      <button class="fb-down">👎</button>
+      <button class="fb-copy" title="Copy">📋</button>
+      <button class="fb-read" title="Read aloud">🔊</button>
+      <span class="fb-note"></span>
+    `;
+
+        fbRow.querySelector(".fb-up").addEventListener("click", () => {
+          submitFeedback(fbRow, main.trim(), fullText, "up");
+        });
+        fbRow.querySelector(".fb-down").addEventListener("click", () => {
+          submitFeedback(fbRow, main.trim(), fullText, "down");
+        });
+        fbRow.querySelector(".fb-copy").addEventListener("click", () => {
+          navigator.clipboard.writeText(main.trim());
+          const note = fbRow.querySelector(".fb-note");
+          note.textContent = "Copied!";
+          setTimeout(() => {
+            note.textContent = "";
+          }, 1500);
+        });
+        fbRow.querySelector(".fb-read").addEventListener("click", () => {
+          speak(main.trim());
+        });
+
+        bubble.appendChild(fbRow);
+        row.appendChild(bubble);
+        chatInner.appendChild(row);
+        scrollToBottom();
+      }
+
+      async function submitFeedback(fbRow, userMsg, tutorMsg, rating) {
+        fbRow.querySelector(".fb-note").textContent = "Saving...";
         try {
           await fetch("/feedback", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              rating: selectedRating,
-              comment: document.getElementById("feedbackComment").value,
+              rating,
               scenario: scenarioSelect.value,
               language: languageSelect.value,
-              userMessage: lastUserMessage,
-              tutorReply: lastTutorReply,
+              userMessage: userMsg,
+              tutorReply: tutorMsg,
             }),
           });
-          document.getElementById("feedbackThanks").textContent =
-            "Thanks for your feedback!";
-          document.getElementById("feedbackComment").value = "";
-          document.getElementById("submitFeedback").style.display = "none";
+          fbRow.querySelector(".fb-note").textContent = "Thanks!";
         } catch (err) {
-          document.getElementById("feedbackThanks").textContent =
-            "Couldn't save feedback, sorry.";
+          fbRow.querySelector(".fb-note").textContent = "Couldn't save.";
         }
       }
-
-      document.getElementById("thumbsUp").addEventListener("click", () => {
-        selectedRating = "up";
-        document.getElementById("submitFeedback").style.display =
-          "inline-block";
-        sendFeedback();
-      });
-      document.getElementById("thumbsDown").addEventListener("click", () => {
-        selectedRating = "down";
-        document.getElementById("submitFeedback").style.display =
-          "inline-block";
-        sendFeedback();
-      });
-      document
-        .getElementById("submitFeedback")
-        .addEventListener("click", sendFeedback);
 
       function checkExchangeLimit() {
         exchangeCount++;
         if (exchangeCount >= MAX_EXCHANGES) {
-          startBtn.disabled = true;
-          tutorReplyDiv.textContent +=
-            "\n\n[Session limit reached. Click Reset to start a new conversation.]";
+          textInput.disabled = true;
+          micBtn.disabled = true;
+          addSystemMessage(
+            "Session limit reached. Click Reset to start a new conversation.",
+          );
         }
       }
 
-      function speak(text) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = languageTTS[languageSelect.value] || "en-US";
-        window.speechSynthesis.speak(utterance);
+      async function speak(text) {
+        try {
+          const response = await fetch("/tts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text }),
+          });
+          const data = await response.json();
+          if (!data.audio) return;
+          const pcmBytes = Uint8Array.from(atob(data.audio), (c) =>
+            c.charCodeAt(0),
+          );
+          const wavBlob = pcmToWav(pcmBytes, 24000);
+          const audioUrl = URL.createObjectURL(wavBlob);
+          new Audio(audioUrl).play();
+        } catch (err) {
+          console.error("Speech playback error:", err);
+        }
       }
 
-      startBtn.addEventListener("click", async () => {
-        if (startBtn.textContent.includes("Start")) {
+      function pcmToWav(pcmBytes, sampleRate) {
+        const numChannels = 1,
+          bitsPerSample = 16;
+        const byteRate = (sampleRate * numChannels * bitsPerSample) / 8;
+        const blockAlign = (numChannels * bitsPerSample) / 8;
+        const buffer = new ArrayBuffer(44 + pcmBytes.length);
+        const view = new DataView(buffer);
+        function writeString(offset, str) {
+          for (let i = 0; i < str.length; i++)
+            view.setUint8(offset + i, str.charCodeAt(i));
+        }
+        writeString(0, "RIFF");
+        view.setUint32(4, 36 + pcmBytes.length, true);
+        writeString(8, "WAVE");
+        writeString(12, "fmt ");
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, numChannels, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, byteRate, true);
+        view.setUint16(32, blockAlign, true);
+        view.setUint16(34, bitsPerSample, true);
+        writeString(36, "data");
+        view.setUint32(40, pcmBytes.length, true);
+        new Uint8Array(buffer, 44).set(pcmBytes);
+        return new Blob([buffer], { type: "audio/wav" });
+      }
+
+      async function sendTextMessage(text) {
+        addUserMessage(text);
+        try {
+          const response = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              message: text,
+              scenario: scenarioSelect.value,
+              language: languageSelect.value,
+            }),
+          });
+          const data = await response.json();
+          addTutorMessage(data.reply);
+          speak(data.reply);
+          checkExchangeLimit();
+        } catch (err) {
+          addSystemMessage("Error: " + err.message);
+        }
+      }
+
+      sendBtn.addEventListener("click", () => {
+        const text = textInput.value.trim();
+        if (!text) return;
+        textInput.value = "";
+        sendTextMessage(text);
+      });
+      textInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendBtn.click();
+      });
+
+      micBtn.addEventListener("click", async () => {
+        if (!isRecording) {
           let stream;
           try {
             stream = await navigator.mediaDevices.getUserMedia({ audio: true });
           } catch (err) {
-            userSaidDiv.textContent =
-              "Microphone access is needed to practice speaking. Please allow microphone permission and try again.";
+            addSystemMessage(
+              "Microphone access is needed to speak. Please allow microphone permission and try again.",
+            );
             return;
           }
-
           mediaRecorder = new MediaRecorder(stream);
           audioChunks = [];
           mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
-          window.speechSynthesis.cancel();
           mediaRecorder.start();
-
-          startBtn.textContent = "⏹️ Stop Speaking";
-          userSaidDiv.textContent = "Recording... click again to stop.";
-          tutorReplyDiv.textContent = "";
+          isRecording = true;
+          micBtn.classList.add("recording");
         } else {
           mediaRecorder.stop();
-          startBtn.textContent = "🎤 Start Speaking";
+          isRecording = false;
+          micBtn.classList.remove("recording");
 
           mediaRecorder.onstop = async () => {
             const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-            userSaidDiv.textContent = "Processing your speech...";
-            tutorReplyDiv.textContent = "Thinking...";
+            addSystemMessage("Processing your speech...");
 
             const reader = new FileReader();
             reader.readAsDataURL(audioBlob);
             reader.onloadend = async () => {
               const base64Audio = reader.result.split(",")[1];
-
               try {
                 const response = await fetch("/chat-audio", {
                   method: "POST",
@@ -474,15 +661,14 @@
                   }),
                 });
                 const data = await response.json();
-
-                userSaidDiv.textContent = `You said: "${data.transcription}"`;
-                tutorReplyDiv.textContent = data.reply;
-                showFeedbackBox(data.transcription, data.reply);
+                chatInner.lastChild.remove(); // remove "Processing..." message
+                addUserMessage(data.transcription);
+                addTutorMessage(data.reply);
                 speak(data.reply);
                 checkExchangeLimit();
               } catch (err) {
-                tutorReplyDiv.textContent = "Error: " + err.message;
-                startBtn.textContent = "🎤 Start Speaking";
+                chatInner.lastChild.remove();
+                addSystemMessage("Error: " + err.message);
               }
             };
           };
@@ -490,54 +676,21 @@
       });
 
       document.getElementById("speakTestBtn").addEventListener("click", () => {
-        const line = introLines[languageSelect.value] || introLines.english;
-        speak(line);
+        speak(introLines[languageSelect.value] || introLines.english);
       });
-
-      document
-        .getElementById("sendTextBtn")
-        .addEventListener("click", async () => {
-          const typedText = document.getElementById("textInput").value;
-          if (!typedText.trim()) return;
-
-          userSaidDiv.textContent = `You said: "${typedText}"`;
-          tutorReplyDiv.textContent = "Thinking...";
-
-          try {
-            const response = await fetch("/chat", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                message: typedText,
-                scenario: scenarioSelect.value,
-                language: languageSelect.value,
-              }),
-            });
-            const data = await response.json();
-
-            tutorReplyDiv.textContent = data.reply;
-            showFeedbackBox(typedText, data.reply);
-            speak(data.reply);
-            checkExchangeLimit();
-          } catch (err) {
-            tutorReplyDiv.textContent = "Error: " + err.message;
-          }
-
-          document.getElementById("textInput").value = "";
-        });
 
       document
         .getElementById("resetBtn")
         .addEventListener("click", async () => {
-          window.speechSynthesis.cancel();
           await fetch("/reset", { method: "POST" });
           exchangeCount = 0;
-          startBtn.disabled = false;
-          startBtn.textContent = "🎤 Start Speaking";
-          userSaidDiv.textContent =
-            "Conversation reset. Say something to start again!";
-          tutorReplyDiv.textContent = "";
-          document.getElementById("feedbackBox").style.display = "none";
+          textInput.disabled = false;
+          micBtn.disabled = false;
+          chatInner.innerHTML = `
+      <div class="empty-state" id="emptyState">
+        <div class="glyph">💬</div>
+        <p>Pick a language and scenario above, then type or tap the mic to start practicing.</p>
+      </div>`;
         });
     </script>
   </body>

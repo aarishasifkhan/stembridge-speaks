@@ -3,6 +3,21 @@ const express = require("express");
 const cors = require("cors");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
+const { MongoClient } = require("mongodb");
+const mongoClient = new MongoClient(process.env.MONGODB_URI);
+let feedbackCollection;
+
+async function connectDB() {
+  try {
+    await mongoClient.connect();
+    feedbackCollection = mongoClient.db("stembridge").collection("feedback");
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("MongoDB connection failed:", err);
+  }
+}
+connectDB();
+
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: "25mb" }));
@@ -128,13 +143,39 @@ app.post("/chat-audio", async (req, res) => {
   }
 });
 
-app.post("/feedback", (req, res) => {
+app.post("/tts", async (req, res) => {
   try {
-    const fs = require("fs");
+    const { text } = req.body;
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash-preview-tts",
+    });
+
+    const result = await model.generateContent({
+      contents: [{ parts: [{ text }] }],
+      generationConfig: {
+        responseModalities: ["AUDIO"],
+        speechConfig: {
+          voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } },
+        },
+      },
+    });
+
+    const audioData =
+      result.response.candidates[0].content.parts[0].inlineData.data;
+    res.json({ audio: audioData }); // base64 PCM audio
+  } catch (err) {
+    console.error("TTS error:", err);
+    res.status(500).json({ error: "Speech generation failed." });
+  }
+});
+
+app.post("/feedback", async (req, res) => {
+  try {
     const { rating, comment, scenario, language, userMessage, tutorReply } =
       req.body;
     const entry = {
-      timestamp: new Date().toISOString(),
+      timestamp: new Date(),
       rating,
       comment: comment || "",
       scenario: scenario || "unknown",
@@ -142,7 +183,7 @@ app.post("/feedback", (req, res) => {
       userMessage: userMessage || "",
       tutorReply: tutorReply || "",
     };
-    fs.appendFileSync("feedback.log", JSON.stringify(entry) + "\n");
+    await feedbackCollection.insertOne(entry);
     res.json({ status: "Feedback recorded. Thank you!" });
   } catch (err) {
     console.error(err);
