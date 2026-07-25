@@ -1,0 +1,336 @@
+{
+  "units": [
+    {
+      "id": "gender-noun-basics",
+      "title": "Gender & Noun Basics",
+      "icon": "📘",
+      "teaching": [
+        {
+          "h": "Three genders",
+          "p": "Russian nouns are masculine, feminine, or neuter, usually predictable from the ending.",
+          "ex": "стол (m), книга (f), окно (n)",
+          "audioId": "unit1-ex1"
+        },
+        {
+          "h": "Masculine endings",
+          "p": "Usually end in a consonant.",
+          "ex": "стол (table), дом (house)",
+          "audioId": "unit1-ex2"
+        },
+        {
+          "h": "Feminine endings",
+          "p": "Usually end in -а or -я.",
+          "ex": "книга (book), земля (land)",
+          "audioId": "unit1-ex3"
+        },
+        {
+          "h": "Neuter endings",
+          "p": "Usually end in -о or -е.",
+          "ex": "окно (window), море (sea)",
+          "audioId": "unit1-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Nouns ending in a consonant are usually:",
+          "options": ["masculine", "feminine", "neuter"],
+          "answer": "masculine",
+          "audioId": "unit1-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which gender is \"книга\" (book)?",
+          "options": ["masculine", "feminine", "neuter"],
+          "answer": "feminine",
+          "audioId": "unit1-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Which ending usually signals neuter gender?",
+          "options": ["-о/-е", "-а/-я"],
+          "answer": "-о/-е",
+          "audioId": "unit1-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"окно\" ends in ___, showing neuter gender. (о)",
+          "answer": "о",
+          "audioId": "unit1-q4"
+        },
+        {
+          "type": "mc",
+          "q": "\"земля\" (land) is:",
+          "options": ["masculine", "feminine", "neuter"],
+          "answer": "feminine",
+          "audioId": "unit1-q5"
+        }
+      ]
+    },
+    {
+      "id": "six-cases",
+      "title": "The Six Cases (Overview)",
+      "icon": "🧩",
+      "teaching": [
+        {
+          "h": "What cases do",
+          "p": "Russian nouns and adjectives change form depending on their grammatical role — six cases total.",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "Nominative",
+          "p": "The subject, dictionary form.",
+          "ex": "Это стол. (This is a table.)",
+          "audioId": "unit2-ex1"
+        },
+        {
+          "h": "Accusative",
+          "p": "The direct object.",
+          "ex": "Я вижу стол. (I see the table.)",
+          "audioId": "unit2-ex2"
+        },
+        {
+          "h": "Genitive, Dative, Instrumental, Prepositional",
+          "p": "Show possession, indirect objects, \"by means of,\" and location/topic — each changes noun endings differently.",
+          "ex": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "How many grammatical cases does Russian have?",
+          "options": ["4", "6", "8"],
+          "answer": "6",
+          "audioId": "unit2-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which case is used for the subject?",
+          "options": ["nominative", "accusative"],
+          "answer": "nominative",
+          "audioId": "unit2-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Which case marks the direct object?",
+          "options": ["nominative", "accusative"],
+          "answer": "accusative",
+          "audioId": "unit2-q3"
+        },
+        {
+          "type": "mc",
+          "q": "The genitive case commonly shows:",
+          "options": ["possession", "location"],
+          "answer": "possession",
+          "audioId": "unit2-q4"
+        },
+        {
+          "type": "mc",
+          "q": "The prepositional case is typically used for:",
+          "options": ["location/topic", "direct objects"],
+          "answer": "location/topic",
+          "audioId": "unit2-q5"
+        }
+      ]
+    },
+    {
+      "id": "present-conjugation",
+      "title": "Present-Tense Verb Conjugation",
+      "icon": "🗣️",
+      "teaching": [
+        {
+          "h": "Two conjugation groups",
+          "p": "Russian verbs belong to Conjugation I or Conjugation II, each with distinct present-tense endings.",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "Conjugation I example",
+          "p": "читать (to read) → читаю, читаешь, читает, читаем, читаете, читают",
+          "ex": "Я читаю книгу.",
+          "audioId": "unit3-ex1"
+        },
+        {
+          "h": "Conjugation II example",
+          "p": "говорить (to speak) → говорю, говоришь, говорит, говорим, говорите, говорят",
+          "ex": "Он говорит по-русски.",
+          "audioId": "unit3-ex2"
+        },
+        {
+          "h": "No separate \"to be\" in the present",
+          "p": "Russian usually omits \"to be\" in present-tense sentences entirely.",
+          "ex": "Я студент. (I [am] a student.)",
+          "audioId": "unit3-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "\"Я ___ (читать) книгу.\"",
+          "answer": "читаю",
+          "audioId": "unit3-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"Он ___ (говорить) по-русски.\"",
+          "answer": "говорит",
+          "audioId": "unit3-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Which verb belongs to Conjugation II based on the pattern shown?",
+          "options": ["читать", "говорить"],
+          "answer": "говорить",
+          "audioId": "unit3-q3"
+        },
+        {
+          "type": "mc",
+          "q": "In the present tense, Russian usually:",
+          "options": ["includes \"to be\" like English", "omits \"to be\""],
+          "answer": "omits \"to be\"",
+          "audioId": "unit3-q4"
+        },
+        {
+          "type": "fill",
+          "q": "\"Ты ___ (читать) газету.\"",
+          "answer": "читаешь",
+          "audioId": "unit3-q5"
+        }
+      ]
+    },
+    {
+      "id": "adjective-agreement",
+      "title": "Adjective Agreement",
+      "icon": "🔗",
+      "teaching": [
+        {
+          "h": "Adjectives agree with their noun",
+          "p": "In gender, number, and case — the ending changes accordingly.",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "Masculine adjective ending",
+          "p": "Typically -ый/-ой.",
+          "ex": "новый стол (new table)",
+          "audioId": "unit4-ex1"
+        },
+        {
+          "h": "Feminine adjective ending",
+          "p": "Typically -ая.",
+          "ex": "новая книга (new book)",
+          "audioId": "unit4-ex2"
+        },
+        {
+          "h": "Neuter adjective ending",
+          "p": "Typically -ое.",
+          "ex": "новое окно (new window)",
+          "audioId": "unit4-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "\"нов___ стол\" (masculine — fill ый)",
+          "answer": "ый",
+          "audioId": "unit4-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"нов___ книга\" (feminine — fill ая)",
+          "answer": "ая",
+          "audioId": "unit4-q2"
+        },
+        {
+          "type": "fill",
+          "q": "\"нов___ окно\" (neuter — fill ое)",
+          "answer": "ое",
+          "audioId": "unit4-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Adjectives in Russian must agree in:",
+          "options": ["gender, number, and case", "only gender"],
+          "answer": "gender, number, and case",
+          "audioId": "unit4-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which ending typically marks a feminine adjective?",
+          "options": ["-ая", "-ое", "-ый"],
+          "answer": "-ая",
+          "audioId": "unit4-q5"
+        }
+      ]
+    },
+    {
+      "id": "verb-aspect",
+      "title": "Verb Aspect",
+      "icon": "⏳",
+      "teaching": [
+        {
+          "h": "Two aspects, not just tenses",
+          "p": "Almost every Russian verb has an imperfective and perfective partner.",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "Imperfective",
+          "p": "Process, repetition, ongoing action.",
+          "ex": "читать (to read, ongoing/habitual)",
+          "audioId": "unit5-ex1"
+        },
+        {
+          "h": "Perfective",
+          "p": "A single, completed action, often with a result.",
+          "ex": "прочитать (to read to completion)",
+          "audioId": "unit5-ex2"
+        },
+        {
+          "h": "Perfective verbs have no present tense",
+          "p": "They're used only in past and future — they describe completed events, not ongoing present action.",
+          "ex": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Imperfective aspect emphasizes:",
+          "options": ["ongoing/repeated action", "a single completed action"],
+          "answer": "ongoing/repeated action",
+          "audioId": "unit5-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Perfective aspect emphasizes:",
+          "options": ["ongoing/repeated action", "a single completed action"],
+          "answer": "a single completed action",
+          "audioId": "unit5-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"прочитать\" compared to \"читать\" is:",
+          "options": ["perfective", "imperfective"],
+          "answer": "perfective",
+          "audioId": "unit5-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Perfective verbs can be used in:",
+          "options": ["past and future only", "present tense"],
+          "answer": "past and future only",
+          "audioId": "unit5-q4"
+        },
+        {
+          "type": "fill",
+          "q": "\"читать\" is the ___ form. (imperfective)",
+          "answer": "imperfective",
+          "audioId": "unit5-q5"
+        }
+      ]
+    }
+  ]
+}

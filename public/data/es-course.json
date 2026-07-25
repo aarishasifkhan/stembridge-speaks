@@ -1,0 +1,333 @@
+{
+  "units": [
+    {
+      "id": "gender-articles",
+      "title": "Gender & Articles",
+      "icon": "📘",
+      "teaching": [
+        {
+          "h": "Nouns have gender",
+          "p": "Spanish nouns are masculine or feminine — usually -o is masculine, -a is feminine, with exceptions.",
+          "ex": "el libro (m), la mesa (f)",
+          "audioId": "unit1-ex1"
+        },
+        {
+          "h": "Definite articles",
+          "p": "el (m singular), la (f singular), los (m plural), las (f plural).",
+          "ex": "el gato, la casa, los gatos, las casas",
+          "audioId": "unit1-ex2"
+        },
+        {
+          "h": "Indefinite articles",
+          "p": "un (m), una (f).",
+          "ex": "un perro, una flor",
+          "audioId": "unit1-ex3"
+        },
+        {
+          "h": "Watch for exceptions",
+          "p": "Some -a words are masculine, and some -o words are feminine.",
+          "ex": "el día, la mano",
+          "audioId": "unit1-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which article goes with \"casa\" (house, feminine)?",
+          "options": ["el", "la"],
+          "answer": "la",
+          "audioId": "unit1-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"___ perro es grande.\" (el)",
+          "answer": "el",
+          "audioId": "unit1-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Which of these is an exception (masculine despite -a ending)?",
+          "options": ["el día", "la mesa"],
+          "answer": "el día",
+          "audioId": "unit1-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"Tengo ___ flor bonita.\" (una)",
+          "answer": "una",
+          "audioId": "unit1-q4"
+        },
+        {
+          "type": "mc",
+          "q": "The plural feminine definite article is:",
+          "options": ["los", "las"],
+          "answer": "las",
+          "audioId": "unit1-q5"
+        }
+      ]
+    },
+    {
+      "id": "ser-vs-estar",
+      "title": "Ser vs. Estar",
+      "icon": "🧩",
+      "teaching": [
+        {
+          "h": "Ser for permanent traits",
+          "p": "Identity, characteristics, origin, profession.",
+          "ex": "Ella es doctora.",
+          "audioId": "unit2-ex1"
+        },
+        {
+          "h": "Estar for temporary states",
+          "p": "Feelings, conditions, location.",
+          "ex": "Estoy cansado.",
+          "audioId": "unit2-ex2"
+        },
+        {
+          "h": "Same adjective, different meaning",
+          "p": "\"Ser aburrido\" = boring; \"estar aburrido\" = to be bored.",
+          "ex": "Él es aburrido. Él está aburrido.",
+          "audioId": "unit2-ex3"
+        },
+        {
+          "h": "Estar for location, always",
+          "p": "Even permanent locations use estar, not ser.",
+          "ex": "Madrid está en España.",
+          "audioId": "unit2-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which verb is used for profession?",
+          "options": ["ser", "estar"],
+          "answer": "ser",
+          "audioId": "unit2-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"Yo ___ cansado.\" (estar, yo-form)",
+          "answer": "estoy",
+          "audioId": "unit2-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"Ser aburrido\" means:",
+          "options": ["boring", "bored"],
+          "answer": "boring",
+          "audioId": "unit2-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"Madrid ___ en España.\" (estar)",
+          "answer": "está",
+          "audioId": "unit2-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which verb is used for temporary feelings?",
+          "options": ["ser", "estar"],
+          "answer": "estar",
+          "audioId": "unit2-q5"
+        }
+      ]
+    },
+    {
+      "id": "present-conjugation",
+      "title": "Present-Tense Conjugation",
+      "icon": "🗣️",
+      "teaching": [
+        {
+          "h": "Three verb groups",
+          "p": "Verbs end in -ar, -er, or -ir, each with its own conjugation pattern.",
+          "ex": "hablar, comer, vivir",
+          "audioId": "unit3-ex1"
+        },
+        {
+          "h": "-ar verb conjugation",
+          "p": "hablar → hablo, hablas, habla, hablamos, habláis, hablan",
+          "ex": "Yo hablo español.",
+          "audioId": "unit3-ex2"
+        },
+        {
+          "h": "-er verb conjugation",
+          "p": "comer → como, comes, come, comemos, coméis, comen",
+          "ex": "Nosotros comemos pizza.",
+          "audioId": "unit3-ex3"
+        },
+        {
+          "h": "-ir verb conjugation",
+          "p": "vivir → vivo, vives, vive, vivimos, vivís, viven",
+          "ex": "Ella vive en Madrid.",
+          "audioId": "unit3-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"Hablar\" ends in:",
+          "options": ["-ar", "-er", "-ir"],
+          "answer": "-ar",
+          "audioId": "unit3-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"Yo ___ (hablar) español.\"",
+          "answer": "hablo",
+          "audioId": "unit3-q2"
+        },
+        {
+          "type": "fill",
+          "q": "\"Nosotros ___ (comer) pizza.\"",
+          "answer": "comemos",
+          "audioId": "unit3-q3"
+        },
+        {
+          "type": "mc",
+          "q": "\"Vivir\" belongs to which group?",
+          "options": ["-ar", "-er", "-ir"],
+          "answer": "-ir",
+          "audioId": "unit3-q4"
+        },
+        {
+          "type": "fill",
+          "q": "\"Ella ___ (vivir) en Madrid.\"",
+          "answer": "vive",
+          "audioId": "unit3-q5"
+        }
+      ]
+    },
+    {
+      "id": "subject-object-pronouns",
+      "title": "Subject & Object Pronouns",
+      "icon": "🔗",
+      "teaching": [
+        {
+          "h": "Subject pronouns",
+          "p": "yo, tú, él/ella, nosotros, vosotros, ellos/ellas.",
+          "ex": "Yo hablo. Nosotros hablamos.",
+          "audioId": "unit4-ex1"
+        },
+        {
+          "h": "Direct object pronouns",
+          "p": "me, te, lo/la, nos, os, los/las — replace the direct object.",
+          "ex": "Lo veo.",
+          "audioId": "unit4-ex2"
+        },
+        {
+          "h": "Indirect object pronouns",
+          "p": "me, te, le, nos, os, les — indicate to/for whom.",
+          "ex": "Le doy el libro.",
+          "audioId": "unit4-ex3"
+        },
+        {
+          "h": "Placement",
+          "p": "Object pronouns usually go before the conjugated verb.",
+          "ex": "Te quiero.",
+          "audioId": "unit4-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "The subject pronoun for \"we\" is:",
+          "options": ["nosotros", "ellos", "vosotros"],
+          "answer": "nosotros",
+          "audioId": "unit4-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"___ veo.\" (I see it/him — direct object)",
+          "answer": "Lo",
+          "audioId": "unit4-q2"
+        },
+        {
+          "type": "mc",
+          "q": "The indirect object pronoun for \"to him/her\" is:",
+          "options": ["lo", "le", "la"],
+          "answer": "le",
+          "audioId": "unit4-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"___ quiero.\" (I love you)",
+          "answer": "Te",
+          "audioId": "unit4-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Object pronouns usually go:",
+          "options": ["before the verb", "always after the verb"],
+          "answer": "before the verb",
+          "audioId": "unit4-q5"
+        }
+      ]
+    },
+    {
+      "id": "past-tense-basics",
+      "title": "Past Tense Basics",
+      "icon": "⌛",
+      "teaching": [
+        {
+          "h": "Preterite for completed actions",
+          "p": "A specific, finished event in the past.",
+          "ex": "Comí pizza ayer.",
+          "audioId": "unit5-ex1"
+        },
+        {
+          "h": "Imperfect for ongoing/habitual past",
+          "p": "Descriptions, habits, background context.",
+          "ex": "Cuando era niño, jugaba fútbol.",
+          "audioId": "unit5-ex2"
+        },
+        {
+          "h": "Preterite conjugation example",
+          "p": "hablar → hablé, hablaste, habló, hablamos, hablasteis, hablaron",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "Imperfect conjugation example",
+          "p": "hablar → hablaba, hablabas, hablaba, hablábamos, hablabais, hablaban",
+          "ex": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "The preterite is used for:",
+          "options": ["completed actions", "habitual past"],
+          "answer": "completed actions",
+          "audioId": "unit5-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"Ayer ___ (comer) pizza.\" (preterite)",
+          "answer": "comí",
+          "audioId": "unit5-q2"
+        },
+        {
+          "type": "mc",
+          "q": "The imperfect is used for:",
+          "options": ["specific finished events", "ongoing/habitual past"],
+          "answer": "ongoing/habitual past",
+          "audioId": "unit5-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"Cuando era niño, ___ (jugar) fútbol.\" (imperfect)",
+          "answer": "jugaba",
+          "audioId": "unit5-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which tense describes background/description in the past?",
+          "options": ["preterite", "imperfect"],
+          "answer": "imperfect",
+          "audioId": "unit5-q5"
+        }
+      ]
+    }
+  ]
+}

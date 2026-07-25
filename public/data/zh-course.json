@@ -1,0 +1,337 @@
+{
+  "units": [
+    {
+      "id": "word-order",
+      "title": "Word Order (SVO)",
+      "icon": "📘",
+      "teaching": [
+        {
+          "h": "Basic word order",
+          "p": "Mandarin follows Subject-Verb-Object, and verbs never change form for tense or subject.",
+          "ex": "我喝茶 (wǒ hē chá) — I drink tea",
+          "audioId": "unit1-ex1"
+        },
+        {
+          "h": "No verb conjugation",
+          "p": "The verb stays the same no matter who's doing it or when — time is shown by other words.",
+          "ex": "他喝茶 (tā hē chá) — he drinks tea",
+          "audioId": "unit1-ex2"
+        },
+        {
+          "h": "Time words come early",
+          "p": "Time expressions usually come right after the subject.",
+          "ex": "我今天喝茶 (wǒ jīntiān hē chá) — I today drink tea",
+          "audioId": "unit1-ex3"
+        },
+        {
+          "h": "No plural verb forms",
+          "p": "Nouns and verbs don't change for singular/plural the way English does.",
+          "ex": "一个人 / 两个人 (yí gè rén / liǎng gè rén)",
+          "audioId": "unit1-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Mandarin sentence order is generally:",
+          "options": ["SVO", "SOV", "VSO"],
+          "answer": "SVO",
+          "audioId": "unit1-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"我 ___ 茶。\" (I drink tea — fill hē)",
+          "answer": "喝",
+          "audioId": "unit1-q2"
+        },
+        {
+          "type": "mc",
+          "q": "How does Mandarin show verb tense?",
+          "options": ["verb conjugation", "other words like time expressions"],
+          "answer": "other words like time expressions",
+          "audioId": "unit1-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Where do time words usually go?",
+          "options": ["right after the subject", "always at the very end"],
+          "answer": "right after the subject",
+          "audioId": "unit1-q4"
+        },
+        {
+          "type": "fill",
+          "q": "\"他 ___ 茶。\" (he drinks tea — fill hē)",
+          "answer": "喝",
+          "audioId": "unit1-q5"
+        }
+      ]
+    },
+    {
+      "id": "measure-words",
+      "title": "Measure Words (量词)",
+      "icon": "🔢",
+      "teaching": [
+        {
+          "h": "What measure words do",
+          "p": "Between a number and a noun, Mandarin requires a measure word.",
+          "ex": "一个人 (yí gè rén) — one person",
+          "audioId": "unit2-ex1"
+        },
+        {
+          "h": "个 (gè) — the general measure word",
+          "p": "Used for people and many general objects.",
+          "ex": "三个苹果 (sān gè píngguǒ) — three apples",
+          "audioId": "unit2-ex2"
+        },
+        {
+          "h": "本 (běn) for books",
+          "p": "Used specifically for bound, book-like objects.",
+          "ex": "两本书 (liǎng běn shū) — two books",
+          "audioId": "unit2-ex3"
+        },
+        {
+          "h": "杯 (bēi) for cups/glasses",
+          "p": "Used for drinks measured by cup.",
+          "ex": "一杯茶 (yì bēi chá) — one cup of tea",
+          "audioId": "unit2-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Measure words go between:",
+          "options": ["a number and a noun", "a verb and a noun"],
+          "answer": "a number and a noun",
+          "audioId": "unit2-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"三___苹果\" (general measure word)",
+          "answer": "个",
+          "audioId": "unit2-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Which measure word is for books?",
+          "options": ["个", "本", "杯"],
+          "answer": "本",
+          "audioId": "unit2-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"一___茶\" (cup)",
+          "answer": "杯",
+          "audioId": "unit2-q4"
+        },
+        {
+          "type": "mc",
+          "q": "个 (gè) is best described as:",
+          "options": ["the general/default measure word", "only for books"],
+          "answer": "the general/default measure word",
+          "audioId": "unit2-q5"
+        }
+      ]
+    },
+    {
+      "id": "key-particles",
+      "title": "Key Particles: 了 的 吗",
+      "icon": "🧩",
+      "teaching": [
+        {
+          "h": "了 (le) marks completed action",
+          "p": "Shows something happened or changed.",
+          "ex": "我吃了 (wǒ chī le) — I ate",
+          "audioId": "unit3-ex1"
+        },
+        {
+          "h": "的 (de) shows possession",
+          "p": "Placed between the owner and the thing owned, like an apostrophe-s.",
+          "ex": "我的书 (wǒ de shū) — my book",
+          "audioId": "unit3-ex2"
+        },
+        {
+          "h": "吗 (ma) forms yes/no questions",
+          "p": "Added at the very end of a sentence.",
+          "ex": "你喝茶吗？ (nǐ hē chá ma?) — Do you drink tea?",
+          "audioId": "unit3-ex3"
+        },
+        {
+          "h": "Grammatical markers, not standalone words",
+          "p": "These particles don't translate word-for-word into English.",
+          "ex": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "了 (le) is used to show:",
+          "options": ["completed action", "possession"],
+          "answer": "completed action",
+          "audioId": "unit3-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"我___书\" (my book — fill de)",
+          "answer": "的",
+          "audioId": "unit3-q2"
+        },
+        {
+          "type": "mc",
+          "q": "吗 (ma) is placed:",
+          "options": ["at the end of a sentence", "at the beginning"],
+          "answer": "at the end of a sentence",
+          "audioId": "unit3-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"你喝茶___？\" (yes/no question — fill ma)",
+          "answer": "吗",
+          "audioId": "unit3-q4"
+        },
+        {
+          "type": "mc",
+          "q": "的 (de) functions like:",
+          "options": ["possessive 's in English", "a question mark"],
+          "answer": "possessive 's in English",
+          "audioId": "unit3-q5"
+        }
+      ]
+    },
+    {
+      "id": "forming-questions",
+      "title": "Forming Questions",
+      "icon": "❓",
+      "teaching": [
+        {
+          "h": "Yes/no questions with 吗",
+          "p": "Add 吗 to the end of a normal statement — no word order change.",
+          "ex": "你是学生吗？ (nǐ shì xuéshēng ma?)",
+          "audioId": "unit4-ex1"
+        },
+        {
+          "h": "Choice questions with 还是",
+          "p": "Present two options connected by 还是 (háishì, \"or\").",
+          "ex": "你要茶还是咖啡？ (nǐ yào chá háishì kāfēi?)",
+          "audioId": "unit4-ex2"
+        },
+        {
+          "h": "Question words stay in place",
+          "p": "Words like 什么 (shénme, \"what\") stay where the answer would go — no inversion.",
+          "ex": "你要什么？ (nǐ yào shénme?)",
+          "audioId": "unit4-ex3"
+        },
+        {
+          "h": "A-not-A questions",
+          "p": "Repeating the verb with 不 (bù) in between also forms a yes/no question.",
+          "ex": "你要不要茶？ (nǐ yào bú yào chá?)",
+          "audioId": "unit4-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "The simplest way to form a yes/no question is:",
+          "options": ["add 吗 to the end", "move the verb to the front"],
+          "answer": "add 吗 to the end",
+          "audioId": "unit4-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"你要茶___咖啡？\" (or — fill háishì)",
+          "answer": "还是",
+          "audioId": "unit4-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Where does 什么 (what) go in a Mandarin question?",
+          "options": ["where the answer would be", "always at the very front"],
+          "answer": "where the answer would be",
+          "audioId": "unit4-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"你要___要茶？\" (A-not-A — fill bù)",
+          "answer": "不",
+          "audioId": "unit4-q4"
+        },
+        {
+          "type": "mc",
+          "q": "还是 (háishì) is used for:",
+          "options": ["choice questions", "yes/no questions with 吗"],
+          "answer": "choice questions",
+          "audioId": "unit4-q5"
+        }
+      ]
+    },
+    {
+      "id": "time-aspect",
+      "title": "Time & Aspect (了 过 在)",
+      "icon": "⏳",
+      "teaching": [
+        {
+          "h": "了 (le) for completed/change",
+          "p": "Marks a completed action or a new state.",
+          "ex": "我到了 (wǒ dào le) — I've arrived",
+          "audioId": "unit5-ex1"
+        },
+        {
+          "h": "过 (guo) for past experience",
+          "p": "Indicates something has been experienced at least once, ever.",
+          "ex": "我去过中国 (wǒ qùguo Zhōngguó) — I've been to China",
+          "audioId": "unit5-ex2"
+        },
+        {
+          "h": "在 (zài) for ongoing action",
+          "p": "Placed before the verb to show an action is currently in progress.",
+          "ex": "我在吃饭 (wǒ zài chīfàn) — I am eating",
+          "audioId": "unit5-ex3"
+        },
+        {
+          "h": "Aspect, not strict tense",
+          "p": "Mandarin marks how an action relates to time, not when exactly it happened.",
+          "ex": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "过 (guo) indicates:",
+          "options": ["past experience ever", "action happening right now"],
+          "answer": "past experience ever",
+          "audioId": "unit5-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"我___吃饭。\" (I am eating — fill zài)",
+          "answer": "在",
+          "audioId": "unit5-q2"
+        },
+        {
+          "type": "mc",
+          "q": "在 (zài) goes:",
+          "options": ["before the verb", "after the verb"],
+          "answer": "before the verb",
+          "audioId": "unit5-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"我去___中国。\" (I've been to China — fill guo)",
+          "answer": "过",
+          "audioId": "unit5-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Mandarin grammatically marks:",
+          "options": [
+            "aspect (how action relates to time)",
+            "strict tense like English"
+          ],
+          "answer": "aspect (how action relates to time)",
+          "audioId": "unit5-q5"
+        }
+      ]
+    }
+  ]
+}

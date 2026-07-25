@@ -1,0 +1,328 @@
+{
+  "units": [
+    {
+      "id": "nouns-gender-articles",
+      "title": "Nouns, Gender & Articles",
+      "icon": "📘",
+      "teaching": [
+        {
+          "h": "Every noun has a gender",
+          "p": "German nouns are masculine (der), feminine (die), or neuter (das) — and it's not about meaning. \"Das Mädchen\" (the girl) is grammatically neuter.",
+          "ex": "der Mann · die Frau · das Kind",
+          "audioId": "unit1-ex1"
+        },
+        {
+          "h": "Definite articles (nominative)",
+          "p": "In the subject position, use der/die/das depending on gender.",
+          "ex": "Der Mann ist hier.",
+          "audioId": "unit1-ex2"
+        },
+        {
+          "h": "Indefinite articles",
+          "p": "\"Ein\" for masculine and neuter, \"eine\" for feminine. There's no indefinite article in the plural.",
+          "ex": "ein Mann · eine Frau · ein Kind",
+          "audioId": "unit1-ex3"
+        },
+        {
+          "h": "Plurals",
+          "p": "All genders use \"die\" in the nominative plural — but the noun itself often changes form too.",
+          "ex": "der Mann → die Männer",
+          "audioId": "unit1-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which article goes with \"Buch\" (book, neuter)?",
+          "options": ["der", "die", "das"],
+          "answer": "das",
+          "audioId": "unit1-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"___ Frau ist hier.\" (fill the definite article)",
+          "answer": "die",
+          "audioId": "unit1-q2"
+        },
+        {
+          "type": "mc",
+          "q": "What's the nominative plural article for all genders?",
+          "options": ["der", "die", "das"],
+          "answer": "die",
+          "audioId": "unit1-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which indefinite article is correct for a masculine noun?",
+          "options": ["ein", "eine", "einen"],
+          "answer": "ein",
+          "audioId": "unit1-q4"
+        },
+        {
+          "type": "fill",
+          "q": "\"Das ist ___ Mädchen.\" (fill the indefinite article)",
+          "answer": "ein",
+          "audioId": "unit1-q5"
+        }
+      ]
+    },
+    {
+      "id": "pronouns-present-tense",
+      "title": "Pronouns & Present Tense",
+      "icon": "🗣️",
+      "teaching": [
+        {
+          "h": "Personal pronouns",
+          "p": "ich (I), du (you, informal), er/sie/es (he/she/it), wir (we), ihr (you plural), sie/Sie (they / you, formal).",
+          "ex": "ich, du, er, sie, es, wir, ihr, sie",
+          "audioId": "unit2-ex1"
+        },
+        {
+          "h": "Regular verb conjugation",
+          "p": "Drop -en from the infinitive and add the right ending.",
+          "ex": "machen → ich mache, du machst, er macht, wir machen, ihr macht, sie machen",
+          "audioId": "unit2-ex2"
+        },
+        {
+          "h": "The irregular verb \"sein\" (to be)",
+          "p": "One of the most common irregular verbs — worth memorizing early.",
+          "ex": "ich bin, du bist, er ist, wir sind, ihr seid, sie sind",
+          "audioId": "unit2-ex3"
+        },
+        {
+          "h": "Formal \"you\"",
+          "p": "\"Sie\" (capitalized) is the formal \"you\" and always takes the same verb form as \"sie\" (they).",
+          "ex": "Sprechen Sie Deutsch?",
+          "audioId": "unit2-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Who does \"du\" refer to?",
+          "options": ["I", "you (informal, singular)", "we"],
+          "answer": "you (informal, singular)",
+          "audioId": "unit2-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"Ich ___ Deutsch.\" (machen → correct form for ich)",
+          "answer": "mache",
+          "audioId": "unit2-q2"
+        },
+        {
+          "type": "fill",
+          "q": "\"Er ___ das.\" (machen → correct form for er)",
+          "answer": "macht",
+          "audioId": "unit2-q3"
+        },
+        {
+          "type": "mc",
+          "q": "What's the correct form of \"sein\" for \"wir\"?",
+          "options": ["bin", "ist", "sind"],
+          "answer": "sind",
+          "audioId": "unit2-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which pronoun is the formal \"you\"?",
+          "options": ["du", "ihr", "Sie"],
+          "answer": "Sie",
+          "audioId": "unit2-q5"
+        }
+      ]
+    },
+    {
+      "id": "cases-intro",
+      "title": "Cases: Nominative, Accusative, Dative",
+      "icon": "🧩",
+      "teaching": [
+        {
+          "h": "What is \"case\"?",
+          "p": "German articles change form depending on a noun's grammatical role in the sentence — its case.",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "Nominative (subject)",
+          "p": "The doer of the action.",
+          "ex": "Der Mann sieht den Hund.",
+          "audioId": "unit3-ex1"
+        },
+        {
+          "h": "Accusative (direct object)",
+          "p": "Only masculine articles change: der → den, ein → einen. Feminine, neuter, and plural stay the same.",
+          "ex": "Ich sehe den Mann.",
+          "audioId": "unit3-ex2"
+        },
+        {
+          "h": "Dative (indirect object)",
+          "p": "der→dem, die→der, das→dem, plural die→den. Used with indirect objects and prepositions like mit, bei, nach.",
+          "ex": "Ich gebe der Frau das Buch.",
+          "audioId": "unit3-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "What does masculine \"der\" become in the accusative?",
+          "options": ["den", "dem", "der"],
+          "answer": "den",
+          "audioId": "unit3-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"Ich sehe ___ Mann.\" (accusative)",
+          "answer": "den",
+          "audioId": "unit3-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Which case is used for the subject of a sentence?",
+          "options": ["nominative", "accusative", "dative"],
+          "answer": "nominative",
+          "audioId": "unit3-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"Ich gebe ___ Frau das Buch.\" (dative)",
+          "answer": "der",
+          "audioId": "unit3-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Do feminine articles change in the accusative case?",
+          "options": ["Yes, they change", "No, they stay the same"],
+          "answer": "No, they stay the same",
+          "audioId": "unit3-q5"
+        }
+      ]
+    },
+    {
+      "id": "word-order",
+      "title": "Word Order",
+      "icon": "🔀",
+      "teaching": [
+        {
+          "h": "Verb-second rule",
+          "p": "In German main clauses, the conjugated verb is always the second element — not necessarily the second word.",
+          "ex": "Heute gehe ich ins Kino.",
+          "audioId": "unit4-ex1"
+        },
+        {
+          "h": "Subordinate clauses",
+          "p": "After words like \"weil\" (because), \"dass\" (that), or \"wenn\" (if/when), the verb moves to the end of the clause.",
+          "ex": "Ich bleibe zuhause, weil ich krank bin.",
+          "audioId": "unit4-ex2"
+        },
+        {
+          "h": "Yes/no questions",
+          "p": "The verb moves to the very first position.",
+          "ex": "Gehst du ins Kino?",
+          "audioId": "unit4-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "In German main clauses, the conjugated verb is always in position:",
+          "options": ["1st", "2nd", "last"],
+          "answer": "2nd",
+          "audioId": "unit4-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"Heute ___ ich ins Kino.\" (gehen, verb-second)",
+          "answer": "gehe",
+          "audioId": "unit4-q2"
+        },
+        {
+          "type": "mc",
+          "q": "In a clause starting with \"weil,\" where does the verb go?",
+          "options": ["2nd position", "end of the clause"],
+          "answer": "end of the clause",
+          "audioId": "unit4-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"Ich bleibe zuhause, weil ich krank ___.\" (sein, end position)",
+          "answer": "bin",
+          "audioId": "unit4-q4"
+        },
+        {
+          "type": "mc",
+          "q": "In a yes/no question, the verb goes:",
+          "options": ["first", "second", "last"],
+          "answer": "first",
+          "audioId": "unit4-q5"
+        }
+      ]
+    },
+    {
+      "id": "modal-verbs",
+      "title": "Modal Verbs",
+      "icon": "⚙️",
+      "teaching": [
+        {
+          "h": "What modal verbs do",
+          "p": "Modal verbs (können, müssen, wollen, dürfen, sollen, mögen) express ability, necessity, desire, or permission.",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "Sentence structure",
+          "p": "The modal verb is conjugated and sits in position 2; the main verb goes to the infinitive at the very end.",
+          "ex": "Ich kann gut Deutsch sprechen.",
+          "audioId": "unit5-ex1"
+        },
+        {
+          "h": "Conjugating \"können\"",
+          "p": "Note: ich and er/sie/es share the same form, with no extra ending.",
+          "ex": "ich kann, du kannst, er kann, wir können, ihr könnt, sie können",
+          "audioId": "unit5-ex2"
+        },
+        {
+          "h": "Common modals",
+          "p": "müssen = must, wollen = want to, dürfen = may/allowed to.",
+          "ex": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "In \"Ich kann gut Deutsch sprechen,\" where is \"sprechen\"?",
+          "options": ["2nd position", "end of the sentence"],
+          "answer": "end of the sentence",
+          "audioId": "unit5-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"Ich ___ gut Deutsch sprechen.\" (können, ich-form)",
+          "answer": "kann",
+          "audioId": "unit5-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"müssen\" expresses:",
+          "options": ["ability", "necessity", "desire"],
+          "answer": "necessity",
+          "audioId": "unit5-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"Du ___ das nicht machen.\" (dürfen, du-form)",
+          "answer": "darfst",
+          "audioId": "unit5-q4"
+        },
+        {
+          "type": "mc",
+          "q": "\"wollen\" means:",
+          "options": ["can", "must", "want to"],
+          "answer": "want to",
+          "audioId": "unit5-q5"
+        }
+      ]
+    }
+  ]
+}

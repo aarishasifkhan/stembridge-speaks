@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <title>STEMBridge Speaks — Grammar Course</title>
+    <meta
+      name="description"
+      content="Free structured grammar lessons for German, English, Spanish, Mandarin, and Russian, with quizzes to check your understanding."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --gold: #e8a33d;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+        --locked: #c9cfc3;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+        line-height: 1.55;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        color: var(--forest-dark);
+      }
+      .mono {
+        font-family: "IBM Plex Mono", monospace;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 6vw;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 19px;
+        color: var(--forest);
+        text-decoration: none;
+      }
+      nav {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+      }
+      nav a.btn {
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 600;
+      }
+      main {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 40px 6vw 80px;
+      }
+      .lang-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-top: 28px;
+      }
+      .lang-pick {
+        background: var(--sage);
+        border-radius: 12px;
+        padding: 22px;
+        cursor: pointer;
+        text-align: left;
+        border: none;
+        transition: transform 0.2s ease;
+        font-family: "Work Sans", sans-serif;
+      }
+      .lang-pick:hover {
+        transform: translateY(-3px);
+      }
+      .lang-pick.soon {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+      .lang-pick .flag {
+        font-size: 26px;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .lang-pick h3 {
+        margin: 0 0 4px;
+        font-size: 16px;
+      }
+      .lang-pick p {
+        margin: 0;
+        font-size: 12.5px;
+        color: #55594a;
+      }
+      .path-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+      .path-header button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--forest-dark);
+        font-weight: 600;
+      }
+      .path {
+        margin-top: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .node-row {
+        display: flex;
+        width: 100%;
+      }
+      .node-row.left {
+        justify-content: flex-start;
+        padding-left: 8%;
+      }
+      .node-row.right {
+        justify-content: flex-end;
+        padding-right: 8%;
+      }
+      .node-row.center {
+        justify-content: center;
+      }
+      .node {
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        background: var(--forest);
+        color: var(--cream);
+        box-shadow: 0 6px 0 var(--forest-dark);
+        transition: transform 0.15s ease;
+      }
+      .node:active {
+        transform: translateY(4px);
+        box-shadow: 0 2px 0 var(--forest-dark);
+      }
+      .node.locked {
+        background: var(--locked);
+        box-shadow: 0 6px 0 #a9b09c;
+        cursor: not-allowed;
+        color: #6b7062;
+      }
+      .node.done {
+        background: var(--gold);
+        box-shadow: 0 6px 0 #b9791f;
+        color: var(--forest-dark);
+      }
+      .node .n-icon {
+        font-size: 22px;
+      }
+      .node .n-label {
+        font-size: 9px;
+        margin-top: 2px;
+        font-weight: 600;
+        text-align: center;
+        padding: 0 6px;
+      }
+      .connector {
+        width: 4px;
+        height: 26px;
+        background: var(--sage);
+      }
+      .lesson-chunk {
+        background: var(--sage);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+      .lesson-chunk h3 {
+        font-size: 16px;
+        margin: 0 0 8px;
+      }
+      .lesson-chunk p {
+        font-size: 14.5px;
+        margin: 0;
+        color: #3a3f32;
+      }
+      .lesson-chunk .example {
+        margin-top: 10px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        background: var(--cream);
+        padding: 8px 12px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .speak-btn {
+        background: var(--forest);
+        color: var(--cream);
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .speak-btn.small {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+        background: transparent;
+        color: var(--forest-dark);
+      }
+      .btn {
+        display: inline-block;
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 12px 22px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        border: none;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background: var(--forest-dark);
+      }
+      .btn-gold {
+        background: var(--gold);
+        color: var(--forest-dark) !important;
+      }
+      .btn-gold:hover {
+        background: #d6922e;
+      }
+      .btn-row {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .q-block {
+        background: var(--sage);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+      .q-block p.question {
+        font-weight: 600;
+        margin: 0 0 12px;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .opt {
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: var(--cream);
+        border: 1.5px solid rgba(27, 67, 50, 0.2);
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-bottom: 8px;
+        cursor: pointer;
+        font-family: "Work Sans", sans-serif;
+        font-size: 14px;
+      }
+      .opt.selected {
+        border-color: var(--forest);
+        background: #eef3ec;
+      }
+      .opt.correct {
+        border-color: #4a7c4e;
+        background: #dcf0dd;
+      }
+      .opt.wrong {
+        border-color: var(--brick);
+        background: #f5e2dd;
+      }
+      input.fill {
+        width: 100%;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1.5px solid rgba(27, 67, 50, 0.25);
+        font-size: 14px;
+        font-family: "IBM Plex Mono", monospace;
+      }
+      .score-box {
+        text-align: center;
+        background: var(--forest-dark);
+        color: var(--cream);
+        border-radius: 14px;
+        padding: 32px;
+        margin-top: 10px;
+      }
+      .score-box .big {
+        font-size: 40px;
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+      }
+      .hidden {
+        display: none;
+      }
+      .loading-msg {
+        text-align: center;
+        color: #6b7062;
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">STEMBridge Speaks</a>
+      <nav>
+        <a href="/practice.html">Conversation Practice</a>
+        <a href="/about.html">About</a>
+        <a href="/practice.html" class="btn">Practice free</a>
+      </nav>
+    </header>
+
+    <main>
+      <div id="view-languages">
+        <h1>Grammar Course</h1>
+        <p>
+          Short, structured lessons on the grammar that actually trips learners
+          up — with a quiz and audio pronunciation for every example.
+        </p>
+        <div class="lang-grid" id="langGrid"></div>
+      </div>
+
+      <div id="view-path" class="hidden">
+        <div class="path-header">
+          <button onclick="showLanguages()">← Languages</button>
+        </div>
+        <h1 id="pathTitle"></h1>
+        <div class="path" id="pathNodes"></div>
+      </div>
+
+      <div id="view-lesson" class="hidden">
+        <div class="path-header">
+          <button onclick="showPath()">← Course path</button>
+        </div>
+        <h1 id="lessonTitle"></h1>
+        <div id="lessonChunks"></div>
+        <div class="btn-row">
+          <button class="btn btn-gold" onclick="startQuiz()">
+            Start Quiz →
+          </button>
+        </div>
+      </div>
+
+      <div id="view-quiz" class="hidden">
+        <div class="path-header">
+          <button onclick="showPath()">← Course path</button>
+        </div>
+        <h1 id="quizTitle"></h1>
+        <div id="quizQuestions"></div>
+        <div class="btn-row">
+          <button class="btn" id="checkAnswersBtn">Check Answers</button>
+        </div>
+        <div id="quizResult" class="hidden"></div>
+      </div>
+    </main>
+
+    <footer
+      style="
+        margin-top: 40px;
+        padding: 32px 6vw;
+        text-align: center;
+        font-size: 13px;
+        color: #6b7062;
+        border-top: 1px solid rgba(27, 67, 50, 0.1);
+      "
+    >
+      © 2026 STEMBridge Speaks
+      <div style="margin-top: 6px">
+        STEMBridgeLearning · STEMBridgeStats · STEMBridgeTools
+      </div>
+      <div style="margin-top: 12px">
+        <a href="/about.html" style="margin: 0 10px; color: var(--forest-dark)"
+          >About</a
+        >
+        <a
+          href="/privacy.html"
+          style="margin: 0 10px; color: var(--forest-dark)"
+          >Privacy Policy</a
+        >
+        <a
+          href="/contact.html"
+          style="margin: 0 10px; color: var(--forest-dark)"
+          >Contact</a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function playAudio(audioId, lang) {
+        if (!audioId) return;
+        const audio = new Audio(`/audio/${lang}/${audioId}.mp3`);
+        audio
+          .play()
+          .catch((err) => console.error("Audio playback failed:", err));
+      }
+
+      const courseData = {
+        german: { name: "German", flag: "🇩🇪", available: true, units: [] },
+        english: { name: "English", flag: "🇬🇧", available: true, units: [] },
+        spanish: { name: "Spanish", flag: "🇪🇸", available: true, units: [] },
+        mandarin: { name: "Mandarin", flag: "🇨🇳", available: true, units: [] },
+        russian: { name: "Russian", flag: "🇷🇺", available: true, units: [] },
+      };
+      const langCodes = {
+        german: "de",
+        english: "en",
+        spanish: "es",
+        mandarin: "zh",
+        russian: "ru",
+      };
+
+      let currentLang = null;
+      let currentUnit = null;
+      let quizAnswers = {};
+
+      function getProgress() {
+        try {
+          return (
+            JSON.parse(localStorage.getItem("stembridge_learn_progress")) || {}
+          );
+        } catch {
+          return {};
+        }
+      }
+      function saveProgress(p) {
+        localStorage.setItem("stembridge_learn_progress", JSON.stringify(p));
+      }
+      function isUnitDone(lang, unitId) {
+        const p = getProgress();
+        return !!(p[lang] && p[lang][unitId]);
+      }
+      function markUnitDone(lang, unitId) {
+        const p = getProgress();
+        if (!p[lang]) p[lang] = {};
+        p[lang][unitId] = true;
+        saveProgress(p);
+      }
+
+      function hideAllViews() {
+        ["view-languages", "view-path", "view-lesson", "view-quiz"].forEach(
+          (id) => document.getElementById(id).classList.add("hidden"),
+        );
+      }
+
+      function showLanguages() {
+        hideAllViews();
+        document.getElementById("view-languages").classList.remove("hidden");
+        renderLanguageGrid();
+      }
+
+      async function selectLanguage(key) {
+        currentLang = key;
+        if (courseData[key].units.length === 0 && courseData[key].available) {
+          const res = await fetch(`/data/${langCodes[key]}-course.json`);
+          const data = await res.json();
+          courseData[key].units = data.units;
+        }
+        showPath();
+      }
+
+      function showPath() {
+        hideAllViews();
+        document.getElementById("view-path").classList.remove("hidden");
+        document.getElementById("pathTitle").textContent =
+          courseData[currentLang].name + " Grammar Path";
+        renderPath();
+      }
+
+      function openUnit(unitId) {
+        currentUnit = unitId;
+        showLesson();
+      }
+
+      function showLesson() {
+        hideAllViews();
+        document.getElementById("view-lesson").classList.remove("hidden");
+        const unit = courseData[currentLang].units.find(
+          (u) => u.id === currentUnit,
+        );
+        document.getElementById("lessonTitle").textContent =
+          unit.icon + " " + unit.title;
+        const container = document.getElementById("lessonChunks");
+        container.innerHTML = "";
+        const lang = langCodes[currentLang];
+
+        unit.teaching.forEach((chunk) => {
+          const div = document.createElement("div");
+          div.className = "lesson-chunk";
+          div.innerHTML =
+            `<h3>${chunk.h}</h3><p>${chunk.p}</p>` +
+            (chunk.ex
+              ? `<div class="example"><span>${chunk.ex}</span>
+           <button class="speak-btn" data-audio="${chunk.audioId}">🔊</button>
+         </div>`
+              : "");
+          container.appendChild(div);
+        });
+        container.querySelectorAll(".speak-btn").forEach((btn) => {
+          btn.addEventListener("click", () =>
+            playAudio(btn.dataset.audio, lang),
+          );
+        });
+      }
+
+      function startQuiz() {
+        hideAllViews();
+        document.getElementById("view-quiz").classList.remove("hidden");
+        document.getElementById("quizResult").classList.add("hidden");
+        document.getElementById("checkAnswersBtn").classList.remove("hidden");
+        quizAnswers = {};
+        const unit = courseData[currentLang].units.find(
+          (u) => u.id === currentUnit,
+        );
+        document.getElementById("quizTitle").textContent =
+          "Quiz: " + unit.title;
+        const container = document.getElementById("quizQuestions");
+        container.innerHTML = "";
+        const lang = langCodes[currentLang];
+
+        unit.quiz.forEach((q, i) => {
+          const block = document.createElement("div");
+          block.className = "q-block";
+          let inner = `<p class="question">${i + 1}. ${q.q} <button class="speak-btn small" data-audio="${q.audioId}">🔊</button></p>`;
+          if (q.type === "mc") {
+            q.options.forEach((opt) => {
+              inner += `<button class="opt" data-qi="${i}" data-val="${opt}">${opt}</button>`;
+            });
+          } else {
+            inner += `<input type="text" class="fill" data-qi="${i}" placeholder="Type your answer..." />`;
+          }
+          block.innerHTML = inner;
+          container.appendChild(block);
+        });
+
+        container.querySelectorAll(".speak-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            playAudio(btn.dataset.audio, lang);
+          });
+        });
+        container.querySelectorAll(".opt").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const qi = btn.dataset.qi;
+            container
+              .querySelectorAll(`.opt[data-qi="${qi}"]`)
+              .forEach((b) => b.classList.remove("selected"));
+            btn.classList.add("selected");
+            quizAnswers[qi] = btn.dataset.val;
+          });
+        });
+        container.querySelectorAll(".fill").forEach((input) => {
+          input.addEventListener("input", () => {
+            quizAnswers[input.dataset.qi] = input.value;
+          });
+        });
+      }
+
+      document
+        .getElementById("checkAnswersBtn")
+        .addEventListener("click", () => {
+          const unit = courseData[currentLang].units.find(
+            (u) => u.id === currentUnit,
+          );
+          let correct = 0;
+          const container = document.getElementById("quizQuestions");
+
+          unit.quiz.forEach((q, i) => {
+            const given = (quizAnswers[i] || "").trim().toLowerCase();
+            const isCorrect = given === q.answer.trim().toLowerCase();
+            if (isCorrect) correct++;
+
+            if (q.type === "mc") {
+              container
+                .querySelectorAll(`.opt[data-qi="${i}"]`)
+                .forEach((btn) => {
+                  btn.disabled = true;
+                  if (btn.dataset.val.toLowerCase() === q.answer.toLowerCase())
+                    btn.classList.add("correct");
+                  else if (btn.classList.contains("selected"))
+                    btn.classList.add("wrong");
+                });
+            } else {
+              const input = container.querySelector(`.fill[data-qi="${i}"]`);
+              input.disabled = true;
+              input.style.borderColor = isCorrect ? "#4a7c4e" : "#8C4A3A";
+              const hint = document.createElement("div");
+              hint.style.fontSize = "12px";
+              hint.style.marginTop = "6px";
+              hint.style.color = "#55594a";
+              hint.textContent = isCorrect
+                ? "Correct!"
+                : `Correct answer: ${q.answer}`;
+              input.insertAdjacentElement("afterend", hint);
+            }
+          });
+
+          const passed = correct >= 4;
+          if (passed) markUnitDone(currentLang, currentUnit);
+
+          document.getElementById("checkAnswersBtn").classList.add("hidden");
+          const resultBox = document.getElementById("quizResult");
+          resultBox.classList.remove("hidden");
+          resultBox.innerHTML = `
+      <div class="score-box">
+        <div class="big">${correct}/5</div>
+        <p>${passed ? "🎉 Lesson passed! Next lesson unlocked." : "Not quite — you need 4/5 to pass. Review the lesson and try again."}</p>
+        <div class="btn-row">
+          <button class="btn btn-gold" onclick="showPath()">Back to course path</button>
+          ${!passed ? `<button class="btn" style="margin-left:8px;" onclick="showLesson()">Review lesson</button>` : ""}
+        </div>
+      </div>`;
+        });
+
+      function renderLanguageGrid() {
+        const grid = document.getElementById("langGrid");
+        grid.innerHTML = "";
+        Object.entries(courseData).forEach(([key, lang]) => {
+          const btn = document.createElement("button");
+          btn.className = "lang-pick" + (lang.available ? "" : " soon");
+          btn.innerHTML = `<span class="flag">${lang.flag}</span><h3>${lang.name}</h3><p>${lang.available ? "5 lessons" : "Coming soon"}</p>`;
+          if (lang.available)
+            btn.addEventListener("click", () => selectLanguage(key));
+          grid.appendChild(btn);
+        });
+      }
+
+      function renderPath() {
+        const path = document.getElementById("pathNodes");
+        path.innerHTML = "";
+        const units = courseData[currentLang].units;
+        units.forEach((unit, i) => {
+          if (i > 0) {
+            const c = document.createElement("div");
+            c.className = "connector";
+            path.appendChild(c);
+          }
+          const prevDone = i === 0 || isUnitDone(currentLang, units[i - 1].id);
+          const done = isUnitDone(currentLang, unit.id);
+          const locked = !prevDone && !done;
+          const row = document.createElement("div");
+          row.className =
+            "node-row " +
+            (i % 3 === 0 ? "center" : i % 3 === 1 ? "left" : "right");
+          const node = document.createElement("button");
+          node.className =
+            "node" + (locked ? " locked" : "") + (done ? " done" : "");
+          node.innerHTML = `<span class="n-icon">${done ? "✓" : locked ? "🔒" : unit.icon}</span><span class="n-label">${unit.title}</span>`;
+          if (!locked) node.addEventListener("click", () => openUnit(unit.id));
+          row.appendChild(node);
+          path.appendChild(row);
+        });
+      }
+
+      showLanguages();
+    </script>
+  </body>
+</html>

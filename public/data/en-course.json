@@ -1,0 +1,338 @@
+{
+  "units": [
+    {
+      "id": "sentence-structure-articles",
+      "title": "Sentence Structure & Articles",
+      "icon": "📘",
+      "teaching": [
+        {
+          "h": "Basic sentence order",
+          "p": "English follows Subject-Verb-Object (SVO) order, unlike many languages with flexible word order.",
+          "ex": "She reads books.",
+          "audioId": "unit1-ex1"
+        },
+        {
+          "h": "Articles: a vs an",
+          "p": "Use \"a\" before consonant sounds, \"an\" before vowel sounds — based on sound, not spelling.",
+          "ex": "a university, but an hour",
+          "audioId": "unit1-ex2"
+        },
+        {
+          "h": "Definite vs indefinite",
+          "p": "\"The\" refers to something specific; \"a/an\" introduces something new or non-specific.",
+          "ex": "I saw a dog. The dog was brown.",
+          "audioId": "unit1-ex3"
+        },
+        {
+          "h": "No article for general plurals",
+          "p": "Plural or uncountable nouns often take no article when speaking generally.",
+          "ex": "Dogs are loyal. I like coffee.",
+          "audioId": "unit1-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which word order does English use?",
+          "options": ["SVO", "SOV", "VSO"],
+          "answer": "SVO",
+          "audioId": "unit1-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"I saw ___ elephant at the zoo.\" (a/an)",
+          "answer": "an",
+          "audioId": "unit1-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Which article refers to something specific already mentioned?",
+          "options": ["a", "an", "the"],
+          "answer": "the",
+          "audioId": "unit1-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which sentence is correct for a general statement?",
+          "options": [
+            "The dogs are loyal.",
+            "Dogs are loyal.",
+            "A dogs are loyal."
+          ],
+          "answer": "Dogs are loyal.",
+          "audioId": "unit1-q4"
+        },
+        {
+          "type": "fill",
+          "q": "\"She reads ___ book every night.\" (a)",
+          "answer": "a",
+          "audioId": "unit1-q5"
+        }
+      ]
+    },
+    {
+      "id": "present-simple-continuous",
+      "title": "Present Simple vs. Continuous",
+      "icon": "⏱️",
+      "teaching": [
+        {
+          "h": "Simple present for routines/facts",
+          "p": "Used for habits, facts, and schedules.",
+          "ex": "He works every day.",
+          "audioId": "unit2-ex1"
+        },
+        {
+          "h": "Present continuous for now",
+          "p": "Used for actions happening right now or temporary situations: be + verb-ing.",
+          "ex": "He is working right now.",
+          "audioId": "unit2-ex2"
+        },
+        {
+          "h": "Stative verbs stay simple",
+          "p": "Verbs like know, like, want usually stay in simple form even for current states.",
+          "ex": "I know the answer, not I am knowing.",
+          "audioId": "unit2-ex3"
+        },
+        {
+          "h": "Forming the continuous",
+          "p": "Subject + am/is/are + verb-ing.",
+          "ex": "They are studying English.",
+          "audioId": "unit2-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which tense is used for daily habits?",
+          "options": ["simple present", "present continuous"],
+          "answer": "simple present",
+          "audioId": "unit2-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"She ___ (study) English right now.\" (present continuous)",
+          "answer": "is studying",
+          "audioId": "unit2-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Which sentence is correct?",
+          "options": ["I am knowing the answer.", "I know the answer."],
+          "answer": "I know the answer.",
+          "audioId": "unit2-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"He ___ (work) at a bank.\" (general fact)",
+          "answer": "works",
+          "audioId": "unit2-q4"
+        },
+        {
+          "type": "mc",
+          "q": "The present continuous is formed with:",
+          "options": ["be + verb-ing", "do/does + verb", "have + verb-ed"],
+          "answer": "be + verb-ing",
+          "audioId": "unit2-q5"
+        }
+      ]
+    },
+    {
+      "id": "past-tense-irregular",
+      "title": "Past Tense & Irregular Verbs",
+      "icon": "⌛",
+      "teaching": [
+        {
+          "h": "Regular past tense",
+          "p": "Add -ed to the base verb.",
+          "ex": "walk becomes walked",
+          "audioId": "unit3-ex1"
+        },
+        {
+          "h": "Irregular verbs",
+          "p": "Don't follow the -ed pattern and must be memorized individually.",
+          "ex": "go becomes went, see becomes saw, eat becomes ate",
+          "audioId": "unit3-ex2"
+        },
+        {
+          "h": "\"To be\" in the past",
+          "p": "Was/were, depending on the subject.",
+          "ex": "I was tired. They were happy.",
+          "audioId": "unit3-ex3"
+        },
+        {
+          "h": "Negative past tense",
+          "p": "Use did not / didn't + base verb, not the past form of the verb.",
+          "ex": "I didn't go, not I didn't went.",
+          "audioId": "unit3-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Regular past tense is formed by:",
+          "options": ["adding -ed", "adding -ing", "no change"],
+          "answer": "adding -ed",
+          "audioId": "unit3-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"Yesterday I ___ (go) to the market.\"",
+          "answer": "went",
+          "audioId": "unit3-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Which is correct?",
+          "options": ["I didn't went", "I didn't go"],
+          "answer": "I didn't go",
+          "audioId": "unit3-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"She ___ (be) very tired last night.\"",
+          "answer": "was",
+          "audioId": "unit3-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which of these verbs is irregular?",
+          "options": ["walk", "play", "eat"],
+          "answer": "eat",
+          "audioId": "unit3-q5"
+        }
+      ]
+    },
+    {
+      "id": "questions-negation",
+      "title": "Questions & Negation",
+      "icon": "❓",
+      "teaching": [
+        {
+          "h": "Yes/no questions with do/does",
+          "p": "Add do/does before the subject, then the base verb.",
+          "ex": "Do you like tea?",
+          "audioId": "unit4-ex1"
+        },
+        {
+          "h": "Past tense questions use did",
+          "p": "Did + subject + base verb, regardless of the original tense.",
+          "ex": "Did you see him?",
+          "audioId": "unit4-ex2"
+        },
+        {
+          "h": "Negation",
+          "p": "do/does/did + not + base verb.",
+          "ex": "She doesn't like coffee.",
+          "audioId": "unit4-ex3"
+        },
+        {
+          "h": "Wh- questions",
+          "p": "Question word + do/does/did + subject + verb.",
+          "ex": "Where do you live?",
+          "audioId": "unit4-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Yes/no questions in the present tense use:",
+          "options": ["do/does", "did", "is/are only"],
+          "answer": "do/does",
+          "audioId": "unit4-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"___ you like pizza?\"",
+          "answer": "Do",
+          "audioId": "unit4-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Negation of \"He likes tea\" is:",
+          "options": ["He no likes tea.", "He doesn't like tea."],
+          "answer": "He doesn't like tea.",
+          "audioId": "unit4-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"___ she go to the party?\" (past)",
+          "answer": "Did",
+          "audioId": "unit4-q4"
+        },
+        {
+          "type": "mc",
+          "q": "In \"Where do you live?\", the verb \"live\" stays in:",
+          "options": ["base form", "past form", "-ing form"],
+          "answer": "base form",
+          "audioId": "unit4-q5"
+        }
+      ]
+    },
+    {
+      "id": "preposition-mistakes",
+      "title": "Common Preposition Mistakes",
+      "icon": "🔧",
+      "teaching": [
+        {
+          "h": "in/on/at for time",
+          "p": "in = months/years, on = days/dates, at = specific times.",
+          "ex": "in May, on Monday, at 5pm",
+          "audioId": "unit5-ex1"
+        },
+        {
+          "h": "in/on/at for place",
+          "p": "in = enclosed spaces, on = surfaces, at = specific points.",
+          "ex": "in the room, on the table, at the door",
+          "audioId": "unit5-ex2"
+        },
+        {
+          "h": "\"married to\", not \"married with\"",
+          "p": "A common mistake — the correct preposition is \"to\".",
+          "ex": "She is married to a doctor.",
+          "audioId": "unit5-ex3"
+        },
+        {
+          "h": "\"depend on\", not \"depend of\"",
+          "p": "Another common mistake — the correct preposition is \"on\".",
+          "ex": "It depends on the weather.",
+          "audioId": "unit5-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which preposition is used for months?",
+          "options": ["in", "on", "at"],
+          "answer": "in",
+          "audioId": "unit5-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"The meeting is ___ Monday.\"",
+          "answer": "on",
+          "audioId": "unit5-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Which is correct?",
+          "options": ["married with", "married to"],
+          "answer": "married to",
+          "audioId": "unit5-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"It depends ___ the weather.\"",
+          "answer": "on",
+          "audioId": "unit5-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which preposition is used for specific times like 5pm?",
+          "options": ["in", "on", "at"],
+          "answer": "at",
+          "audioId": "unit5-q5"
+        }
+      ]
+    }
+  ]
+}

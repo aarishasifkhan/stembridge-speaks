@@ -145,14 +145,18 @@ app.post("/chat-audio", async (req, res) => {
 
 app.post("/tts", async (req, res) => {
   try {
-    const { text } = req.body;
+    const { text, slow } = req.body;
 
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash-preview-tts",
     });
 
+    const promptText = slow
+      ? `Say this slowly, clearly, and with careful pronunciation, like a teacher helping a beginner learner: ${text}`
+      : text;
+
     const result = await model.generateContent({
-      contents: [{ parts: [{ text }] }],
+      contents: [{ parts: [{ text: promptText }] }],
       generationConfig: {
         responseModalities: ["AUDIO"],
         speechConfig: {
@@ -163,7 +167,7 @@ app.post("/tts", async (req, res) => {
 
     const audioData =
       result.response.candidates[0].content.parts[0].inlineData.data;
-    res.json({ audio: audioData }); // base64 PCM audio
+    res.json({ audio: audioData });
   } catch (err) {
     console.error("TTS error:", err);
     res.status(500).json({ error: "Speech generation failed." });
