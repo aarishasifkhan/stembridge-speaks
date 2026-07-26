@@ -343,6 +343,96 @@
         color: #6b7062;
         margin-top: 40px;
       }
+      @media (max-width: 700px) {
+        main {
+          padding: 32px 5vw 60px;
+        }
+        header {
+          padding: 16px 5vw;
+        }
+        nav {
+          gap: 12px;
+        }
+        nav a {
+          font-size: 13px;
+        }
+        h1 {
+          font-size: 24px;
+        }
+        .lang-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+        .lang-pick {
+          padding: 16px;
+        }
+        .lang-pick .flag {
+          font-size: 22px;
+        }
+        .lang-pick h3 {
+          font-size: 14px;
+        }
+
+        .node-row.left {
+          padding-left: 2%;
+        }
+        .node-row.right {
+          padding-right: 2%;
+        }
+        .node {
+          width: 68px;
+          height: 68px;
+        }
+        .node .n-icon {
+          font-size: 18px;
+        }
+        .node .n-label {
+          font-size: 8px;
+        }
+
+        .lesson-chunk {
+          padding: 16px;
+        }
+        .lesson-chunk h3 {
+          font-size: 14.5px;
+        }
+        .lesson-chunk p {
+          font-size: 13.5px;
+        }
+        .lesson-chunk .example {
+          font-size: 12px;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+        }
+        .speak-btn {
+          align-self: flex-end;
+        }
+
+        .q-block {
+          padding: 16px;
+        }
+        .opt {
+          font-size: 13px;
+          padding: 9px 12px;
+        }
+        .score-box {
+          padding: 24px;
+        }
+        .score-box .big {
+          font-size: 32px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .lang-grid {
+          grid-template-columns: 1fr;
+        }
+        .node {
+          width: 60px;
+          height: 60px;
+        }
+      }
     </style>
   </head>
   <body>

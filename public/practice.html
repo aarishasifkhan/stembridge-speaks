@@ -96,7 +96,6 @@
         background: rgba(27, 67, 50, 0.08);
       }
 
-      /* Chat thread */
       #chatArea {
         flex: 1;
         overflow-y: auto;
@@ -174,9 +173,12 @@
         font-family: "IBM Plex Mono", monospace;
         font-size: 14px;
       }
-      .bubble.tutor[dir="rtl"],
-      .bubble.user[dir="rtl"] {
+      /* Arabic/RTL script needs a larger size to be as readable as Latin script at the same visual weight */
+      .bubble[dir="rtl"] {
         text-align: right;
+        font-size: 19px;
+        line-height: 1.9;
+        font-family: "Work Sans", sans-serif;
       }
 
       .correction {
@@ -186,6 +188,9 @@
         font-size: 12.5px;
         font-style: italic;
         opacity: 0.85;
+      }
+      .bubble.tutor[dir="rtl"] .correction {
+        font-size: 15px;
       }
       .bubble.system {
         background: transparent;
@@ -213,16 +218,28 @@
         font-size: 14px;
         opacity: 0.7;
         padding: 2px 4px;
+        transition: opacity 0.15s ease;
       }
       .feedback-row button:hover {
         opacity: 1;
+      }
+      .feedback-row button.loading {
+        animation: pulse-opacity 0.9s infinite;
+      }
+      @keyframes pulse-opacity {
+        0%,
+        100% {
+          opacity: 0.4;
+        }
+        50% {
+          opacity: 1;
+        }
       }
       .feedback-row .fb-note {
         font-size: 11px;
         opacity: 0.7;
       }
 
-      /* Input bar */
       #inputBar {
         flex-shrink: 0;
         display: flex;
@@ -293,15 +310,25 @@
         flex-shrink: 0;
       }
 
-      /* Tablet */
+      footer {
+        text-align: center;
+        font-size: 11.5px;
+        color: #8a8f7d;
+        padding: 8px 5vw 14px;
+        flex-shrink: 0;
+        border-top: 1px solid rgba(27, 67, 50, 0.08);
+      }
+      footer a {
+        color: #8a8f7d;
+        margin: 0 6px;
+      }
+
       @media (max-width: 900px) {
         #chatInner,
         #inputBar {
           max-width: 100%;
         }
       }
-
-      /* Mobile */
       @media (max-width: 600px) {
         header {
           padding: 12px 4vw;
@@ -324,6 +351,9 @@
         .bubble {
           max-width: 88%;
           font-size: 13.5px;
+        }
+        .bubble[dir="rtl"] {
+          font-size: 17px;
         }
         #inputBar {
           padding: 10px 4vw 16px;
@@ -395,20 +425,12 @@
       <button id="sendBtn" title="Send">➤</button>
     </div>
 
-    <footer
-      style="
-        text-align: center;
-        font-size: 11.5px;
-        color: #8a8f7d;
-        padding: 8px 5vw 14px;
-        flex-shrink: 0;
-        border-top: 1px solid rgba(27, 67, 50, 0.08);
-      "
-    >
+    <footer>
       © 2026 STEMBridge Speaks ·
-      <a href="/about.html" style="color: #8a8f7d; margin: 0 6px">About</a>
-      <a href="/privacy.html" style="color: #8a8f7d; margin: 0 6px">Privacy</a>
-      <a href="/contact.html" style="color: #8a8f7d; margin: 0 6px">Contact</a>
+      <a href="/learn.html">Learn Grammar</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/contact.html">Contact</a>
     </footer>
 
     <script>
@@ -417,6 +439,7 @@
       let mediaRecorder;
       let audioChunks = [];
       let isRecording = false;
+      let audioUnlocked = false;
 
       const rtlLanguages = ["arabic"];
       const introLines = {
@@ -442,10 +465,21 @@
       const micBtn = document.getElementById("micBtn");
       const sendBtn = document.getElementById("sendBtn");
 
+      // Unlocks audio autoplay by playing a near-silent clip directly inside a user gesture.
+      // Browsers can silently block audio.play() if it happens after an await/network call
+      // with no "fresh" user interaction directly preceding it — this fixes that once per session.
+      function unlockAudio() {
+        if (audioUnlocked) return;
+        const silence =
+          "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=";
+        const a = new Audio(silence);
+        a.play().catch(() => {});
+        audioUnlocked = true;
+      }
+
       function removeEmptyState() {
         if (emptyState && emptyState.parentNode) emptyState.remove();
       }
-
       function scrollToBottom() {
         chatArea.scrollTop = chatArea.scrollHeight;
       }
@@ -495,37 +529,100 @@
         const fbRow = document.createElement("div");
         fbRow.className = "feedback-row";
         fbRow.innerHTML = `
-      <button class="fb-up">👍</button>
-      <button class="fb-down">👎</button>
-      <button class="fb-copy" title="Copy">📋</button>
-      <button class="fb-read" title="Read aloud">🔊</button>
-      <span class="fb-note"></span>
-    `;
+    <button class="fb-up">👍</button>
+    <button class="fb-down">👎</button>
+    <button class="fb-copy" title="Copy">📋</button>
+    <button class="fb-read" title="Read aloud">🔊</button>
+    <button class="fb-retry" title="Regenerate">🔁</button>
+    <span class="fb-note"></span>
+  `;
 
-        fbRow.querySelector(".fb-up").addEventListener("click", () => {
-          submitFeedback(fbRow, userMsgForFeedback, fullText, "up");
-        });
-        fbRow.querySelector(".fb-down").addEventListener("click", () => {
-          submitFeedback(fbRow, userMsgForFeedback, fullText, "down");
-        });
+        fbRow
+          .querySelector(".fb-up")
+          .addEventListener("click", () =>
+            submitFeedback(
+              fbRow,
+              userMsgForFeedback,
+              mainSpan.textContent,
+              "up",
+            ),
+          );
+        fbRow
+          .querySelector(".fb-down")
+          .addEventListener("click", () =>
+            submitFeedback(
+              fbRow,
+              userMsgForFeedback,
+              mainSpan.textContent,
+              "down",
+            ),
+          );
         fbRow.querySelector(".fb-copy").addEventListener("click", () => {
-          navigator.clipboard.writeText(main.trim());
+          navigator.clipboard.writeText(mainSpan.textContent);
           const note = fbRow.querySelector(".fb-note");
           note.textContent = "Copied!";
           setTimeout(() => {
             note.textContent = "";
           }, 1500);
         });
-        fbRow.querySelector(".fb-read").addEventListener("click", () => {
-          speak(main.trim());
+        const readBtn = fbRow.querySelector(".fb-read");
+        readBtn.addEventListener("click", () =>
+          speak(mainSpan.textContent, readBtn),
+        );
+
+        fbRow.querySelector(".fb-retry").addEventListener("click", async () => {
+          const retryBtn = fbRow.querySelector(".fb-retry");
+          retryBtn.classList.add("loading");
+          try {
+            const response = await fetch("/chat", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                message: userMsgForFeedback,
+                scenario: scenarioSelect.value,
+                language: languageSelect.value,
+              }),
+            });
+            const data = await response.json();
+            const [newMain, newCorrection] =
+              data.reply.split(/\n?Correction:/i);
+
+            mainSpan.textContent = newMain.trim();
+            const existingCorrection = bubble.querySelector(".correction");
+            if (existingCorrection) existingCorrection.remove();
+            if (newCorrection && newCorrection.trim()) {
+              const corrDiv = document.createElement("div");
+              corrDiv.className = "correction";
+              corrDiv.textContent = "Correction: " + newCorrection.trim();
+              bubble.insertBefore(corrDiv, fbRow);
+            }
+
+            // Log the regeneration itself as its own feedback-style record, useful later
+            // for seeing which replies people weren't satisfied with on the first try.
+            fetch("/feedback", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                rating: "regenerated",
+                scenario: scenarioSelect.value,
+                language: languageSelect.value,
+                userMessage: userMsgForFeedback,
+                tutorReply: fullText,
+              }),
+            }).catch(() => {});
+          } catch (err) {
+            console.error("Regenerate failed:", err);
+          }
+          retryBtn.classList.remove("loading");
         });
 
         bubble.appendChild(fbRow);
         row.appendChild(bubble);
         chatInner.appendChild(row);
         scrollToBottom();
-      }
 
+        speak(mainSpan.textContent, readBtn);
+      }
       async function submitFeedback(fbRow, userMsg, tutorMsg, rating) {
         fbRow.querySelector(".fb-note").textContent = "Saving...";
         try {
@@ -557,7 +654,8 @@
         }
       }
 
-      async function speak(text) {
+      async function speak(text, btnEl) {
+        if (btnEl) btnEl.classList.add("loading");
         try {
           const response = await fetch("/tts", {
             method: "POST",
@@ -565,15 +663,29 @@
             body: JSON.stringify({ text }),
           });
           const data = await response.json();
-          if (!data.audio) return;
+          if (!data.audio) {
+            if (btnEl) btnEl.classList.remove("loading");
+            return;
+          }
           const pcmBytes = Uint8Array.from(atob(data.audio), (c) =>
             c.charCodeAt(0),
           );
           const wavBlob = pcmToWav(pcmBytes, 24000);
           const audioUrl = URL.createObjectURL(wavBlob);
-          new Audio(audioUrl).play();
+          const audioEl = new Audio(audioUrl);
+          audioEl.onended = () => {
+            if (btnEl) btnEl.classList.remove("loading");
+          };
+          audioEl.onerror = () => {
+            if (btnEl) btnEl.classList.remove("loading");
+          };
+          audioEl.play().catch((err) => {
+            console.error("Autoplay blocked, tap 🔊 to hear the reply:", err);
+            if (btnEl) btnEl.classList.remove("loading");
+          });
         } catch (err) {
           console.error("Speech playback error:", err);
+          if (btnEl) btnEl.classList.remove("loading");
         }
       }
 
@@ -619,7 +731,6 @@
           });
           const data = await response.json();
           addTutorMessage(data.reply, text);
-          speak(data.reply);
           checkExchangeLimit();
         } catch (err) {
           addSystemMessage("Error: " + err.message);
@@ -627,6 +738,7 @@
       }
 
       sendBtn.addEventListener("click", () => {
+        unlockAudio();
         const text = textInput.value.trim();
         if (!text) return;
         textInput.value = "";
@@ -637,6 +749,7 @@
       });
 
       micBtn.addEventListener("click", async () => {
+        unlockAudio();
         if (!isRecording) {
           let stream;
           try {
@@ -677,10 +790,9 @@
                   }),
                 });
                 const data = await response.json();
-                chatInner.lastChild.remove(); // remove "Processing..." message
+                chatInner.lastChild.remove();
                 addUserMessage(data.transcription);
                 addTutorMessage(data.reply, data.transcription);
-                speak(data.reply);
                 checkExchangeLimit();
               } catch (err) {
                 chatInner.lastChild.remove();
@@ -692,6 +804,7 @@
       });
 
       document.getElementById("speakTestBtn").addEventListener("click", () => {
+        unlockAudio();
         speak(introLines[languageSelect.value] || introLines.english);
       });
 
@@ -702,11 +815,7 @@
           exchangeCount = 0;
           textInput.disabled = false;
           micBtn.disabled = false;
-          chatInner.innerHTML = `
-      <div class="empty-state" id="emptyState">
-        <div class="glyph">💬</div>
-        <p>Pick a language and scenario above, then type or tap the mic to start practicing.</p>
-      </div>`;
+          chatInner.innerHTML = `<div class="empty-state" id="emptyState"><div class="glyph">💬</div><p>Pick a language and scenario above, then type or tap the mic to start practicing.</p></div>`;
         });
     </script>
   </body>
