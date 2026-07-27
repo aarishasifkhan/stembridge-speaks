@@ -189,6 +189,14 @@
         font-style: italic;
         opacity: 0.85;
       }
+
+      .translation {
+        margin-top: 8px;
+        font-size: 12.5px;
+        color: var(--gold);
+        opacity: 0.9;
+        font-family: "Work Sans", sans-serif;
+      }
       .bubble.tutor[dir="rtl"] .correction {
         font-size: 15px;
       }
@@ -398,6 +406,14 @@
           <option value="shopping">🛍️ Shopping</option>
           <option value="hotel">🏨 Hotel</option>
         </select>
+        <select id="levelSelect">
+          <option value="A1">A1 · Beginner</option>
+          <option value="A2">A2 · Elementary</option>
+          <option value="B1" selected>B1 · Intermediate</option>
+          <option value="B2">B2 · Upper-Int.</option>
+          <option value="C1">C1 · Advanced</option>
+          <option value="C2">C2 · Native-level</option>
+        </select>
         <button class="icon-btn" id="speakTestBtn">🔊 Intro</button>
         <button class="icon-btn" id="resetBtn">🔄 Reset</button>
       </div>
@@ -460,6 +476,7 @@
       const chatInner = document.getElementById("chatInner");
       const emptyState = document.getElementById("emptyState");
       const languageSelect = document.getElementById("languageSelect");
+      const levelSelect = document.getElementById("levelSelect");
       const scenarioSelect = document.getElementById("scenarioSelect");
       const textInput = document.getElementById("textInput");
       const micBtn = document.getElementById("micBtn");
@@ -507,7 +524,9 @@
       function addTutorMessage(fullText, userMsgForFeedback) {
         removeEmptyState();
         const isRTL = rtlLanguages.includes(languageSelect.value);
-        const [main, correction] = fullText.split(/\n?Correction:/i);
+        const [beforeCorrection, correction] =
+          fullText.split(/\n?Correction:/i);
+        const [main, translation] = fullText.split(/\n?Translation:/i);
 
         const row = document.createElement("div");
         row.className = "msg-row tutor";
@@ -518,6 +537,14 @@
         const mainSpan = document.createElement("div");
         mainSpan.textContent = main.trim();
         bubble.appendChild(mainSpan);
+
+        if (translation && translation.trim()) {
+          const transDiv = document.createElement("div");
+          transDiv.className = "translation";
+          transDiv.setAttribute("dir", "ltr");
+          transDiv.textContent = "🌐 " + translation.trim();
+          bubble.appendChild(transDiv);
+        }
 
         if (correction && correction.trim()) {
           const corrDiv = document.createElement("div");
@@ -584,10 +611,26 @@
               }),
             });
             const data = await response.json();
-            const [newMain, newCorrection] =
+            const [beforeCorr, newCorrection] =
               data.reply.split(/\n?Correction:/i);
+            const [newMain, newTranslation] =
+              beforeCorr.split(/\n?Translation:/i);
 
             mainSpan.textContent = newMain.trim();
+
+            const existingTranslation = bubble.querySelector(".translation");
+            if (existingTranslation) existingTranslation.remove();
+            if (newTranslation && newTranslation.trim()) {
+              const transDiv = document.createElement("div");
+              transDiv.className = "translation";
+              transDiv.setAttribute("dir", "ltr");
+              transDiv.textContent = "🌐 " + newTranslation.trim();
+              bubble.insertBefore(
+                transDiv,
+                bubble.querySelector(".correction") || fbRow,
+              );
+            }
+
             const existingCorrection = bubble.querySelector(".correction");
             if (existingCorrection) existingCorrection.remove();
             if (newCorrection && newCorrection.trim()) {
@@ -606,6 +649,7 @@
                 rating: "regenerated",
                 scenario: scenarioSelect.value,
                 language: languageSelect.value,
+                level: levelSelect.value,
                 userMessage: userMsgForFeedback,
                 tutorReply: fullText,
               }),
@@ -660,7 +704,7 @@
           const response = await fetch("/tts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text }),
+            body: JSON.stringify({ text, level: levelSelect.value }),
           });
           const data = await response.json();
           if (!data.audio) {
@@ -727,6 +771,7 @@
               message: text,
               scenario: scenarioSelect.value,
               language: languageSelect.value,
+              level: levelSelect.value,
             }),
           });
           const data = await response.json();
@@ -787,6 +832,7 @@
                     audio: base64Audio,
                     scenario: scenarioSelect.value,
                     language: languageSelect.value,
+                    level: levelSelect.value,
                   }),
                 });
                 const data = await response.json();

@@ -2,8 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-
 const { MongoClient } = require("mongodb");
+
 const mongoClient = new MongoClient(process.env.MONGODB_URI);
 let feedbackCollection;
 
@@ -44,11 +44,37 @@ const languages = {
   arabic: { name: "Arabic", ttsLang: "ar-SA" },
 };
 
-function buildSystemInstruction(scenarioKey, languageKey, mode) {
+const levelGuidance = {
+  A1: "The user is a complete beginner (CEFR A1). Use only the simplest, most common words and very short sentences (3-6 words). Avoid idioms entirely.",
+  A2: "The user is an elementary learner (CEFR A2). Use simple, common vocabulary and short, clear sentences.",
+  B1: "The user is an intermediate learner (CEFR B1). Use everyday vocabulary and natural sentence length. Simple idioms are fine if common.",
+  B2: "The user is an upper-intermediate learner (CEFR B2). Use natural vocabulary and normal sentence complexity, including some idiomatic expressions.",
+  C1: "The user is an advanced learner (CEFR C1), possibly preparing for an exam like IELTS or TOEFL. Use natural, sophisticated vocabulary and idiom. Corrections should focus on nuance, register, and natural phrasing, not just basic grammar.",
+  C2: "The user is near-native (CEFR C2). Speak completely naturally, exactly as you would with a native speaker, full idiom and colloquialism included. Corrections should focus on subtle style and native-level fluency, not basic errors.",
+};
+
+const paceInstructions = {
+  A1: "Say this very slowly, pausing clearly between words, like speaking to a complete beginner.",
+  A2: "Say this slowly and clearly, like speaking to an early beginner.",
+  B1: "Say this at a moderate pace, slightly slower than normal, clearly enunciated.",
+  B2: "Say this at a normal, natural conversational pace.",
+  C1: "Say this at a natural, fairly fast native conversational pace.",
+  C2: "Say this at full natural native speaking speed, exactly as a native speaker casually would.",
+};
+
+function buildSystemInstruction(scenarioKey, languageKey, mode, levelKey) {
   const scenarioDescription = scenarios[scenarioKey] || scenarios.restaurant;
   const language = languages[languageKey] || languages.german;
+  const levelText = levelGuidance[levelKey] || levelGuidance.B1;
+
+  const translationRule =
+    languageKey !== "english"
+      ? `\n- Immediately after your in-character reply, on a new line, add "Translation:" followed by a natural English translation of ONLY your in-character reply (not the correction). This always comes BEFORE any Correction line.`
+      : "";
 
   const baseRules = `You are a friendly ${language.name} conversation tutor. You are roleplaying as ${scenarioDescription}. The user is a ${language.name} learner practicing this scenario.
+
+${levelText}
 
 Rules:
 - Stay in character throughout, respond naturally in ${language.name} to whatever they say.
@@ -89,11 +115,16 @@ let conversationHistory = [];
 
 app.post("/chat", async (req, res) => {
   try {
-    const { message, scenario, language } = req.body;
+    const { message, scenario, language, level } = req.body;
 
     const model = genAI.getGenerativeModel({
       model: "gemini-flash-latest",
-      systemInstruction: buildSystemInstruction(scenario, language, "text"),
+      systemInstruction: buildSystemInstruction(
+        scenario,
+        language,
+        "text",
+        level,
+      ),
     });
 
     conversationHistory.push({ role: "user", parts: [{ text: message }] });
@@ -113,11 +144,16 @@ app.post("/chat", async (req, res) => {
 
 app.post("/chat-audio", async (req, res) => {
   try {
-    const { audio, scenario, language } = req.body;
+    const { audio, scenario, language, level } = req.body;
 
     const model = genAI.getGenerativeModel({
       model: "gemini-flash-latest",
-      systemInstruction: buildSystemInstruction(scenario, language, "audio"),
+      systemInstruction: buildSystemInstruction(
+        scenario,
+        language,
+        "audio",
+        level,
+      ),
     });
 
     const result = await model.generateContent([
@@ -145,18 +181,15 @@ app.post("/chat-audio", async (req, res) => {
 
 app.post("/tts", async (req, res) => {
   try {
-    const { text, slow } = req.body;
+    const { text, level } = req.body;
+    const paceText = paceInstructions[level] || paceInstructions.B1;
 
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash-preview-tts",
     });
 
-    const promptText = slow
-      ? `Say this slowly, clearly, and with careful pronunciation, like a teacher helping a beginner learner: ${text}`
-      : text;
-
     const result = await model.generateContent({
-      contents: [{ parts: [{ text: promptText }] }],
+      contents: [{ parts: [{ text: `${paceText} ${text}` }] }],
       generationConfig: {
         responseModalities: ["AUDIO"],
         speechConfig: {
