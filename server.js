@@ -4,6 +4,11 @@ const cors = require("cors");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { MongoClient } = require("mongodb");
 
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
+const { MsEdgeTTS, OUTPUT_FORMAT } = require("msedge-tts");
+
 const mongoClient = new MongoClient(process.env.MONGODB_URI);
 let feedbackCollection;
 
@@ -53,13 +58,22 @@ const levelGuidance = {
   C2: "The user is near-native (CEFR C2). Speak completely naturally, exactly as you would with a native speaker, full idiom and colloquialism included. Corrections should focus on subtle style and native-level fluency, not basic errors.",
 };
 
-const paceInstructions = {
-  A1: "Say this very slowly, pausing clearly between words, like speaking to a complete beginner.",
-  A2: "Say this slowly and clearly, like speaking to an early beginner.",
-  B1: "Say this at a moderate pace, slightly slower than normal, clearly enunciated.",
-  B2: "Say this at a normal, natural conversational pace.",
-  C1: "Say this at a natural, fairly fast native conversational pace.",
-  C2: "Say this at full natural native speaking speed, exactly as a native speaker casually would.",
+const edgeVoices = {
+  german: "de-DE-KatjaNeural",
+  english: "en-US-AriaNeural",
+  spanish: "es-ES-ElviraNeural",
+  mandarin: "zh-CN-XiaoxiaoNeural",
+  russian: "ru-RU-SvetlanaNeural",
+  arabic: "ar-SA-ZariyahNeural",
+};
+
+const rateByLevel = {
+  A1: "-40%",
+  A2: "-25%",
+  B1: "-10%",
+  B2: "+0%",
+  C1: "+15%",
+  C2: "+30%",
 };
 
 function buildSystemInstruction(scenarioKey, languageKey, mode, levelKey) {
@@ -181,26 +195,27 @@ app.post("/chat-audio", async (req, res) => {
 
 app.post("/tts", async (req, res) => {
   try {
-    const { text, level } = req.body;
-    const paceText = paceInstructions[level] || paceInstructions.B1;
+    const { text, level, language } = req.body;
+    const voice = edgeVoices[language] || edgeVoices.german;
+    const rate = rateByLevel[level] || rateByLevel.B1;
 
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash-preview-tts",
-    });
+    const tts = new MsEdgeTTS();
+    await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
 
-    const result = await model.generateContent({
-      contents: [{ parts: [{ text: `${paceText} ${text}` }] }],
-      generationConfig: {
-        responseModalities: ["AUDIO"],
-        speechConfig: {
-          voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } },
-        },
-      },
-    });
+    const tempDir = path.join(
+      os.tmpdir(),
+      "stembridge-live-tts-" +
+        Date.now() +
+        "-" +
+        Math.random().toString(36).slice(2),
+    );
+    fs.mkdirSync(tempDir, { recursive: true });
 
-    const audioData =
-      result.response.candidates[0].content.parts[0].inlineData.data;
-    res.json({ audio: audioData });
+    const { audioFilePath } = await tts.toFile(tempDir, text, { rate });
+    const audioBuffer = fs.readFileSync(audioFilePath);
+    fs.rmSync(tempDir, { recursive: true, force: true });
+
+    res.json({ audio: audioBuffer.toString("base64") });
   } catch (err) {
     console.error("TTS error:", err);
     res.status(500).json({ error: "Speech generation failed." });

@@ -704,19 +704,18 @@
           const response = await fetch("/tts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text, level: levelSelect.value }),
+            body: JSON.stringify({
+              text,
+              level: levelSelect.value,
+              language: languageSelect.value,
+            }),
           });
           const data = await response.json();
           if (!data.audio) {
             if (btnEl) btnEl.classList.remove("loading");
             return;
           }
-          const pcmBytes = Uint8Array.from(atob(data.audio), (c) =>
-            c.charCodeAt(0),
-          );
-          const wavBlob = pcmToWav(pcmBytes, 24000);
-          const audioUrl = URL.createObjectURL(wavBlob);
-          const audioEl = new Audio(audioUrl);
+          const audioEl = new Audio("data:audio/mp3;base64," + data.audio);
           audioEl.onended = () => {
             if (btnEl) btnEl.classList.remove("loading");
           };
@@ -724,7 +723,7 @@
             if (btnEl) btnEl.classList.remove("loading");
           };
           audioEl.play().catch((err) => {
-            console.error("Autoplay blocked, tap 🔊 to hear the reply:", err);
+            console.error("Autoplay blocked, tap to hear the reply:", err);
             if (btnEl) btnEl.classList.remove("loading");
           });
         } catch (err) {
@@ -732,7 +731,6 @@
           if (btnEl) btnEl.classList.remove("loading");
         }
       }
-
       function pcmToWav(pcmBytes, sampleRate) {
         const numChannels = 1,
           bitsPerSample = 16;
