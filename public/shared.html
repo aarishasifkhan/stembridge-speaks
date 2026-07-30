@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <title>Shared Conversation — STEMBridge Speaks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --gold: #e8a33d;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+      }
+      header {
+        padding: 20px 6vw;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 18px;
+        color: var(--forest);
+        text-decoration: none;
+      }
+      .badge {
+        font-size: 12px;
+        background: var(--sage);
+        padding: 6px 12px;
+        border-radius: 20px;
+        color: var(--forest-dark);
+      }
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 24px 5vw 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .msg-row {
+        display: flex;
+        width: 100%;
+      }
+      .msg-row.user {
+        justify-content: flex-end;
+      }
+      .msg-row.tutor {
+        justify-content: flex-start;
+      }
+      .bubble {
+        max-width: 78%;
+        padding: 12px 16px;
+        border-radius: 14px;
+        font-size: 15px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        font-family: "IBM Plex Mono", monospace;
+      }
+      .bubble.user {
+        background: var(--sage);
+        border-bottom-right-radius: 4px;
+      }
+      .bubble.tutor {
+        background: var(--forest-dark);
+        color: var(--cream);
+        border-bottom-left-radius: 4px;
+      }
+      .translation {
+        margin-top: 8px;
+        font-size: 12.5px;
+        color: var(--gold);
+        font-family: "Work Sans", sans-serif;
+      }
+      .correction {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 12.5px;
+        font-style: italic;
+        opacity: 0.85;
+      }
+      .cta {
+        text-align: center;
+        margin-top: 30px;
+      }
+      .btn {
+        display: inline-block;
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 12px 22px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">STEMBridge Speaks</a>
+      <span class="badge">👁️ Read-only shared conversation</span>
+    </header>
+    <main id="main">
+      <p>Loading shared conversation...</p>
+    </main>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const shareId = params.get("id");
+      const main = document.getElementById("main");
+
+      async function load() {
+        if (!shareId) {
+          main.innerHTML = "<p>No conversation ID provided.</p>";
+          return;
+        }
+        const res = await fetch(`/api/shared/${shareId}`);
+        if (!res.ok) {
+          main.innerHTML =
+            "<p>This shared conversation could not be found.</p>";
+          return;
+        }
+        const chat = await res.json();
+        main.innerHTML = "";
+
+        for (let i = 0; i < chat.messages.length; i += 2) {
+          const userMsg = chat.messages[i];
+          const modelMsg = chat.messages[i + 1];
+          if (userMsg) {
+            const row = document.createElement("div");
+            row.className = "msg-row user";
+            row.innerHTML = `<div class="bubble user"></div>`;
+            row.querySelector(".bubble").textContent = userMsg.text;
+            main.appendChild(row);
+          }
+          if (modelMsg) {
+            const [beforeCorrection, correction] =
+              modelMsg.text.split(/\n?Correction:/i);
+            const [mainText, translation] =
+              beforeCorrection.split(/\n?Translation:/i);
+            const row = document.createElement("div");
+            row.className = "msg-row tutor";
+            const bubble = document.createElement("div");
+            bubble.className = "bubble tutor";
+            const mainSpan = document.createElement("div");
+            mainSpan.textContent = mainText.trim();
+            bubble.appendChild(mainSpan);
+            if (translation && translation.trim()) {
+              const t = document.createElement("div");
+              t.className = "translation";
+              t.textContent = "🌐 " + translation.trim();
+              bubble.appendChild(t);
+            }
+            if (correction && correction.trim()) {
+              const c = document.createElement("div");
+              c.className = "correction";
+              c.textContent = "Correction: " + correction.trim();
+              bubble.appendChild(c);
+            }
+            row.appendChild(bubble);
+            main.appendChild(row);
+          }
+        }
+
+        const cta = document.createElement("div");
+        cta.className = "cta";
+        cta.innerHTML = `<a href="/practice.html" class="btn">Try STEMBridge Speaks yourself →</a>`;
+        main.appendChild(cta);
+      }
+
+      load();
+    </script>
+  </body>
+</html>

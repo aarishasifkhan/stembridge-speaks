@@ -2,20 +2,26 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const { MongoClient } = require("mongodb");
-
+const { MongoClient, ObjectId } = require("mongodb");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const { MsEdgeTTS, OUTPUT_FORMAT } = require("msedge-tts");
+const crypto = require("crypto");
+
+function generateId() {
+  return crypto.randomBytes(12).toString("hex");
+}
 
 const mongoClient = new MongoClient(process.env.MONGODB_URI);
 let feedbackCollection;
+let chatsCollection;
 
 async function connectDB() {
   try {
     await mongoClient.connect();
     feedbackCollection = mongoClient.db("stembridge").collection("feedback");
+    chatsCollection = mongoClient.db("stembridge").collection("chats");
     console.log("Connected to MongoDB");
   } catch (err) {
     console.error("MongoDB connection failed:", err);
@@ -92,8 +98,8 @@ ${levelText}
 
 Rules:
 - Stay in character throughout, respond naturally in ${language.name} to whatever they say.
-- Keep your in-character reply to ONE short sentence, maximum 15 words — like a real quick back-and-forth, not a monologue.
-- If the user made a grammar or vocabulary mistake, gently note the correction AFTER your in-character reply, under a line that says "Correction:". Keep this to 1-2 sentences max. If there's no mistake, skip this line entirely.
+- Keep your in-character reply to ONE short sentence, maximum 15 words — like a real quick back-and-forth, not a monologue.${translationRule}
+- If the user made a grammar or vocabulary mistake, gently note the correction AFTER your in-character reply (and after the translation, if present), under a line that says "Correction:". Keep this to 1-2 sentences max. If there's no mistake, skip this line entirely.
 - Keep the tone warm and encouraging, never harsh.
 - If the user goes off-topic, gently and naturally steer the conversation back to the scenario, still in character.
 - Brevity is critical — the user is listening to this out loud and needs to process it quickly.`;
@@ -110,13 +116,61 @@ CRITICAL RULES for audio mode — follow exactly:
 Respond with a JSON object only, no other text, in this exact format:
 {
   "transcription": "the exact words the user said, in their original language, not translated",
-  "reply": "your ${language.name} in-character reply, plus optional Correction: section"
+  "reply": "your ${language.name} in-character reply, plus optional Translation/Correction sections as instructed"
 }`;
   }
-
   return baseRules;
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function generateChatTitle(userMessage, replyText, attempt = 1) {
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    const result = await model.generateContent(
+      `Summarize this exchange into a short 3-5 word conversation title. No punctuation, no quotes, just the title itself.\n\nUser: ${userMessage}\nReply: ${replyText}`,
+    );
+    const title = result.response.text().trim().replace(/["'.]/g, "");
+    return title.slice(0, 50) || userMessage.slice(0, 40);
+  } catch (err) {
+    if (err.status === 503 && attempt < 2) {
+      console.log("Title generation got a 503, retrying once...");
+      await sleep(1500);
+      return generateChatTitle(userMessage, replyText, attempt + 1);
+    }
+    console.error(
+      "Title generation failed, using fallback title:",
+      err.message,
+    );
+    return userMessage.slice(0, 40);
+  }
+}
+
+async function lookupWord(word, languageKey) {
+  const language = languages[languageKey] || languages.german;
+  const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+
+  const prompt = `You are a dictionary. Look up the word or phrase "${word}" in ${language.name}.
+
+Respond with ONLY a JSON object, no other text, in this exact format:
+{
+  "word": "the word, corrected for spelling if needed",
+  "partOfSpeech": "noun/verb/adjective/etc, or empty string if not applicable",
+  "definition": "a clear English explanation of what it means",
+  "exampleSentence": "one natural example sentence in ${language.name} using the word",
+  "exampleTranslation": "English translation of that example sentence",
+  "notes": "any brief, genuinely useful note — gender/case for German, formality level, common confusion with another word, etc. Empty string if nothing notable."
+}
+
+If "${word}" is not a real word in ${language.name}, or is gibberish, set "word" to what was searched and "definition" to "No dictionary entry found for this word." and leave other fields empty strings.`;
+
+  const result = await model.generateContent(prompt);
+  const raw = result.response.text();
+  const cleaned = raw.replace(/```json|```/g, "").trim();
+  return JSON.parse(cleaned);
+}
 app.get("/", (req, res) => {
   res.send("STEMBridge Speaks backend is running.");
 });
@@ -125,11 +179,117 @@ app.get("/languages", (req, res) => {
   res.json(languages);
 });
 
-let conversationHistory = [];
+// ---------- CHAT MANAGEMENT ----------
+
+app.post("/api/chats", async (req, res) => {
+  try {
+    const { clientId, language, scenario, level } = req.body;
+    const chat = {
+      clientId,
+      title: "New chat",
+      language: language || "german",
+      scenario: scenario || "restaurant",
+      level: level || "B1",
+      messages: [],
+      shareId: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const result = await chatsCollection.insertOne(chat);
+    res.json({ chatId: result.insertedId, ...chat });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not create chat." });
+  }
+});
+
+app.get("/api/chats", async (req, res) => {
+  try {
+    const { clientId } = req.query;
+    const chats = await chatsCollection
+      .find({ clientId })
+      .project({ title: 1, language: 1, scenario: 1, updatedAt: 1 })
+      .sort({ updatedAt: -1 })
+      .toArray();
+    res.json(chats);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load chats." });
+  }
+});
+
+app.get("/api/chats/:id", async (req, res) => {
+  try {
+    const { clientId } = req.query;
+    const chat = await chatsCollection.findOne({
+      _id: new ObjectId(req.params.id),
+      clientId,
+    });
+    if (!chat) return res.status(404).json({ error: "Chat not found." });
+    res.json(chat);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load chat." });
+  }
+});
+
+app.delete("/api/chats/:id", async (req, res) => {
+  try {
+    const { clientId } = req.query;
+    await chatsCollection.deleteOne({
+      _id: new ObjectId(req.params.id),
+      clientId,
+    });
+    res.json({ status: "Chat deleted." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not delete chat." });
+  }
+});
+
+app.post("/api/chats/:id/share", async (req, res) => {
+  try {
+    const { clientId } = req.body;
+    const chat = await chatsCollection.findOne({
+      _id: new ObjectId(req.params.id),
+      clientId,
+    });
+    if (!chat) return res.status(404).json({ error: "Chat not found." });
+
+    let shareId = chat.shareId;
+    if (!shareId) {
+      shareId = generateId();
+      await chatsCollection.updateOne({ _id: chat._id }, { $set: { shareId } });
+    }
+    res.json({ shareId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not create share link." });
+  }
+});
+
+app.get("/api/shared/:shareId", async (req, res) => {
+  try {
+    const chat = await chatsCollection.findOne({ shareId: req.params.shareId });
+    if (!chat) return res.status(404).json({ error: "Shared chat not found." });
+    res.json(chat);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load shared chat." });
+  }
+});
+
+// ---------- CONVERSATION (now chat-scoped, not global) ----------
 
 app.post("/chat", async (req, res) => {
   try {
-    const { message, scenario, language, level } = req.body;
+    const { chatId, clientId, message, scenario, language, level } = req.body;
+
+    const chat = await chatsCollection.findOne({
+      _id: new ObjectId(chatId),
+      clientId,
+    });
+    if (!chat) return res.status(404).json({ error: "Chat not found." });
 
     const model = genAI.getGenerativeModel({
       model: "gemini-flash-latest",
@@ -141,15 +301,40 @@ app.post("/chat", async (req, res) => {
       ),
     });
 
-    conversationHistory.push({ role: "user", parts: [{ text: message }] });
-
-    const chat = model.startChat({ history: conversationHistory.slice(0, -1) });
-    const result = await chat.sendMessage(message);
+    const geminiHistory = chat.messages.map((m) => ({
+      role: m.role,
+      parts: [{ text: m.text }],
+    }));
+    const chatSession = model.startChat({ history: geminiHistory });
+    const result = await chatSession.sendMessage(message);
     const text = result.response.text();
 
-    conversationHistory.push({ role: "model", parts: [{ text }] });
+    const newMessages = [
+      ...chat.messages,
+      { role: "user", text: message },
+      { role: "model", text },
+    ];
 
-    res.json({ reply: text });
+    const newTitle =
+      chat.title === "New chat"
+        ? await generateChatTitle(message, text)
+        : chat.title;
+
+    await chatsCollection.updateOne(
+      { _id: chat._id },
+      {
+        $set: {
+          messages: newMessages,
+          title: newTitle,
+          updatedAt: new Date(),
+          language,
+          scenario,
+          level,
+        },
+      },
+    );
+
+    res.json({ reply: text, title: newTitle });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Something went wrong." });
@@ -158,7 +343,13 @@ app.post("/chat", async (req, res) => {
 
 app.post("/chat-audio", async (req, res) => {
   try {
-    const { audio, scenario, language, level } = req.body;
+    const { chatId, clientId, audio, scenario, language, level } = req.body;
+
+    const chat = await chatsCollection.findOne({
+      _id: new ObjectId(chatId),
+      clientId,
+    });
+    if (!chat) return res.status(404).json({ error: "Chat not found." });
 
     const model = genAI.getGenerativeModel({
       model: "gemini-flash-latest",
@@ -178,11 +369,34 @@ app.post("/chat-audio", async (req, res) => {
     ]);
 
     const rawText = result.response.text();
-    console.log("RAW GEMINI RESPONSE:", rawText);
     const cleaned = rawText.replace(/```json|```/g, "").trim();
     const parsed = JSON.parse(cleaned);
 
-    res.json(parsed);
+    const newMessages = [
+      ...chat.messages,
+      { role: "user", text: parsed.transcription },
+      { role: "model", text: parsed.reply },
+    ];
+
+    const newTitle =
+      chat.title === "New chat"
+        ? await generateChatTitle(parsed.transcription, parsed.reply)
+        : chat.title;
+    await chatsCollection.updateOne(
+      { _id: chat._id },
+      {
+        $set: {
+          messages: newMessages,
+          title: newTitle,
+          updatedAt: new Date(),
+          language,
+          scenario,
+          level,
+        },
+      },
+    );
+
+    res.json({ ...parsed, title: newTitle });
   } catch (err) {
     console.error(err);
     res.status(500).json({
@@ -243,9 +457,18 @@ app.post("/feedback", async (req, res) => {
   }
 });
 
-app.post("/reset", (req, res) => {
-  conversationHistory = [];
-  res.json({ status: "Conversation reset." });
+app.post("/api/dictionary", async (req, res) => {
+  try {
+    const { word, language } = req.body;
+    if (!word || !word.trim()) {
+      return res.status(400).json({ error: "No word provided." });
+    }
+    const entry = await lookupWord(word.trim(), language);
+    res.json(entry);
+  } catch (err) {
+    console.error("Dictionary lookup failed:", err);
+    res.status(500).json({ error: "Could not look up that word right now." });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
