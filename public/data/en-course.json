@@ -333,6 +333,577 @@
           "audioId": "unit5-q5"
         }
       ]
+    },
+    {
+      "id": "parts-of-speech",
+      "title": "Parts of Speech (Deep Dive)",
+      "icon": "🧱",
+      "teaching": [
+        {
+          "h": "The eight parts of speech",
+          "p": "Every English word falls into one of eight categories based on its job in a sentence: noun, pronoun, verb, adjective, adverb, preposition, conjunction, interjection.",
+          "ex": "run (verb), quickly (adverb), teacher (noun)",
+          "audioId": "unit6-ex1"
+        },
+        {
+          "h": "Nouns and pronouns",
+          "p": "Nouns name people, places, or things. Pronouns replace nouns so we don't repeat them.",
+          "ex": "The teacher graded the papers. She was tired.",
+          "audioId": "unit6-ex2"
+        },
+        {
+          "h": "Verbs and adjectives",
+          "p": "Verbs show action or a state of being. Adjectives describe nouns.",
+          "ex": "The tall teacher runs every morning.",
+          "audioId": "unit6-ex3"
+        },
+        {
+          "h": "Prepositions, conjunctions, interjections",
+          "p": "Prepositions show relationships (in, on, under). Conjunctions join words or clauses (and, but, because). Interjections express sudden emotion.",
+          "ex": "Wow, she sat on the chair and read quietly.",
+          "audioId": "unit6-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "In \"She runs quickly,\" what part of speech is \"quickly\"?",
+          "options": ["noun", "verb", "adverb"],
+          "answer": "adverb",
+          "audioId": "unit6-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which word is a preposition in \"The cat sat under the table\"?",
+          "options": ["cat", "sat", "under"],
+          "answer": "under",
+          "audioId": "unit6-q2"
+        },
+        {
+          "type": "fill",
+          "q": "\"He is a ___ teacher.\" (fill with an adjective — e.g. good)",
+          "answer": "good",
+          "audioId": "unit6-q3"
+        },
+        {
+          "type": "mc",
+          "q": "\"She\" in a sentence is an example of a:",
+          "options": ["noun", "pronoun", "verb"],
+          "answer": "pronoun",
+          "audioId": "unit6-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which word class joins two clauses, like \"and\" or \"because\"?",
+          "options": ["conjunction", "interjection", "preposition"],
+          "answer": "conjunction",
+          "audioId": "unit6-q5"
+        }
+      ]
+    },
+    {
+      "id": "sentence-structure-types",
+      "title": "Sentence Structure and Types",
+      "icon": "🏗️",
+      "teaching": [
+        {
+          "h": "Simple sentences",
+          "p": "A simple sentence has just one independent clause — one complete thought, one subject, one verb.",
+          "ex": "The dog barked.",
+          "audioId": "unit7-ex1"
+        },
+        {
+          "h": "Compound sentences",
+          "p": "Two independent clauses joined by a coordinating conjunction (and, but, or, so, yet).",
+          "ex": "The dog barked, and the cat ran away.",
+          "audioId": "unit7-ex2"
+        },
+        {
+          "h": "Complex sentences",
+          "p": "One independent clause plus at least one dependent clause that can't stand alone.",
+          "ex": "Because it was raining, we stayed inside.",
+          "audioId": "unit7-ex3"
+        },
+        {
+          "h": "Compound-complex sentences",
+          "p": "Combines a compound sentence with a dependent clause — the most advanced structure.",
+          "ex": "Because it was raining, we stayed inside, and we watched a movie.",
+          "audioId": "unit7-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"The dog barked.\" is a:",
+          "options": [
+            "simple sentence",
+            "compound sentence",
+            "complex sentence"
+          ],
+          "answer": "simple sentence",
+          "audioId": "unit7-q1"
+        },
+        {
+          "type": "mc",
+          "q": "A compound sentence needs a:",
+          "options": [
+            "dependent clause",
+            "coordinating conjunction joining two independent clauses",
+            "single subject only"
+          ],
+          "answer": "coordinating conjunction joining two independent clauses",
+          "audioId": "unit7-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"Because it was raining, we stayed inside.\" is a:",
+          "options": [
+            "simple sentence",
+            "complex sentence",
+            "compound sentence"
+          ],
+          "answer": "complex sentence",
+          "audioId": "unit7-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"The dog barked, ___ the cat ran away.\" (coordinating conjunction)",
+          "answer": "and",
+          "audioId": "unit7-q4"
+        },
+        {
+          "type": "mc",
+          "q": "A dependent clause:",
+          "options": [
+            "can stand alone as a full sentence",
+            "cannot stand alone as a full sentence"
+          ],
+          "answer": "cannot stand alone as a full sentence",
+          "audioId": "unit7-q5"
+        }
+      ]
+    },
+    {
+      "id": "subject-verb-agreement",
+      "title": "Subject-Verb Agreement",
+      "icon": "🤝",
+      "teaching": [
+        {
+          "h": "The basic rule",
+          "p": "A singular subject takes a singular verb; a plural subject takes a plural verb.",
+          "ex": "The student studies. The students study.",
+          "audioId": "unit8-ex1"
+        },
+        {
+          "h": "Compound subjects with \"and\"",
+          "p": "Two subjects joined by \"and\" usually take a plural verb.",
+          "ex": "Tom and Jerry are friends.",
+          "audioId": "unit8-ex2"
+        },
+        {
+          "h": "Subjects joined by \"or\"/\"nor\"",
+          "p": "The verb agrees with the subject closer to it.",
+          "ex": "Neither the teacher nor the students are ready.",
+          "audioId": "unit8-ex3"
+        },
+        {
+          "h": "Indefinite pronouns",
+          "p": "Words like everyone, each, and somebody take a singular verb, even though they can feel plural.",
+          "ex": "Everyone is here.",
+          "audioId": "unit8-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "\"The student ___ (study) every night.\"",
+          "answer": "studies",
+          "audioId": "unit8-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"Tom and Jerry ___ (be) friends.\"",
+          "answer": "are",
+          "audioId": "unit8-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"Neither the teacher nor the students ___ ready.\" (verb agrees with which subject?)",
+          "options": [
+            "teacher (singular)",
+            "students (plural, the closer one)"
+          ],
+          "answer": "students (plural, the closer one)",
+          "audioId": "unit8-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"Everyone ___ (be) here.\"",
+          "answer": "is",
+          "audioId": "unit8-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which verb form is correct: \"Each of the boys ___ a book.\"",
+          "options": ["have", "has"],
+          "answer": "has",
+          "audioId": "unit8-q5"
+        }
+      ]
+    },
+    {
+      "id": "tenses-full-system",
+      "title": "Tenses (The Full System)",
+      "icon": "⏱️",
+      "teaching": [
+        {
+          "h": "Present tenses",
+          "p": "Simple (I work), continuous (I am working), perfect (I have worked), perfect continuous (I have been working) — each shows a different relationship to \"now.\"",
+          "ex": "I work. I am working. I have worked. I have been working.",
+          "audioId": "unit9-ex1"
+        },
+        {
+          "h": "Past tenses",
+          "p": "Simple (I worked), continuous (I was working), perfect (I had worked), perfect continuous (I had been working).",
+          "ex": "I worked. I was working. I had worked. I had been working.",
+          "audioId": "unit9-ex2"
+        },
+        {
+          "h": "Future tenses",
+          "p": "Simple (I will work), continuous (I will be working), perfect (I will have worked), perfect continuous (I will have been working).",
+          "ex": "I will work. I will be working. I will have worked.",
+          "audioId": "unit9-ex3"
+        },
+        {
+          "h": "Choosing the right tense",
+          "p": "Ask: is it happening now, finished, ongoing, or will it happen later? That answer usually points to the correct tense.",
+          "ex": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"I have worked here for five years.\" is which tense?",
+          "options": ["present simple", "present perfect", "past perfect"],
+          "answer": "present perfect",
+          "audioId": "unit9-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"By next year, I ___ (will/graduate).\" (future simple)",
+          "answer": "will graduate",
+          "audioId": "unit9-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"I was working when she called.\" is which tense?",
+          "options": ["past continuous", "past simple", "present continuous"],
+          "answer": "past continuous",
+          "audioId": "unit9-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"She ___ (had/finish) her homework before dinner.\" (past perfect)",
+          "answer": "had finished",
+          "audioId": "unit9-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which tense describes an action still ongoing up to now?",
+          "options": ["present perfect continuous", "past simple"],
+          "answer": "present perfect continuous",
+          "audioId": "unit9-q5"
+        }
+      ]
+    },
+    {
+      "id": "conditional-sentences",
+      "title": "Conditional Sentences",
+      "icon": "🔀",
+      "teaching": [
+        {
+          "h": "Zero conditional — general truths",
+          "p": "If + present simple, present simple. Used for facts that are always true.",
+          "ex": "If you heat water to 100°C, it boils.",
+          "audioId": "unit10-ex1"
+        },
+        {
+          "h": "First conditional — real future possibility",
+          "p": "If + present simple, will + base verb. Used for realistic future situations.",
+          "ex": "If it rains, I will bring an umbrella.",
+          "audioId": "unit10-ex2"
+        },
+        {
+          "h": "Second conditional — unreal present/future",
+          "p": "If + past simple, would + base verb. Used for hypothetical or unlikely situations.",
+          "ex": "If I won the lottery, I would travel the world.",
+          "audioId": "unit10-ex3"
+        },
+        {
+          "h": "Third conditional — unreal past",
+          "p": "If + past perfect, would have + past participle. Used for imagined outcomes of things that didn't happen.",
+          "ex": "If I had studied, I would have passed.",
+          "audioId": "unit10-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"If you heat water to 100°C, it boils.\" is which conditional?",
+          "options": ["zero", "first", "second"],
+          "answer": "zero",
+          "audioId": "unit10-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"If it rains, I ___ (will/bring) an umbrella.\" (first conditional)",
+          "answer": "will bring",
+          "audioId": "unit10-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"If I won the lottery, I would travel.\" describes:",
+          "options": [
+            "a realistic future plan",
+            "a hypothetical, unlikely situation"
+          ],
+          "answer": "a hypothetical, unlikely situation",
+          "audioId": "unit10-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"If I ___ (had/study), I would have passed.\" (third conditional)",
+          "answer": "had studied",
+          "audioId": "unit10-q4"
+        },
+        {
+          "type": "mc",
+          "q": "The third conditional talks about:",
+          "options": [
+            "the real future",
+            "an imagined outcome of the unchangeable past"
+          ],
+          "answer": "an imagined outcome of the unchangeable past",
+          "audioId": "unit10-q5"
+        }
+      ]
+    },
+    {
+      "id": "phrases-and-clauses",
+      "title": "Phrases and Clauses",
+      "icon": "🧩",
+      "teaching": [
+        {
+          "h": "What is a phrase?",
+          "p": "A group of words that works as a single unit but does NOT have both a subject and a verb.",
+          "ex": "in the morning, running quickly, a big red house",
+          "audioId": "unit11-ex1"
+        },
+        {
+          "h": "What is a clause?",
+          "p": "A group of words that DOES have both a subject and a verb.",
+          "ex": "she runs, because he was late",
+          "audioId": "unit11-ex2"
+        },
+        {
+          "h": "Independent clauses",
+          "p": "Can stand alone as a complete sentence.",
+          "ex": "She runs every morning.",
+          "audioId": "unit11-ex3"
+        },
+        {
+          "h": "Dependent clauses",
+          "p": "Have a subject and verb but can't stand alone — they depend on an independent clause to make sense.",
+          "ex": "because he was late (incomplete on its own)",
+          "audioId": "unit11-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"in the morning\" is an example of a:",
+          "options": ["phrase", "clause"],
+          "answer": "phrase",
+          "audioId": "unit11-q1"
+        },
+        {
+          "type": "mc",
+          "q": "\"she runs\" is an example of a:",
+          "options": ["phrase", "clause"],
+          "answer": "clause",
+          "audioId": "unit11-q2"
+        },
+        {
+          "type": "mc",
+          "q": "The key difference between a phrase and a clause is:",
+          "options": [
+            "a clause has a subject and verb, a phrase doesn't",
+            "a phrase is always longer"
+          ],
+          "answer": "a clause has a subject and verb, a phrase doesn't",
+          "audioId": "unit11-q3"
+        },
+        {
+          "type": "mc",
+          "q": "\"Because he was late\" is a:",
+          "options": ["independent clause", "dependent clause"],
+          "answer": "dependent clause",
+          "audioId": "unit11-q4"
+        },
+        {
+          "type": "mc",
+          "q": "An independent clause:",
+          "options": [
+            "can stand alone as a complete sentence",
+            "always needs another clause attached"
+          ],
+          "answer": "can stand alone as a complete sentence",
+          "audioId": "unit11-q5"
+        }
+      ]
+    },
+    {
+      "id": "active-passive-voice",
+      "title": "Active and Passive Voice",
+      "icon": "🔄",
+      "teaching": [
+        {
+          "h": "Active voice",
+          "p": "The subject performs the action. This is the most direct, common sentence structure.",
+          "ex": "The chef cooked the meal.",
+          "audioId": "unit12-ex1"
+        },
+        {
+          "h": "Passive voice",
+          "p": "The subject receives the action instead of performing it. Formed with a form of \"be\" + past participle.",
+          "ex": "The meal was cooked by the chef.",
+          "audioId": "unit12-ex2"
+        },
+        {
+          "h": "When to use passive voice",
+          "p": "Use it when the doer is unknown, unimportant, or you want to emphasize the receiver of the action.",
+          "ex": "The window was broken. (we don't know or care who did it)",
+          "audioId": "unit12-ex3"
+        },
+        {
+          "h": "Changing tense in passive voice",
+          "p": "The \"be\" verb changes to match the tense, but the past participle stays the same.",
+          "ex": "The meal is cooked. The meal was cooked. The meal will be cooked.",
+          "audioId": "unit12-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"The chef cooked the meal.\" is:",
+          "options": ["active voice", "passive voice"],
+          "answer": "active voice",
+          "audioId": "unit12-q1"
+        },
+        {
+          "type": "fill",
+          "q": "Change to passive: \"The meal ___ (be) cooked by the chef.\"",
+          "answer": "was",
+          "audioId": "unit12-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Passive voice is useful when:",
+          "options": [
+            "the doer is unknown or unimportant",
+            "you want to be as direct as possible"
+          ],
+          "answer": "the doer is unknown or unimportant",
+          "audioId": "unit12-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Passive voice is formed with:",
+          "options": [
+            "be + past participle",
+            "have + past participle",
+            "will + base verb"
+          ],
+          "answer": "be + past participle",
+          "audioId": "unit12-q4"
+        },
+        {
+          "type": "fill",
+          "q": "\"The window ___ (be) broken.\" (passive, past simple)",
+          "answer": "was",
+          "audioId": "unit12-q5"
+        }
+      ]
+    },
+    {
+      "id": "direct-indirect-speech",
+      "title": "Direct and Indirect Speech",
+      "icon": "💬",
+      "teaching": [
+        {
+          "h": "Direct speech",
+          "p": "Repeats someone's exact words, inside quotation marks.",
+          "ex": "She said, \"I am tired.\"",
+          "audioId": "unit13-ex1"
+        },
+        {
+          "h": "Indirect (reported) speech",
+          "p": "Reports what someone said without quoting them exactly — no quotation marks, and the tense usually shifts back.",
+          "ex": "She said that she was tired.",
+          "audioId": "unit13-ex2"
+        },
+        {
+          "h": "Tense shifts backward",
+          "p": "Present simple becomes past simple, present continuous becomes past continuous, and so on, when reporting.",
+          "ex": "\"I am working\" becomes: She said she was working.",
+          "audioId": "unit13-ex3"
+        },
+        {
+          "h": "Pronouns and time words also change",
+          "p": "\"I\" often becomes \"she/he\", \"today\" often becomes \"that day\", matching the new perspective.",
+          "ex": "\"I will come today\" becomes: He said he would come that day.",
+          "audioId": "unit13-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"She said, 'I am tired.'\" is:",
+          "options": ["direct speech", "indirect speech"],
+          "answer": "direct speech",
+          "audioId": "unit13-q1"
+        },
+        {
+          "type": "fill",
+          "q": "Report this: \"I am tired\" → She said that she ___ tired. (was)",
+          "answer": "was",
+          "audioId": "unit13-q2"
+        },
+        {
+          "type": "mc",
+          "q": "In reported speech, present simple usually shifts to:",
+          "options": ["past simple", "present continuous", "future simple"],
+          "answer": "past simple",
+          "audioId": "unit13-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"I will come today\" reported becomes: He said he ___ (will/come) that day.",
+          "answer": "would come",
+          "audioId": "unit13-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Indirect speech uses:",
+          "options": [
+            "quotation marks around the exact words",
+            "no quotation marks, tense often shifted"
+          ],
+          "answer": "no quotation marks, tense often shifted",
+          "audioId": "unit13-q5"
+        }
+      ]
     }
   ]
 }
