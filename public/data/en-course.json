@@ -904,6 +904,217 @@
           "audioId": "unit13-q5"
         }
       ]
+    },
+    {
+      "id": "punctuation-capitalization",
+      "title": "Punctuation and Capitalization",
+      "icon": "✍️",
+      "teaching": [
+        {
+          "h": "Commas in lists and clauses",
+          "p": "Use commas to separate items in a list, and before a coordinating conjunction joining two independent clauses.",
+          "ex": "I bought apples, bread, and milk. She was tired, but she kept working.",
+          "audioId": "unit14-ex1"
+        },
+        {
+          "h": "Apostrophes",
+          "p": "Used for contractions (don't) and possession (the dog's leash). Never used to make a plain plural.",
+          "ex": "The dog's leash was chewed. It's raining. (correct)",
+          "audioId": "unit14-ex2"
+        },
+        {
+          "h": "Capitalization rules",
+          "p": "Capitalize the first word of a sentence, proper nouns, and the pronoun \"I\", always.",
+          "ex": "My friend John and I visited London.",
+          "audioId": "unit14-ex3"
+        },
+        {
+          "h": "Semicolons and colons",
+          "p": "A semicolon joins two related independent clauses without a conjunction. A colon introduces a list or explanation.",
+          "ex": "She was exhausted; she kept working anyway. Bring these: a pen, paper, and a laptop.",
+          "audioId": "unit14-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which sentence uses commas correctly?",
+          "options": [
+            "I bought apples bread and milk.",
+            "I bought apples, bread, and milk."
+          ],
+          "answer": "I bought apples, bread, and milk.",
+          "audioId": "unit14-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which is correct?",
+          "options": ["The dog's leash", "The dogs' leash (for one dog)"],
+          "answer": "The dog's leash",
+          "audioId": "unit14-q2"
+        },
+        {
+          "type": "fill",
+          "q": "\"My friend John and ___ visited London.\" (always capitalized)",
+          "answer": "I",
+          "audioId": "unit14-q3"
+        },
+        {
+          "type": "mc",
+          "q": "A colon is used to:",
+          "options": [
+            "introduce a list or explanation",
+            "join two unrelated ideas"
+          ],
+          "answer": "introduce a list or explanation",
+          "audioId": "unit14-q4"
+        },
+        {
+          "type": "mc",
+          "q": "A semicolon can join two:",
+          "options": ["related independent clauses", "single words only"],
+          "answer": "related independent clauses",
+          "audioId": "unit14-q5"
+        }
+      ]
+    },
+    {
+      "id": "advanced-grammar-topics",
+      "title": "Advanced Grammar Topics",
+      "icon": "🎓",
+      "teaching": [
+        {
+          "h": "Gerunds and infinitives",
+          "p": "A gerund is a verb + -ing used as a noun. An infinitive is \"to\" + base verb. Some verbs take one, some the other, some both.",
+          "ex": "I enjoy swimming. (gerund) I want to swim. (infinitive)",
+          "audioId": "unit15-ex1"
+        },
+        {
+          "h": "Relative clauses",
+          "p": "Clauses starting with who, which, that, whose — they add extra information about a noun.",
+          "ex": "The woman who called earlier is my teacher.",
+          "audioId": "unit15-ex2"
+        },
+        {
+          "h": "Phrasal verbs",
+          "p": "A verb + preposition/particle that creates a new meaning, often not guessable from the individual words.",
+          "ex": "give up (quit), look after (take care of), run into (meet by chance)",
+          "audioId": "unit15-ex3"
+        },
+        {
+          "h": "The subjunctive mood",
+          "p": "Used for wishes, suggestions, and hypothetical situations — often uses the base form of the verb regardless of subject.",
+          "ex": "I suggest that he arrive early. If I were you, I would rest.",
+          "audioId": "unit15-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"I enjoy swimming.\" uses a:",
+          "options": ["gerund", "infinitive"],
+          "answer": "gerund",
+          "audioId": "unit15-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"The woman ___ called earlier is my teacher.\" (relative pronoun)",
+          "answer": "who",
+          "audioId": "unit15-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"Give up\" is an example of a:",
+          "options": ["phrasal verb", "gerund"],
+          "answer": "phrasal verb",
+          "audioId": "unit15-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"If I ___ you, I would rest.\" (subjunctive)",
+          "answer": "were",
+          "audioId": "unit15-q4"
+        },
+        {
+          "type": "mc",
+          "q": "The subjunctive mood is typically used for:",
+          "options": [
+            "simple daily facts",
+            "wishes, suggestions, hypotheticals"
+          ],
+          "answer": "wishes, suggestions, hypotheticals",
+          "audioId": "unit15-q5"
+        }
+      ]
+    },
+    {
+      "id": "transitional-cohesive-devices",
+      "title": "Transitional and Cohesive Devices",
+      "icon": "🔗",
+      "teaching": [
+        {
+          "h": "What transitional devices do",
+          "p": "Words and phrases that connect ideas smoothly between sentences and paragraphs, showing the relationship between them.",
+          "ex": "however, therefore, in addition, for example",
+          "audioId": "unit16-ex1"
+        },
+        {
+          "h": "Showing contrast",
+          "p": "Words like however, on the other hand, and nevertheless signal a contrasting idea.",
+          "ex": "She studied hard. However, she still felt nervous.",
+          "audioId": "unit16-ex2"
+        },
+        {
+          "h": "Showing cause and result",
+          "p": "Words like therefore, as a result, and consequently connect a cause to its effect.",
+          "ex": "It rained heavily. As a result, the game was cancelled.",
+          "audioId": "unit16-ex3"
+        },
+        {
+          "h": "Adding and sequencing ideas",
+          "p": "Words like furthermore, in addition, first, next, finally help organize ideas in order.",
+          "ex": "First, preheat the oven. Next, mix the ingredients.",
+          "audioId": "unit16-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which word signals contrast?",
+          "options": ["however", "therefore", "first"],
+          "answer": "however",
+          "audioId": "unit16-q1"
+        },
+        {
+          "type": "fill",
+          "q": "\"It rained heavily. ___, the game was cancelled.\" (cause/result)",
+          "answer": "As a result",
+          "audioId": "unit16-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"Furthermore\" is used to:",
+          "options": ["add another related idea", "show contrast"],
+          "answer": "add another related idea",
+          "audioId": "unit16-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"___, preheat the oven.\" (sequencing word for the first step)",
+          "answer": "First",
+          "audioId": "unit16-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Transitional devices mainly help with:",
+          "options": [
+            "connecting ideas smoothly between sentences",
+            "changing the topic completely"
+          ],
+          "answer": "connecting ideas smoothly between sentences",
+          "audioId": "unit16-q5"
+        }
+      ]
     }
   ]
 }

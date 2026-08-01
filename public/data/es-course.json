@@ -33,14 +33,14 @@
       "quiz": [
         {
           "type": "mc",
-          "q": "Which article goes with \"casa\" (house, feminine)?",
+          "q": "Which article goes with casa (feminine)?",
           "options": ["el", "la"],
           "answer": "la",
           "audioId": "unit1-q1"
         },
         {
           "type": "fill",
-          "q": "\"___ perro es grande.\" (el)",
+          "q": "___ perro es grande.",
           "answer": "el",
           "audioId": "unit1-q2"
         },
@@ -53,7 +53,7 @@
         },
         {
           "type": "fill",
-          "q": "\"Tengo ___ flor bonita.\" (una)",
+          "q": "Tengo ___ flor bonita.",
           "answer": "una",
           "audioId": "unit1-q4"
         },
@@ -85,13 +85,13 @@
         },
         {
           "h": "Same adjective, different meaning",
-          "p": "\"Ser aburrido\" = boring; \"estar aburrido\" = to be bored.",
+          "p": "Ser aburrido = boring; estar aburrido = to be bored.",
           "ex": "Él es aburrido. Él está aburrido.",
           "audioId": "unit2-ex3"
         },
         {
           "h": "Estar for location, always",
-          "p": "Even permanent locations use estar, not ser.",
+          "p": "Even permanent locations use estar.",
           "ex": "Madrid está en España.",
           "audioId": "unit2-ex4"
         }
@@ -106,20 +106,20 @@
         },
         {
           "type": "fill",
-          "q": "\"Yo ___ cansado.\" (estar, yo-form)",
+          "q": "Yo ___ cansado. (estar)",
           "answer": "estoy",
           "audioId": "unit2-q2"
         },
         {
           "type": "mc",
-          "q": "\"Ser aburrido\" means:",
+          "q": "Ser aburrido means:",
           "options": ["boring", "bored"],
           "answer": "boring",
           "audioId": "unit2-q3"
         },
         {
           "type": "fill",
-          "q": "\"Madrid ___ en España.\" (estar)",
+          "q": "Madrid ___ en España. (estar)",
           "answer": "está",
           "audioId": "unit2-q4"
         },
@@ -139,24 +139,24 @@
       "teaching": [
         {
           "h": "Three verb groups",
-          "p": "Verbs end in -ar, -er, or -ir, each with its own conjugation pattern.",
+          "p": "Verbs end in -ar, -er, or -ir, each with its own pattern.",
           "ex": "hablar, comer, vivir",
           "audioId": "unit3-ex1"
         },
         {
-          "h": "-ar verb conjugation",
+          "h": "-ar conjugation",
           "p": "hablar → hablo, hablas, habla, hablamos, habláis, hablan",
           "ex": "Yo hablo español.",
           "audioId": "unit3-ex2"
         },
         {
-          "h": "-er verb conjugation",
+          "h": "-er conjugation",
           "p": "comer → como, comes, come, comemos, coméis, comen",
           "ex": "Nosotros comemos pizza.",
           "audioId": "unit3-ex3"
         },
         {
-          "h": "-ir verb conjugation",
+          "h": "-ir conjugation",
           "p": "vivir → vivo, vives, vive, vivimos, vivís, viven",
           "ex": "Ella vive en Madrid.",
           "audioId": "unit3-ex4"
@@ -165,33 +165,33 @@
       "quiz": [
         {
           "type": "mc",
-          "q": "\"Hablar\" ends in:",
+          "q": "Hablar ends in:",
           "options": ["-ar", "-er", "-ir"],
           "answer": "-ar",
           "audioId": "unit3-q1"
         },
         {
           "type": "fill",
-          "q": "\"Yo ___ (hablar) español.\"",
+          "q": "Yo ___ español. (hablar)",
           "answer": "hablo",
           "audioId": "unit3-q2"
         },
         {
           "type": "fill",
-          "q": "\"Nosotros ___ (comer) pizza.\"",
+          "q": "Nosotros ___ pizza. (comer)",
           "answer": "comemos",
           "audioId": "unit3-q3"
         },
         {
           "type": "mc",
-          "q": "\"Vivir\" belongs to which group?",
+          "q": "Vivir belongs to which group?",
           "options": ["-ar", "-er", "-ir"],
           "answer": "-ir",
           "audioId": "unit3-q4"
         },
         {
           "type": "fill",
-          "q": "\"Ella ___ (vivir) en Madrid.\"",
+          "q": "Ella ___ en Madrid. (vivir)",
           "answer": "vive",
           "audioId": "unit3-q5"
         }
@@ -210,13 +210,13 @@
         },
         {
           "h": "Direct object pronouns",
-          "p": "me, te, lo/la, nos, os, los/las — replace the direct object.",
+          "p": "me, te, lo/la, nos, os, los/las.",
           "ex": "Lo veo.",
           "audioId": "unit4-ex2"
         },
         {
           "h": "Indirect object pronouns",
-          "p": "me, te, le, nos, os, les — indicate to/for whom.",
+          "p": "me, te, le, nos, os, les.",
           "ex": "Le doy el libro.",
           "audioId": "unit4-ex3"
         },
@@ -230,27 +230,27 @@
       "quiz": [
         {
           "type": "mc",
-          "q": "The subject pronoun for \"we\" is:",
+          "q": "The subject pronoun for we is:",
           "options": ["nosotros", "ellos", "vosotros"],
           "answer": "nosotros",
           "audioId": "unit4-q1"
         },
         {
           "type": "fill",
-          "q": "\"___ veo.\" (I see it/him — direct object)",
+          "q": "___ veo. (I see it/him)",
           "answer": "Lo",
           "audioId": "unit4-q2"
         },
         {
           "type": "mc",
-          "q": "The indirect object pronoun for \"to him/her\" is:",
+          "q": "The indirect object pronoun for to him/her is:",
           "options": ["lo", "le", "la"],
           "answer": "le",
           "audioId": "unit4-q3"
         },
         {
           "type": "fill",
-          "q": "\"___ quiero.\" (I love you)",
+          "q": "___ quiero. (I love you)",
           "answer": "Te",
           "audioId": "unit4-q4"
         },
@@ -270,7 +270,7 @@
       "teaching": [
         {
           "h": "Preterite for completed actions",
-          "p": "A specific, finished event in the past.",
+          "p": "A specific, finished past event.",
           "ex": "Comí pizza ayer.",
           "audioId": "unit5-ex1"
         },
@@ -303,7 +303,7 @@
         },
         {
           "type": "fill",
-          "q": "\"Ayer ___ (comer) pizza.\" (preterite)",
+          "q": "Ayer ___ pizza. (comer, preterite)",
           "answer": "comí",
           "audioId": "unit5-q2"
         },
@@ -316,7 +316,7 @@
         },
         {
           "type": "fill",
-          "q": "\"Cuando era niño, ___ (jugar) fútbol.\" (imperfect)",
+          "q": "Cuando era niño, ___ fútbol. (jugar, imperfect)",
           "answer": "jugaba",
           "audioId": "unit5-q4"
         },
@@ -326,6 +326,760 @@
           "options": ["preterite", "imperfect"],
           "answer": "imperfect",
           "audioId": "unit5-q5"
+        }
+      ]
+    },
+    {
+      "id": "parts-of-speech",
+      "title": "Partes de la Oración",
+      "icon": "🧱",
+      "teaching": [
+        {
+          "h": "Main word classes",
+          "p": "sustantivo (noun), verbo, adjetivo, adverbio, pronombre, preposición, conjunción.",
+          "ex": "correr (verbo), rápido (adverbio), maestro (sustantivo)",
+          "audioId": "unit6-ex1"
+        },
+        {
+          "h": "Sustantivos and pronombres",
+          "p": "Nouns name things; pronouns replace them.",
+          "ex": "La maestra calificó los exámenes. Ella estaba cansada.",
+          "audioId": "unit6-ex2"
+        },
+        {
+          "h": "Verbos and adjetivos",
+          "p": "Verbs show action; adjectives describe nouns and usually match gender/number.",
+          "ex": "La maestra alta corre cada mañana.",
+          "audioId": "unit6-ex3"
+        },
+        {
+          "h": "Preposiciones and conjunciones",
+          "p": "Prepositions show relationships (en, sobre, bajo). Conjunctions connect ideas (y, pero, porque).",
+          "ex": "El gato está sobre la mesa, pero duerme.",
+          "audioId": "unit6-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "In \"Corre rápido,\" what part of speech is \"rápido\"?",
+          "options": ["sustantivo", "verbo", "adverbio"],
+          "answer": "adverbio",
+          "audioId": "unit6-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which word is a preposición in \"El gato está sobre la mesa\"?",
+          "options": ["gato", "está", "sobre"],
+          "answer": "sobre",
+          "audioId": "unit6-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Él es un ___ maestro. (adjective, e.g. good = bueno)",
+          "answer": "buen",
+          "audioId": "unit6-q3"
+        },
+        {
+          "type": "mc",
+          "q": "\"Ella\" is an example of a:",
+          "options": ["sustantivo", "pronombre", "verbo"],
+          "answer": "pronombre",
+          "audioId": "unit6-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which word class joins two clauses, like \"y\" or \"porque\"?",
+          "options": ["conjunción", "preposición"],
+          "answer": "conjunción",
+          "audioId": "unit6-q5"
+        }
+      ]
+    },
+    {
+      "id": "sentence-types",
+      "title": "Tipos de Oraciones",
+      "icon": "🏗️",
+      "teaching": [
+        {
+          "h": "Oración simple",
+          "p": "One independent clause, one complete thought.",
+          "ex": "El perro ladró.",
+          "audioId": "unit7-ex1"
+        },
+        {
+          "h": "Oración compuesta",
+          "p": "Two independent clauses joined by y, pero, o.",
+          "ex": "El perro ladró, y el gato huyó.",
+          "audioId": "unit7-ex2"
+        },
+        {
+          "h": "Oración compleja",
+          "p": "An independent clause plus a dependent clause.",
+          "ex": "Porque llovía, nos quedamos en casa.",
+          "audioId": "unit7-ex3"
+        },
+        {
+          "h": "Cláusulas subordinadas",
+          "p": "Introduced by porque, cuando, si, que — they can't stand alone.",
+          "ex": "..., cuando llegó a casa.",
+          "audioId": "unit7-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"El perro ladró.\" is a(n):",
+          "options": ["oración simple", "oración compuesta"],
+          "answer": "oración simple",
+          "audioId": "unit7-q1"
+        },
+        {
+          "type": "mc",
+          "q": "An oración compuesta needs a:",
+          "options": [
+            "dependent clause",
+            "conjunction joining two independent clauses"
+          ],
+          "answer": "conjunction joining two independent clauses",
+          "audioId": "unit7-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"Porque llovía, nos quedamos en casa.\" is a(n):",
+          "options": ["oración simple", "oración compleja"],
+          "answer": "oración compleja",
+          "audioId": "unit7-q3"
+        },
+        {
+          "type": "fill",
+          "q": "El perro ladró, ___ el gato huyó. (and)",
+          "answer": "y",
+          "audioId": "unit7-q4"
+        },
+        {
+          "type": "mc",
+          "q": "A cláusula subordinada:",
+          "options": ["can stand alone", "cannot stand alone"],
+          "answer": "cannot stand alone",
+          "audioId": "unit7-q5"
+        }
+      ]
+    },
+    {
+      "id": "subjunctive-mood",
+      "title": "El Subjuntivo",
+      "icon": "🤝",
+      "teaching": [
+        {
+          "h": "When to use the subjunctive",
+          "p": "For wishes, doubts, emotions, recommendations — not simple facts.",
+          "ex": "Espero que vengas.",
+          "audioId": "unit8-ex1"
+        },
+        {
+          "h": "Regular subjunctive formation",
+          "p": "Take the yo-form, drop -o, swap for the opposite vowel ending.",
+          "ex": "hablar → hable, comer → coma",
+          "audioId": "unit8-ex2"
+        },
+        {
+          "h": "Triggered by certain expressions",
+          "p": "Phrases like \"espero que,\" \"es importante que,\" \"quiero que\" trigger the subjunctive.",
+          "ex": "Es importante que estudies.",
+          "audioId": "unit8-ex3"
+        },
+        {
+          "h": "Not used for simple facts",
+          "p": "The indicative is used for certainty; subjunctive for uncertainty or emotion.",
+          "ex": "Sé que vienes. (indicative) vs. Espero que vengas. (subjunctive)",
+          "audioId": "unit8-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "The subjunctive is used for:",
+          "options": ["simple facts", "wishes, doubts, emotions"],
+          "answer": "wishes, doubts, emotions",
+          "audioId": "unit8-q1"
+        },
+        {
+          "type": "fill",
+          "q": "Espero que ___. (venir, tú, subjunctive)",
+          "answer": "vengas",
+          "audioId": "unit8-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"Es importante que estudies\" uses:",
+          "options": ["indicative", "subjunctive"],
+          "answer": "subjunctive",
+          "audioId": "unit8-q3"
+        },
+        {
+          "type": "fill",
+          "q": "Es importante que ___. (estudiar, tú, subjunctive)",
+          "answer": "estudies",
+          "audioId": "unit8-q4"
+        },
+        {
+          "type": "mc",
+          "q": "\"Sé que vienes\" uses which mood, and why?",
+          "options": [
+            "indicative, because it's certain",
+            "subjunctive, because it's a wish"
+          ],
+          "answer": "indicative, because it's certain",
+          "audioId": "unit8-q5"
+        }
+      ]
+    },
+    {
+      "id": "future-conditional",
+      "title": "El Futuro y el Condicional",
+      "icon": "⏱️",
+      "teaching": [
+        {
+          "h": "Simple future",
+          "p": "Infinitive + endings (é, ás, á, emos, éis, án).",
+          "ex": "hablaré, hablarás, hablará",
+          "audioId": "unit9-ex1"
+        },
+        {
+          "h": "ir a + infinitive",
+          "p": "A very common informal way to talk about the near future.",
+          "ex": "Voy a estudiar mañana.",
+          "audioId": "unit9-ex2"
+        },
+        {
+          "h": "Conditional",
+          "p": "Infinitive + endings (ía, ías, ía, íamos, íais, ían) — for \"would\" statements.",
+          "ex": "Yo hablaría con ella.",
+          "audioId": "unit9-ex3"
+        },
+        {
+          "h": "Irregular stems",
+          "p": "Some verbs use an irregular stem for both future and conditional.",
+          "ex": "tener → tendré, tendría",
+          "audioId": "unit9-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "Yo ___ mañana. (hablar, simple future)",
+          "answer": "hablaré",
+          "audioId": "unit9-q1"
+        },
+        {
+          "type": "mc",
+          "q": "\"Voy a estudiar mañana\" expresses:",
+          "options": ["a formal simple future", "an informal near future"],
+          "answer": "an informal near future",
+          "audioId": "unit9-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Yo ___ con ella. (hablar, conditional)",
+          "answer": "hablaría",
+          "audioId": "unit9-q3"
+        },
+        {
+          "type": "mc",
+          "q": "The conditional is used to express:",
+          "options": ["\"would\" statements", "commands"],
+          "answer": "\"would\" statements",
+          "audioId": "unit9-q4"
+        },
+        {
+          "type": "fill",
+          "q": "yo ___ (tener, future, irregular stem)",
+          "answer": "tendré",
+          "audioId": "unit9-q5"
+        }
+      ]
+    },
+    {
+      "id": "conditional-sentences",
+      "title": "Oraciones Condicionales",
+      "icon": "🔀",
+      "teaching": [
+        {
+          "h": "Real conditions",
+          "p": "si + present, present or future — realistic situations.",
+          "ex": "Si llueve, me quedo en casa.",
+          "audioId": "unit10-ex1"
+        },
+        {
+          "h": "Hypothetical conditions",
+          "p": "si + imperfect subjunctive, conditional — unreal/unlikely situations.",
+          "ex": "Si tuviera dinero, viajaría.",
+          "audioId": "unit10-ex2"
+        },
+        {
+          "h": "Imperfect subjunctive forms",
+          "p": "Often built from the preterite \"ellos\" form, -ra ending.",
+          "ex": "tener → tuviera, hablar → hablara",
+          "audioId": "unit10-ex3"
+        },
+        {
+          "h": "Past hypotheticals",
+          "p": "si + pluperfect subjunctive, conditional perfect — imagined past outcomes.",
+          "ex": "Si hubiera estudiado, habría aprobado.",
+          "audioId": "unit10-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"Si llueve, me quedo en casa.\" describes:",
+          "options": ["a realistic condition", "an unreal hypothetical"],
+          "answer": "a realistic condition",
+          "audioId": "unit10-q1"
+        },
+        {
+          "type": "fill",
+          "q": "Si ___ dinero, viajaría. (tener, imperfect subjunctive)",
+          "answer": "tuviera",
+          "audioId": "unit10-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Hypothetical si-clauses use:",
+          "options": [
+            "imperfect subjunctive + conditional",
+            "present + present"
+          ],
+          "answer": "imperfect subjunctive + conditional",
+          "audioId": "unit10-q3"
+        },
+        {
+          "type": "fill",
+          "q": "Si hubiera estudiado, ___ aprobado. (haber, conditional perfect)",
+          "answer": "habría",
+          "audioId": "unit10-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Past hypotheticals describe:",
+          "options": [
+            "an imagined outcome of the unchangeable past",
+            "the realistic future"
+          ],
+          "answer": "an imagined outcome of the unchangeable past",
+          "audioId": "unit10-q5"
+        }
+      ]
+    },
+    {
+      "id": "phrases-clauses",
+      "title": "Frases y Cláusulas",
+      "icon": "🧩",
+      "teaching": [
+        {
+          "h": "Frase (phrase)",
+          "p": "A group of words with no subject-verb pair, acting as one unit.",
+          "ex": "por la mañana, muy rápido",
+          "audioId": "unit11-ex1"
+        },
+        {
+          "h": "Cláusula (clause)",
+          "p": "A group of words with a subject and a verb.",
+          "ex": "ella corre, porque llegó tarde",
+          "audioId": "unit11-ex2"
+        },
+        {
+          "h": "Cláusula independiente",
+          "p": "Can stand alone as a complete sentence.",
+          "ex": "Ella corre cada mañana.",
+          "audioId": "unit11-ex3"
+        },
+        {
+          "h": "Cláusula dependiente",
+          "p": "Has a subject and verb but can't stand alone.",
+          "ex": "porque llegó tarde (incomplete alone)",
+          "audioId": "unit11-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"por la mañana\" is an example of a:",
+          "options": ["frase", "cláusula"],
+          "answer": "frase",
+          "audioId": "unit11-q1"
+        },
+        {
+          "type": "mc",
+          "q": "\"ella corre\" is an example of a:",
+          "options": ["frase", "cláusula"],
+          "answer": "cláusula",
+          "audioId": "unit11-q2"
+        },
+        {
+          "type": "mc",
+          "q": "The key difference is:",
+          "options": [
+            "a cláusula has a subject and verb, a frase doesn't",
+            "a frase is always longer"
+          ],
+          "answer": "a cláusula has a subject and verb, a frase doesn't",
+          "audioId": "unit11-q3"
+        },
+        {
+          "type": "mc",
+          "q": "\"porque llegó tarde\" is a:",
+          "options": ["cláusula independiente", "cláusula dependiente"],
+          "answer": "cláusula dependiente",
+          "audioId": "unit11-q4"
+        },
+        {
+          "type": "mc",
+          "q": "A cláusula independiente:",
+          "options": ["can stand alone", "always needs another clause"],
+          "answer": "can stand alone",
+          "audioId": "unit11-q5"
+        }
+      ]
+    },
+    {
+      "id": "active-passive-voice",
+      "title": "Voz Activa y Pasiva",
+      "icon": "🔄",
+      "teaching": [
+        {
+          "h": "Voz activa",
+          "p": "The subject performs the action.",
+          "ex": "El chef cocinó la comida.",
+          "audioId": "unit12-ex1"
+        },
+        {
+          "h": "Voz pasiva con ser",
+          "p": "ser + past participle + por — formal, less common in speech.",
+          "ex": "La comida fue cocinada por el chef.",
+          "audioId": "unit12-ex2"
+        },
+        {
+          "h": "Pasiva refleja with se",
+          "p": "A more common, informal way to express passive meaning in Spanish.",
+          "ex": "Se vendieron muchos libros.",
+          "audioId": "unit12-ex3"
+        },
+        {
+          "h": "When to use passive",
+          "p": "When the doer is unknown or unimportant, or to emphasize the action's receiver.",
+          "ex": "Se rompió la ventana.",
+          "audioId": "unit12-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"El chef cocinó la comida.\" is:",
+          "options": ["voz activa", "voz pasiva"],
+          "answer": "voz activa",
+          "audioId": "unit12-q1"
+        },
+        {
+          "type": "fill",
+          "q": "La comida ___ cocinada por el chef. (ser, past)",
+          "answer": "fue",
+          "audioId": "unit12-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"Se vendieron muchos libros\" is an example of:",
+          "options": ["pasiva refleja", "voz activa"],
+          "answer": "pasiva refleja",
+          "audioId": "unit12-q3"
+        },
+        {
+          "type": "mc",
+          "q": "The pasiva refleja (with se) is:",
+          "options": ["more common/informal", "only used in legal writing"],
+          "answer": "more common/informal",
+          "audioId": "unit12-q4"
+        },
+        {
+          "type": "fill",
+          "q": "___ rompió la ventana. (se, pasiva refleja)",
+          "answer": "Se",
+          "audioId": "unit12-q5"
+        }
+      ]
+    },
+    {
+      "id": "direct-indirect-speech",
+      "title": "Estilo Directo e Indirecto",
+      "icon": "💬",
+      "teaching": [
+        {
+          "h": "Estilo directo",
+          "p": "The exact words, in quotation marks.",
+          "ex": "Ella dijo: \"Estoy cansada.\"",
+          "audioId": "unit13-ex1"
+        },
+        {
+          "h": "Estilo indirecto",
+          "p": "Reports what was said, tense often shifts back.",
+          "ex": "Ella dijo que estaba cansada.",
+          "audioId": "unit13-ex2"
+        },
+        {
+          "h": "Present becomes imperfect",
+          "p": "Present tense in direct speech often becomes imperfect in reported speech.",
+          "ex": "\"Estoy cansada\" → dijo que estaba cansada",
+          "audioId": "unit13-ex3"
+        },
+        {
+          "h": "Time and place words shift too",
+          "p": "\"hoy\" often becomes \"ese día\", matching the new perspective.",
+          "ex": "\"Vendré hoy\" → dijo que vendría ese día",
+          "audioId": "unit13-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"Ella dijo: 'Estoy cansada.'\" is:",
+          "options": ["estilo directo", "estilo indirecto"],
+          "answer": "estilo directo",
+          "audioId": "unit13-q1"
+        },
+        {
+          "type": "fill",
+          "q": "Ella dijo que ___ cansada. (estar, imperfect)",
+          "answer": "estaba",
+          "audioId": "unit13-q2"
+        },
+        {
+          "type": "mc",
+          "q": "In reported speech, present tense usually shifts to:",
+          "options": ["imperfect", "future"],
+          "answer": "imperfect",
+          "audioId": "unit13-q3"
+        },
+        {
+          "type": "fill",
+          "q": "\"Vendré hoy\" reported becomes: dijo que ___ ese día. (venir, conditional)",
+          "answer": "vendría",
+          "audioId": "unit13-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Estilo indirecto uses:",
+          "options": [
+            "quotation marks",
+            "no quotation marks, tense often shifted"
+          ],
+          "answer": "no quotation marks, tense often shifted",
+          "audioId": "unit13-q5"
+        }
+      ]
+    },
+    {
+      "id": "punctuation-capitalization",
+      "title": "Puntuación y Mayúsculas",
+      "icon": "✍️",
+      "teaching": [
+        {
+          "h": "Inverted question and exclamation marks",
+          "p": "Spanish uses ¿ and ¡ at the start of questions and exclamations, plus the normal marks at the end.",
+          "ex": "¿Cómo estás? ¡Qué bien!",
+          "audioId": "unit14-ex1"
+        },
+        {
+          "h": "Capitalization is less frequent than English",
+          "p": "Days, months, and nationalities are NOT capitalized in Spanish.",
+          "ex": "lunes, enero, español (all lowercase)",
+          "audioId": "unit14-ex2"
+        },
+        {
+          "h": "Commas in lists",
+          "p": "Same basic rule as English — separate items in a series.",
+          "ex": "Compré manzanas, pan y leche.",
+          "audioId": "unit14-ex3"
+        },
+        {
+          "h": "Accent marks change meaning",
+          "p": "Written accents aren't optional — they can distinguish entirely different words.",
+          "ex": "tú (you) vs. tu (your), sí (yes) vs. si (if)",
+          "audioId": "unit14-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Spanish questions require:",
+          "options": ["¿ at the start and ? at the end", "just ? at the end"],
+          "answer": "¿ at the start and ? at the end",
+          "audioId": "unit14-q1"
+        },
+        {
+          "type": "mc",
+          "q": "In Spanish, days of the week are:",
+          "options": ["capitalized", "lowercase"],
+          "answer": "lowercase",
+          "audioId": "unit14-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"tú\" vs \"tu\" differ by:",
+          "options": [
+            "an accent mark, and meaning",
+            "nothing, they're identical"
+          ],
+          "answer": "an accent mark, and meaning",
+          "audioId": "unit14-q3"
+        },
+        {
+          "type": "fill",
+          "q": "Compré manzanas, pan ___ leche. (and)",
+          "answer": "y",
+          "audioId": "unit14-q4"
+        },
+        {
+          "type": "mc",
+          "q": "\"sí\" (yes) differs from \"si\" (if) by:",
+          "options": ["a written accent", "capitalization"],
+          "answer": "a written accent",
+          "audioId": "unit14-q5"
+        }
+      ]
+    },
+    {
+      "id": "advanced-grammar-topics",
+      "title": "Temas Avanzados",
+      "icon": "🎓",
+      "teaching": [
+        {
+          "h": "Reflexive verbs",
+          "p": "Verbs used with a reflexive pronoun referring back to the subject.",
+          "ex": "Me levanto. Se ducha.",
+          "audioId": "unit15-ex1"
+        },
+        {
+          "h": "Por vs. para",
+          "p": "Por = cause/means/duration; para = purpose/destination/deadline — a classic learner confusion.",
+          "ex": "Camino por el parque. Este regalo es para ti.",
+          "audioId": "unit15-ex2"
+        },
+        {
+          "h": "Gerund forms",
+          "p": "estar + gerundio for ongoing actions, similar to English continuous tenses.",
+          "ex": "Estoy comiendo. Está lloviendo.",
+          "audioId": "unit15-ex3"
+        },
+        {
+          "h": "Relative clauses with que/quien",
+          "p": "\"que\" for things/people, \"quien\" specifically for people after a preposition.",
+          "ex": "La mujer que llamó es mi profesora.",
+          "audioId": "unit15-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "Me ___. (levantar, reflexive, yo)",
+          "answer": "levanto",
+          "audioId": "unit15-q1"
+        },
+        {
+          "type": "mc",
+          "q": "\"para\" is typically used for:",
+          "options": ["purpose/destination", "cause/duration"],
+          "answer": "purpose/destination",
+          "audioId": "unit15-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Estoy ___. (comer, gerund)",
+          "answer": "comiendo",
+          "audioId": "unit15-q3"
+        },
+        {
+          "type": "mc",
+          "q": "\"por\" is typically used for:",
+          "options": ["cause, means, duration", "purpose, deadline"],
+          "answer": "cause, means, duration",
+          "audioId": "unit15-q4"
+        },
+        {
+          "type": "fill",
+          "q": "La mujer ___ llamó es mi profesora. (relative pronoun)",
+          "answer": "que",
+          "audioId": "unit15-q5"
+        }
+      ]
+    },
+    {
+      "id": "transitional-devices",
+      "title": "Conectores (Transitional Devices)",
+      "icon": "🔗",
+      "teaching": [
+        {
+          "h": "What conectores do",
+          "p": "Words connecting ideas smoothly between sentences.",
+          "ex": "sin embargo, por lo tanto, además, por ejemplo",
+          "audioId": "unit16-ex1"
+        },
+        {
+          "h": "Showing contrast",
+          "p": "sin embargo and pero signal a contrasting idea.",
+          "ex": "Estaba cansada. Sin embargo, siguió trabajando.",
+          "audioId": "unit16-ex2"
+        },
+        {
+          "h": "Showing cause and result",
+          "p": "por lo tanto and por eso connect a cause to its effect.",
+          "ex": "Llovió mucho. Por eso, cancelaron el partido.",
+          "audioId": "unit16-ex3"
+        },
+        {
+          "h": "Adding ideas",
+          "p": "además and también add another related point.",
+          "ex": "Es inteligente. Además, es muy trabajadora.",
+          "audioId": "unit16-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which word signals contrast?",
+          "options": ["sin embargo", "por lo tanto", "además"],
+          "answer": "sin embargo",
+          "audioId": "unit16-q1"
+        },
+        {
+          "type": "fill",
+          "q": "Llovió mucho. ___, cancelaron el partido. (cause/result)",
+          "answer": "Por eso",
+          "audioId": "unit16-q2"
+        },
+        {
+          "type": "mc",
+          "q": "\"además\" is used to:",
+          "options": ["add another related idea", "show contrast"],
+          "answer": "add another related idea",
+          "audioId": "unit16-q3"
+        },
+        {
+          "type": "mc",
+          "q": "\"por ejemplo\" means:",
+          "options": ["for example", "as a result"],
+          "answer": "for example",
+          "audioId": "unit16-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Conectores mainly help with:",
+          "options": [
+            "connecting ideas smoothly",
+            "changing the topic completely"
+          ],
+          "answer": "connecting ideas smoothly",
+          "audioId": "unit16-q5"
         }
       ]
     }
