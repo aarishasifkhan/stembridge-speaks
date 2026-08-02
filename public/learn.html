@@ -7,8 +7,12 @@
     <title>STEMBridge Speaks — Grammar Course</title>
     <meta
       name="description"
-      content="Free structured grammar lessons for German, English, Spanish, Mandarin, and Russian, with quizzes to check your understanding."
+      content="Free structured grammar courses for German, English, Spanish, Mandarin, and Russian — 16 lessons each, with quizzes and pronunciation audio."
     />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -46,6 +50,7 @@
       .mono {
         font-family: "IBM Plex Mono", monospace;
       }
+
       header {
         display: flex;
         justify-content: space-between;
@@ -81,14 +86,17 @@
         border-radius: 6px;
         font-weight: 600;
       }
+
       main {
-        max-width: 640px;
+        max-width: 680px;
         margin: 0 auto;
         padding: 40px 6vw 80px;
       }
+
+      /* Language picker */
       .lang-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
         gap: 16px;
         margin-top: 28px;
       }
@@ -99,15 +107,23 @@
         cursor: pointer;
         text-align: left;
         border: none;
-        transition: transform 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
         font-family: "Work Sans", sans-serif;
+        position: relative;
       }
       .lang-pick:hover {
         transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(27, 67, 50, 0.12);
       }
       .lang-pick.soon {
         opacity: 0.55;
         cursor: not-allowed;
+      }
+      .lang-pick.soon:hover {
+        transform: none;
+        box-shadow: none;
       }
       .lang-pick .flag {
         font-size: 26px;
@@ -123,11 +139,37 @@
         font-size: 12.5px;
         color: #55594a;
       }
+      .lang-pick .progress-pill {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: var(--forest-dark);
+        color: var(--cream);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10.5px;
+        padding: 3px 8px;
+        border-radius: 20px;
+      }
+      .lang-pick .mini-bar {
+        height: 4px;
+        background: rgba(27, 67, 50, 0.12);
+        border-radius: 4px;
+        margin-top: 12px;
+        overflow: hidden;
+      }
+      .lang-pick .mini-bar-fill {
+        height: 100%;
+        background: var(--gold);
+        border-radius: 4px;
+        transition: width 0.3s ease;
+      }
+
+      /* Course path header */
       .path-header {
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 8px;
+        margin-bottom: 4px;
       }
       .path-header button {
         background: transparent;
@@ -137,12 +179,71 @@
         color: var(--forest-dark);
         font-weight: 600;
       }
+
+      .progress-summary {
+        background: var(--sage);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin: 20px 0 12px;
+      }
+      .progress-summary .top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 8px;
+      }
+      .progress-summary .count {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--forest-dark);
+      }
+      .progress-summary .pct {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--brick);
+      }
+      .progress-bar-track {
+        height: 8px;
+        background: rgba(27, 67, 50, 0.12);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--gold), var(--brick));
+        border-radius: 6px;
+        transition: width 0.4s ease;
+      }
+
+      /* Section dividers within the path */
+      .section-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 32px 0 6px;
+        width: 100%;
+      }
+      .section-divider .line {
+        flex: 1;
+        height: 1px;
+        background: rgba(27, 67, 50, 0.15);
+      }
+      .section-divider .label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--brick);
+        white-space: nowrap;
+      }
+
       .path {
-        margin-top: 32px;
+        margin-top: 12px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 6px;
+        gap: 4px;
       }
       .node-row {
         display: flex;
@@ -150,18 +251,24 @@
       }
       .node-row.left {
         justify-content: flex-start;
-        padding-left: 8%;
+        padding-left: 6%;
       }
       .node-row.right {
         justify-content: flex-end;
-        padding-right: 8%;
+        padding-right: 6%;
       }
       .node-row.center {
         justify-content: center;
       }
+
+      .node-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
       .node {
-        width: 84px;
-        height: 84px;
+        width: 76px;
+        height: 76px;
         border-radius: 50%;
         display: flex;
         flex-direction: column;
@@ -173,6 +280,7 @@
         color: var(--cream);
         box-shadow: 0 6px 0 var(--forest-dark);
         transition: transform 0.15s ease;
+        position: relative;
       }
       .node:active {
         transform: translateY(4px);
@@ -190,20 +298,51 @@
         color: var(--forest-dark);
       }
       .node .n-icon {
-        font-size: 22px;
+        font-size: 20px;
       }
-      .node .n-label {
-        font-size: 9px;
-        margin-top: 2px;
+      .node .n-num {
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        background: var(--cream);
+        color: var(--forest-dark);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        font-weight: 600;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px solid var(--forest);
+      }
+      .node.locked .n-num {
+        border-color: var(--locked);
+        color: #6b7062;
+      }
+      .node.done .n-num {
+        border-color: var(--gold);
+      }
+      .n-label {
+        font-size: 11.5px;
         font-weight: 600;
         text-align: center;
-        padding: 0 6px;
+        margin-top: 8px;
+        max-width: 110px;
+        color: var(--forest-dark);
+      }
+      .node.locked ~ .n-label,
+      .node-wrap:has(.node.locked) .n-label {
+        color: #8a8f7d;
       }
       .connector {
         width: 4px;
-        height: 26px;
+        height: 22px;
         background: var(--sage);
       }
+
+      /* Lesson view */
       .lesson-chunk {
         background: var(--sage);
         border-radius: 12px;
@@ -249,6 +388,14 @@
         background: transparent;
         color: var(--forest-dark);
       }
+
+      .lesson-progress-note {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        color: var(--brick);
+        margin: -8px 0 20px;
+      }
+
       .btn {
         display: inline-block;
         background: var(--forest);
@@ -275,6 +422,8 @@
         margin-top: 20px;
         text-align: center;
       }
+
+      /* Quiz view */
       .q-block {
         background: var(--sage);
         border-radius: 12px;
@@ -322,6 +471,7 @@
         font-size: 14px;
         font-family: "IBM Plex Mono", monospace;
       }
+
       .score-box {
         text-align: center;
         background: var(--forest-dark);
@@ -335,14 +485,25 @@
         font-family: "Fraunces", serif;
         font-weight: 700;
       }
+
       .hidden {
         display: none;
       }
-      .loading-msg {
+      .loading-text {
         text-align: center;
         color: #6b7062;
-        margin-top: 40px;
+        padding: 40px 0;
       }
+
+      footer {
+        margin-top: 40px;
+        padding: 32px 6vw;
+        text-align: center;
+        font-size: 13px;
+        color: #6b7062;
+        border-top: 1px solid rgba(27, 67, 50, 0.1);
+      }
+
       @media (max-width: 700px) {
         main {
           padding: 32px 5vw 60px;
@@ -372,24 +533,23 @@
         .lang-pick h3 {
           font-size: 14px;
         }
-
         .node-row.left {
-          padding-left: 2%;
+          padding-left: 0;
         }
         .node-row.right {
-          padding-right: 2%;
+          padding-right: 0;
         }
         .node {
-          width: 68px;
-          height: 68px;
+          width: 62px;
+          height: 62px;
         }
         .node .n-icon {
-          font-size: 18px;
+          font-size: 16px;
         }
-        .node .n-label {
-          font-size: 8px;
+        .n-label {
+          font-size: 10.5px;
+          max-width: 90px;
         }
-
         .lesson-chunk {
           padding: 16px;
         }
@@ -408,7 +568,6 @@
         .speak-btn {
           align-self: flex-end;
         }
-
         .q-block {
           padding: 16px;
         }
@@ -423,27 +582,23 @@
           font-size: 32px;
         }
       }
-
       @media (max-width: 420px) {
         .lang-grid {
           grid-template-columns: 1fr;
         }
         .node {
-          width: 60px;
-          height: 60px;
+          width: 56px;
+          height: 56px;
         }
       }
     </style>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   </head>
   <body>
     <header>
       <a href="/" class="logo">STEMBridge Speaks</a>
       <nav>
         <a href="/practice.html">Conversation Practice</a>
+        <a href="/dictionary.html">Dictionary</a>
         <a href="/about.html">About</a>
         <a href="/practice.html" class="btn">Practice free</a>
       </nav>
@@ -453,10 +608,12 @@
       <div id="view-languages">
         <h1>Grammar Course</h1>
         <p>
-          Short, structured lessons on the grammar that actually trips learners
-          up — with a quiz and audio pronunciation for every example.
+          16 structured lessons per language — from the basics through advanced
+          topics — each with a quiz and audio pronunciation.
         </p>
-        <div class="lang-grid" id="langGrid"></div>
+        <div class="lang-grid" id="langGrid">
+          <p class="loading-text">Loading courses...</p>
+        </div>
       </div>
 
       <div id="view-path" class="hidden">
@@ -464,6 +621,19 @@
           <button onclick="showLanguages()">← Languages</button>
         </div>
         <h1 id="pathTitle"></h1>
+        <div class="progress-summary">
+          <div class="top-row">
+            <span class="count" id="progressCount">0 / 16 lessons</span>
+            <span class="pct" id="progressPct">0%</span>
+          </div>
+          <div class="progress-bar-track">
+            <div
+              class="progress-bar-fill"
+              id="progressBarFill"
+              style="width: 0%"
+            ></div>
+          </div>
+        </div>
         <div class="path" id="pathNodes"></div>
       </div>
 
@@ -472,6 +642,7 @@
           <button onclick="showPath()">← Course path</button>
         </div>
         <h1 id="lessonTitle"></h1>
+        <p class="lesson-progress-note" id="lessonProgressNote"></p>
         <div id="lessonChunks"></div>
         <div class="btn-row">
           <button class="btn btn-gold" onclick="startQuiz()">
@@ -493,16 +664,7 @@
       </div>
     </main>
 
-    <footer
-      style="
-        margin-top: 40px;
-        padding: 32px 6vw;
-        text-align: center;
-        font-size: 13px;
-        color: #6b7062;
-        border-top: 1px solid rgba(27, 67, 50, 0.1);
-      "
-    >
+    <footer>
       © 2026 STEMBridge Speaks
       <div style="margin-top: 6px">
         STEMBridgeLearning · STEMBridgeStats · STEMBridgeTools
@@ -547,6 +709,9 @@
         mandarin: "zh",
         russian: "ru",
       };
+      // First 5 lessons are the original foundational track; everything after is the advanced track
+      // added from the Grade 9-style curriculum expansion.
+      const FOUNDATIONS_COUNT = 5;
 
       let currentLang = null;
       let currentUnit = null;
@@ -574,11 +739,31 @@
         p[lang][unitId] = true;
         saveProgress(p);
       }
+      function countDone(lang) {
+        const units = courseData[lang].units;
+        if (!units.length) return 0;
+        return units.filter((u) => isUnitDone(lang, u.id)).length;
+      }
 
       function hideAllViews() {
         ["view-languages", "view-path", "view-lesson", "view-quiz"].forEach(
           (id) => document.getElementById(id).classList.add("hidden"),
         );
+      }
+
+      async function ensureLoaded(key) {
+        if (courseData[key].units.length === 0 && courseData[key].available) {
+          const res = await fetch(`/data/${langCodes[key]}-course.json`);
+          const data = await res.json();
+          courseData[key].units = data.units;
+        }
+      }
+
+      async function loadAllForGrid() {
+        await Promise.all(
+          Object.keys(courseData).map((key) => ensureLoaded(key)),
+        );
+        renderLanguageGrid();
       }
 
       function showLanguages() {
@@ -589,11 +774,7 @@
 
       async function selectLanguage(key) {
         currentLang = key;
-        if (courseData[key].units.length === 0 && courseData[key].available) {
-          const res = await fetch(`/data/${langCodes[key]}-course.json`);
-          const data = await res.json();
-          courseData[key].units = data.units;
-        }
+        await ensureLoaded(key);
         showPath();
       }
 
@@ -602,7 +783,19 @@
         document.getElementById("view-path").classList.remove("hidden");
         document.getElementById("pathTitle").textContent =
           courseData[currentLang].name + " Grammar Path";
+        renderProgressSummary();
         renderPath();
+      }
+
+      function renderProgressSummary() {
+        const units = courseData[currentLang].units;
+        const done = countDone(currentLang);
+        const total = units.length;
+        const pct = total ? Math.round((done / total) * 100) : 0;
+        document.getElementById("progressCount").textContent =
+          `${done} / ${total} lessons`;
+        document.getElementById("progressPct").textContent = `${pct}%`;
+        document.getElementById("progressBarFill").style.width = pct + "%";
       }
 
       function openUnit(unitId) {
@@ -613,11 +806,13 @@
       function showLesson() {
         hideAllViews();
         document.getElementById("view-lesson").classList.remove("hidden");
-        const unit = courseData[currentLang].units.find(
-          (u) => u.id === currentUnit,
-        );
+        const units = courseData[currentLang].units;
+        const unitIndex = units.findIndex((u) => u.id === currentUnit);
+        const unit = units[unitIndex];
         document.getElementById("lessonTitle").textContent =
           unit.icon + " " + unit.title;
+        document.getElementById("lessonProgressNote").textContent =
+          `Lesson ${unitIndex + 1} of ${units.length}`;
         const container = document.getElementById("lessonChunks");
         container.innerHTML = "";
         const lang = langCodes[currentLang];
@@ -754,9 +949,19 @@
         const grid = document.getElementById("langGrid");
         grid.innerHTML = "";
         Object.entries(courseData).forEach(([key, lang]) => {
+          const total = lang.units.length;
+          const done = lang.available ? countDone(key) : 0;
+          const pct = total ? Math.round((done / total) * 100) : 0;
+
           const btn = document.createElement("button");
           btn.className = "lang-pick" + (lang.available ? "" : " soon");
-          btn.innerHTML = `<span class="flag">${lang.flag}</span><h3>${lang.name}</h3><p>${lang.available ? "5 lessons" : "Coming soon"}</p>`;
+          btn.innerHTML = `
+        ${done > 0 ? `<span class="progress-pill">${done}/${total}</span>` : ""}
+        <span class="flag">${lang.flag}</span>
+        <h3>${lang.name}</h3>
+        <p>${lang.available ? total + " lessons" : "Coming soon"}</p>
+        ${lang.available ? `<div class="mini-bar"><div class="mini-bar-fill" style="width:${pct}%"></div></div>` : ""}
+      `;
           if (lang.available)
             btn.addEventListener("click", () => selectLanguage(key));
           grid.appendChild(btn);
@@ -767,30 +972,55 @@
         const path = document.getElementById("pathNodes");
         path.innerHTML = "";
         const units = courseData[currentLang].units;
+
         units.forEach((unit, i) => {
-          if (i > 0) {
-            const c = document.createElement("div");
-            c.className = "connector";
-            path.appendChild(c);
+          if (i === FOUNDATIONS_COUNT) {
+            const divider = document.createElement("div");
+            divider.className = "section-divider";
+            divider.innerHTML = `<span class="line"></span><span class="label">Advanced Grammar</span><span class="line"></span>`;
+            path.appendChild(divider);
+          } else if (i === 0) {
+            const divider = document.createElement("div");
+            divider.className = "section-divider";
+            divider.style.marginTop = "0";
+            divider.innerHTML = `<span class="line"></span><span class="label">Foundations</span><span class="line"></span>`;
+            path.appendChild(divider);
+          } else if (i > 0) {
+            const connector = document.createElement("div");
+            connector.className = "connector";
+            path.appendChild(connector);
           }
+
           const prevDone = i === 0 || isUnitDone(currentLang, units[i - 1].id);
           const done = isUnitDone(currentLang, unit.id);
           const locked = !prevDone && !done;
+
           const row = document.createElement("div");
           row.className =
             "node-row " +
             (i % 3 === 0 ? "center" : i % 3 === 1 ? "left" : "right");
+
+          const wrap = document.createElement("div");
+          wrap.className = "node-wrap";
+
           const node = document.createElement("button");
           node.className =
             "node" + (locked ? " locked" : "") + (done ? " done" : "");
-          node.innerHTML = `<span class="n-icon">${done ? "✓" : locked ? "🔒" : unit.icon}</span><span class="n-label">${unit.title}</span>`;
+          node.innerHTML = `<span class="n-num">${i + 1}</span><span class="n-icon">${done ? "✓" : locked ? "🔒" : unit.icon}</span>`;
           if (!locked) node.addEventListener("click", () => openUnit(unit.id));
-          row.appendChild(node);
+
+          const label = document.createElement("div");
+          label.className = "n-label";
+          label.textContent = unit.title;
+
+          wrap.appendChild(node);
+          wrap.appendChild(label);
+          row.appendChild(wrap);
           path.appendChild(row);
         });
       }
 
-      showLanguages();
+      loadAllForGrid();
     </script>
   </body>
 </html>

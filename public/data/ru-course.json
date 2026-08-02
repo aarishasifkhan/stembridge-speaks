@@ -14,19 +14,19 @@
         {
           "h": "Masculine endings",
           "p": "Usually end in a consonant.",
-          "ex": "стол (table), дом (house)",
+          "ex": "стол, дом",
           "audioId": "unit1-ex2"
         },
         {
           "h": "Feminine endings",
           "p": "Usually end in -а or -я.",
-          "ex": "книга (book), земля (land)",
+          "ex": "книга, земля",
           "audioId": "unit1-ex3"
         },
         {
           "h": "Neuter endings",
           "p": "Usually end in -о or -е.",
-          "ex": "окно (window), море (sea)",
+          "ex": "окно, море",
           "audioId": "unit1-ex4"
         }
       ],
@@ -40,7 +40,7 @@
         },
         {
           "type": "mc",
-          "q": "Which gender is \"книга\" (book)?",
+          "q": "Which gender is книга (book)?",
           "options": ["masculine", "feminine", "neuter"],
           "answer": "feminine",
           "audioId": "unit1-q2"
@@ -54,13 +54,13 @@
         },
         {
           "type": "fill",
-          "q": "\"окно\" ends in ___, showing neuter gender. (о)",
+          "q": "окно ends in ___, showing neuter. (о)",
           "answer": "о",
           "audioId": "unit1-q4"
         },
         {
           "type": "mc",
-          "q": "\"земля\" (land) is:",
+          "q": "земля (land) is:",
           "options": ["masculine", "feminine", "neuter"],
           "answer": "feminine",
           "audioId": "unit1-q5"
@@ -74,25 +74,25 @@
       "teaching": [
         {
           "h": "What cases do",
-          "p": "Russian nouns and adjectives change form depending on their grammatical role — six cases total.",
+          "p": "Russian nouns/adjectives change form based on their grammatical role — six cases total.",
           "ex": "",
           "audioId": ""
         },
         {
           "h": "Nominative",
           "p": "The subject, dictionary form.",
-          "ex": "Это стол. (This is a table.)",
+          "ex": "Это стол.",
           "audioId": "unit2-ex1"
         },
         {
           "h": "Accusative",
           "p": "The direct object.",
-          "ex": "Я вижу стол. (I see the table.)",
+          "ex": "Я вижу стол.",
           "audioId": "unit2-ex2"
         },
         {
           "h": "Genitive, Dative, Instrumental, Prepositional",
-          "p": "Show possession, indirect objects, \"by means of,\" and location/topic — each changes noun endings differently.",
+          "p": "Show possession, indirect objects, means, and location/topic.",
           "ex": "",
           "audioId": ""
         }
@@ -142,39 +142,39 @@
       "teaching": [
         {
           "h": "Two conjugation groups",
-          "p": "Russian verbs belong to Conjugation I or Conjugation II, each with distinct present-tense endings.",
+          "p": "Russian verbs belong to Conjugation I or II, each with distinct present-tense endings.",
           "ex": "",
           "audioId": ""
         },
         {
           "h": "Conjugation I example",
-          "p": "читать (to read) → читаю, читаешь, читает, читаем, читаете, читают",
+          "p": "читать → читаю, читаешь, читает, читаем, читаете, читают",
           "ex": "Я читаю книгу.",
           "audioId": "unit3-ex1"
         },
         {
           "h": "Conjugation II example",
-          "p": "говорить (to speak) → говорю, говоришь, говорит, говорим, говорите, говорят",
+          "p": "говорить → говорю, говоришь, говорит, говорим, говорите, говорят",
           "ex": "Он говорит по-русски.",
           "audioId": "unit3-ex2"
         },
         {
-          "h": "No separate \"to be\" in the present",
-          "p": "Russian usually omits \"to be\" in present-tense sentences entirely.",
-          "ex": "Я студент. (I [am] a student.)",
+          "h": "No separate to be in the present",
+          "p": "Russian usually omits to be in present-tense sentences entirely.",
+          "ex": "Я студент.",
           "audioId": "unit3-ex3"
         }
       ],
       "quiz": [
         {
           "type": "fill",
-          "q": "\"Я ___ (читать) книгу.\"",
+          "q": "Я ___ книгу. (читать)",
           "answer": "читаю",
           "audioId": "unit3-q1"
         },
         {
           "type": "fill",
-          "q": "\"Он ___ (говорить) по-русски.\"",
+          "q": "Он ___ по-русски. (говорить)",
           "answer": "говорит",
           "audioId": "unit3-q2"
         },
@@ -188,13 +188,13 @@
         {
           "type": "mc",
           "q": "In the present tense, Russian usually:",
-          "options": ["includes \"to be\" like English", "omits \"to be\""],
-          "answer": "omits \"to be\"",
+          "options": ["includes to be like English", "omits to be"],
+          "answer": "omits to be",
           "audioId": "unit3-q4"
         },
         {
           "type": "fill",
-          "q": "\"Ты ___ (читать) газету.\"",
+          "q": "Ты ___ газету. (читать)",
           "answer": "читаешь",
           "audioId": "unit3-q5"
         }
@@ -207,45 +207,45 @@
       "teaching": [
         {
           "h": "Adjectives agree with their noun",
-          "p": "In gender, number, and case — the ending changes accordingly.",
+          "p": "In gender, number, and case.",
           "ex": "",
           "audioId": ""
         },
         {
-          "h": "Masculine adjective ending",
+          "h": "Masculine ending",
           "p": "Typically -ый/-ой.",
-          "ex": "новый стол (new table)",
+          "ex": "новый стол",
           "audioId": "unit4-ex1"
         },
         {
-          "h": "Feminine adjective ending",
+          "h": "Feminine ending",
           "p": "Typically -ая.",
-          "ex": "новая книга (new book)",
+          "ex": "новая книга",
           "audioId": "unit4-ex2"
         },
         {
-          "h": "Neuter adjective ending",
+          "h": "Neuter ending",
           "p": "Typically -ое.",
-          "ex": "новое окно (new window)",
+          "ex": "новое окно",
           "audioId": "unit4-ex3"
         }
       ],
       "quiz": [
         {
           "type": "fill",
-          "q": "\"нов___ стол\" (masculine — fill ый)",
+          "q": "нов___ стол (masculine)",
           "answer": "ый",
           "audioId": "unit4-q1"
         },
         {
           "type": "fill",
-          "q": "\"нов___ книга\" (feminine — fill ая)",
+          "q": "нов___ книга (feminine)",
           "answer": "ая",
           "audioId": "unit4-q2"
         },
         {
           "type": "fill",
-          "q": "\"нов___ окно\" (neuter — fill ое)",
+          "q": "нов___ окно (neuter)",
           "answer": "ое",
           "audioId": "unit4-q3"
         },
@@ -271,7 +271,7 @@
       "icon": "⏳",
       "teaching": [
         {
-          "h": "Two aspects, not just tenses",
+          "h": "Two aspects",
           "p": "Almost every Russian verb has an imperfective and perfective partner.",
           "ex": "",
           "audioId": ""
@@ -279,7 +279,7 @@
         {
           "h": "Imperfective",
           "p": "Process, repetition, ongoing action.",
-          "ex": "читать (to read, ongoing/habitual)",
+          "ex": "читать (to read, ongoing)",
           "audioId": "unit5-ex1"
         },
         {
@@ -289,8 +289,8 @@
           "audioId": "unit5-ex2"
         },
         {
-          "h": "Perfective verbs have no present tense",
-          "p": "They're used only in past and future — they describe completed events, not ongoing present action.",
+          "h": "No present tense for perfective",
+          "p": "Perfective verbs are used only in past and future.",
           "ex": "",
           "audioId": ""
         }
@@ -312,7 +312,7 @@
         },
         {
           "type": "mc",
-          "q": "\"прочитать\" compared to \"читать\" is:",
+          "q": "прочитать compared to читать is:",
           "options": ["perfective", "imperfective"],
           "answer": "perfective",
           "audioId": "unit5-q3"
@@ -326,9 +326,763 @@
         },
         {
           "type": "fill",
-          "q": "\"читать\" is the ___ form. (imperfective)",
+          "q": "читать is the ___ form.",
           "answer": "imperfective",
           "audioId": "unit5-q5"
+        }
+      ]
+    },
+    {
+      "id": "parts-of-speech",
+      "title": "Части речи (Parts of Speech)",
+      "icon": "🧱",
+      "teaching": [
+        {
+          "h": "Main word classes",
+          "p": "существительное (noun), глагол (verb), прилагательное (adjective), наречие (adverb), предлог (preposition), союз (conjunction).",
+          "ex": "бежать (глагол), быстро (наречие), учитель (существительное)",
+          "audioId": "unit6-ex1"
+        },
+        {
+          "h": "Nouns decline by case",
+          "p": "Unlike adjectives (which agree with nouns), all nouns themselves change ending based on their case in the sentence.",
+          "ex": "стол → стола → столу (nominative → genitive → dative)",
+          "audioId": "unit6-ex2"
+        },
+        {
+          "h": "Adverbs are usually invariable",
+          "p": "Unlike adjectives, adverbs don't change form for gender/number/case.",
+          "ex": "быстро (quickly) — always the same form",
+          "audioId": "unit6-ex3"
+        },
+        {
+          "h": "Prepositions govern specific cases",
+          "p": "Each preposition requires a specific case for the noun that follows it.",
+          "ex": "в доме (в + prepositional case)",
+          "audioId": "unit6-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "In \"Он бежит быстро,\" what part of speech is \"быстро\"?",
+          "options": ["существительное", "глагол", "наречие"],
+          "answer": "наречие",
+          "audioId": "unit6-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Do Russian nouns change form based on case?",
+          "options": ["Yes", "No"],
+          "answer": "Yes",
+          "audioId": "unit6-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Do Russian adverbs typically change form?",
+          "options": ["Yes, like adjectives", "No, they're usually invariable"],
+          "answer": "No, they're usually invariable",
+          "audioId": "unit6-q3"
+        },
+        {
+          "type": "fill",
+          "q": "в дом___ (prepositional case ending for \"дом\")",
+          "answer": "е",
+          "audioId": "unit6-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Each preposition in Russian:",
+          "options": ["requires a specific case", "works with any case"],
+          "answer": "requires a specific case",
+          "audioId": "unit6-q5"
+        }
+      ]
+    },
+    {
+      "id": "sentence-types",
+      "title": "Виды предложений (Sentence Types)",
+      "icon": "🏗️",
+      "teaching": [
+        {
+          "h": "Повествовательное (statement)",
+          "p": "A simple declarative sentence.",
+          "ex": "Я люблю кошек.",
+          "audioId": "unit7-ex1"
+        },
+        {
+          "h": "Вопросительное (question)",
+          "p": "Formed with question words or just rising intonation in speech.",
+          "ex": "Ты любишь кошек?",
+          "audioId": "unit7-ex2"
+        },
+        {
+          "h": "Побудительное (command)",
+          "p": "Directly instructs someone, often with the imperative verb form.",
+          "ex": "Сядь, пожалуйста.",
+          "audioId": "unit7-ex3"
+        },
+        {
+          "h": "Сложное предложение (compound/complex sentence)",
+          "p": "Two clauses joined by и (and), но (but), потому что (because).",
+          "ex": "Я люблю кошек, но у меня есть собака.",
+          "audioId": "unit7-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"Я люблю кошек.\" is a:",
+          "options": [
+            "повествовательное предложение",
+            "вопросительное предложение"
+          ],
+          "answer": "повествовательное предложение",
+          "audioId": "unit7-q1"
+        },
+        {
+          "type": "mc",
+          "q": "\"Сядь, пожалуйста.\" is an example of a:",
+          "options": [
+            "побудительное предложение",
+            "повествовательное предложение"
+          ],
+          "answer": "побудительное предложение",
+          "audioId": "unit7-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Я люблю кошек, ___ у меня есть собака. (but)",
+          "answer": "но",
+          "audioId": "unit7-q3"
+        },
+        {
+          "type": "mc",
+          "q": "In spoken Russian, questions are often signaled by:",
+          "options": ["rising intonation", "word order change only"],
+          "answer": "rising intonation",
+          "audioId": "unit7-q4"
+        },
+        {
+          "type": "mc",
+          "q": "потому что means:",
+          "options": ["because", "but"],
+          "answer": "because",
+          "audioId": "unit7-q5"
+        }
+      ]
+    },
+    {
+      "id": "motion-verbs",
+      "title": "Motion Verbs (Глаголы движения)",
+      "icon": "🚶",
+      "teaching": [
+        {
+          "h": "Two verbs for \"to go\"",
+          "p": "идти (going now, on foot, one direction) vs. ходить (habitual/repeated, on foot).",
+          "ex": "Я иду в школу. (right now) vs. Я хожу в школу каждый день. (habitually)",
+          "audioId": "unit8-ex1"
+        },
+        {
+          "h": "Going by vehicle",
+          "p": "ехать (going now, by vehicle) vs. ездить (habitual, by vehicle).",
+          "ex": "Я еду на работу. vs. Я езжу на работу каждый день.",
+          "audioId": "unit8-ex2"
+        },
+        {
+          "h": "Unidirectional vs. multidirectional",
+          "p": "идти/ехать describe one specific trip; ходить/ездить describe repeated or round trips.",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "Prefixed motion verbs",
+          "p": "Prefixes change the meaning: при- (arrive), у- (leave), пере- (cross).",
+          "ex": "прийти (to arrive on foot), уйти (to leave on foot)",
+          "audioId": "unit8-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which verb describes going somewhere right now, on foot?",
+          "options": ["идти", "ходить"],
+          "answer": "идти",
+          "audioId": "unit8-q1"
+        },
+        {
+          "type": "fill",
+          "q": "Я ___ в школу каждый день. (habitual, on foot)",
+          "answer": "хожу",
+          "audioId": "unit8-q2"
+        },
+        {
+          "type": "mc",
+          "q": "ехать is used for motion:",
+          "options": ["by vehicle", "on foot"],
+          "answer": "by vehicle",
+          "audioId": "unit8-q3"
+        },
+        {
+          "type": "fill",
+          "q": "Я ___ на работу каждый день. (habitual, by vehicle)",
+          "answer": "езжу",
+          "audioId": "unit8-q4"
+        },
+        {
+          "type": "mc",
+          "q": "прийти means:",
+          "options": ["to arrive on foot", "to leave on foot"],
+          "answer": "to arrive on foot",
+          "audioId": "unit8-q5"
+        }
+      ]
+    },
+    {
+      "id": "comparatives-superlatives",
+      "title": "Comparatives and Superlatives",
+      "icon": "⚖️",
+      "teaching": [
+        {
+          "h": "Simple comparative",
+          "p": "Often formed by adding -ее/-ей to the adjective stem.",
+          "ex": "быстрый → быстрее (faster)",
+          "audioId": "unit9-ex1"
+        },
+        {
+          "h": "Comparing with чем",
+          "p": "чем (than) introduces the second item being compared.",
+          "ex": "Он быстрее, чем я. (He is faster than me.)",
+          "answer_hint": "",
+          "audioId": "unit9-ex2"
+        },
+        {
+          "h": "Superlative with самый",
+          "p": "самый + adjective forms the superlative, agreeing in gender/case with the noun.",
+          "ex": "самый быстрый (the fastest)",
+          "audioId": "unit9-ex3"
+        },
+        {
+          "h": "Irregular comparatives",
+          "p": "Some common adjectives have irregular comparative forms, similar to English good/better.",
+          "ex": "хороший → лучше (good → better)",
+          "audioId": "unit9-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "быстрый → быстр___ (comparative ending)",
+          "answer": "ее",
+          "audioId": "unit9-q1"
+        },
+        {
+          "type": "fill",
+          "q": "Он быстрее, ___ я. (than)",
+          "answer": "чем",
+          "audioId": "unit9-q2"
+        },
+        {
+          "type": "mc",
+          "q": "The superlative is formed with:",
+          "options": ["самый + adjective", "чем + adjective"],
+          "answer": "самый + adjective",
+          "audioId": "unit9-q3"
+        },
+        {
+          "type": "fill",
+          "q": "хороший → ___ (irregular comparative: better)",
+          "answer": "лучше",
+          "audioId": "unit9-q4"
+        },
+        {
+          "type": "mc",
+          "q": "самый быстрый means:",
+          "options": ["the fastest", "faster than"],
+          "answer": "the fastest",
+          "audioId": "unit9-q5"
+        }
+      ]
+    },
+    {
+      "id": "conditional-sentences",
+      "title": "Условные предложения (Conditional Sentences)",
+      "icon": "🔀",
+      "teaching": [
+        {
+          "h": "Real conditions with если",
+          "p": "если + present/future — realistic situations.",
+          "ex": "Если пойдёт дождь, я останусь дома. (If it rains, I'll stay home.)",
+          "audioId": "unit10-ex1"
+        },
+        {
+          "h": "Hypothetical conditions with бы",
+          "p": "если бы + past tense form, + бы — for unreal/hypothetical situations. Russian conditional doesn't distinguish present vs. past hypothetical the way English does.",
+          "ex": "Если бы у меня было время, я бы поехал. (If I had time, I would go.)",
+          "audioId": "unit10-ex2"
+        },
+        {
+          "h": "бы is not tied to a specific tense",
+          "p": "The particle бы attaches to a past-tense verb form to signal the conditional mood, regardless of when the hypothetical situation is imagined.",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "Word order flexibility",
+          "p": "бы can move within the clause, but the если...бы structure stays recognizable.",
+          "ex": "Я бы поехал, если бы у меня было время.",
+          "audioId": "unit10-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "___ пойдёт дождь, я останусь дома. (if)",
+          "answer": "Если",
+          "audioId": "unit10-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Hypothetical conditions use:",
+          "options": ["если бы + past-form verb", "если + future only"],
+          "answer": "если бы + past-form verb",
+          "audioId": "unit10-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Если ___ у меня было время, я бы поехал. (бы)",
+          "answer": "бы",
+          "audioId": "unit10-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Does Russian conditional distinguish present vs. past hypothetical like English does?",
+          "options": [
+            "Yes, with different structures",
+            "No, бы works the same either way"
+          ],
+          "answer": "No, бы works the same either way",
+          "audioId": "unit10-q4"
+        },
+        {
+          "type": "mc",
+          "q": "бы attaches to a verb in which form?",
+          "options": ["past-tense form", "present-tense form"],
+          "answer": "past-tense form",
+          "audioId": "unit10-q5"
+        }
+      ]
+    },
+    {
+      "id": "phrases-clauses",
+      "title": "Словосочетания и придаточные (Phrases and Clauses)",
+      "icon": "🧩",
+      "teaching": [
+        {
+          "h": "Словосочетание (phrase)",
+          "p": "A group of words functioning as a unit, no independent subject-verb pairing.",
+          "ex": "новый дом (a new house)",
+          "audioId": "unit11-ex1"
+        },
+        {
+          "h": "Придаточное предложение (subordinate clause)",
+          "p": "Has its own subject and verb but depends on the main clause.",
+          "ex": "..., потому что я устал. (..., because I'm tired.)",
+          "audioId": "unit11-ex2"
+        },
+        {
+          "h": "Relative clauses with который",
+          "p": "который (who/which) introduces a clause describing a noun, and agrees with it in gender/number.",
+          "ex": "Человек, который звонил, — мой учитель.",
+          "audioId": "unit11-ex3"
+        },
+        {
+          "h": "Comma rules",
+          "p": "Subordinate clauses are always set off by a comma in Russian, unlike English which sometimes omits it.",
+          "ex": "Я знаю, что ты устал.",
+          "audioId": "unit11-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"новый дом\" is an example of a:",
+          "options": ["словосочетание", "придаточное предложение"],
+          "answer": "словосочетание",
+          "audioId": "unit11-q1"
+        },
+        {
+          "type": "fill",
+          "q": "Человек, ___ звонил, — мой учитель. (who/which)",
+          "answer": "который",
+          "audioId": "unit11-q2"
+        },
+        {
+          "type": "mc",
+          "q": "который agrees with the noun it describes in:",
+          "options": ["gender and number", "case only"],
+          "answer": "gender and number",
+          "audioId": "unit11-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Are subordinate clauses always set off by a comma in Russian?",
+          "options": ["Yes, always", "No, only sometimes"],
+          "answer": "Yes, always",
+          "audioId": "unit11-q4"
+        },
+        {
+          "type": "fill",
+          "q": "Я знаю___ что ты устал. (comma)",
+          "answer": ",",
+          "audioId": "unit11-q5"
+        }
+      ]
+    },
+    {
+      "id": "active-passive-voice",
+      "title": "Действительный и страдательный залог",
+      "icon": "🔄",
+      "teaching": [
+        {
+          "h": "Действительный залог (active)",
+          "p": "The subject performs the action.",
+          "ex": "Повар готовит еду. (The chef cooks the food.)",
+          "audioId": "unit12-ex1"
+        },
+        {
+          "h": "Страдательный залог (passive) with -ся",
+          "p": "A reflexive-style verb ending often expresses passive meaning informally.",
+          "ex": "Еда готовится поваром. (The food is being cooked by the chef.)",
+          "audioId": "unit12-ex2"
+        },
+        {
+          "h": "Passive with short-form participles",
+          "p": "A more formal passive uses a past passive participle + a form of быть.",
+          "ex": "Еда была приготовлена поваром. (The food was cooked by the chef.)",
+          "audioId": "unit12-ex3"
+        },
+        {
+          "h": "When passive is used",
+          "p": "Often in formal, written, or scientific Russian; spoken Russian tends to prefer active voice.",
+          "ex": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"Повар готовит еду.\" is:",
+          "options": ["действительный залог", "страдательный залог"],
+          "answer": "действительный залог",
+          "audioId": "unit12-q1"
+        },
+        {
+          "type": "mc",
+          "q": "The -ся ending often signals:",
+          "options": ["informal passive meaning", "future tense"],
+          "answer": "informal passive meaning",
+          "audioId": "unit12-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Еда ___ поваром. (готовиться, -ся passive)",
+          "answer": "готовится",
+          "audioId": "unit12-q3"
+        },
+        {
+          "type": "mc",
+          "q": "The formal passive uses:",
+          "options": ["past passive participle + быть", "-ся ending only"],
+          "answer": "past passive participle + быть",
+          "audioId": "unit12-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which register more often uses passive voice?",
+          "options": ["formal/written Russian", "casual spoken Russian"],
+          "answer": "formal/written Russian",
+          "audioId": "unit12-q5"
+        }
+      ]
+    },
+    {
+      "id": "direct-indirect-speech",
+      "title": "Прямая и косвенная речь",
+      "icon": "💬",
+      "teaching": [
+        {
+          "h": "Прямая речь (direct speech)",
+          "p": "The exact words, in quotation marks.",
+          "ex": "Она сказала: \"Я устала.\" (She said, \"I'm tired.\")",
+          "audioId": "unit13-ex1"
+        },
+        {
+          "h": "Косвенная речь (indirect speech)",
+          "p": "Uses что (that) to introduce the reported idea, without quotation marks.",
+          "ex": "Она сказала, что устала. (She said that she was tired.)",
+          "audioId": "unit13-ex2"
+        },
+        {
+          "h": "Tense usually stays the same",
+          "p": "Unlike English, Russian typically does NOT shift tense backward in reported speech.",
+          "ex": "\"Я иду домой\" → Он сказал, что идёт домой. (present tense kept)",
+          "audioId": "unit13-ex3"
+        },
+        {
+          "h": "Pronouns still shift",
+          "p": "\"я\" (I) often becomes \"он/она\" to match the new perspective.",
+          "ex": "\"Я устал\" → Он сказал, что он устал.",
+          "audioId": "unit13-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"Она сказала: 'Я устала.'\" is:",
+          "options": ["прямая речь", "косвенная речь"],
+          "answer": "прямая речь",
+          "audioId": "unit13-q1"
+        },
+        {
+          "type": "fill",
+          "q": "Она сказала, ___ устала. (that)",
+          "answer": "что",
+          "audioId": "unit13-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Does Russian shift tense backward in reported speech, like English?",
+          "options": ["Yes, always", "No, tense usually stays the same"],
+          "answer": "No, tense usually stays the same",
+          "audioId": "unit13-q3"
+        },
+        {
+          "type": "mc",
+          "q": "\"Я иду домой\" reported becomes:",
+          "options": [
+            "Он сказал, что идёт домой.",
+            "Он сказал, что шёл домой."
+          ],
+          "answer": "Он сказал, что идёт домой.",
+          "audioId": "unit13-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Косвенная речь uses:",
+          "options": [
+            "no quotation marks, что + clause",
+            "quotation marks around exact words"
+          ],
+          "answer": "no quotation marks, что + clause",
+          "audioId": "unit13-q5"
+        }
+      ]
+    },
+    {
+      "id": "punctuation-capitalization",
+      "title": "Пунктуация и заглавные буквы",
+      "icon": "✍️",
+      "teaching": [
+        {
+          "h": "Commas before subordinate clauses",
+          "p": "Russian requires a comma before что, потому что, который, если, и other subordinators — more strictly than English.",
+          "ex": "Я знаю, что ты прав.",
+          "audioId": "unit14-ex1"
+        },
+        {
+          "h": "Dashes for direct speech",
+          "p": "Russian often uses a dash (—) instead of quotation marks to introduce dialogue.",
+          "ex": "— Привет! — сказала она.",
+          "audioId": "unit14-ex2"
+        },
+        {
+          "h": "Capitalization is less frequent than English",
+          "p": "Days of the week, months, and nationalities are NOT capitalized in Russian.",
+          "ex": "понедельник, январь, русский (all lowercase)",
+          "audioId": "unit14-ex3"
+        },
+        {
+          "h": "Ё vs Е",
+          "p": "The letter ё is often written as е in casual text, but changes pronunciation — a small but real distinction.",
+          "ex": "все (everyone) vs. всё (everything)",
+          "audioId": "unit14-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "Я знаю___ что ты прав. (comma)",
+          "answer": ",",
+          "audioId": "unit14-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Russian dialogue is often introduced with:",
+          "options": ["a dash (—)", "quotation marks only"],
+          "answer": "a dash (—)",
+          "audioId": "unit14-q2"
+        },
+        {
+          "type": "mc",
+          "q": "In Russian, days of the week are:",
+          "options": ["capitalized", "lowercase"],
+          "answer": "lowercase",
+          "audioId": "unit14-q3"
+        },
+        {
+          "type": "mc",
+          "q": "все vs всё differ by:",
+          "options": [
+            "the letter ё, and meaning",
+            "nothing, they're identical"
+          ],
+          "answer": "the letter ё, and meaning",
+          "audioId": "unit14-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Compared to English, Russian comma rules before subordinate clauses are:",
+          "options": ["stricter/more required", "more relaxed"],
+          "answer": "stricter/more required",
+          "audioId": "unit14-q5"
+        }
+      ]
+    },
+    {
+      "id": "advanced-grammar-topics",
+      "title": "Причастия и деепричастия",
+      "icon": "🎓",
+      "teaching": [
+        {
+          "h": "Причастие (participle)",
+          "p": "A verb form acting as an adjective, agreeing with the noun in gender/case/number.",
+          "ex": "читающий человек (a reading/the man who is reading)",
+          "audioId": "unit15-ex1"
+        },
+        {
+          "h": "Past passive participles",
+          "p": "Describe something that had an action done to it — very common in formal writing.",
+          "ex": "прочитанная книга (the book that was read)",
+          "audioId": "unit15-ex2"
+        },
+        {
+          "h": "Деепричастие (gerund/adverbial participle)",
+          "p": "A verb form acting as an adverb, describing a simultaneous or preceding action — invariable, doesn't agree with anything.",
+          "ex": "читая книгу, он улыбался (while reading the book, he smiled)",
+          "audioId": "unit15-ex3"
+        },
+        {
+          "h": "When these appear",
+          "p": "Common in written/literary Russian; spoken Russian often prefers a full clause instead.",
+          "ex": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "A причастие acts as a:",
+          "options": ["adjective", "adverb"],
+          "answer": "adjective",
+          "audioId": "unit15-q1"
+        },
+        {
+          "type": "fill",
+          "q": "___ книга (the book that was read — participle)",
+          "answer": "прочитанная",
+          "audioId": "unit15-q2"
+        },
+        {
+          "type": "mc",
+          "q": "A деепричастие acts as a(n):",
+          "options": ["adverb", "noun"],
+          "answer": "adverb",
+          "audioId": "unit15-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Does деепричастие agree with gender/case like причастие does?",
+          "options": ["No, it's invariable", "Yes, always"],
+          "answer": "No, it's invariable",
+          "audioId": "unit15-q4"
+        },
+        {
+          "type": "mc",
+          "q": "These forms are more common in:",
+          "options": ["written/literary Russian", "casual spoken Russian"],
+          "answer": "written/literary Russian",
+          "audioId": "unit15-q5"
+        }
+      ]
+    },
+    {
+      "id": "transitional-devices",
+      "title": "Союзные слова (Transitional Devices)",
+      "icon": "🔗",
+      "teaching": [
+        {
+          "h": "What союзные слова do",
+          "p": "Words connecting ideas smoothly between sentences.",
+          "ex": "однако, поэтому, кроме того, например",
+          "audioId": "unit16-ex1"
+        },
+        {
+          "h": "Showing contrast",
+          "p": "однако (however) signals a contrasting idea.",
+          "ex": "Он старался. Однако, у него не получилось.",
+          "audioId": "unit16-ex2"
+        },
+        {
+          "h": "Showing cause and result",
+          "p": "поэтому (therefore) connects a cause to its effect.",
+          "ex": "Шёл сильный дождь, поэтому матч отменили.",
+          "audioId": "unit16-ex3"
+        },
+        {
+          "h": "Adding ideas",
+          "p": "кроме того (furthermore) adds another related point.",
+          "ex": "Она умная. Кроме того, она очень трудолюбивая.",
+          "audioId": "unit16-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which word signals contrast?",
+          "options": ["однако", "поэтому", "кроме того"],
+          "answer": "однако",
+          "audioId": "unit16-q1"
+        },
+        {
+          "type": "fill",
+          "q": "Шёл сильный дождь, ___ матч отменили. (therefore)",
+          "answer": "поэтому",
+          "audioId": "unit16-q2"
+        },
+        {
+          "type": "mc",
+          "q": "кроме того is used to:",
+          "options": ["add another related idea", "show contrast"],
+          "answer": "add another related idea",
+          "audioId": "unit16-q3"
+        },
+        {
+          "type": "mc",
+          "q": "например means:",
+          "options": ["for example", "as a result"],
+          "answer": "for example",
+          "audioId": "unit16-q4"
+        },
+        {
+          "type": "mc",
+          "q": "союзные слова mainly help with:",
+          "options": [
+            "connecting ideas smoothly",
+            "changing the subject entirely"
+          ],
+          "answer": "connecting ideas smoothly",
+          "audioId": "unit16-q5"
         }
       ]
     }

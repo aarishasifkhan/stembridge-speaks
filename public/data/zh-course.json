@@ -13,19 +13,19 @@
         },
         {
           "h": "No verb conjugation",
-          "p": "The verb stays the same no matter who's doing it or when — time is shown by other words.",
+          "p": "The verb stays the same no matter who's doing it or when.",
           "ex": "他喝茶 (tā hē chá) — he drinks tea",
           "audioId": "unit1-ex2"
         },
         {
           "h": "Time words come early",
           "p": "Time expressions usually come right after the subject.",
-          "ex": "我今天喝茶 (wǒ jīntiān hē chá) — I today drink tea",
+          "ex": "我今天喝茶 (wǒ jīntiān hē chá)",
           "audioId": "unit1-ex3"
         },
         {
           "h": "No plural verb forms",
-          "p": "Nouns and verbs don't change for singular/plural the way English does.",
+          "p": "Nouns and verbs don't change for singular/plural.",
           "ex": "一个人 / 两个人 (yí gè rén / liǎng gè rén)",
           "audioId": "unit1-ex4"
         }
@@ -40,7 +40,7 @@
         },
         {
           "type": "fill",
-          "q": "\"我 ___ 茶。\" (I drink tea — fill hē)",
+          "q": "我 ___ 茶。(I drink tea)",
           "answer": "喝",
           "audioId": "unit1-q2"
         },
@@ -60,7 +60,7 @@
         },
         {
           "type": "fill",
-          "q": "\"他 ___ 茶。\" (he drinks tea — fill hē)",
+          "q": "他 ___ 茶。(he drinks tea)",
           "answer": "喝",
           "audioId": "unit1-q5"
         }
@@ -74,25 +74,25 @@
         {
           "h": "What measure words do",
           "p": "Between a number and a noun, Mandarin requires a measure word.",
-          "ex": "一个人 (yí gè rén) — one person",
+          "ex": "一个人 (yí gè rén)",
           "audioId": "unit2-ex1"
         },
         {
           "h": "个 (gè) — the general measure word",
           "p": "Used for people and many general objects.",
-          "ex": "三个苹果 (sān gè píngguǒ) — three apples",
+          "ex": "三个苹果 (sān gè píngguǒ)",
           "audioId": "unit2-ex2"
         },
         {
           "h": "本 (běn) for books",
           "p": "Used specifically for bound, book-like objects.",
-          "ex": "两本书 (liǎng běn shū) — two books",
+          "ex": "两本书 (liǎng běn shū)",
           "audioId": "unit2-ex3"
         },
         {
           "h": "杯 (bēi) for cups/glasses",
           "p": "Used for drinks measured by cup.",
-          "ex": "一杯茶 (yì bēi chá) — one cup of tea",
+          "ex": "一杯茶 (yì bēi chá)",
           "audioId": "unit2-ex4"
         }
       ],
@@ -106,7 +106,7 @@
         },
         {
           "type": "fill",
-          "q": "\"三___苹果\" (general measure word)",
+          "q": "三___苹果 (general measure word)",
           "answer": "个",
           "audioId": "unit2-q2"
         },
@@ -119,7 +119,7 @@
         },
         {
           "type": "fill",
-          "q": "\"一___茶\" (cup)",
+          "q": "一___茶 (cup)",
           "answer": "杯",
           "audioId": "unit2-q4"
         },
@@ -140,19 +140,19 @@
         {
           "h": "了 (le) marks completed action",
           "p": "Shows something happened or changed.",
-          "ex": "我吃了 (wǒ chī le) — I ate",
+          "ex": "我吃了 (wǒ chī le)",
           "audioId": "unit3-ex1"
         },
         {
           "h": "的 (de) shows possession",
-          "p": "Placed between the owner and the thing owned, like an apostrophe-s.",
-          "ex": "我的书 (wǒ de shū) — my book",
+          "p": "Placed between the owner and the thing owned.",
+          "ex": "我的书 (wǒ de shū)",
           "audioId": "unit3-ex2"
         },
         {
           "h": "吗 (ma) forms yes/no questions",
           "p": "Added at the very end of a sentence.",
-          "ex": "你喝茶吗？ (nǐ hē chá ma?) — Do you drink tea?",
+          "ex": "你喝茶吗？ (nǐ hē chá ma?)",
           "audioId": "unit3-ex3"
         },
         {
@@ -172,7 +172,7 @@
         },
         {
           "type": "fill",
-          "q": "\"我___书\" (my book — fill de)",
+          "q": "我___书 (my book)",
           "answer": "的",
           "audioId": "unit3-q2"
         },
@@ -185,7 +185,7 @@
         },
         {
           "type": "fill",
-          "q": "\"你喝茶___？\" (yes/no question — fill ma)",
+          "q": "你喝茶___？(yes/no question)",
           "answer": "吗",
           "audioId": "unit3-q4"
         },
@@ -217,7 +217,7 @@
         },
         {
           "h": "Question words stay in place",
-          "p": "Words like 什么 (shénme, \"what\") stay where the answer would go — no inversion.",
+          "p": "Words like 什么 (shénme, \"what\") stay where the answer would go.",
           "ex": "你要什么？ (nǐ yào shénme?)",
           "audioId": "unit4-ex3"
         },
@@ -238,7 +238,7 @@
         },
         {
           "type": "fill",
-          "q": "\"你要茶___咖啡？\" (or — fill háishì)",
+          "q": "你要茶___咖啡？(or)",
           "answer": "还是",
           "audioId": "unit4-q2"
         },
@@ -251,7 +251,7 @@
         },
         {
           "type": "fill",
-          "q": "\"你要___要茶？\" (A-not-A — fill bù)",
+          "q": "你要___要茶？(A-not-A)",
           "answer": "不",
           "audioId": "unit4-q4"
         },
@@ -272,19 +272,19 @@
         {
           "h": "了 (le) for completed/change",
           "p": "Marks a completed action or a new state.",
-          "ex": "我到了 (wǒ dào le) — I've arrived",
+          "ex": "我到了 (wǒ dào le)",
           "audioId": "unit5-ex1"
         },
         {
           "h": "过 (guo) for past experience",
           "p": "Indicates something has been experienced at least once, ever.",
-          "ex": "我去过中国 (wǒ qùguo Zhōngguó) — I've been to China",
+          "ex": "我去过中国 (wǒ qùguo Zhōngguó)",
           "audioId": "unit5-ex2"
         },
         {
           "h": "在 (zài) for ongoing action",
           "p": "Placed before the verb to show an action is currently in progress.",
-          "ex": "我在吃饭 (wǒ zài chīfàn) — I am eating",
+          "ex": "我在吃饭 (wǒ zài chīfàn)",
           "audioId": "unit5-ex3"
         },
         {
@@ -304,7 +304,7 @@
         },
         {
           "type": "fill",
-          "q": "\"我___吃饭。\" (I am eating — fill zài)",
+          "q": "我___吃饭。(I am eating)",
           "answer": "在",
           "audioId": "unit5-q2"
         },
@@ -317,7 +317,7 @@
         },
         {
           "type": "fill",
-          "q": "\"我去___中国。\" (I've been to China — fill guo)",
+          "q": "我去___中国。(I've been to China)",
           "answer": "过",
           "audioId": "unit5-q4"
         },
@@ -330,6 +330,761 @@
           ],
           "answer": "aspect (how action relates to time)",
           "audioId": "unit5-q5"
+        }
+      ]
+    },
+    {
+      "id": "parts-of-speech",
+      "title": "Parts of Speech (词类)",
+      "icon": "🧱",
+      "teaching": [
+        {
+          "h": "Main word classes",
+          "p": "名词 (noun), 动词 (verb), 形容词 (adjective), 副词 (adverb), 介词 (preposition), 连词 (conjunction).",
+          "ex": "跑 (dòngcí/verb), 快 (fùcí/adverb), 老师 (míngcí/noun)",
+          "audioId": "unit6-ex1"
+        },
+        {
+          "h": "形容词 (adjectives) can act as verbs",
+          "p": "Many Chinese adjectives function like stative verbs and don't need 是 (to be) before them.",
+          "ex": "她很高。(She is tall.) — no 是 needed",
+          "audioId": "unit6-ex2"
+        },
+        {
+          "h": "副词 (adverbs) come before the verb",
+          "p": "Unlike English, adverbs are placed before, not after, the verb they modify.",
+          "ex": "他很快跑。(He runs quickly.)",
+          "audioId": "unit6-ex3"
+        },
+        {
+          "h": "介词 (prepositions) form phrases before the verb",
+          "p": "Prepositional phrases usually come before the verb, not after like in English.",
+          "ex": "我在家吃饭。(I eat at home.)",
+          "audioId": "unit6-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "In \"她很高,\" what part of speech is \"高\"?",
+          "options": ["名词 (noun)", "形容词 (adjective)", "副词 (adverb)"],
+          "answer": "形容词 (adjective)",
+          "audioId": "unit6-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Chinese adjectives like 高 (tall) typically:",
+          "options": [
+            "need 是 before them",
+            "act like stative verbs, no 是 needed"
+          ],
+          "answer": "act like stative verbs, no 是 needed",
+          "audioId": "unit6-q2"
+        },
+        {
+          "type": "mc",
+          "q": "In Mandarin, adverbs are placed:",
+          "options": ["before the verb", "after the verb"],
+          "answer": "before the verb",
+          "audioId": "unit6-q3"
+        },
+        {
+          "type": "fill",
+          "q": "他___跑。(quickly — fùcí before verb)",
+          "answer": "快",
+          "audioId": "unit6-q4"
+        },
+        {
+          "type": "mc",
+          "q": "介词 phrases (like 在家) usually go:",
+          "options": ["before the verb", "after the verb"],
+          "answer": "before the verb",
+          "audioId": "unit6-q5"
+        }
+      ]
+    },
+    {
+      "id": "sentence-types",
+      "title": "Sentence Types",
+      "icon": "🏗️",
+      "teaching": [
+        {
+          "h": "陈述句 (statement)",
+          "p": "A simple declarative sentence, following SVO order.",
+          "ex": "我喜欢猫。(I like cats.)",
+          "audioId": "unit7-ex1"
+        },
+        {
+          "h": "疑问句 (question)",
+          "p": "Formed with 吗, a question word, or A-not-A structure.",
+          "ex": "你喜欢猫吗？",
+          "audioId": "unit7-ex2"
+        },
+        {
+          "h": "祈使句 (command)",
+          "p": "Directly instructs someone, often with 请 (please) for politeness.",
+          "ex": "请坐。(Please sit.)",
+          "audioId": "unit7-ex3"
+        },
+        {
+          "h": "并列句 (compound sentence)",
+          "p": "Two clauses joined by connectors like 和 (and) or 但是 (but).",
+          "ex": "我喜欢猫，但是我更喜欢狗。",
+          "audioId": "unit7-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"我喜欢猫。\" is a(n):",
+          "options": ["陈述句", "疑问句"],
+          "answer": "陈述句",
+          "audioId": "unit7-q1"
+        },
+        {
+          "type": "mc",
+          "q": "\"请坐。\" is an example of a:",
+          "options": ["祈使句", "陈述句"],
+          "answer": "祈使句",
+          "audioId": "unit7-q2"
+        },
+        {
+          "type": "fill",
+          "q": "我喜欢猫，___我更喜欢狗。(but)",
+          "answer": "但是",
+          "audioId": "unit7-q3"
+        },
+        {
+          "type": "mc",
+          "q": "请 (qǐng) is used to make a sentence:",
+          "options": ["more polite", "more negative"],
+          "answer": "more polite",
+          "audioId": "unit7-q4"
+        },
+        {
+          "type": "mc",
+          "q": "A 并列句 joins two clauses using:",
+          "options": ["connectors like 和/但是", "no connector at all"],
+          "answer": "connectors like 和/但是",
+          "audioId": "unit7-q5"
+        }
+      ]
+    },
+    {
+      "id": "complements",
+      "title": "Complements (补语)",
+      "icon": "🤝",
+      "teaching": [
+        {
+          "h": "Result complements (结果补语)",
+          "p": "A second verb/adjective right after the main verb shows the result of the action.",
+          "ex": "我听懂了。(I heard and understood.)",
+          "audioId": "unit8-ex1"
+        },
+        {
+          "h": "Directional complements (趋向补语)",
+          "p": "Words like 来/去 after a verb show the direction of movement.",
+          "ex": "他走进来了。(He walked in.)",
+          "audioId": "unit8-ex2"
+        },
+        {
+          "h": "Degree complements (程度补语)",
+          "p": "得 + adjective after a verb describes how well/much an action is done.",
+          "ex": "她说得很好。(She speaks very well.)",
+          "audioId": "unit8-ex3"
+        },
+        {
+          "h": "Potential complements",
+          "p": "得/不 inserted between verb and complement shows possibility or impossibility.",
+          "ex": "我听得懂。(I can understand.) 我听不懂。(I can't understand.)",
+          "audioId": "unit8-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"我听懂了\" uses a:",
+          "options": ["result complement", "directional complement"],
+          "answer": "result complement",
+          "audioId": "unit8-q1"
+        },
+        {
+          "type": "fill",
+          "q": "他走进___了。(direction: come)",
+          "answer": "来",
+          "audioId": "unit8-q2"
+        },
+        {
+          "type": "mc",
+          "q": "得 + adjective after a verb is a:",
+          "options": ["degree complement", "result complement"],
+          "answer": "degree complement",
+          "audioId": "unit8-q3"
+        },
+        {
+          "type": "fill",
+          "q": "我听___懂。(potential: can understand)",
+          "answer": "得",
+          "audioId": "unit8-q4"
+        },
+        {
+          "type": "mc",
+          "q": "我听不懂 means:",
+          "options": ["I can't understand", "I didn't listen"],
+          "answer": "I can't understand",
+          "audioId": "unit8-q5"
+        }
+      ]
+    },
+    {
+      "id": "comparisons",
+      "title": "Comparisons (比较句)",
+      "icon": "⚖️",
+      "teaching": [
+        {
+          "h": "比 (bǐ) for comparison",
+          "p": "A + 比 + B + adjective compares two things directly.",
+          "ex": "他比我高。(He is taller than me.)",
+          "audioId": "unit9-ex1"
+        },
+        {
+          "h": "跟...一样 for equality",
+          "p": "Shows two things are the same in some way.",
+          "ex": "我跟他一样高。(I'm as tall as him.)",
+          "audioId": "unit9-ex2"
+        },
+        {
+          "h": "没有...那么 for inequality",
+          "p": "Shows one thing is less than another.",
+          "ex": "我没有他那么高。(I'm not as tall as him.)",
+          "audioId": "unit9-ex3"
+        },
+        {
+          "h": "最 for superlatives",
+          "p": "最 before an adjective means \"the most.\"",
+          "ex": "他最高。(He is the tallest.)",
+          "audioId": "unit9-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "他___我高。(comparison word: bǐ)",
+          "answer": "比",
+          "audioId": "unit9-q1"
+        },
+        {
+          "type": "mc",
+          "q": "跟...一样 expresses:",
+          "options": ["equality", "the superlative"],
+          "answer": "equality",
+          "audioId": "unit9-q2"
+        },
+        {
+          "type": "fill",
+          "q": "我没有他___高。(that/so — nàme)",
+          "answer": "那么",
+          "audioId": "unit9-q3"
+        },
+        {
+          "type": "mc",
+          "q": "最 (zuì) means:",
+          "options": ["the most", "as...as"],
+          "answer": "the most",
+          "audioId": "unit9-q4"
+        },
+        {
+          "type": "mc",
+          "q": "\"他比我高\" means:",
+          "options": ["He is taller than me", "He is as tall as me"],
+          "answer": "He is taller than me",
+          "audioId": "unit9-q5"
+        }
+      ]
+    },
+    {
+      "id": "conditional-sentences",
+      "title": "Conditional Sentences",
+      "icon": "🔀",
+      "teaching": [
+        {
+          "h": "如果...就 (if...then)",
+          "p": "The most common way to express a real or hypothetical condition.",
+          "ex": "如果下雨，我就不去。(If it rains, I won't go.)",
+          "audioId": "unit10-ex1"
+        },
+        {
+          "h": "要是...的话",
+          "p": "A more conversational way to say \"if,\" often used in spoken Mandarin.",
+          "ex": "要是你有时间的话，来吧。(If you have time, come.)",
+          "audioId": "unit10-ex2"
+        },
+        {
+          "h": "No verb tense changes",
+          "p": "Unlike English/Spanish, Mandarin conditionals don't change verb forms — context and time words carry the meaning.",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "只要...就 (as long as...then)",
+          "p": "Expresses a sufficient condition.",
+          "ex": "只要你努力，就会成功。(As long as you try hard, you'll succeed.)",
+          "audioId": "unit10-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "如果下雨，我___不去。(then)",
+          "answer": "就",
+          "audioId": "unit10-q1"
+        },
+        {
+          "type": "mc",
+          "q": "要是...的话 is:",
+          "options": [
+            "a more conversational way to say \"if\"",
+            "only used in formal writing"
+          ],
+          "answer": "a more conversational way to say \"if\"",
+          "audioId": "unit10-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Do Mandarin conditional verbs change tense/form like in English?",
+          "options": ["Yes", "No"],
+          "answer": "No",
+          "audioId": "unit10-q3"
+        },
+        {
+          "type": "fill",
+          "q": "只要你努力，___会成功。(then)",
+          "answer": "就",
+          "audioId": "unit10-q4"
+        },
+        {
+          "type": "mc",
+          "q": "只要...就 expresses:",
+          "options": ["a sufficient condition", "an impossible condition"],
+          "answer": "a sufficient condition",
+          "audioId": "unit10-q5"
+        }
+      ]
+    },
+    {
+      "id": "phrases-clauses",
+      "title": "Phrases and Clauses (短语和从句)",
+      "icon": "🧩",
+      "teaching": [
+        {
+          "h": "短语 (phrase)",
+          "p": "A group of words functioning as one unit, no complete subject-verb pairing needed.",
+          "ex": "在家里 (at home), 很高兴 (very happy)",
+          "audioId": "unit11-ex1"
+        },
+        {
+          "h": "从句 (clause)",
+          "p": "Has its own subject and verb.",
+          "ex": "他说的话 (what he said)",
+          "audioId": "unit11-ex2"
+        },
+        {
+          "h": "的-clauses as modifiers",
+          "p": "的 turns a clause into a description attached to a noun, similar to a relative clause.",
+          "ex": "我昨天买的书 (the book I bought yesterday)",
+          "audioId": "unit11-ex3"
+        },
+        {
+          "h": "Connecting clauses",
+          "p": "Words like 因为...所以 (because...so) and 虽然...但是 (although...but) link clauses together.",
+          "ex": "因为下雨，所以我没去。",
+          "audioId": "unit11-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"在家里\" is an example of a:",
+          "options": ["短语", "从句"],
+          "answer": "短语",
+          "audioId": "unit11-q1"
+        },
+        {
+          "type": "fill",
+          "q": "我昨天买___书 (the book I bought — de)",
+          "answer": "的",
+          "audioId": "unit11-q2"
+        },
+        {
+          "type": "mc",
+          "q": "的 turns a clause into a:",
+          "options": [
+            "modifier attached to a noun",
+            "complete standalone sentence"
+          ],
+          "answer": "modifier attached to a noun",
+          "audioId": "unit11-q3"
+        },
+        {
+          "type": "fill",
+          "q": "因为下雨，___我没去。(so)",
+          "answer": "所以",
+          "audioId": "unit11-q4"
+        },
+        {
+          "type": "mc",
+          "q": "虽然...但是 means:",
+          "options": ["although...but", "because...so"],
+          "answer": "although...but",
+          "audioId": "unit11-q5"
+        }
+      ]
+    },
+    {
+      "id": "ba-bei-constructions",
+      "title": "把 and 被 Constructions",
+      "icon": "🔄",
+      "teaching": [
+        {
+          "h": "The 把 (bǎ) construction",
+          "p": "Moves the object before the verb to emphasize what happened to it — common when the object is affected/disposed of.",
+          "ex": "我把书放在桌子上。(I put the book on the table.)",
+          "audioId": "unit12-ex1"
+        },
+        {
+          "h": "When to use 把",
+          "p": "Typically when the action clearly does something specific and definite to the object.",
+          "ex": "他把门关了。(He closed the door.)",
+          "audioId": "unit12-ex2"
+        },
+        {
+          "h": "The 被 (bèi) construction — passive voice",
+          "p": "Subject + 被 + (doer) + verb — the closest equivalent to English passive voice.",
+          "ex": "书被他拿走了。(The book was taken by him.)",
+          "audioId": "unit12-ex3"
+        },
+        {
+          "h": "被 without a stated doer",
+          "p": "The doer can be omitted if unknown or unimportant.",
+          "ex": "杯子被打破了。(The cup was broken.)",
+          "audioId": "unit12-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "The 把 construction moves the object:",
+          "options": ["before the verb", "after the verb"],
+          "answer": "before the verb",
+          "audioId": "unit12-q1"
+        },
+        {
+          "type": "fill",
+          "q": "我___书放在桌子上。(bǎ)",
+          "answer": "把",
+          "audioId": "unit12-q2"
+        },
+        {
+          "type": "mc",
+          "q": "被 (bèi) is closest to English:",
+          "options": ["passive voice", "future tense"],
+          "answer": "passive voice",
+          "audioId": "unit12-q3"
+        },
+        {
+          "type": "fill",
+          "q": "书___他拿走了。(bèi)",
+          "answer": "被",
+          "audioId": "unit12-q4"
+        },
+        {
+          "type": "mc",
+          "q": "In a 被 sentence, can the doer be omitted?",
+          "options": [
+            "Yes, if unknown/unimportant",
+            "No, it's always required"
+          ],
+          "answer": "Yes, if unknown/unimportant",
+          "audioId": "unit12-q5"
+        }
+      ]
+    },
+    {
+      "id": "direct-indirect-speech",
+      "title": "Direct and Indirect Speech",
+      "icon": "💬",
+      "teaching": [
+        {
+          "h": "Direct speech",
+          "p": "The exact words, often marked with quotation marks in writing.",
+          "ex": "他说：\"我很累。\" (He said, \"I'm tired.\")",
+          "audioId": "unit13-ex1"
+        },
+        {
+          "h": "Indirect speech with 说",
+          "p": "他说 + clause, without quotation marks — reports the idea, not the exact words.",
+          "ex": "他说他很累。(He said he was tired.)",
+          "audioId": "unit13-ex2"
+        },
+        {
+          "h": "No tense shifting needed",
+          "p": "Unlike English, Mandarin verbs don't change form when reporting speech — the meaning stays clear from context.",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "Pronouns still shift",
+          "p": "\"我\" (I) in direct speech often becomes \"他/她\" in reported speech, matching the new perspective.",
+          "ex": "\"我很忙\" → 他说他很忙。",
+          "audioId": "unit13-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "他说：\"我很累。\" is:",
+          "options": ["direct speech", "indirect speech"],
+          "answer": "direct speech",
+          "audioId": "unit13-q1"
+        },
+        {
+          "type": "fill",
+          "q": "他说___很累。(he — reported)",
+          "answer": "他",
+          "audioId": "unit13-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Does the verb change form in Mandarin reported speech?",
+          "options": ["Yes, like English", "No"],
+          "answer": "No",
+          "audioId": "unit13-q3"
+        },
+        {
+          "type": "mc",
+          "q": "\"我很忙\" reported becomes:",
+          "options": ["他说他很忙。", "他说我很忙。"],
+          "answer": "他说他很忙。",
+          "audioId": "unit13-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Indirect speech in Mandarin uses:",
+          "options": [
+            "no quotation marks, pronoun shift",
+            "quotation marks around the exact words"
+          ],
+          "answer": "no quotation marks, pronoun shift",
+          "audioId": "unit13-q5"
+        }
+      ]
+    },
+    {
+      "id": "punctuation-capitalization",
+      "title": "Punctuation (标点符号)",
+      "icon": "✍️",
+      "teaching": [
+        {
+          "h": "No capitalization system",
+          "p": "Chinese characters have no uppercase/lowercase — capitalization rules from English don't apply.",
+          "ex": "",
+          "audioId": ""
+        },
+        {
+          "h": "The Chinese comma 、 vs ，",
+          "p": "、 separates items in a list; ， is used like a regular comma between clauses.",
+          "ex": "苹果、香蕉、橙子 (apples, bananas, oranges)",
+          "audioId": "unit14-ex1"
+        },
+        {
+          "h": "Full-width punctuation",
+          "p": "Chinese uses full-width versions of punctuation marks (， 。 ？ ！), visually wider than English ones.",
+          "ex": "你好吗？(full-width question mark)",
+          "audioId": "unit14-ex2"
+        },
+        {
+          "h": "Book title marks 《》",
+          "p": "Used to mark titles of books, films, and other works, instead of italics or quotation marks.",
+          "ex": "我在读《红楼梦》。",
+          "audioId": "unit14-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Does Chinese have uppercase/lowercase letters?",
+          "options": ["Yes", "No"],
+          "answer": "No",
+          "audioId": "unit14-q1"
+        },
+        {
+          "type": "mc",
+          "q": "、 is used to:",
+          "options": ["separate items in a list", "end a sentence"],
+          "answer": "separate items in a list",
+          "audioId": "unit14-q2"
+        },
+        {
+          "type": "mc",
+          "q": "《》 marks are used for:",
+          "options": ["titles of books/films", "questions"],
+          "answer": "titles of books/films",
+          "audioId": "unit14-q3"
+        },
+        {
+          "type": "fill",
+          "q": "苹果___香蕉、橙子 (list separator)",
+          "answer": "、",
+          "audioId": "unit14-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Chinese punctuation marks are typically:",
+          "options": [
+            "full-width, visually wider",
+            "identical in width to English ones"
+          ],
+          "answer": "full-width, visually wider",
+          "audioId": "unit14-q5"
+        }
+      ]
+    },
+    {
+      "id": "advanced-grammar-topics",
+      "title": "Advanced Grammar Topics",
+      "icon": "🎓",
+      "teaching": [
+        {
+          "h": "虽然...但是 (although...but)",
+          "p": "Connects a contrasting idea across two clauses.",
+          "ex": "虽然很累，但是我很开心。(Although tired, I'm happy.)",
+          "audioId": "unit15-ex1"
+        },
+        {
+          "h": "因为...所以 (because...so)",
+          "p": "Connects a cause to its result.",
+          "ex": "因为下雨，所以我没去。(Because it rained, I didn't go.)",
+          "audioId": "unit15-ex2"
+        },
+        {
+          "h": "不但...而且 (not only...but also)",
+          "p": "Adds emphasis by connecting two related, escalating points.",
+          "ex": "她不但聪明，而且勤奋。(She's not only smart, but also hardworking.)",
+          "audioId": "unit15-ex3"
+        },
+        {
+          "h": "一边...一边 (doing two things at once)",
+          "p": "Describes two simultaneous actions.",
+          "ex": "他一边吃饭一边看电视。(He eats while watching TV.)",
+          "audioId": "unit15-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "虽然很累，___我很开心。(but)",
+          "answer": "但是",
+          "audioId": "unit15-q1"
+        },
+        {
+          "type": "mc",
+          "q": "因为...所以 connects:",
+          "options": ["a cause to its result", "two contrasting ideas"],
+          "answer": "a cause to its result",
+          "audioId": "unit15-q2"
+        },
+        {
+          "type": "fill",
+          "q": "她___聪明，而且勤奋。(not only)",
+          "answer": "不但",
+          "audioId": "unit15-q3"
+        },
+        {
+          "type": "mc",
+          "q": "一边...一边 describes:",
+          "options": ["two simultaneous actions", "a sequence of actions"],
+          "answer": "two simultaneous actions",
+          "audioId": "unit15-q4"
+        },
+        {
+          "type": "mc",
+          "q": "不但...而且 is used to:",
+          "options": [
+            "add emphasis to two related points",
+            "show a simple contrast"
+          ],
+          "answer": "add emphasis to two related points",
+          "audioId": "unit15-q5"
+        }
+      ]
+    },
+    {
+      "id": "transitional-devices",
+      "title": "Transitional Devices (关联词)",
+      "icon": "🔗",
+      "teaching": [
+        {
+          "h": "What 关联词 do",
+          "p": "Words connecting ideas smoothly between clauses and sentences.",
+          "ex": "然而, 因此, 此外, 例如",
+          "audioId": "unit16-ex1"
+        },
+        {
+          "h": "Showing contrast",
+          "p": "然而 (however) signals a contrasting idea, more formal than 但是.",
+          "ex": "他很努力。然而，他没有成功。",
+          "audioId": "unit16-ex2"
+        },
+        {
+          "h": "Showing cause and result",
+          "p": "因此 (therefore) connects a cause to its effect, common in writing.",
+          "ex": "下雨了，因此比赛取消了。",
+          "audioId": "unit16-ex3"
+        },
+        {
+          "h": "Adding ideas",
+          "p": "此外 (furthermore) and 而且 (moreover) add another related point.",
+          "ex": "她很聪明，此外还很努力。",
+          "audioId": "unit16-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which word signals contrast?",
+          "options": ["然而", "因此", "此外"],
+          "answer": "然而",
+          "audioId": "unit16-q1"
+        },
+        {
+          "type": "fill",
+          "q": "下雨了，___比赛取消了。(therefore)",
+          "answer": "因此",
+          "audioId": "unit16-q2"
+        },
+        {
+          "type": "mc",
+          "q": "此外 is used to:",
+          "options": ["add another related idea", "show contrast"],
+          "answer": "add another related idea",
+          "audioId": "unit16-q3"
+        },
+        {
+          "type": "mc",
+          "q": "例如 means:",
+          "options": ["for example", "as a result"],
+          "answer": "for example",
+          "audioId": "unit16-q4"
+        },
+        {
+          "type": "mc",
+          "q": "关联词 mainly help with:",
+          "options": [
+            "connecting ideas smoothly",
+            "changing the topic entirely"
+          ],
+          "answer": "connecting ideas smoothly",
+          "audioId": "unit16-q5"
         }
       ]
     }
