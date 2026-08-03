@@ -329,7 +329,28 @@
       </div>
 
       <div class="recent-section" id="recentSection" style="display: none">
-        <h3>Recent searches</h3>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <h3 style="margin: 0">Recent searches</h3>
+          <button
+            id="clearRecentBtn"
+            style="
+              background: none;
+              border: none;
+              color: var(--brick);
+              font-size: 12.5px;
+              cursor: pointer;
+              text-decoration: underline;
+            "
+          >
+            Clear all
+          </button>
+        </div>
         <div class="recent-list" id="recentList"></div>
       </div>
     </main>
@@ -416,19 +437,27 @@
           loadingMsg.classList.remove("show");
           searchBtn.disabled = false;
 
-          if (!res.ok || !data.word) {
-            errorMsg.textContent = data.error || "Something went wrong.";
+          if (!res.ok || data.entryType === "not_found") {
+            errorMsg.textContent =
+              data.definition ||
+              data.error ||
+              "Could not find an entry for that.";
             errorMsg.classList.add("show");
             return;
           }
 
           lastLookup = { word: data.word, language };
           document.getElementById("resultWord").textContent = data.word;
+
+          const typeLabels = {
+            letter: "Letter",
+            word: data.partOfSpeech || "Word",
+            phrase: "Phrase",
+            idiom: "Idiom",
+          };
           document.getElementById("resultPos").textContent =
-            data.partOfSpeech || "";
-          document.getElementById("resultPos").style.display = data.partOfSpeech
-            ? "inline-block"
-            : "none";
+            typeLabels[data.entryType] || data.partOfSpeech || "";
+          document.getElementById("resultPos").style.display = "inline-block";
           document.getElementById("resultDefinition").textContent =
             data.definition;
 
@@ -492,6 +521,12 @@
         }
       });
 
+      document
+        .getElementById("clearRecentBtn")
+        .addEventListener("click", () => {
+          localStorage.removeItem("stembridge_recent_words");
+          renderRecent();
+        });
       renderRecent();
     </script>
   </body>

@@ -221,8 +221,10 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        margin: 32px 0 6px;
+        margin: 32px 0 10px;
         width: 100%;
+        position: relative;
+        z-index: 2;
       }
       .section-divider .line {
         flex: 1;
@@ -236,26 +238,40 @@
         letter-spacing: 0.08em;
         color: var(--brick);
         white-space: nowrap;
+        background: var(--cream);
+        padding: 0 4px;
       }
 
       .path {
         margin-top: 12px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
+        position: relative;
       }
+      .path-segment {
+        position: relative;
+      }
+      #pathSvg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
       .node-row {
         display: flex;
         width: 100%;
+        position: relative;
+        z-index: 1;
       }
       .node-row.left {
         justify-content: flex-start;
-        padding-left: 6%;
+        padding-left: 8%;
       }
       .node-row.right {
         justify-content: flex-end;
-        padding-right: 6%;
+        padding-right: 8%;
       }
       .node-row.center {
         justify-content: center;
@@ -265,6 +281,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 14px 0;
       }
       .node {
         width: 76px;
@@ -302,20 +319,20 @@
       }
       .node .n-num {
         position: absolute;
-        top: -6px;
-        left: -6px;
+        top: -10px;
+        left: -10px;
         background: var(--cream);
         color: var(--forest-dark);
         font-family: "IBM Plex Mono", monospace;
-        font-size: 10px;
-        font-weight: 600;
-        width: 20px;
-        height: 20px;
+        font-size: 13px;
+        font-weight: 700;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1.5px solid var(--forest);
+        border: 2px solid var(--forest);
       }
       .node.locked .n-num {
         border-color: var(--locked);
@@ -329,17 +346,8 @@
         font-weight: 600;
         text-align: center;
         margin-top: 8px;
-        max-width: 110px;
+        max-width: 120px;
         color: var(--forest-dark);
-      }
-      .node.locked ~ .n-label,
-      .node-wrap:has(.node.locked) .n-label {
-        color: #8a8f7d;
-      }
-      .connector {
-        width: 4px;
-        height: 22px;
-        background: var(--sage);
       }
 
       /* Lesson view */
@@ -534,10 +542,10 @@
           font-size: 14px;
         }
         .node-row.left {
-          padding-left: 0;
+          padding-left: 4%;
         }
         .node-row.right {
-          padding-right: 0;
+          padding-right: 4%;
         }
         .node {
           width: 62px;
@@ -546,9 +554,16 @@
         .node .n-icon {
           font-size: 16px;
         }
+        .node .n-num {
+          width: 24px;
+          height: 24px;
+          font-size: 11.5px;
+          top: -8px;
+          left: -8px;
+        }
         .n-label {
           font-size: 10.5px;
-          max-width: 90px;
+          max-width: 96px;
         }
         .lesson-chunk {
           padding: 16px;
@@ -634,7 +649,7 @@
             ></div>
           </div>
         </div>
-        <div class="path" id="pathNodes"></div>
+        <div class="path" id="pathContainer"></div>
       </div>
 
       <div id="view-lesson" class="hidden">
@@ -709,13 +724,12 @@
         mandarin: "zh",
         russian: "ru",
       };
-      // First 5 lessons are the original foundational track; everything after is the advanced track
-      // added from the Grade 9-style curriculum expansion.
       const FOUNDATIONS_COUNT = 5;
 
       let currentLang = null;
       let currentUnit = null;
       let quizAnswers = {};
+      let resizeTimer = null;
 
       function getProgress() {
         try {
@@ -968,57 +982,143 @@
         });
       }
 
+      // ---------- PATH RENDERING WITH CURVED CONNECTORS ----------
+
       function renderPath() {
-        const path = document.getElementById("pathNodes");
-        path.innerHTML = "";
+        const container = document.getElementById("pathContainer");
+        container.innerHTML = "";
         const units = courseData[currentLang].units;
 
-        units.forEach((unit, i) => {
-          if (i === FOUNDATIONS_COUNT) {
-            const divider = document.createElement("div");
-            divider.className = "section-divider";
-            divider.innerHTML = `<span class="line"></span><span class="label">Advanced Grammar</span><span class="line"></span>`;
-            path.appendChild(divider);
-          } else if (i === 0) {
-            const divider = document.createElement("div");
-            divider.className = "section-divider";
-            divider.style.marginTop = "0";
-            divider.innerHTML = `<span class="line"></span><span class="label">Foundations</span><span class="line"></span>`;
-            path.appendChild(divider);
-          } else if (i > 0) {
-            const connector = document.createElement("div");
-            connector.className = "connector";
-            path.appendChild(connector);
+        // Build two segments: Foundations (0..FOUNDATIONS_COUNT-1) and Advanced (rest)
+        const segments = [
+          {
+            label: "Foundations",
+            units: units.slice(0, FOUNDATIONS_COUNT),
+            offset: 0,
+          },
+          {
+            label: "Advanced Grammar",
+            units: units.slice(FOUNDATIONS_COUNT),
+            offset: FOUNDATIONS_COUNT,
+          },
+        ];
+
+        segments.forEach((seg, segIdx) => {
+          if (seg.units.length === 0) return;
+
+          const divider = document.createElement("div");
+          divider.className = "section-divider";
+          if (segIdx === 0) divider.style.marginTop = "0";
+          divider.innerHTML = `<span class="line"></span><span class="label">${seg.label}</span><span class="line"></span>`;
+          container.appendChild(divider);
+
+          const segWrap = document.createElement("div");
+          segWrap.className = "path-segment";
+          segWrap.style.position = "relative";
+
+          const svg = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg",
+          );
+          svg.setAttribute("id", "pathSvg-" + segIdx);
+          svg.id = "";
+          svg.classList.add("path-svg-instance");
+          segWrap.appendChild(svg);
+
+          seg.units.forEach((unit, localIndex) => {
+            const globalIndex = seg.offset + localIndex;
+            const prevDone =
+              globalIndex === 0 ||
+              isUnitDone(currentLang, units[globalIndex - 1].id);
+            const done = isUnitDone(currentLang, unit.id);
+            const locked = !prevDone && !done;
+
+            const row = document.createElement("div");
+            row.className =
+              "node-row " +
+              (localIndex % 3 === 0
+                ? "center"
+                : localIndex % 3 === 1
+                  ? "left"
+                  : "right");
+
+            const wrap = document.createElement("div");
+            wrap.className = "node-wrap";
+
+            const node = document.createElement("button");
+            node.className =
+              "node" + (locked ? " locked" : "") + (done ? " done" : "");
+            node.innerHTML = `<span class="n-num">${globalIndex + 1}</span><span class="n-icon">${done ? "✓" : locked ? "🔒" : unit.icon}</span>`;
+            if (!locked)
+              node.addEventListener("click", () => openUnit(unit.id));
+
+            const label = document.createElement("div");
+            label.className = "n-label";
+            label.textContent = unit.title;
+
+            wrap.appendChild(node);
+            wrap.appendChild(label);
+            row.appendChild(wrap);
+            segWrap.appendChild(row);
+          });
+
+          container.appendChild(segWrap);
+        });
+
+        requestAnimationFrame(drawAllConnectors);
+      }
+
+      function drawAllConnectors() {
+        document.querySelectorAll(".path-segment").forEach((segWrap) => {
+          const svg = segWrap.querySelector("svg");
+          if (!svg) return;
+          const nodes = [...segWrap.querySelectorAll(".node")];
+          if (nodes.length < 2) {
+            svg.innerHTML = "";
+            return;
           }
 
-          const prevDone = i === 0 || isUnitDone(currentLang, units[i - 1].id);
-          const done = isUnitDone(currentLang, unit.id);
-          const locked = !prevDone && !done;
+          const segRect = segWrap.getBoundingClientRect();
+          svg.setAttribute("width", segRect.width);
+          svg.setAttribute("height", segRect.height);
+          svg.setAttribute("viewBox", `0 0 ${segRect.width} ${segRect.height}`);
+          svg.style.position = "absolute";
+          svg.style.top = "0";
+          svg.style.left = "0";
+          svg.style.pointerEvents = "none";
+          svg.style.zIndex = "0";
 
-          const row = document.createElement("div");
-          row.className =
-            "node-row " +
-            (i % 3 === 0 ? "center" : i % 3 === 1 ? "left" : "right");
+          const points = nodes.map((node) => {
+            const r = node.getBoundingClientRect();
+            return {
+              x: r.left + r.width / 2 - segRect.left,
+              y: r.top + r.height / 2 - segRect.top,
+            };
+          });
 
-          const wrap = document.createElement("div");
-          wrap.className = "node-wrap";
+          let d = `M ${points[0].x} ${points[0].y}`;
+          for (let i = 1; i < points.length; i++) {
+            const prev = points[i - 1];
+            const curr = points[i];
+            const midY = (prev.y + curr.y) / 2;
+            // Smooth curve: control points pull the line into an S-shape between offset nodes
+            d += ` C ${prev.x} ${midY}, ${curr.x} ${midY}, ${curr.x} ${curr.y}`;
+          }
 
-          const node = document.createElement("button");
-          node.className =
-            "node" + (locked ? " locked" : "") + (done ? " done" : "");
-          node.innerHTML = `<span class="n-num">${i + 1}</span><span class="n-icon">${done ? "✓" : locked ? "🔒" : unit.icon}</span>`;
-          if (!locked) node.addEventListener("click", () => openUnit(unit.id));
-
-          const label = document.createElement("div");
-          label.className = "n-label";
-          label.textContent = unit.title;
-
-          wrap.appendChild(node);
-          wrap.appendChild(label);
-          row.appendChild(wrap);
-          path.appendChild(row);
+          svg.innerHTML = `<path d="${d}" fill="none" stroke="#C9CFC3" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 14" />`;
         });
       }
+
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (
+            !document.getElementById("view-path").classList.contains("hidden")
+          ) {
+            drawAllConnectors();
+          }
+        }, 200);
+      });
 
       loadAllForGrid();
     </script>

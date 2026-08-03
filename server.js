@@ -152,25 +152,27 @@ async function lookupWord(word, languageKey) {
   const language = languages[languageKey] || languages.german;
   const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
-  const prompt = `You are a dictionary. Look up the word or phrase "${word}" in ${language.name}.
+  const prompt = `You are a comprehensive multilingual dictionary and thesaurus for ${language.name}. Look up "${word}" — this could be a single letter/alphabet character, a single word, a multi-word phrase, or an idiom. Handle ALL of these categories properly; do not reject something just because it isn't a single standalone word.
 
 Respond with ONLY a JSON object, no other text, in this exact format:
 {
-  "word": "the word, corrected for spelling if needed",
-  "partOfSpeech": "noun/verb/adjective/etc, or empty string if not applicable",
-  "definition": "a clear English explanation of what it means",
-  "exampleSentence": "one natural example sentence in ${language.name} using the word",
-  "exampleTranslation": "English translation of that example sentence",
-  "notes": "any brief, genuinely useful note — gender/case for German, formality level, common confusion with another word, etc. Empty string if nothing notable."
+  "entryType": "letter" | "word" | "phrase" | "idiom",
+  "word": "the letter/word/phrase, corrected for spelling if needed",
+  "partOfSpeech": "noun/verb/adjective/etc for a word; empty string for letter/phrase/idiom",
+  "definition": "a clear English explanation — for a letter, describe its sound/pronunciation and common usage; for an idiom, explain the figurative meaning (and literal translation if that helps understanding); for a phrase, explain what it means and when it's used",
+  "exampleSentence": "for word/phrase/idiom: one natural example sentence in ${language.name} using it. For a letter: one common ${language.name} word that starts with or prominently features that letter",
+  "exampleTranslation": "English translation of the example",
+  "notes": "any brief, genuinely useful note — gender/case for a word, formality level, common confusion, regional variation, etc. Empty string if nothing notable."
 }
 
-If "${word}" is not a real word in ${language.name}, or is gibberish, set "word" to what was searched and "definition" to "No dictionary entry found for this word." and leave other fields empty strings.`;
+Only set "entryType" to "not_found" and explain in "definition" that no entry exists, if "${word}" is truly gibberish and not identifiable as a letter, word, phrase, or idiom in ${language.name} or any language.`;
 
   const result = await model.generateContent(prompt);
   const raw = result.response.text();
   const cleaned = raw.replace(/```json|```/g, "").trim();
   return JSON.parse(cleaned);
 }
+
 app.get("/", (req, res) => {
   res.send("STEMBridge Speaks backend is running.");
 });
