@@ -1,911 +1,467 @@
 <!doctype html>
 <html lang="en" translate="no">
-  <head>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="google" content="notranslate" />
-    <title>STEMBridge Speaks — Conversational Practice</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --forest: #1b4332;
-        --forest-dark: #12301f;
-        --gold: #e8a33d;
-        --cream: #fbf7ee;
-        --sage: #e3eae0;
-        --ink: #22281e;
-        --brick: #8c4a3a;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-      }
-      body {
-        display: flex;
-        background: var(--cream);
-        color: var(--ink);
-        font-family: "Work Sans", sans-serif;
-      }
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="google" content="notranslate" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#1B4332" />
+<title>STEMBridge Speaks — Conversational Practice</title>
+<meta name="description" content="Practice speaking German, English, Spanish, Mandarin, Russian, or Arabic with an AI tutor. Real scenarios, live corrections, English translations, and adjustable difficulty from A1 to C2 — completely free." />
+<link rel="canonical" href="https://stembridge-speaks.onrender.com/practice.html" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta property="og:title" content="Conversational Practice — STEMBridge Speaks" />
+<meta property="og:description" content="Speak or type in a real scenario, in 6 languages, and get corrected as you go — free." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://stembridge-speaks.onrender.com/practice.html" />
 
-      /* Sidebar */
-      #sidebar {
-        width: 300px;
-        flex-shrink: 0;
-        background: var(--forest-dark);
-        color: var(--cream);
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        overflow: hidden;
-      }
-      #sidebar .logo {
-        font-family: "Fraunces", serif;
-        font-weight: 700;
-        font-size: 17px;
-        padding: 16px 16px 8px;
-      }
-      #newChatBtn {
-        margin: 8px 12px;
-        padding: 10px;
-        background: var(--gold);
-        color: var(--forest-dark);
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        font-size: 14px;
-      }
-      #chatList {
-        flex: 1;
-        overflow-y: auto;
-        padding: 8px;
-      }
-      .chat-item {
-        padding: 10px 10px;
-        border-radius: 8px;
-        margin-bottom: 4px;
-        cursor: pointer;
-        font-size: 13.5px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 4px;
-      }
-      .chat-item:hover {
-        background: rgba(255, 255, 255, 0.08);
-      }
-      .chat-item.active {
-        background: rgba(232, 163, 61, 0.2);
-      }
-      .chat-item .title {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        flex: 1;
-      }
-      .chat-item .actions {
-        display: none;
-        gap: 4px;
-        flex-shrink: 0;
-      }
-      .chat-item:hover .actions {
-        display: flex;
-      }
-      .chat-item .actions button {
-        background: none;
-        border: none;
-        color: var(--cream);
-        cursor: pointer;
-        font-size: 12px;
-        opacity: 0.75;
-      }
-      .chat-item .actions button:hover {
-        opacity: 1;
-      }
-      #sidebarFooter {
-        padding: 10px 16px;
-        font-size: 11px;
-        opacity: 0.6;
-      }
-      #sidebarToggle {
-        position: fixed;
-        top: 12px;
-        left: 12px;
-        z-index: 20;
-        background: var(--forest-dark);
-        color: var(--cream);
-        border: none;
-        border-radius: 6px;
-        width: 34px;
-        height: 34px;
-        cursor: pointer;
-        display: none;
-        font-size: 16px;
-      }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 
-      /* Main area */
-      #mainArea {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        overflow: hidden;
-      }
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 14px 5vw;
-        background: var(--cream);
-        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
-        flex-wrap: wrap;
-        gap: 10px;
-        flex-shrink: 0;
-      }
-      .logo-link {
-        font-family: "Fraunces", serif;
-        font-weight: 700;
-        font-size: 18px;
-        color: var(--forest);
-        text-decoration: none;
-      }
-      .header-right {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-        row-gap: 8px;
-      }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "STEMBridge Speaks — Conversational Practice",
+  "url": "https://stembridge-speaks.onrender.com/practice.html",
+  "description": "AI-powered conversational language practice in German, English, Spanish, Mandarin, Russian, and Arabic, with real-time corrections and translations.",
+  "applicationCategory": "EducationalApplication",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "WebApplication", "name": "STEMBridge Speaks", "url": "https://stembridge-speaks.onrender.com/" }
+}
+</script>
 
-      select {
-        font-family: "Work Sans", sans-serif;
-        font-size: 13px;
-        padding: 7px 10px;
-        border-radius: 7px;
-        border: 1px solid rgba(27, 67, 50, 0.25);
-        background: var(--sage);
-        color: var(--ink);
-        max-width: 150px;
-      }
-      .icon-btn {
-        font-size: 13px;
-        padding: 7px 12px;
-        border-radius: 7px;
-        border: 1px solid rgba(27, 67, 50, 0.25);
-        background: transparent;
-        color: var(--forest-dark);
-        cursor: pointer;
-        font-weight: 500;
-        white-space: nowrap;
-      }
-      .icon-btn:hover {
-        background: rgba(27, 67, 50, 0.08);
-      }
+<style>
+  :root {
+    --forest: #1B4332; --forest-dark: #12301F; --gold: #E8A33D;
+    --cream: #FBF7EE; --sage: #E3EAE0; --ink: #22281E; --brick: #8C4A3A;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { display: flex; background: var(--cream); color: var(--ink); font-family: 'Work Sans', sans-serif; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
 
-      #chatArea {
-        flex: 1;
-        overflow-y: auto;
-        padding: 24px 5vw 12px;
-        display: flex;
-        flex-direction: column;
-      }
-      #chatInner {
-        max-width: 760px;
-        width: 100%;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        flex: 1;
-      }
+  #sidebar {
+    width: 300px; flex-shrink: 0; background: var(--forest-dark); color: var(--cream);
+    display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+  }
+  .sidebar-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 16px 8px; }
+  .sidebar-top .logo { font-family: 'Fraunces', serif; font-weight: 700; font-size: 17px; color: var(--cream); text-decoration: none; }
+  #collapseBtn { background: none; border: none; color: var(--cream); font-size: 16px; cursor: pointer; opacity: 0.7; padding: 4px 8px; transition: opacity 0.2s ease, transform 0.3s ease; }
+  #collapseBtn:hover { opacity: 1; }
 
-      .empty-state {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        gap: 10px;
-        color: #6b7062;
-        padding: 20px;
-      }
-      .empty-state .glyph {
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        background: var(--sage);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-      }
-      .empty-state p {
-        margin: 0;
-        font-size: 14px;
-        max-width: 320px;
-      }
+  #newChatBtn {
+    margin: 8px 12px; padding: 10px; background: var(--gold); color: var(--forest-dark);
+    border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  #newChatBtn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232,163,61,0.35); }
 
-      .msg-row {
-        display: flex;
-        width: 100%;
-      }
-      .msg-row.user {
-        justify-content: flex-end;
-      }
-      .msg-row.tutor {
-        justify-content: flex-start;
-      }
+  #searchInput {
+    margin: 4px 12px 8px; padding: 8px 10px; border-radius: 7px; border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.06); color: var(--cream); font-size: 13px; font-family: 'Work Sans', sans-serif;
+  }
+  #searchInput::placeholder { color: rgba(255,255,255,0.5); }
 
-      .bubble {
-        max-width: 78%;
-        padding: 12px 16px;
-        border-radius: 14px;
-        font-size: 15px;
-        line-height: 1.5;
-        white-space: pre-wrap;
-      }
-      .bubble.user {
-        background: var(--sage);
-        color: var(--ink);
-        border-bottom-right-radius: 4px;
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 14px;
-      }
-      .bubble.tutor {
-        background: var(--forest-dark);
-        color: var(--cream);
-        border-bottom-left-radius: 4px;
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 14px;
-      }
-      .bubble[dir="rtl"] {
-        text-align: right;
-        font-size: 19px;
-        line-height: 1.9;
-        font-family: "Work Sans", sans-serif;
-      }
+  #chatList { flex: 1; overflow-y: auto; padding: 8px; }
+  .chat-item {
+    padding: 10px 10px; border-radius: 8px; margin-bottom: 4px; cursor: pointer;
+    font-size: 13.5px; display: flex; justify-content: space-between; align-items: center; gap: 4px;
+    transition: background 0.15s ease;
+  }
+  .chat-item:hover { background: rgba(255,255,255,0.08); }
+  .chat-item.active { background: rgba(232,163,61,0.2); }
+  .chat-item .title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+  .chat-item .actions { display: none; gap: 4px; flex-shrink: 0; }
+  .chat-item:hover .actions { display: flex; }
+  .chat-item .actions button { background: none; border: none; color: var(--cream); cursor: pointer; font-size: 12px; opacity: 0.75; }
+  .chat-item .actions button:hover { opacity: 1; }
+  #sidebarFooter { padding: 10px 16px; font-size: 11px; opacity: 0.6; }
 
-      .correction {
-        margin-top: 10px;
-        padding-top: 10px;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-        font-size: 12.5px;
-        font-style: italic;
-        opacity: 0.85;
-      }
-      .translation {
-        margin-top: 8px;
-        font-size: 12.5px;
-        color: var(--gold);
-        opacity: 0.9;
-        font-family: "Work Sans", sans-serif;
-      }
-      .bubble.tutor[dir="rtl"] .correction {
-        font-size: 15px;
-      }
-      .bubble.system {
-        background: transparent;
-        color: #6b7062;
-        font-family: "Work Sans", sans-serif;
-        font-size: 13px;
-        text-align: center;
-        max-width: 100%;
-        width: 100%;
-      }
+  #sidebar.collapsed { width: 60px; }
+  #sidebar.collapsed .sidebar-top .logo,
+  #sidebar.collapsed #newChatBtn span.label,
+  #sidebar.collapsed #searchInput,
+  #sidebar.collapsed .chat-item .title,
+  #sidebar.collapsed .chat-item .actions,
+  #sidebar.collapsed #sidebarFooter { display: none; }
+  #sidebar.collapsed #newChatBtn { padding: 10px; font-size: 18px; }
+  #sidebar.collapsed #collapseBtn { transform: rotate(180deg); }
+  #sidebar { transition: width 0.2s ease; }
 
-      .feedback-row {
-        margin-top: 8px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        padding-top: 8px;
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
-        flex-wrap: wrap;
-      }
-      .feedback-row button {
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        font-size: 14px;
-        opacity: 0.7;
-        padding: 2px 4px;
-        transition: opacity 0.15s ease;
-      }
-      .feedback-row button:hover {
-        opacity: 1;
-      }
-      .feedback-row button.loading {
-        animation: pulse-opacity 0.9s infinite;
-      }
-      @keyframes pulse-opacity {
-        0%,
-        100% {
-          opacity: 0.4;
-        }
-        50% {
-          opacity: 1;
-        }
-      }
-      .feedback-row .fb-note {
-        font-size: 11px;
-        opacity: 0.7;
-      }
+  #sidebarToggle {
+    position: fixed; top: 12px; left: 12px; z-index: 20; background: var(--forest-dark); color: var(--cream);
+    border: none; border-radius: 6px; width: 34px; height: 34px; cursor: pointer; display: none; font-size: 16px;
+  }
 
-      #inputBar {
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 14px 5vw 20px;
-        background: var(--cream);
-        border-top: 1px solid rgba(27, 67, 50, 0.1);
-        max-width: 760px;
-        width: 100%;
-        margin: 0 auto;
-      }
-      #textInput {
-        flex: 1;
-        min-width: 0;
-        font-family: "Work Sans", sans-serif;
-        font-size: 15px;
-        padding: 12px 16px;
-        border-radius: 24px;
-        border: 1px solid rgba(27, 67, 50, 0.25);
-        background: var(--sage);
-        color: var(--ink);
-      }
-      #textInput:disabled {
-        opacity: 0.6;
-      }
+  #mainArea { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 14px 5vw; background: var(--cream); border-bottom: 1px solid rgba(27,67,50,0.1); flex-wrap: wrap; gap: 10px; flex-shrink: 0; }
+  .current-title { font-size: 15px; font-weight: 600; color: var(--forest-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
+  .header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; row-gap: 8px; }
 
-      #micBtn,
-      #sendBtn {
-        flex-shrink: 0;
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        border: none;
-        cursor: pointer;
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      #micBtn {
-        background: var(--forest);
-        color: var(--cream);
-      }
-      #micBtn.recording {
-        background: var(--brick);
-        animation: pulse 1.2s infinite;
-      }
-      #sendBtn {
-        background: var(--gold);
-        color: var(--forest-dark);
-      }
-      @keyframes pulse {
-        0%,
-        100% {
-          box-shadow: 0 0 0 0 rgba(140, 74, 58, 0.5);
-        }
-        50% {
-          box-shadow: 0 0 0 8px rgba(140, 74, 58, 0);
-        }
-      }
+  select { font-family: 'Work Sans', sans-serif; font-size: 13px; padding: 7px 10px; border-radius: 7px; border: 1px solid rgba(27,67,50,0.25); background: var(--sage); color: var(--ink); max-width: 150px; }
+  .icon-btn { font-size: 13px; padding: 7px 12px; border-radius: 7px; border: 1px solid rgba(27,67,50,0.25); background: transparent; color: var(--forest-dark); cursor: pointer; font-weight: 500; white-space: nowrap; transition: background 0.15s ease; }
+  .icon-btn:hover { background: rgba(27,67,50,0.08); }
 
-      #voiceNote {
-        text-align: center;
-        font-size: 11px;
-        color: #8a8f7d;
-        padding: 0 5vw 8px;
-        flex-shrink: 0;
-      }
-      footer {
-        text-align: center;
-        font-size: 11.5px;
-        color: #8a8f7d;
-        padding: 8px 5vw 14px;
-        flex-shrink: 0;
-        border-top: 1px solid rgba(27, 67, 50, 0.08);
-      }
-      footer a {
-        color: #8a8f7d;
-        margin: 0 6px;
-      }
+  #chatArea { flex: 1; overflow-y: auto; padding: 24px 5vw 12px; display: flex; flex-direction: column; }
+  #chatInner { max-width: 760px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; flex: 1; }
 
-      @media (max-width: 900px) {
-        #chatInner,
-        #inputBar {
-          max-width: 100%;
-        }
-      }
-      @media (max-width: 768px) {
-        #sidebarToggle {
-          display: block;
-        }
-        #sidebar {
-          position: fixed;
-          left: -320px;
-          top: 0;
-          z-index: 15;
-          transition: left 0.2s ease;
-          box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
-        }
-        #sidebar.open {
-          left: 0;
-        }
-        header {
-          padding-left: 56px;
-        }
-      }
-      @media (max-width: 600px) {
-        header {
-          padding: 12px 4vw 12px 56px;
-        }
-        .logo-link {
-          font-size: 16px;
-        }
-        .header-right {
-          width: 100%;
-          justify-content: flex-start;
-        }
-        select {
-          max-width: 120px;
-          font-size: 12px;
-        }
-        .icon-btn {
-          font-size: 12px;
-          padding: 6px 10px;
-        }
-        .bubble {
-          max-width: 88%;
-          font-size: 13.5px;
-        }
-        .bubble[dir="rtl"] {
-          font-size: 17px;
-        }
-        #inputBar {
-          padding: 10px 4vw 16px;
-        }
-        #textInput {
-          font-size: 14px;
-          padding: 10px 14px;
-        }
-        #micBtn,
-        #sendBtn {
-          width: 40px;
-          height: 40px;
-          font-size: 16px;
-        }
-      }
+  .empty-state { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 10px; color: #6B7062; padding: 20px; }
+  .empty-state .glyph { width: 56px; height: 56px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+  .empty-state p { margin: 0; font-size: 14px; max-width: 320px; }
 
-      .current-title {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--forest-dark);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        max-width: 200px;
-      }
+  .msg-row { display: flex; width: 100%; opacity: 0; animation: msgIn 0.35s ease forwards; }
+  @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .msg-row { animation: none; opacity: 1; } }
+  .msg-row.user { justify-content: flex-end; }
+  .msg-row.tutor { justify-content: flex-start; }
 
-      .sidebar-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 16px 16px 8px;
-      }
-      .sidebar-top .logo {
-        font-family: "Fraunces", serif;
-        font-weight: 700;
-        font-size: 17px;
-        color: var(--cream);
-        text-decoration: none;
-      }
-      #collapseBtn {
-        background: none;
-        border: none;
-        color: var(--cream);
-        font-size: 16px;
-        cursor: pointer;
-        opacity: 0.7;
-        padding: 4px 8px;
-      }
-      #collapseBtn:hover {
-        opacity: 1;
-      }
+  .bubble { max-width: 78%; padding: 12px 16px; border-radius: 14px; font-size: 15px; line-height: 1.5; white-space: pre-wrap; }
+  .bubble.user { background: var(--sage); color: var(--ink); border-bottom-right-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; }
+  .bubble.tutor { background: var(--forest-dark); color: var(--cream); border-bottom-left-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; }
+  .bubble[dir="rtl"] { text-align: right; font-size: 19px; line-height: 1.9; font-family: 'Work Sans', sans-serif; }
 
-      #searchInput {
-        margin: 4px 12px 8px;
-        padding: 8px 10px;
-        border-radius: 7px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        background: rgba(255, 255, 255, 0.06);
-        color: var(--cream);
-        font-size: 13px;
-        font-family: "Work Sans", sans-serif;
-      }
-      #searchInput::placeholder {
-        color: rgba(255, 255, 255, 0.5);
-      }
+  .correction { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 12.5px; font-style: italic; opacity: 0.85; }
+  .translation { margin-top: 8px; font-size: 12.5px; color: var(--gold); opacity: 0.9; font-family: 'Work Sans', sans-serif; }
+  .bubble.tutor[dir="rtl"] .correction { font-size: 15px; }
+  .bubble.system { background: transparent; color: #6B7062; font-family: 'Work Sans', sans-serif; font-size: 13px; text-align: center; max-width: 100%; width: 100%; }
 
-      /* Collapsed state — desktop only, icon-only rail */
-      #sidebar.collapsed {
-        width: 60px;
-      }
-      #sidebar.collapsed .sidebar-top .logo,
-      #sidebar.collapsed #newChatBtn span.label,
-      #sidebar.collapsed #searchInput,
-      #sidebar.collapsed .chat-item .title,
-      #sidebar.collapsed .chat-item .actions,
-      #sidebar.collapsed #sidebarFooter {
-        display: none;
-      }
-      #sidebar.collapsed #newChatBtn {
-        padding: 10px;
-        font-size: 18px;
-      }
-      #sidebar.collapsed #collapseBtn {
-        transform: rotate(180deg);
-      }
-      #sidebar {
-        transition: width 0.2s ease;
-      }
-    </style>
-  </head>
-  <body>
-    <button id="sidebarToggle">☰</button>
-    <div id="sidebar">
-      <div class="sidebar-top">
-        <a href="/" class="logo">STEMBridge Speaks</a>
-        <button id="collapseBtn" title="Collapse sidebar">«</button>
-      </div>
-      <button id="newChatBtn">+ <span class="label">New Chat</span></button>
-      <input type="text" id="searchInput" placeholder="Search chats..." />
-      <div id="chatList"></div>
-      <div id="sidebarFooter">Chats are stored locally to this browser.</div>
+  .feedback-row { margin-top: 8px; display: flex; align-items: center; gap: 6px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.15); flex-wrap: wrap; }
+  .feedback-row button { background: transparent; border: none; cursor: pointer; font-size: 14px; opacity: 0.7; padding: 2px 4px; transition: opacity 0.15s ease, transform 0.15s ease; }
+  .feedback-row button:hover { opacity: 1; transform: scale(1.15); }
+  .feedback-row button.loading { animation: pulse-opacity 0.9s infinite; }
+  @keyframes pulse-opacity { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+  .feedback-row .fb-note { font-size: 11px; opacity: 0.7; }
+
+  #inputBar { flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 14px 5vw 20px; background: var(--cream); border-top: 1px solid rgba(27,67,50,0.1); max-width: 760px; width: 100%; margin: 0 auto; }
+  #textInput { flex: 1; min-width: 0; font-family: 'Work Sans', sans-serif; font-size: 15px; padding: 12px 16px; border-radius: 24px; border: 1px solid rgba(27,67,50,0.25); background: var(--sage); color: var(--ink); }
+  #textInput:disabled { opacity: 0.6; }
+
+  #micBtn, #sendBtn { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: transform 0.15s ease; }
+  #micBtn:hover, #sendBtn:hover { transform: scale(1.06); }
+  #micBtn { background: var(--forest); color: var(--cream); }
+  #micBtn.recording { background: var(--brick); animation: pulse 1.2s infinite; }
+  #sendBtn { background: var(--gold); color: var(--forest-dark); }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(140,74,58,0.5); } 50% { box-shadow: 0 0 0 8px rgba(140,74,58,0); } }
+
+  #voiceNote { text-align: center; font-size: 11px; color: #8a8f7d; padding: 0 5vw 8px; flex-shrink: 0; }
+  footer { text-align: center; font-size: 11.5px; color: #8a8f7d; padding: 8px 5vw 14px; flex-shrink: 0; border-top: 1px solid rgba(27,67,50,0.08); }
+  footer a { color: #8a8f7d; margin: 0 6px; }
+
+  @media (max-width: 900px) { #chatInner, #inputBar { max-width: 100%; } }
+  @media (max-width: 768px) {
+    #sidebarToggle { display: block; }
+    #sidebar { position: fixed; left: -320px; top: 0; z-index: 15; transition: left 0.2s ease; box-shadow: 4px 0 20px rgba(0,0,0,0.2); }
+    #sidebar.open { left: 0; }
+    header { padding-left: 56px; }
+  }
+  @media (max-width: 600px) {
+    header { padding: 12px 4vw 12px 56px; }
+    .header-right { width: 100%; justify-content: flex-start; }
+    select { max-width: 120px; font-size: 12px; } .icon-btn { font-size: 12px; padding: 6px 10px; }
+    .bubble { max-width: 88%; font-size: 13.5px; } .bubble[dir="rtl"] { font-size: 17px; }
+    #inputBar { padding: 10px 4vw 16px; } #textInput { font-size: 14px; padding: 10px 14px; }
+    #micBtn, #sendBtn { width: 40px; height: 40px; font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<h1 class="sr-only">STEMBridge Speaks — AI Conversation Practice in German, English, Spanish, Mandarin, Russian, and Arabic</h1>
+
+<button id="sidebarToggle">☰</button>
+
+<div id="sidebar">
+  <div class="sidebar-top">
+    <a href="/" class="logo">STEMBridge Speaks</a>
+    <button id="collapseBtn" title="Collapse sidebar">«</button>
+  </div>
+  <button id="newChatBtn">+ <span class="label">New Chat</span></button>
+  <input type="text" id="searchInput" placeholder="Search chats..." />
+  <div id="chatList"></div>
+  <div id="sidebarFooter">Chats are stored locally to this browser.</div>
+</div>
+
+<div id="mainArea">
+  <header>
+    <span id="currentChatTitle" class="current-title">New chat</span>
+    <div class="header-right">
+      <select id="languageSelect">
+        <option value="german">🇩🇪 German</option>
+        <option value="english">🇬🇧 English</option>
+        <option value="spanish">🇪🇸 Spanish</option>
+        <option value="mandarin">🇨🇳 Mandarin</option>
+        <option value="russian">🇷🇺 Russian</option>
+        <option value="arabic">🇸🇦 Arabic</option>
+      </select>
+      <select id="scenarioSelect">
+        <option value="restaurant">🍽️ Restaurant</option>
+        <option value="directions">🗺️ Directions</option>
+        <option value="shopping">🛍️ Shopping</option>
+        <option value="hotel">🏨 Hotel</option>
+      </select>
+      <select id="levelSelect">
+        <option value="A1">A1 · Beginner</option>
+        <option value="A2">A2 · Elementary</option>
+        <option value="B1" selected>B1 · Intermediate</option>
+        <option value="B2">B2 · Upper-Int.</option>
+        <option value="C1">C1 · Advanced</option>
+        <option value="C2">C2 · Native-level</option>
+      </select>
+      <button class="icon-btn" id="speakTestBtn">🔊 Intro</button>
+      <button class="icon-btn" id="shareBtn">🔗 Share</button>
     </div>
+  </header>
 
-    <div id="mainArea">
-      <header>
-        <span id="currentChatTitle" class="current-title">New chat</span>
-        <div class="header-right">
-          <select id="languageSelect">
-            <option value="german">🇩🇪 German</option>
-            <option value="english">🇬🇧 English</option>
-            <option value="spanish">🇪🇸 Spanish</option>
-            <option value="mandarin">🇨🇳 Mandarin</option>
-            <option value="russian">🇷🇺 Russian</option>
-            <option value="arabic">🇸🇦 Arabic</option>
-          </select>
-          <select id="scenarioSelect">
-            <option value="restaurant">🍽️ Restaurant</option>
-            <option value="directions">🗺️ Directions</option>
-            <option value="shopping">🛍️ Shopping</option>
-            <option value="hotel">🏨 Hotel</option>
-          </select>
-          <select id="levelSelect">
-            <option value="A1">A1 · Beginner</option>
-            <option value="A2">A2 · Elementary</option>
-            <option value="B1" selected>B1 · Intermediate</option>
-            <option value="B2">B2 · Upper-Int.</option>
-            <option value="C1">C1 · Advanced</option>
-            <option value="C2">C2 · Native-level</option>
-          </select>
-          <button class="icon-btn" id="speakTestBtn">🔊 Intro</button>
-          <button class="icon-btn" id="shareBtn">🔗 Share</button>
-        </div>
-      </header>
-
-      <div id="chatArea">
-        <div id="chatInner">
-          <div class="empty-state" id="emptyState">
-            <div class="glyph">💬</div>
-            <p>
-              Pick a language and scenario above, then type or tap the mic to
-              start practicing.
-            </p>
-          </div>
-        </div>
+  <div id="chatArea">
+    <div id="chatInner">
+      <div class="empty-state" id="emptyState">
+        <div class="glyph">💬</div>
+        <p>Pick a language and scenario above, then type or tap the mic to start practicing.</p>
       </div>
-
-      <p id="voiceNote">
-        Voice replies are generated automatically for every language.
-      </p>
-
-      <div id="inputBar">
-        <button id="micBtn" title="Speak">🎤</button>
-        <input type="text" id="textInput" placeholder="Type your message..." />
-        <button id="sendBtn" title="Send">➤</button>
-      </div>
-
-      <footer>
-        © 2026 STEMBridge Speaks ·
-        <a href="/learn.html">Learn Grammar</a>
-        <a href="/dictionary.html">Dictionary</a>
-        <a href="/about.html">About</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/contact.html">Contact</a>
-      </footer>
     </div>
+  </div>
 
-    <script>
-      let exchangeCount = 0;
-      const MAX_EXCHANGES = 15;
-      let mediaRecorder;
-      let audioChunks = [];
-      let isRecording = false;
-      let audioUnlocked = false;
-      let currentChatId = null;
-      const collapseBtn = document.getElementById("collapseBtn");
-      const searchInput = document.getElementById("searchInput");
-      const currentChatTitle = document.getElementById("currentChatTitle");
+  <p id="voiceNote">Voice replies are generated automatically for every language.</p>
 
-      function getClientId() {
-        let id = localStorage.getItem("stembridge_client_id");
-        if (!id) {
-          id =
-            "client-" +
-            Math.random().toString(36).slice(2) +
-            Date.now().toString(36);
-          localStorage.setItem("stembridge_client_id", id);
-        }
-        return id;
-      }
-      const clientId = getClientId();
+  <div id="inputBar">
+    <button id="micBtn" title="Speak">🎤</button>
+    <input type="text" id="textInput" placeholder="Type your message..." />
+    <button id="sendBtn" title="Send">➤</button>
+  </div>
 
-      const rtlLanguages = ["arabic"];
-      const introLines = {
-        german:
-          "Hallo, ich bin STEMBridge Speaks, dein persönlicher Sprachpartner zum Deutschlernen.",
-        english:
-          "Hello, I'm STEMBridge Speaks, your personal language partner for learning English.",
-        spanish:
-          "Hola, soy STEMBridge Speaks, tu compañero personal para aprender español.",
-        mandarin: "你好，我是 STEMBridge Speaks，你的中文学习伙伴。",
-        russian:
-          "Привет, я STEMBridge Speaks, твой личный партнёр по изучению русского языка.",
-        arabic:
-          "مرحباً، أنا STEMBridge Speaks، شريكك الشخصي لتعلم اللغة العربية.",
-      };
+  <footer>
+    © 2026 STEMBridge Speaks ·
+    <a href="/learn.html">Learn Grammar</a>
+    <a href="/dictionary.html">Dictionary</a>
+    <a href="/about.html">About</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/contact.html">Contact</a>
+  </footer>
+</div>
 
-      const sidebar = document.getElementById("sidebar");
-      const sidebarToggle = document.getElementById("sidebarToggle");
-      const chatList = document.getElementById("chatList");
-      const chatArea = document.getElementById("chatArea");
-      const chatInner = document.getElementById("chatInner");
-      const emptyState = document.getElementById("emptyState");
-      const languageSelect = document.getElementById("languageSelect");
-      const scenarioSelect = document.getElementById("scenarioSelect");
-      const levelSelect = document.getElementById("levelSelect");
-      const textInput = document.getElementById("textInput");
-      const micBtn = document.getElementById("micBtn");
-      const sendBtn = document.getElementById("sendBtn");
+<script>
+  let exchangeCount = 0;
+  const MAX_EXCHANGES = 15;
+  let mediaRecorder;
+  let audioChunks = [];
+  let isRecording = false;
+  let audioUnlocked = false;
+  let currentChatId = null;
 
-      sidebarToggle.addEventListener("click", () =>
-        sidebar.classList.toggle("open"),
-      );
+  function getClientId() {
+    let id = localStorage.getItem("stembridge_client_id");
+    if (!id) {
+      id = "client-" + Math.random().toString(36).slice(2) + Date.now().toString(36);
+      localStorage.setItem("stembridge_client_id", id);
+    }
+    return id;
+  }
+  const clientId = getClientId();
 
-      // Collapse/expand (desktop)
-      function applySidebarCollapse() {
-        const collapsed =
-          localStorage.getItem("stembridge_sidebar_collapsed") === "true";
-        sidebar.classList.toggle("collapsed", collapsed);
-      }
-      collapseBtn.addEventListener("click", () => {
-        const isCollapsed = sidebar.classList.toggle("collapsed");
-        localStorage.setItem("stembridge_sidebar_collapsed", isCollapsed);
-      });
-      applySidebarCollapse();
+  const rtlLanguages = ["arabic"];
+  const introLines = {
+    german: "Hallo, ich bin STEMBridge Speaks, dein persönlicher Sprachpartner zum Deutschlernen.",
+    english: "Hello, I'm STEMBridge Speaks, your personal language partner for learning English.",
+    spanish: "Hola, soy STEMBridge Speaks, tu compañero personal para aprender español.",
+    mandarin: "你好，我是 STEMBridge Speaks，你的中文学习伙伴。",
+    russian: "Привет, я STEMBridge Speaks, твой личный партнёр по изучению русского языка.",
+    arabic: "مرحباً، أنا STEMBridge Speaks، شريكك الشخصي لتعلم اللغة العربية.",
+  };
 
-      // Search filter
-      searchInput.addEventListener("input", () => {
-        const query = searchInput.value.trim().toLowerCase();
-        document.querySelectorAll(".chat-item").forEach((item) => {
-          const title = item.querySelector(".title").textContent.toLowerCase();
-          item.style.display = title.includes(query) ? "" : "none";
-        });
-      });
+  const sidebar = document.getElementById("sidebar");
+  const sidebarToggle = document.getElementById("sidebarToggle");
+  const collapseBtn = document.getElementById("collapseBtn");
+  const searchInput = document.getElementById("searchInput");
+  const currentChatTitle = document.getElementById("currentChatTitle");
+  const chatList = document.getElementById("chatList");
+  const chatArea = document.getElementById("chatArea");
+  const chatInner = document.getElementById("chatInner");
+  const emptyState = document.getElementById("emptyState");
+  const languageSelect = document.getElementById("languageSelect");
+  const scenarioSelect = document.getElementById("scenarioSelect");
+  const levelSelect = document.getElementById("levelSelect");
+  const textInput = document.getElementById("textInput");
+  const micBtn = document.getElementById("micBtn");
+  const sendBtn = document.getElementById("sendBtn");
 
-      function unlockAudio() {
-        if (audioUnlocked) return;
-        const silence =
-          "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=";
-        const a = new Audio(silence);
-        a.play().catch(() => {});
-        audioUnlocked = true;
-      }
+  sidebarToggle.addEventListener("click", () => sidebar.classList.toggle("open"));
 
-      function removeEmptyState() {
-        if (emptyState && emptyState.parentNode) emptyState.remove();
-      }
-      function scrollToBottom() {
-        chatArea.scrollTop = chatArea.scrollHeight;
-      }
+  function applySidebarCollapse() {
+    const collapsed = localStorage.getItem("stembridge_sidebar_collapsed") === "true";
+    sidebar.classList.toggle("collapsed", collapsed);
+  }
+  collapseBtn.addEventListener("click", () => {
+    const isCollapsed = sidebar.classList.toggle("collapsed");
+    localStorage.setItem("stembridge_sidebar_collapsed", isCollapsed);
+  });
+  applySidebarCollapse();
 
-      function showEmptyChat() {
-        chatInner.innerHTML = `<div class="empty-state" id="emptyState"><div class="glyph">💬</div><p>Pick a language and scenario above, then type or tap the mic to start practicing.</p></div>`;
-      }
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim().toLowerCase();
+    document.querySelectorAll(".chat-item").forEach(item => {
+      const title = item.querySelector(".title").textContent.toLowerCase();
+      item.style.display = title.includes(query) ? "" : "none";
+    });
+  });
 
-      // ---------- SIDEBAR: chat list ----------
-      async function loadChatList() {
-        const res = await fetch(`/api/chats?clientId=${clientId}`);
-        const chats = await res.json();
-        chatList.innerHTML = "";
-        chats.forEach((chat) => {
-          const item = document.createElement("div");
-          item.className =
-            "chat-item" + (chat._id === currentChatId ? " active" : "");
-          item.innerHTML = `
+  function unlockAudio() {
+    if (audioUnlocked) return;
+    const silence = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=";
+    const a = new Audio(silence);
+    a.play().catch(() => {});
+    audioUnlocked = true;
+  }
+
+  function removeEmptyState() { if (emptyState && emptyState.parentNode) emptyState.remove(); }
+  function scrollToBottom() { chatArea.scrollTop = chatArea.scrollHeight; }
+
+  function showEmptyChat() {
+    chatInner.innerHTML = `<div class="empty-state" id="emptyState"><div class="glyph">💬</div><p>Pick a language and scenario above, then type or tap the mic to start practicing.</p></div>`;
+  }
+
+  async function loadChatList() {
+    const res = await fetch(`/api/chats?clientId=${clientId}`);
+    const chats = await res.json();
+    chatList.innerHTML = "";
+    chats.forEach(chat => {
+      const item = document.createElement("div");
+      item.className = "chat-item" + (chat._id === currentChatId ? " active" : "");
+      item.innerHTML = `
         <span class="title">${chat.title || "New chat"}</span>
-        <span class="actions">
-          <button class="del-btn" title="Delete">🗑️</button>
-        </span>
+        <span class="actions"><button class="del-btn" title="Delete">🗑️</button></span>
       `;
-          item.addEventListener("click", (e) => {
-            if (e.target.closest(".del-btn")) return;
-            openChat(chat._id);
-          });
-          item
-            .querySelector(".del-btn")
-            .addEventListener("click", async (e) => {
-              e.stopPropagation();
-              if (!confirm("Delete this chat?")) return;
-              await fetch(`/api/chats/${chat._id}?clientId=${clientId}`, {
-                method: "DELETE",
-              });
-              if (chat._id === currentChatId) {
-                currentChatId = null;
-                showEmptyChat();
-              }
-              loadChatList();
-            });
-          chatList.appendChild(item);
-        });
-      }
-
-      async function openChat(chatId) {
-        currentChatId = chatId;
-        const res = await fetch(`/api/chats/${chatId}?clientId=${clientId}`);
-        if (!res.ok) return;
-        const chat = await res.json();
-
-        languageSelect.value = chat.language;
-        scenarioSelect.value = chat.scenario;
-        levelSelect.value = chat.level;
-        currentChatTitle.textContent = chat.title || "New chat";
-
-        chatInner.innerHTML = "";
-        if (chat.messages.length === 0) {
-          showEmptyChat();
-        } else {
-          for (let i = 0; i < chat.messages.length; i += 2) {
-            const userMsg = chat.messages[i];
-            const modelMsg = chat.messages[i + 1];
-            if (userMsg) addUserMessage(userMsg.text, true);
-            if (modelMsg)
-              addTutorMessage(modelMsg.text, userMsg ? userMsg.text : "", true);
-          }
-        }
+      item.addEventListener("click", (e) => {
+        if (e.target.closest(".del-btn")) return;
+        openChat(chat._id);
+      });
+      item.querySelector(".del-btn").addEventListener("click", async (e) => {
+        e.stopPropagation();
+        if (!confirm("Delete this chat?")) return;
+        await fetch(`/api/chats/${chat._id}?clientId=${clientId}`, { method: "DELETE" });
+        if (chat._id === currentChatId) { currentChatId = null; showEmptyChat(); currentChatTitle.textContent = "New chat"; }
         loadChatList();
-        if (window.innerWidth <= 768) sidebar.classList.remove("open");
+      });
+      chatList.appendChild(item);
+    });
+  }
+
+  async function openChat(chatId) {
+    currentChatId = chatId;
+    const res = await fetch(`/api/chats/${chatId}?clientId=${clientId}`);
+    if (!res.ok) return;
+    const chat = await res.json();
+
+    languageSelect.value = chat.language;
+    scenarioSelect.value = chat.scenario;
+    levelSelect.value = chat.level;
+    currentChatTitle.textContent = chat.title || "New chat";
+
+    chatInner.innerHTML = "";
+    if (chat.messages.length === 0) {
+      showEmptyChat();
+    } else {
+      for (let i = 0; i < chat.messages.length; i += 2) {
+        const userMsg = chat.messages[i];
+        const modelMsg = chat.messages[i + 1];
+        if (userMsg) addUserMessage(userMsg.text, true);
+        if (modelMsg) addTutorMessage(modelMsg.text, userMsg ? userMsg.text : "", true);
       }
+    }
+    loadChatList();
+    if (window.innerWidth <= 768) sidebar.classList.remove("open");
+  }
 
-      async function createNewChat() {
-        const res = await fetch("/api/chats", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            clientId,
-            language: languageSelect.value,
-            scenario: scenarioSelect.value,
-            level: levelSelect.value,
-          }),
-        });
-        const data = await res.json();
-        currentChatId = data.chatId;
-        showEmptyChat();
-        currentChatTitle.textContent = "New chat";
-        exchangeCount = 0;
-        textInput.disabled = false;
-        micBtn.disabled = false;
-        loadChatList();
-        if (window.innerWidth <= 768) sidebar.classList.remove("open");
-      }
+  async function createNewChat() {
+    const res = await fetch("/api/chats", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ clientId, language: languageSelect.value, scenario: scenarioSelect.value, level: levelSelect.value }),
+    });
+    const data = await res.json();
+    currentChatId = data.chatId;
+    currentChatTitle.textContent = "New chat";
+    showEmptyChat();
+    exchangeCount = 0;
+    textInput.disabled = false;
+    micBtn.disabled = false;
+    loadChatList();
+    if (window.innerWidth <= 768) sidebar.classList.remove("open");
+  }
 
-      document
-        .getElementById("newChatBtn")
-        .addEventListener("click", createNewChat);
+  document.getElementById("newChatBtn").addEventListener("click", createNewChat);
 
-      document
-        .getElementById("shareBtn")
-        .addEventListener("click", async () => {
-          if (!currentChatId) {
-            alert("Start a conversation first before sharing.");
-            return;
-          }
-          const res = await fetch(`/api/chats/${currentChatId}/share`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ clientId }),
-          });
-          const data = await res.json();
-          const link = `${window.location.origin}/shared.html?id=${data.shareId}`;
-          navigator.clipboard.writeText(link);
-          alert("Read-only share link copied to clipboard:\n" + link);
-        });
+  document.getElementById("shareBtn").addEventListener("click", async () => {
+    if (!currentChatId) { alert("Start a conversation first before sharing."); return; }
+    const res = await fetch(`/api/chats/${currentChatId}/share`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ clientId }),
+    });
+    const data = await res.json();
+    const link = `${window.location.origin}/shared.html?id=${data.shareId}`;
+    navigator.clipboard.writeText(link);
+    alert("Read-only share link copied to clipboard:\n" + link);
+  });
 
-      // ---------- MESSAGE RENDERING ----------
-      function addSystemMessage(text) {
-        removeEmptyState();
-        const row = document.createElement("div");
-        row.className = "msg-row tutor";
-        row.innerHTML = `<div class="bubble system">${text}</div>`;
-        chatInner.appendChild(row);
-        scrollToBottom();
-      }
+  function addSystemMessage(text) {
+    removeEmptyState();
+    const row = document.createElement("div");
+    row.className = "msg-row tutor";
+    row.innerHTML = `<div class="bubble system">${text}</div>`;
+    chatInner.appendChild(row);
+    scrollToBottom();
+  }
 
-      function addUserMessage(text, skipRemoveEmpty) {
-        if (!skipRemoveEmpty) removeEmptyState();
-        else if (document.getElementById("emptyState")) removeEmptyState();
-        const isRTL = rtlLanguages.includes(languageSelect.value);
-        const row = document.createElement("div");
-        row.className = "msg-row user";
-        row.innerHTML = `<div class="bubble user" dir="${isRTL ? "rtl" : "ltr"}"></div>`;
-        row.querySelector(".bubble").textContent = text;
-        chatInner.appendChild(row);
-        scrollToBottom();
-      }
+  function addUserMessage(text, skipRemoveEmpty) {
+    if (document.getElementById("emptyState")) removeEmptyState();
+    const isRTL = rtlLanguages.includes(languageSelect.value);
+    const row = document.createElement("div");
+    row.className = "msg-row user";
+    row.innerHTML = `<div class="bubble user" dir="${isRTL ? 'rtl' : 'ltr'}"></div>`;
+    row.querySelector(".bubble").textContent = text;
+    chatInner.appendChild(row);
+    scrollToBottom();
+  }
 
-      function addTutorMessage(fullText, userMsgForFeedback, isReplay) {
-        removeEmptyState();
-        const isRTL = rtlLanguages.includes(languageSelect.value);
-        const [beforeCorrection, correction] =
-          fullText.split(/\n?Correction:/i);
-        const [main, translation] = beforeCorrection.split(/\n?Translation:/i);
+  function addTutorMessage(fullText, userMsgForFeedback, isReplay) {
+    removeEmptyState();
+    const isRTL = rtlLanguages.includes(languageSelect.value);
+    const [beforeCorrection, correction] = fullText.split(/\n?Correction:/i);
+    const [main, translation] = beforeCorrection.split(/\n?Translation:/i);
 
-        const row = document.createElement("div");
-        row.className = "msg-row tutor";
-        const bubble = document.createElement("div");
-        bubble.className = "bubble tutor";
-        bubble.setAttribute("dir", isRTL ? "rtl" : "ltr");
+    const row = document.createElement("div");
+    row.className = "msg-row tutor";
+    const bubble = document.createElement("div");
+    bubble.className = "bubble tutor";
+    bubble.setAttribute("dir", isRTL ? "rtl" : "ltr");
 
-        const mainSpan = document.createElement("div");
-        mainSpan.textContent = main.trim();
-        bubble.appendChild(mainSpan);
+    const mainSpan = document.createElement("div");
+    mainSpan.textContent = main.trim();
+    bubble.appendChild(mainSpan);
 
-        if (translation && translation.trim()) {
-          const transDiv = document.createElement("div");
-          transDiv.className = "translation";
-          transDiv.setAttribute("dir", "ltr");
-          transDiv.textContent = "🌐 " + translation.trim();
-          bubble.appendChild(transDiv);
-        }
+    if (translation && translation.trim()) {
+      const transDiv = document.createElement("div");
+      transDiv.className = "translation";
+      transDiv.setAttribute("dir", "ltr");
+      transDiv.textContent = "🌐 " + translation.trim();
+      bubble.appendChild(transDiv);
+    }
 
-        if (correction && correction.trim()) {
-          const corrDiv = document.createElement("div");
-          corrDiv.className = "correction";
-          corrDiv.textContent = "Correction: " + correction.trim();
-          bubble.appendChild(corrDiv);
-        }
+    if (correction && correction.trim()) {
+      const corrDiv = document.createElement("div");
+      corrDiv.className = "correction";
+      corrDiv.textContent = "Correction: " + correction.trim();
+      bubble.appendChild(corrDiv);
+    }
 
-        const fbRow = document.createElement("div");
-        fbRow.className = "feedback-row";
-        fbRow.innerHTML = `
+    const fbRow = document.createElement("div");
+    fbRow.className = "feedback-row";
+    fbRow.innerHTML = `
       <button class="fb-up">👍</button>
       <button class="fb-down">👎</button>
       <button class="fb-copy" title="Copy">📋</button>
@@ -914,269 +470,190 @@
       <span class="fb-note"></span>
     `;
 
-        fbRow
-          .querySelector(".fb-up")
-          .addEventListener("click", () =>
-            submitFeedback(
-              fbRow,
-              userMsgForFeedback,
-              mainSpan.textContent,
-              "up",
-            ),
-          );
-        fbRow
-          .querySelector(".fb-down")
-          .addEventListener("click", () =>
-            submitFeedback(
-              fbRow,
-              userMsgForFeedback,
-              mainSpan.textContent,
-              "down",
-            ),
-          );
-        fbRow.querySelector(".fb-copy").addEventListener("click", () => {
-          navigator.clipboard.writeText(mainSpan.textContent);
-          const note = fbRow.querySelector(".fb-note");
-          note.textContent = "Copied!";
-          setTimeout(() => {
-            note.textContent = "";
-          }, 1500);
-        });
-        const readBtn = fbRow.querySelector(".fb-read");
-        readBtn.addEventListener("click", () =>
-          speak(mainSpan.textContent, readBtn),
-        );
+    fbRow.querySelector(".fb-up").addEventListener("click", () => submitFeedback(fbRow, userMsgForFeedback, mainSpan.textContent, "up"));
+    fbRow.querySelector(".fb-down").addEventListener("click", () => submitFeedback(fbRow, userMsgForFeedback, mainSpan.textContent, "down"));
+    fbRow.querySelector(".fb-copy").addEventListener("click", () => {
+      navigator.clipboard.writeText(mainSpan.textContent);
+      const note = fbRow.querySelector(".fb-note");
+      note.textContent = "Copied!";
+      setTimeout(() => { note.textContent = ""; }, 1500);
+    });
+    const readBtn = fbRow.querySelector(".fb-read");
+    readBtn.addEventListener("click", () => speak(mainSpan.textContent, readBtn));
 
-        fbRow.querySelector(".fb-retry").addEventListener("click", async () => {
-          const retryBtn = fbRow.querySelector(".fb-retry");
-          retryBtn.classList.add("loading");
+    fbRow.querySelector(".fb-retry").addEventListener("click", async () => {
+      const retryBtn = fbRow.querySelector(".fb-retry");
+      retryBtn.classList.add("loading");
+      try {
+        const response = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chatId: currentChatId, clientId, message: userMsgForFeedback, scenario: scenarioSelect.value, language: languageSelect.value, level: levelSelect.value }),
+        });
+        const data = await response.json();
+        const [beforeCorr, newCorrection] = data.reply.split(/\n?Correction:/i);
+        const [newMain, newTranslation] = beforeCorr.split(/\n?Translation:/i);
+        mainSpan.textContent = newMain.trim();
+        const existingTranslation = bubble.querySelector(".translation");
+        if (existingTranslation) existingTranslation.remove();
+        if (newTranslation && newTranslation.trim()) {
+          const transDiv = document.createElement("div");
+          transDiv.className = "translation";
+          transDiv.setAttribute("dir", "ltr");
+          transDiv.textContent = "🌐 " + newTranslation.trim();
+          bubble.insertBefore(transDiv, bubble.querySelector(".correction") || fbRow);
+        }
+        const existingCorrection = bubble.querySelector(".correction");
+        if (existingCorrection) existingCorrection.remove();
+        if (newCorrection && newCorrection.trim()) {
+          const corrDiv = document.createElement("div");
+          corrDiv.className = "correction";
+          corrDiv.textContent = "Correction: " + newCorrection.trim();
+          bubble.insertBefore(corrDiv, fbRow);
+        }
+      } catch (err) { console.error("Regenerate failed:", err); }
+      retryBtn.classList.remove("loading");
+    });
+
+    bubble.appendChild(fbRow);
+    row.appendChild(bubble);
+    chatInner.appendChild(row);
+    scrollToBottom();
+
+    if (!isReplay) speak(mainSpan.textContent, readBtn);
+  }
+
+  async function submitFeedback(fbRow, userMsg, tutorMsg, rating) {
+    fbRow.querySelector(".fb-note").textContent = "Saving...";
+    try {
+      await fetch("/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ rating, scenario: scenarioSelect.value, language: languageSelect.value, userMessage: userMsg, tutorReply: tutorMsg }),
+      });
+      fbRow.querySelector(".fb-note").textContent = "Thanks!";
+    } catch (err) { fbRow.querySelector(".fb-note").textContent = "Couldn't save."; }
+  }
+
+  function checkExchangeLimit() {
+    exchangeCount++;
+    if (exchangeCount >= MAX_EXCHANGES) {
+      textInput.disabled = true;
+      micBtn.disabled = true;
+      addSystemMessage("Session limit reached. Start a new chat to continue.");
+    }
+  }
+
+  async function speak(text, btnEl) {
+    if (btnEl) btnEl.classList.add("loading");
+    try {
+      const response = await fetch("/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, level: levelSelect.value, language: languageSelect.value }),
+      });
+      const data = await response.json();
+      if (!data.audio) { if (btnEl) btnEl.classList.remove("loading"); return; }
+      const audioEl = new Audio("data:audio/mp3;base64," + data.audio);
+      audioEl.onended = () => { if (btnEl) btnEl.classList.remove("loading"); };
+      audioEl.onerror = () => { if (btnEl) btnEl.classList.remove("loading"); };
+      audioEl.play().catch(err => { console.error("Autoplay blocked:", err); if (btnEl) btnEl.classList.remove("loading"); });
+    } catch (err) {
+      console.error("Speech playback error:", err);
+      if (btnEl) btnEl.classList.remove("loading");
+    }
+  }
+
+  async function ensureChatExists() {
+    if (!currentChatId) await createNewChat();
+  }
+
+  async function sendTextMessage(text) {
+    await ensureChatExists();
+    addUserMessage(text);
+    try {
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chatId: currentChatId, clientId, message: text, scenario: scenarioSelect.value, language: languageSelect.value, level: levelSelect.value }),
+      });
+      const data = await response.json();
+      addTutorMessage(data.reply, text);
+      checkExchangeLimit();
+      if (data.title) currentChatTitle.textContent = data.title;
+      loadChatList();
+    } catch (err) {
+      addSystemMessage("Error: " + err.message);
+    }
+  }
+
+  sendBtn.addEventListener("click", () => {
+    unlockAudio();
+    const text = textInput.value.trim();
+    if (!text) return;
+    textInput.value = "";
+    sendTextMessage(text);
+  });
+  textInput.addEventListener("keydown", (e) => { if (e.key === "Enter") sendBtn.click(); });
+
+  micBtn.addEventListener("click", async () => {
+    unlockAudio();
+    if (!isRecording) {
+      let stream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      } catch (err) {
+        addSystemMessage("Microphone access is needed to speak. Please allow microphone permission and try again.");
+        return;
+      }
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks = [];
+      mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+      mediaRecorder.start();
+      isRecording = true;
+      micBtn.classList.add("recording");
+    } else {
+      mediaRecorder.stop();
+      isRecording = false;
+      micBtn.classList.remove("recording");
+
+      mediaRecorder.onstop = async () => {
+        await ensureChatExists();
+        const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+        addSystemMessage("Processing your speech...");
+
+        const reader = new FileReader();
+        reader.readAsDataURL(audioBlob);
+        reader.onloadend = async () => {
+          const base64Audio = reader.result.split(",")[1];
           try {
-            const response = await fetch("/chat", {
+            const response = await fetch("/chat-audio", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                chatId: currentChatId,
-                clientId,
-                message: userMsgForFeedback,
-                scenario: scenarioSelect.value,
-                language: languageSelect.value,
-                level: levelSelect.value,
-              }),
+              body: JSON.stringify({ chatId: currentChatId, clientId, audio: base64Audio, scenario: scenarioSelect.value, language: languageSelect.value, level: levelSelect.value }),
             });
             const data = await response.json();
-            const [beforeCorr, newCorrection] =
-              data.reply.split(/\n?Correction:/i);
-            const [newMain, newTranslation] =
-              beforeCorr.split(/\n?Translation:/i);
-            mainSpan.textContent = newMain.trim();
-            const existingTranslation = bubble.querySelector(".translation");
-            if (existingTranslation) existingTranslation.remove();
-            if (newTranslation && newTranslation.trim()) {
-              const transDiv = document.createElement("div");
-              transDiv.className = "translation";
-              transDiv.setAttribute("dir", "ltr");
-              transDiv.textContent = "🌐 " + newTranslation.trim();
-              bubble.insertBefore(
-                transDiv,
-                bubble.querySelector(".correction") || fbRow,
-              );
-            }
-            const existingCorrection = bubble.querySelector(".correction");
-            if (existingCorrection) existingCorrection.remove();
-            if (newCorrection && newCorrection.trim()) {
-              const corrDiv = document.createElement("div");
-              corrDiv.className = "correction";
-              corrDiv.textContent = "Correction: " + newCorrection.trim();
-              bubble.insertBefore(corrDiv, fbRow);
-            }
+            chatInner.lastChild.remove();
+            addUserMessage(data.transcription);
+            addTutorMessage(data.reply, data.transcription);
+            checkExchangeLimit();
+            if (data.title) currentChatTitle.textContent = data.title;
+            loadChatList();
           } catch (err) {
-            console.error("Regenerate failed:", err);
+            chatInner.lastChild.remove();
+            addSystemMessage("Error: " + err.message);
           }
-          retryBtn.classList.remove("loading");
-        });
+        };
+      };
+    }
+  });
 
-        bubble.appendChild(fbRow);
-        row.appendChild(bubble);
-        chatInner.appendChild(row);
-        scrollToBottom();
+  document.getElementById("speakTestBtn").addEventListener("click", () => {
+    unlockAudio();
+    speak(introLines[languageSelect.value] || introLines.english);
+  });
 
-        if (!isReplay) speak(mainSpan.textContent, readBtn);
-      }
-
-      async function submitFeedback(fbRow, userMsg, tutorMsg, rating) {
-        fbRow.querySelector(".fb-note").textContent = "Saving...";
-        try {
-          await fetch("/feedback", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              rating,
-              scenario: scenarioSelect.value,
-              language: languageSelect.value,
-              userMessage: userMsg,
-              tutorReply: tutorMsg,
-            }),
-          });
-          fbRow.querySelector(".fb-note").textContent = "Thanks!";
-        } catch (err) {
-          fbRow.querySelector(".fb-note").textContent = "Couldn't save.";
-        }
-      }
-
-      function checkExchangeLimit() {
-        exchangeCount++;
-        if (exchangeCount >= MAX_EXCHANGES) {
-          textInput.disabled = true;
-          micBtn.disabled = true;
-          addSystemMessage(
-            "Session limit reached. Start a new chat to continue.",
-          );
-        }
-      }
-
-      async function speak(text, btnEl) {
-        if (btnEl) btnEl.classList.add("loading");
-        try {
-          const response = await fetch("/tts", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              text,
-              level: levelSelect.value,
-              language: languageSelect.value,
-            }),
-          });
-          const data = await response.json();
-          if (!data.audio) {
-            if (btnEl) btnEl.classList.remove("loading");
-            return;
-          }
-          const audioEl = new Audio("data:audio/mp3;base64," + data.audio);
-          audioEl.onended = () => {
-            if (btnEl) btnEl.classList.remove("loading");
-          };
-          audioEl.onerror = () => {
-            if (btnEl) btnEl.classList.remove("loading");
-          };
-          audioEl.play().catch((err) => {
-            console.error("Autoplay blocked:", err);
-            if (btnEl) btnEl.classList.remove("loading");
-          });
-        } catch (err) {
-          console.error("Speech playback error:", err);
-          if (btnEl) btnEl.classList.remove("loading");
-        }
-      }
-
-      async function ensureChatExists() {
-        if (!currentChatId) await createNewChat();
-      }
-
-      async function sendTextMessage(text) {
-        await ensureChatExists();
-        addUserMessage(text);
-        try {
-          const response = await fetch("/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              chatId: currentChatId,
-              clientId,
-              message: text,
-              scenario: scenarioSelect.value,
-              language: languageSelect.value,
-              level: levelSelect.value,
-            }),
-          });
-          const data = await response.json();
-          addTutorMessage(data.reply, text);
-          checkExchangeLimit();
-          if (data.title) currentChatTitle.textContent = data.title;
-          loadChatList();
-        } catch (err) {
-          addSystemMessage("Error: " + err.message);
-        }
-      }
-
-      sendBtn.addEventListener("click", () => {
-        unlockAudio();
-        const text = textInput.value.trim();
-        if (!text) return;
-        textInput.value = "";
-        sendTextMessage(text);
-      });
-      textInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") sendBtn.click();
-      });
-
-      micBtn.addEventListener("click", async () => {
-        unlockAudio();
-        if (!isRecording) {
-          let stream;
-          try {
-            stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          } catch (err) {
-            addSystemMessage(
-              "Microphone access is needed to speak. Please allow microphone permission and try again.",
-            );
-            return;
-          }
-          mediaRecorder = new MediaRecorder(stream);
-          audioChunks = [];
-          mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
-          mediaRecorder.start();
-          isRecording = true;
-          micBtn.classList.add("recording");
-        } else {
-          mediaRecorder.stop();
-          isRecording = false;
-          micBtn.classList.remove("recording");
-
-          mediaRecorder.onstop = async () => {
-            await ensureChatExists();
-            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-            addSystemMessage("Processing your speech...");
-
-            const reader = new FileReader();
-            reader.readAsDataURL(audioBlob);
-            reader.onloadend = async () => {
-              const base64Audio = reader.result.split(",")[1];
-              try {
-                const response = await fetch("/chat-audio", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    chatId: currentChatId,
-                    clientId,
-                    audio: base64Audio,
-                    scenario: scenarioSelect.value,
-                    language: languageSelect.value,
-                    level: levelSelect.value,
-                  }),
-                });
-                const data = await response.json();
-                chatInner.lastChild.remove();
-                addUserMessage(data.transcription);
-                addTutorMessage(data.reply, data.transcription);
-                checkExchangeLimit();
-                if (data.title) currentChatTitle.textContent = data.title;
-                loadChatList();
-              } catch (err) {
-                chatInner.lastChild.remove();
-                addSystemMessage("Error: " + err.message);
-              }
-            };
-          };
-        }
-      });
-
-      document.getElementById("speakTestBtn").addEventListener("click", () => {
-        unlockAudio();
-        speak(introLines[languageSelect.value] || introLines.english);
-      });
-
-      // Initial load
-      loadChatList();
-    </script>
-  </body>
+  loadChatList();
+</script>
+</body>
 </html>

@@ -4,21 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="google" content="notranslate" />
-    <title>STEMBridge Speaks — Dictionary</title>
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1B4332" />
+    <title>STEMBridge Speaks — Free Multilingual Dictionary & Thesaurus</title>
     <meta
       name="description"
-      content="Free multilingual dictionary — look up word meanings, examples, and pronunciation in German, English, Spanish, Mandarin, Russian, and Arabic."
+      content="Free dictionary for German, English, Spanish, Mandarin, Russian, and Arabic — look up words, phrases, idioms, and letters with clear definitions, examples, and pronunciation audio."
+    />
+    <link
+      rel="canonical"
+      href="https://stembridge-speaks.onrender.com/dictionary.html"
     />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta
+      property="og:title"
+      content="Free Multilingual Dictionary — STEMBridge Speaks"
+    />
+    <meta
+      property="og:description"
+      content="Look up words, phrases, idioms, and letters across 6 languages, with definitions, examples, and pronunciation — free."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://stembridge-speaks.onrender.com/dictionary.html"
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "STEMBridge Speaks — Dictionary",
+        "url": "https://stembridge-speaks.onrender.com/dictionary.html",
+        "description": "Free multilingual dictionary and thesaurus covering words, phrases, idioms, and letters in German, English, Spanish, Mandarin, Russian, and Arabic.",
+        "applicationCategory": "ReferenceApplication",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "isPartOf": {
+          "@type": "WebApplication",
+          "name": "STEMBridge Speaks",
+          "url": "https://stembridge-speaks.onrender.com/"
+        }
+      }
+    </script>
+
     <style>
       :root {
         --forest: #1b4332;
@@ -45,6 +83,25 @@
         font-family: "Fraunces", serif;
         font-weight: 600;
         color: var(--forest-dark);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
       }
 
       header {
@@ -74,6 +131,20 @@
         text-decoration: none;
         font-weight: 500;
         font-size: 14px;
+        position: relative;
+      }
+      nav a:not(.btn)::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+        transition: width 0.2s ease;
+      }
+      nav a:not(.btn):hover::after {
+        width: 100%;
       }
       nav a.btn {
         background: var(--forest);
@@ -81,6 +152,13 @@
         padding: 8px 16px;
         border-radius: 6px;
         font-weight: 600;
+        transition:
+          transform 0.15s ease,
+          background 0.15s ease;
+      }
+      nav a.btn:hover {
+        background: var(--forest-dark);
+        transform: translateY(-2px);
       }
 
       main {
@@ -103,6 +181,14 @@
         border: 1.5px solid rgba(27, 67, 50, 0.25);
         font-size: 15px;
         font-family: "Work Sans", sans-serif;
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      #wordInput:focus {
+        outline: none;
+        border-color: var(--forest);
+        box-shadow: 0 0 0 3px rgba(27, 67, 50, 0.1);
       }
       #langSelect {
         padding: 12px 14px;
@@ -120,13 +206,33 @@
         font-weight: 600;
         cursor: pointer;
         font-size: 15px;
+        transition:
+          background 0.15s ease,
+          transform 0.15s ease;
       }
       #searchBtn:hover {
         background: var(--forest-dark);
+        transform: translateY(-1px);
       }
       #searchBtn:disabled {
         opacity: 0.6;
         cursor: not-allowed;
+        transform: none;
+      }
+
+      .category-hint {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+      .category-hint span {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        background: var(--sage);
+        color: var(--forest-dark);
+        padding: 4px 10px;
+        border-radius: 20px;
       }
 
       #resultCard {
@@ -135,9 +241,18 @@
         border-radius: 14px;
         padding: 26px;
         display: none;
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.35s ease,
+          transform 0.35s ease;
       }
       #resultCard.show {
         display: block;
+      }
+      #resultCard.show.animate-in {
+        opacity: 1;
+        transform: translateY(0);
       }
       .word-row {
         display: flex;
@@ -169,6 +284,10 @@
         font-size: 16px;
         cursor: pointer;
         flex-shrink: 0;
+        transition: transform 0.15s ease;
+      }
+      #playBtn:hover {
+        transform: scale(1.08);
       }
       #playBtn.loading {
         animation: pulse 0.9s infinite;
@@ -216,7 +335,22 @@
         display: none;
       }
       #loadingMsg.show {
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .spinner {
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(27, 67, 50, 0.2);
+        border-top-color: var(--forest);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
       }
       #errorMsg {
         margin-top: 24px;
@@ -248,9 +382,26 @@
         font-size: 13px;
         cursor: pointer;
         font-family: "Work Sans", sans-serif;
+        transition:
+          background 0.15s ease,
+          transform 0.15s ease;
       }
       .recent-chip:hover {
         background: var(--gold);
+        transform: translateY(-1px);
+      }
+
+      .about-dict {
+        margin-top: 56px;
+        padding-top: 32px;
+        border-top: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      .about-dict h2 {
+        font-size: 20px;
+      }
+      .about-dict p {
+        font-size: 14.5px;
+        color: #4a4f42;
       }
 
       footer {
@@ -285,19 +436,25 @@
       <nav>
         <a href="/practice.html">Conversation Practice</a>
         <a href="/learn.html">Learn Grammar</a>
+        <a href="/about.html">About</a>
         <a href="/practice.html" class="btn">Practice free</a>
       </nav>
     </header>
 
     <main>
-      <h1>Dictionary</h1>
-      <p>
-        Look up any word — get a clear definition, an example sentence, and hear
-        it pronounced.
+      <h1 class="reveal">Dictionary</h1>
+      <p class="reveal">
+        A free multilingual dictionary and thesaurus — look up words, phrases,
+        idioms, or even individual letters, with a clear definition, an example
+        sentence, and pronunciation audio.
       </p>
 
-      <div class="search-row">
-        <input type="text" id="wordInput" placeholder="Type a word..." />
+      <div class="search-row reveal">
+        <input
+          type="text"
+          id="wordInput"
+          placeholder="Type a word, phrase, or idiom..."
+        />
         <select id="langSelect">
           <option value="german">🇩🇪 German</option>
           <option value="english">🇬🇧 English</option>
@@ -308,8 +465,12 @@
         </select>
         <button id="searchBtn">Search</button>
       </div>
+      <div class="category-hint reveal">
+        <span>Words</span><span>Phrases</span><span>Idioms</span
+        ><span>Letters</span>
+      </div>
 
-      <p id="loadingMsg">Looking that up...</p>
+      <p id="loadingMsg"><span class="spinner"></span> Looking that up...</p>
       <p id="errorMsg"></p>
 
       <div id="resultCard">
@@ -352,6 +513,16 @@
           </button>
         </div>
         <div class="recent-list" id="recentList"></div>
+      </div>
+
+      <div class="about-dict reveal">
+        <h2>How this dictionary works</h2>
+        <p>
+          Every lookup is generated live, covering not just standalone words but
+          phrases, idioms, and even individual letters — so if you hear an
+          expression in conversation and aren't sure what it means, this is
+          built to actually help, not just tell you it doesn't exist.
+        </p>
       </div>
     </main>
 
@@ -422,7 +593,7 @@
         if (!word) return;
         const language = langSelect.value;
 
-        resultCard.classList.remove("show");
+        resultCard.classList.remove("show", "animate-in");
         errorMsg.classList.remove("show");
         loadingMsg.classList.add("show");
         searchBtn.disabled = true;
@@ -481,6 +652,7 @@
           }
 
           resultCard.classList.add("show");
+          requestAnimationFrame(() => resultCard.classList.add("animate-in"));
           saveRecent(data.word, language);
         } catch (err) {
           loadingMsg.classList.remove("show");
@@ -528,6 +700,20 @@
           renderRecent();
         });
       renderRecent();
+
+      const revealEls = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+      revealEls.forEach((el) => observer.observe(el));
     </script>
   </body>
 </html>
