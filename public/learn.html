@@ -4,21 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="google" content="notranslate" />
-    <title>STEMBridge Speaks — Grammar Course</title>
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1B4332" />
+    <title>
+      STEMBridge Speaks — Free Grammar Course (16 Lessons per Language)
+    </title>
     <meta
       name="description"
-      content="Free structured grammar courses for German, English, Spanish, Mandarin, and Russian — 16 lessons each, with quizzes and pronunciation audio."
+      content="Free structured grammar courses for German, English, Spanish, Mandarin, and Russian — 16 lessons each, from foundations to advanced topics, with quizzes and pronunciation audio for every example."
+    />
+    <link
+      rel="canonical"
+      href="https://stembridge-speaks.onrender.com/learn.html"
     />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta
+      property="og:title"
+      content="Free Grammar Course — STEMBridge Speaks"
+    />
+    <meta
+      property="og:description"
+      content="16 structured grammar lessons per language, with quizzes and pronunciation audio — free, for German, English, Spanish, Mandarin, and Russian."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://stembridge-speaks.onrender.com/learn.html"
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "STEMBridge Speaks Grammar Course",
+        "description": "16 structured grammar lessons covering foundations through advanced topics, with quizzes and pronunciation audio, available in German, English, Spanish, Mandarin, and Russian.",
+        "provider": {
+          "@type": "Organization",
+          "name": "STEMBridge",
+          "sameAs": "https://stembridge-speaks.onrender.com/"
+        },
+        "hasCourseInstance": {
+          "@type": "CourseInstance",
+          "courseMode": "online",
+          "courseWorkload": "PT16H"
+        },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "isPartOf": {
+          "@type": "WebApplication",
+          "name": "STEMBridge Speaks",
+          "url": "https://stembridge-speaks.onrender.com/"
+        }
+      }
+    </script>
+
     <style>
       :root {
         --forest: #1b4332;
@@ -51,6 +99,25 @@
         font-family: "IBM Plex Mono", monospace;
       }
 
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+      }
+
       header {
         display: flex;
         justify-content: space-between;
@@ -78,6 +145,20 @@
         text-decoration: none;
         font-weight: 500;
         font-size: 14px;
+        position: relative;
+      }
+      nav a:not(.btn)::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+        transition: width 0.2s ease;
+      }
+      nav a:not(.btn):hover::after {
+        width: 100%;
       }
       nav a.btn {
         background: var(--forest);
@@ -85,6 +166,13 @@
         padding: 8px 16px;
         border-radius: 6px;
         font-weight: 600;
+        transition:
+          transform 0.15s ease,
+          background 0.15s ease;
+      }
+      nav a.btn:hover {
+        background: var(--forest-dark);
+        transform: translateY(-2px);
       }
 
       main {
@@ -129,6 +217,10 @@
         font-size: 26px;
         display: block;
         margin-bottom: 8px;
+        transition: transform 0.25s ease;
+      }
+      .lang-pick:hover .flag {
+        transform: scale(1.15) rotate(-4deg);
       }
       .lang-pick h3 {
         margin: 0 0 4px;
@@ -161,7 +253,7 @@
         height: 100%;
         background: var(--gold);
         border-radius: 4px;
-        transition: width 0.3s ease;
+        transition: width 0.6s ease;
       }
 
       /* Course path header */
@@ -213,7 +305,8 @@
         height: 100%;
         background: linear-gradient(90deg, var(--gold), var(--brick));
         border-radius: 6px;
-        transition: width 0.4s ease;
+        transition: width 0.5s ease;
+        width: 0%;
       }
 
       /* Section dividers within the path */
@@ -249,21 +342,30 @@
       .path-segment {
         position: relative;
       }
-      #pathSvg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 0;
-      }
 
       .node-row {
         display: flex;
         width: 100%;
         position: relative;
         z-index: 1;
+        opacity: 0;
+        animation: nodeIn 0.4s ease forwards;
+      }
+      @keyframes nodeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .node-row {
+          animation: none;
+          opacity: 1;
+        }
       }
       .node-row.left {
         justify-content: flex-start;
@@ -298,6 +400,9 @@
         box-shadow: 0 6px 0 var(--forest-dark);
         transition: transform 0.15s ease;
         position: relative;
+      }
+      .node:not(.locked):hover {
+        transform: translateY(-2px) scale(1.04);
       }
       .node:active {
         transform: translateY(4px);
@@ -356,6 +461,15 @@
         border-radius: 12px;
         padding: 20px;
         margin-bottom: 16px;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: chunkIn 0.4s ease forwards;
+      }
+      @keyframes chunkIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       .lesson-chunk h3 {
         font-size: 16px;
@@ -378,6 +492,17 @@
         justify-content: space-between;
         gap: 10px;
       }
+
+      .example .ex-original {
+        font-weight: 500;
+      }
+      .ex-translation-line {
+        font-size: 12px;
+        color: #55594a;
+        margin-top: 4px;
+        font-family: "Work Sans", sans-serif;
+        font-style: italic;
+      }
       .speak-btn {
         background: var(--forest);
         color: var(--cream);
@@ -388,6 +513,10 @@
         flex-shrink: 0;
         cursor: pointer;
         font-size: 14px;
+        transition: transform 0.15s ease;
+      }
+      .speak-btn:hover {
+        transform: scale(1.1);
       }
       .speak-btn.small {
         width: 26px;
@@ -415,9 +544,13 @@
         font-size: 15px;
         border: none;
         cursor: pointer;
+        transition:
+          background 0.15s ease,
+          transform 0.15s ease;
       }
       .btn:hover {
         background: var(--forest-dark);
+        transform: translateY(-1px);
       }
       .btn-gold {
         background: var(--gold);
@@ -437,6 +570,9 @@
         border-radius: 12px;
         padding: 20px;
         margin-bottom: 16px;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: chunkIn 0.4s ease forwards;
       }
       .q-block p.question {
         font-weight: 600;
@@ -458,6 +594,12 @@
         cursor: pointer;
         font-family: "Work Sans", sans-serif;
         font-size: 14px;
+        transition:
+          border-color 0.15s ease,
+          background 0.15s ease;
+      }
+      .opt:hover:not(:disabled) {
+        border-color: var(--forest);
       }
       .opt.selected {
         border-color: var(--forest);
@@ -487,6 +629,8 @@
         border-radius: 14px;
         padding: 32px;
         margin-top: 10px;
+        opacity: 0;
+        animation: chunkIn 0.4s ease forwards;
       }
       .score-box .big {
         font-size: 40px;
@@ -501,6 +645,19 @@
         text-align: center;
         color: #6b7062;
         padding: 40px 0;
+      }
+
+      .about-course {
+        margin-top: 56px;
+        padding-top: 32px;
+        border-top: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      .about-course h2 {
+        font-size: 20px;
+      }
+      .about-course p {
+        font-size: 14.5px;
+        color: #4a4f42;
       }
 
       footer {
@@ -621,13 +778,26 @@
 
     <main>
       <div id="view-languages">
-        <h1>Grammar Course</h1>
-        <p>
+        <h1 class="reveal">Grammar Course</h1>
+        <p class="reveal">
           16 structured lessons per language — from the basics through advanced
           topics — each with a quiz and audio pronunciation.
         </p>
-        <div class="lang-grid" id="langGrid">
+        <div class="lang-grid reveal" id="langGrid">
           <p class="loading-text">Loading courses...</p>
+        </div>
+
+        <div class="about-course reveal">
+          <h2>How the course is structured</h2>
+          <p>
+            Each language's course is split into two tracks: five foundational
+            lessons covering the basics you'd need for real conversation,
+            followed by eleven advanced lessons — grammar, sentence structure,
+            and usage topics matched to what a Grade 9-12 curriculum would
+            cover. Every lesson ends in a five-question quiz, and every example
+            sentence has its own pronunciation audio, generated specifically for
+            that lesson.
+          </p>
         </div>
       </div>
 
@@ -642,11 +812,7 @@
             <span class="pct" id="progressPct">0%</span>
           </div>
           <div class="progress-bar-track">
-            <div
-              class="progress-bar-fill"
-              id="progressBarFill"
-              style="width: 0%"
-            ></div>
+            <div class="progress-bar-fill" id="progressBarFill"></div>
           </div>
         </div>
         <div class="path" id="pathContainer"></div>
@@ -685,6 +851,16 @@
         STEMBridgeLearning · STEMBridgeStats · STEMBridgeTools
       </div>
       <div style="margin-top: 12px">
+        <a
+          href="/dictionary.html"
+          style="margin: 0 10px; color: var(--forest-dark)"
+          >Dictionary</a
+        >
+        <a
+          href="/practice.html"
+          style="margin: 0 10px; color: var(--forest-dark)"
+          >Conversation Practice</a
+        >
         <a href="/about.html" style="margin: 0 10px; color: var(--forest-dark)"
           >About</a
         >
@@ -809,7 +985,11 @@
         document.getElementById("progressCount").textContent =
           `${done} / ${total} lessons`;
         document.getElementById("progressPct").textContent = `${pct}%`;
-        document.getElementById("progressBarFill").style.width = pct + "%";
+        const fill = document.getElementById("progressBarFill");
+        fill.style.width = "0%";
+        requestAnimationFrame(() => {
+          fill.style.width = pct + "%";
+        });
       }
 
       function openUnit(unitId) {
@@ -831,15 +1011,20 @@
         container.innerHTML = "";
         const lang = langCodes[currentLang];
 
-        unit.teaching.forEach((chunk) => {
+        unit.teaching.forEach((chunk, i) => {
           const div = document.createElement("div");
           div.className = "lesson-chunk";
+          div.style.animationDelay = i * 0.08 + "s";
           div.innerHTML =
             `<h3>${chunk.h}</h3><p>${chunk.p}</p>` +
             (chunk.ex
-              ? `<div class="example"><span>${chunk.ex}</span>
-           <button class="speak-btn" data-audio="${chunk.audioId}">🔊</button>
-         </div>`
+              ? `<div class="example">
+       <div>
+         <div class="ex-original">${chunk.ex}</div>
+         ${chunk.exTranslation ? `<div class="ex-translation-line">${chunk.exTranslation}</div>` : ""}
+       </div>
+       <button class="speak-btn" data-audio="${chunk.audioId}">🔊</button>
+     </div>`
               : "");
           container.appendChild(div);
         });
@@ -868,6 +1053,7 @@
         unit.quiz.forEach((q, i) => {
           const block = document.createElement("div");
           block.className = "q-block";
+          block.style.animationDelay = i * 0.06 + "s";
           let inner = `<p class="question">${i + 1}. ${q.q} <button class="speak-btn small" data-audio="${q.audioId}">🔊</button></p>`;
           if (q.type === "mc") {
             q.options.forEach((opt) => {
@@ -982,14 +1168,11 @@
         });
       }
 
-      // ---------- PATH RENDERING WITH CURVED CONNECTORS ----------
-
       function renderPath() {
         const container = document.getElementById("pathContainer");
         container.innerHTML = "";
         const units = courseData[currentLang].units;
 
-        // Build two segments: Foundations (0..FOUNDATIONS_COUNT-1) and Advanced (rest)
         const segments = [
           {
             label: "Foundations",
@@ -1020,9 +1203,6 @@
             "http://www.w3.org/2000/svg",
             "svg",
           );
-          svg.setAttribute("id", "pathSvg-" + segIdx);
-          svg.id = "";
-          svg.classList.add("path-svg-instance");
           segWrap.appendChild(svg);
 
           seg.units.forEach((unit, localIndex) => {
@@ -1041,6 +1221,7 @@
                 : localIndex % 3 === 1
                   ? "left"
                   : "right");
+            row.style.animationDelay = globalIndex * 0.04 + "s";
 
             const wrap = document.createElement("div");
             wrap.className = "node-wrap";
@@ -1101,7 +1282,6 @@
             const prev = points[i - 1];
             const curr = points[i];
             const midY = (prev.y + curr.y) / 2;
-            // Smooth curve: control points pull the line into an S-shape between offset nodes
             d += ` C ${prev.x} ${midY}, ${curr.x} ${midY}, ${curr.x} ${curr.y}`;
           }
 
@@ -1114,11 +1294,24 @@
         resizeTimer = setTimeout(() => {
           if (
             !document.getElementById("view-path").classList.contains("hidden")
-          ) {
+          )
             drawAllConnectors();
-          }
         }, 200);
       });
+
+      const revealEls = document.querySelectorAll(".reveal");
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+      revealEls.forEach((el) => revealObserver.observe(el));
 
       loadAllForGrid();
     </script>

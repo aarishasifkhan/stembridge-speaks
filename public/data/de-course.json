@@ -75,24 +75,28 @@
           "h": "Personal pronouns",
           "p": "ich, du, er/sie/es, wir, ihr, sie/Sie.",
           "ex": "ich, du, er, sie, es, wir, ihr, sie",
+          "exTranslation": "I, you (informal), he, she, it, we, you (plural), they",
           "audioId": "unit2-ex1"
         },
         {
           "h": "Regular verb conjugation",
           "p": "Drop -en and add the right ending.",
-          "ex": "machen → ich mache, du machst, er macht",
+          "ex": "machen → ich mache, du machst, er macht, wir machen, ihr macht, sie machen",
+          "exTranslation": "to do/make → I do, you do, he does, we do, you (plural) do, they do",
           "audioId": "unit2-ex2"
         },
         {
           "h": "sein (to be)",
           "p": "Common irregular verb.",
-          "ex": "ich bin, du bist, er ist",
+          "ex": "ich bin, du bist, er ist, wir sind, ihr seid, sie sind",
+          "exTranslation": "I am, you are, he is, we are, you (plural) are, they are",
           "audioId": "unit2-ex3"
         },
         {
           "h": "Formal you",
           "p": "Sie is the formal you.",
           "ex": "Sprechen Sie Deutsch?",
+          "exTranslation": "Do you speak German? (formal)",
           "audioId": "unit2-ex4"
         }
       ],
@@ -267,24 +271,28 @@
           "h": "What modals do",
           "p": "Express ability, necessity, desire, permission.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         },
         {
           "h": "Sentence structure",
           "p": "Modal in position 2, main verb infinitive at the end.",
           "ex": "Ich kann gut Deutsch sprechen.",
+          "exTranslation": "I can speak German well.",
           "audioId": "unit5-ex1"
         },
         {
           "h": "können conjugation",
-          "p": "ich/er share the same form.",
-          "ex": "ich kann, du kannst, er kann",
+          "p": "Note: ich and er/sie/es share the same form.",
+          "ex": "ich kann, du kannst, er kann, wir können, ihr könnt, sie können",
+          "exTranslation": "I can, you can, he can, we can, you (plural) can, they can",
           "audioId": "unit5-ex2"
         },
         {
           "h": "Common modals",
           "p": "müssen=must, wollen=want, dürfen=allowed.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         }
       ],
