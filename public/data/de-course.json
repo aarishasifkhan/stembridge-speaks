@@ -6,61 +6,65 @@
       "icon": "📘",
       "teaching": [
         {
-          "h": "Every noun has a gender",
-          "p": "German nouns are masculine (der), feminine (die), or neuter (das).",
+          "h": "Every noun has a gender — and you just have to learn it",
+          "p": "This is the single biggest adjustment coming from English: every German noun is masculine (der), feminine (die), or neuter (das), and it's usually NOT related to meaning. A table (der Tisch) is masculine, a bridge (die Brücke) is feminine, a girl (das Mädchen) is grammatically neuter — yes, really. The honest advice every German teacher gives: learn the article together with the noun, as one word, from day one. Don't learn 'Tisch', learn 'der Tisch'.",
           "ex": "der Mann · die Frau · das Kind",
+          "exTranslation": "the man (m) · the woman (f) · the child (n)",
           "audioId": "unit1-ex1"
         },
         {
-          "h": "Definite articles (nominative)",
-          "p": "In the subject position, use der/die/das depending on gender.",
+          "h": "Definite articles change with gender",
+          "p": "'The' in English is one word. In German it's three, depending on the noun's gender, when that noun is the subject of the sentence.",
           "ex": "Der Mann ist hier.",
+          "exTranslation": "The man is here.",
           "audioId": "unit1-ex2"
         },
         {
-          "h": "Indefinite articles",
-          "p": "Ein for masculine and neuter, eine for feminine.",
+          "h": "Indefinite articles: ein vs. eine",
+          "p": "'A/an' becomes ein for masculine and neuter nouns, and eine for feminine nouns. Notice: there's no plural version of 'ein' — you just drop the article entirely when speaking generally about plural things.",
           "ex": "ein Mann · eine Frau · ein Kind",
+          "exTranslation": "a man · a woman · a child",
           "audioId": "unit1-ex3"
         },
         {
-          "h": "Plurals",
-          "p": "All genders use die in the nominative plural.",
+          "h": "Plurals all share one article",
+          "p": "Here's some relief: no matter the original gender, ALL plural nouns use 'die' in the subject position. The tricky part is that the noun itself often changes form to show it's plural — and there's no single reliable rule for how, so plurals also get memorized alongside the singular.",
           "ex": "der Mann → die Männer",
+          "exTranslation": "the man → the men",
           "audioId": "unit1-ex4"
         }
       ],
       "quiz": [
         {
           "type": "mc",
-          "q": "Which article goes with Buch (neuter)?",
+          "q": "Which article goes with Buch (book, neuter)?",
           "options": ["der", "die", "das"],
           "answer": "das",
           "audioId": "unit1-q1"
         },
         {
           "type": "fill",
-          "q": "___ Frau ist hier.",
+          "q": "___ Frau ist hier. (the woman is here)",
           "answer": "die",
           "audioId": "unit1-q2"
         },
         {
           "type": "mc",
-          "q": "Nominative plural article for all genders?",
+          "q": "What's the nominative plural article for all genders?",
           "options": ["der", "die", "das"],
           "answer": "die",
           "audioId": "unit1-q3"
         },
         {
           "type": "mc",
-          "q": "Indefinite article for masculine?",
+          "q": "Which indefinite article is correct for a masculine noun?",
           "options": ["ein", "eine", "einen"],
           "answer": "ein",
           "audioId": "unit1-q4"
         },
         {
           "type": "fill",
-          "q": "Das ist ___ Mädchen.",
+          "q": "Das ist ___ Mädchen. (this is a girl)",
           "answer": "ein",
           "audioId": "unit1-q5"
         }
@@ -72,29 +76,29 @@
       "icon": "🗣️",
       "teaching": [
         {
-          "h": "Personal pronouns",
-          "p": "ich, du, er/sie/es, wir, ihr, sie/Sie.",
+          "h": "The pronoun set — smaller than English in one way, bigger in another",
+          "p": "German has one word for 'it/he/she' split three ways by gender (er/sie/es), but only ONE word for 'you' that covers singular, plural, formal, and informal is actually split into three: du (one person, informal), ihr (multiple people, informal), and Sie (formal, always capitalized).",
           "ex": "ich, du, er, sie, es, wir, ihr, sie",
-          "exTranslation": "I, you (informal), he, she, it, we, you (plural), they",
+          "exTranslation": "I, you (one person, informal), he, she, it, we, you (multiple people, informal), they",
           "audioId": "unit2-ex1"
         },
         {
-          "h": "Regular verb conjugation",
-          "p": "Drop -en and add the right ending.",
+          "h": "Regular verbs: same pattern every time",
+          "p": "Take the infinitive, drop the -en, then add an ending that matches the subject. Once you know this one pattern, you can conjugate hundreds of regular verbs correctly.",
           "ex": "machen → ich mache, du machst, er macht, wir machen, ihr macht, sie machen",
-          "exTranslation": "to do/make → I do, you do, he does, we do, you (plural) do, they do",
+          "exTranslation": "to do/make → I do, you do, he does, we do, you all do, they do",
           "audioId": "unit2-ex2"
         },
         {
-          "h": "sein (to be)",
-          "p": "Common irregular verb.",
+          "h": "sein (to be) — irregular, and you'll use it constantly",
+          "p": "Like English 'to be' (am/is/are), German's sein doesn't follow the regular pattern. It's irregular precisely because it's used so often — worth memorizing this one by heart before anything else.",
           "ex": "ich bin, du bist, er ist, wir sind, ihr seid, sie sind",
-          "exTranslation": "I am, you are, he is, we are, you (plural) are, they are",
+          "exTranslation": "I am, you are, he is, we are, you all are, they are",
           "audioId": "unit2-ex3"
         },
         {
-          "h": "Formal you",
-          "p": "Sie is the formal you.",
+          "h": "Sie — the formal 'you', always capitalized",
+          "p": "When speaking to a stranger, an elder, or in a business setting, use Sie instead of du. It's grammatically treated exactly like 'sie' (they) — same verb endings — but always capitalized to show you mean the formal 'you', not 'they'.",
           "ex": "Sprechen Sie Deutsch?",
           "exTranslation": "Do you speak German? (formal)",
           "audioId": "unit2-ex4"
@@ -104,32 +108,32 @@
         {
           "type": "mc",
           "q": "Who does du refer to?",
-          "options": ["I", "you informal", "we"],
-          "answer": "you informal",
+          "options": ["I", "you (one person, informal)", "we"],
+          "answer": "you (one person, informal)",
           "audioId": "unit2-q1"
         },
         {
           "type": "fill",
-          "q": "Ich ___ Deutsch. (machen)",
+          "q": "Ich ___ Deutsch. (I do/make German — machen)",
           "answer": "mache",
           "audioId": "unit2-q2"
         },
         {
           "type": "fill",
-          "q": "Er ___ das. (machen)",
+          "q": "Er ___ das. (he does that — machen)",
           "answer": "macht",
           "audioId": "unit2-q3"
         },
         {
           "type": "mc",
-          "q": "sein form for wir?",
+          "q": "What's the correct form of sein for wir (we)?",
           "options": ["bin", "ist", "sind"],
           "answer": "sind",
           "audioId": "unit2-q4"
         },
         {
           "type": "mc",
-          "q": "Formal you pronoun?",
+          "q": "Which pronoun is the formal 'you'?",
           "options": ["du", "ihr", "Sie"],
           "answer": "Sie",
           "audioId": "unit2-q5"
@@ -142,62 +146,73 @@
       "icon": "🧩",
       "teaching": [
         {
-          "h": "What is case?",
-          "p": "Articles change based on a noun's grammatical role.",
+          "h": "What a 'case' actually is",
+          "p": "In English, word order tells you who's doing what: 'The dog bites the man' means something different from 'The man bites the dog', even though the words are the same. German instead changes the ARTICLE to show a noun's role in the sentence — this is what 'case' means. It feels foreign at first, but it's what lets German have more flexible word order than English.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         },
         {
-          "h": "Nominative",
-          "p": "The subject.",
+          "h": "Nominative — the one doing the action",
+          "p": "This is the 'default' case, the one you already learned in Lesson 1 — used for the subject of the sentence.",
           "ex": "Der Mann sieht den Hund.",
+          "exTranslation": "The man sees the dog.",
           "audioId": "unit3-ex1"
         },
         {
-          "h": "Accusative",
-          "p": "Only masculine changes: der → den.",
+          "h": "Accusative — the thing receiving the action",
+          "p": "Notice in that same sentence: 'den Hund', not 'der Hund'. Only the MASCULINE article changes in the accusative (der→den, ein→einen). Feminine, neuter, and plural articles stay exactly the same as nominative — one less thing to memorize.",
           "ex": "Ich sehe den Mann.",
+          "exTranslation": "I see the man.",
           "audioId": "unit3-ex2"
         },
         {
-          "h": "Dative",
-          "p": "der→dem, die→der, das→dem.",
+          "h": "Dative — the indirect receiver ('to/for whom')",
+          "p": "Used for indirect objects, and after certain prepositions like mit (with), bei (at), nach (after/to). This is where all three genders actually change form.",
           "ex": "Ich gebe der Frau das Buch.",
+          "exTranslation": "I give the woman the book.",
           "audioId": "unit3-ex3"
+        },
+        {
+          "h": "The full article table — the single most useful reference in this course",
+          "p": "Nominative: der (m) / die (f) / das (n) / die (plural). Accusative: den (m) / die (f) / das (n) / die (plural) — only masculine changes. Dative: dem (m) / der (f) / dem (n) / den (plural) — everything changes here, and plural dative nouns even take an extra -n ending. Bookmark this pattern; almost every German sentence relies on it.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
         }
       ],
       "quiz": [
         {
           "type": "mc",
-          "q": "Masculine der in accusative?",
+          "q": "What does masculine der become in the accusative?",
           "options": ["den", "dem", "der"],
           "answer": "den",
           "audioId": "unit3-q1"
         },
         {
           "type": "fill",
-          "q": "Ich sehe ___ Mann.",
+          "q": "Ich sehe ___ Mann. (I see the man — accusative)",
           "answer": "den",
           "audioId": "unit3-q2"
         },
         {
           "type": "mc",
-          "q": "Subject case?",
+          "q": "Which case is used for the subject of a sentence?",
           "options": ["nominative", "accusative", "dative"],
           "answer": "nominative",
           "audioId": "unit3-q3"
         },
         {
           "type": "fill",
-          "q": "Ich gebe ___ Frau das Buch.",
+          "q": "Ich gebe ___ Frau das Buch. (I give the woman the book — dative)",
           "answer": "der",
           "audioId": "unit3-q4"
         },
         {
           "type": "mc",
-          "q": "Feminine articles change in accusative?",
-          "options": ["Yes", "No"],
-          "answer": "No",
+          "q": "Do feminine articles change in the accusative case?",
+          "options": ["Yes, they change", "No, they stay the same"],
+          "answer": "No, they stay the same",
           "audioId": "unit3-q5"
         }
       ]
@@ -208,54 +223,57 @@
       "icon": "🔀",
       "teaching": [
         {
-          "h": "Verb-second rule",
-          "p": "Verb is always the second element.",
+          "h": "The verb-second rule — the backbone of German sentences",
+          "p": "In a main clause, the CONJUGATED verb is always the second grammatical element — but 'second' doesn't mean 'second word'. You can start a sentence with almost anything (time, place, an object), and the verb still has to come right after it, which then pushes the subject to third position.",
           "ex": "Heute gehe ich ins Kino.",
+          "exTranslation": "Today I'm going to the cinema. (literally: Today go I to-the cinema)",
           "audioId": "unit4-ex1"
         },
         {
-          "h": "Subordinate clauses",
-          "p": "Verb moves to the end after weil/dass/wenn.",
+          "h": "Subordinate clauses flip the rule entirely",
+          "p": "After connector words like weil (because), dass (that), or wenn (if/when), the verb jumps all the way to the END of the clause instead. This trips up almost every learner at first — the fix is just repetition until it feels automatic.",
           "ex": "Ich bleibe zuhause, weil ich krank bin.",
+          "exTranslation": "I'm staying home because I am sick. (literally: ...because I sick am)",
           "audioId": "unit4-ex2"
         },
         {
-          "h": "Yes/no questions",
-          "p": "Verb moves first.",
+          "h": "Yes/no questions: verb jumps to first place",
+          "p": "To turn a statement into a yes/no question, just move the conjugated verb to the very front — no 'do/does' needed like in English.",
           "ex": "Gehst du ins Kino?",
+          "exTranslation": "Are you going to the cinema? (literally: Go you to-the cinema?)",
           "audioId": "unit4-ex3"
         }
       ],
       "quiz": [
         {
           "type": "mc",
-          "q": "Verb position in main clause?",
+          "q": "In German main clauses, the conjugated verb is always in position:",
           "options": ["1st", "2nd", "last"],
           "answer": "2nd",
           "audioId": "unit4-q1"
         },
         {
           "type": "fill",
-          "q": "Heute ___ ich ins Kino. (gehen)",
+          "q": "Heute ___ ich ins Kino. (today I go to the cinema — gehen)",
           "answer": "gehe",
           "audioId": "unit4-q2"
         },
         {
           "type": "mc",
-          "q": "Verb position after weil?",
-          "options": ["2nd", "end"],
-          "answer": "end",
+          "q": "In a clause starting with weil, where does the verb go?",
+          "options": ["2nd position", "end of the clause"],
+          "answer": "end of the clause",
           "audioId": "unit4-q3"
         },
         {
           "type": "fill",
-          "q": "Ich bleibe zuhause, weil ich krank ___. (sein)",
+          "q": "Ich bleibe zuhause, weil ich krank ___. (...because I am sick — sein)",
           "answer": "bin",
           "audioId": "unit4-q4"
         },
         {
           "type": "mc",
-          "q": "Yes/no question verb position?",
+          "q": "In a yes/no question, the verb goes:",
           "options": ["first", "second", "last"],
           "answer": "first",
           "audioId": "unit4-q5"
@@ -268,29 +286,29 @@
       "icon": "⚙️",
       "teaching": [
         {
-          "h": "What modals do",
-          "p": "Express ability, necessity, desire, permission.",
+          "h": "What modal verbs actually do",
+          "p": "können (can), müssen (must), wollen (want to), dürfen (may/allowed to), sollen (should), mögen (like to) — these express ability, necessity, desire, or permission, and they always work together with a second, main verb.",
           "ex": "",
           "exTranslation": "",
           "audioId": ""
         },
         {
-          "h": "Sentence structure",
-          "p": "Modal in position 2, main verb infinitive at the end.",
+          "h": "Sentence structure: modal splits from the main verb",
+          "p": "The modal verb gets conjugated and sits in position 2, like any verb. But the main verb goes to the very end of the sentence, unconjugated, in its infinitive form. This is the same 'verb-to-the-end' pattern you saw with subordinate clauses.",
           "ex": "Ich kann gut Deutsch sprechen.",
-          "exTranslation": "I can speak German well.",
+          "exTranslation": "I can speak German well. (literally: I can well German speak.)",
           "audioId": "unit5-ex1"
         },
         {
-          "h": "können conjugation",
-          "p": "Note: ich and er/sie/es share the same form.",
+          "h": "können — irregular, and worth memorizing fully",
+          "p": "Notice ich and er/sie/es share the exact same form here, with no extra ending — a quirk shared by all modal verbs.",
           "ex": "ich kann, du kannst, er kann, wir können, ihr könnt, sie können",
-          "exTranslation": "I can, you can, he can, we can, you (plural) can, they can",
+          "exTranslation": "I can, you can, he can, we can, you all can, they can",
           "audioId": "unit5-ex2"
         },
         {
-          "h": "Common modals",
-          "p": "müssen=must, wollen=want, dürfen=allowed.",
+          "h": "The other common modals",
+          "p": "müssen = must/have to (a real obligation), wollen = want to (a desire), dürfen = may/am allowed to (permission — the opposite of what it looks like to English speakers who might guess 'dare').",
           "ex": "",
           "exTranslation": "",
           "audioId": ""
@@ -299,33 +317,33 @@
       "quiz": [
         {
           "type": "mc",
-          "q": "Position of sprechen in the sentence?",
-          "options": ["2nd", "end"],
-          "answer": "end",
+          "q": "In 'Ich kann gut Deutsch sprechen,' where is sprechen (to speak)?",
+          "options": ["2nd position", "end of the sentence"],
+          "answer": "end of the sentence",
           "audioId": "unit5-q1"
         },
         {
           "type": "fill",
-          "q": "Ich ___ gut Deutsch sprechen. (können)",
+          "q": "Ich ___ gut Deutsch sprechen. (I can speak German well — können)",
           "answer": "kann",
           "audioId": "unit5-q2"
         },
         {
           "type": "mc",
-          "q": "müssen expresses?",
+          "q": "müssen expresses:",
           "options": ["ability", "necessity", "desire"],
           "answer": "necessity",
           "audioId": "unit5-q3"
         },
         {
           "type": "fill",
-          "q": "Du ___ das nicht machen. (dürfen)",
+          "q": "Du ___ das nicht machen. (you're not allowed to do that — dürfen)",
           "answer": "darfst",
           "audioId": "unit5-q4"
         },
         {
           "type": "mc",
-          "q": "wollen means?",
+          "q": "wollen means:",
           "options": ["can", "must", "want to"],
           "answer": "want to",
           "audioId": "unit5-q5"
@@ -338,34 +356,38 @@
       "icon": "🧱",
       "teaching": [
         {
-          "h": "The main word classes",
-          "p": "German words fall into categories: Nomen (noun), Verb, Adjektiv, Adverb, Pronomen, Präposition, Konjunktion.",
+          "h": "The word classes — mostly familiar, one big difference",
+          "p": "German splits into the same basic categories as English: Nomen (noun), Verb, Adjektiv, Adverb, Pronomen, Präposition, Konjunktion. The one thing that'll instantly change how German text looks to you: nouns.",
           "ex": "laufen (Verb), schnell (Adverb), Lehrer (Nomen)",
+          "exTranslation": "to run (verb), quickly (adverb), teacher (noun)",
           "audioId": "unit6-ex1"
         },
         {
-          "h": "Nomen are always capitalized",
-          "p": "Unlike English, every German noun is capitalized, no matter where it appears in the sentence.",
+          "h": "Every single noun is capitalized — always",
+          "p": "This isn't a style choice, it's a hard rule. Unlike English, where only proper names get capitals, German capitalizes EVERY noun, mid-sentence or not. Once you notice this, reading German gets much easier — the capital letters are basically pointing at every noun for you.",
           "ex": "Der Tisch ist groß. Ich sehe den Tisch.",
+          "exTranslation": "The table is big. I see the table.",
           "audioId": "unit6-ex2"
         },
         {
-          "h": "Adjektive describe nouns",
-          "p": "Adjectives often take an ending that matches the noun's gender and case.",
+          "h": "Adjectives change their ending to match the noun",
+          "p": "When an adjective sits directly before a noun (not after 'is/are'), it takes an ending based on the noun's gender and case. You'll build real intuition for this over the next several lessons — for now, just notice the -e ending here.",
           "ex": "der große Tisch",
+          "exTranslation": "the big table",
           "audioId": "unit6-ex3"
         },
         {
-          "h": "Präpositionen and Konjunktionen",
-          "p": "Prepositions show relationships (in, auf, unter). Conjunctions connect ideas (und, aber, weil).",
+          "h": "Prepositions and conjunctions do familiar jobs",
+          "p": "Präpositionen show relationships in space/time (auf = on, in = in, unter = under). Konjunktionen connect two ideas (und = and, aber = but, weil = because) — you already met weil in the word order lesson.",
           "ex": "Die Katze sitzt auf dem Tisch, aber sie schläft.",
+          "exTranslation": "The cat sits on the table, but it's sleeping.",
           "audioId": "unit6-ex4"
         }
       ],
       "quiz": [
         {
           "type": "mc",
-          "q": "In \"Sie läuft schnell,\" what part of speech is \"schnell\"?",
+          "q": "In 'Sie läuft schnell,' what part of speech is 'schnell'?",
           "options": ["Nomen", "Verb", "Adverb"],
           "answer": "Adverb",
           "audioId": "unit6-q1"
@@ -379,20 +401,20 @@
         },
         {
           "type": "fill",
-          "q": "der ___ Tisch (adjective for \"big\", with ending)",
+          "q": "der ___ Tisch (the big table — adjective with ending)",
           "answer": "große",
           "audioId": "unit6-q3"
         },
         {
           "type": "mc",
-          "q": "\"auf\" is an example of a:",
+          "q": "'auf' is an example of a:",
           "options": ["Präposition", "Konjunktion", "Adverb"],
           "answer": "Präposition",
           "audioId": "unit6-q4"
         },
         {
           "type": "mc",
-          "q": "\"aber\" connects two ideas — it is a:",
+          "q": "'aber' connects two ideas — it is a:",
           "options": ["Konjunktion", "Präposition"],
           "answer": "Konjunktion",
           "audioId": "unit6-q5"
@@ -405,34 +427,38 @@
       "icon": "🏗️",
       "teaching": [
         {
-          "h": "Aussagesatz (statement)",
-          "p": "A simple declarative sentence, verb in position 2.",
+          "h": "Aussagesatz — the plain statement",
+          "p": "A basic declarative sentence. You've been building these since Lesson 1 — verb in position 2, as always.",
           "ex": "Ich gehe nach Hause.",
+          "exTranslation": "I'm going home.",
           "audioId": "unit7-ex1"
         },
         {
-          "h": "Fragesatz (question)",
-          "p": "Verb-first (yes/no) or a question word first (W-question).",
+          "h": "Fragesatz — two ways to ask a question",
+          "p": "Either flip the verb to the front (yes/no question, which you already know), or lead with a question word (W-Frage) — wer (who), was (what), wo (where), wann (when), warum (why).",
           "ex": "Gehst du nach Hause? Wohin gehst du?",
+          "exTranslation": "Are you going home? Where are you going?",
           "audioId": "unit7-ex2"
         },
         {
-          "h": "Satzreihe (compound sentence)",
-          "p": "Two independent clauses joined by und, aber, oder, denn — both keep verb-second order.",
+          "h": "Satzreihe — two equal sentences, joined",
+          "p": "Connect two complete, independent sentences with und, aber, oder, or denn. The key thing: BOTH halves keep their own normal verb-second order — nothing moves to the end here.",
           "ex": "Ich koche, und du deckst den Tisch.",
+          "exTranslation": "I'm cooking, and you're setting the table.",
           "audioId": "unit7-ex3"
         },
         {
-          "h": "Satzgefüge (complex sentence)",
-          "p": "A main clause plus a subordinate clause, where the subordinate clause's verb goes to the end.",
+          "h": "Satzgefüge — a main clause plus a dependent one",
+          "p": "This is where the 'verb jumps to the end' rule from Lesson 4 actually gets used in a full sentence. The main clause stays normal; the weil-clause (or dass-, wenn-clause) sends its verb to the end.",
           "ex": "Ich bleibe zuhause, weil es regnet.",
+          "exTranslation": "I'm staying home because it's raining.",
           "audioId": "unit7-ex4"
         }
       ],
       "quiz": [
         {
           "type": "mc",
-          "q": "\"Ich gehe nach Hause.\" is an example of a(n):",
+          "q": "'Ich gehe nach Hause.' is an example of a(n):",
           "options": ["Aussagesatz", "Fragesatz"],
           "answer": "Aussagesatz",
           "audioId": "unit7-q1"
@@ -446,7 +472,7 @@
         },
         {
           "type": "mc",
-          "q": "\"Ich bleibe zuhause, weil es regnet.\" is a:",
+          "q": "'Ich bleibe zuhause, weil es regnet.' is a:",
           "options": ["Satzreihe", "Satzgefüge"],
           "answer": "Satzgefüge",
           "audioId": "unit7-q3"
@@ -472,34 +498,38 @@
       "icon": "🤝",
       "teaching": [
         {
-          "h": "Separable verbs",
-          "p": "A prefix detaches and moves to the end of the sentence in the present/simple past.",
+          "h": "A verb that splits into two pieces",
+          "p": "This one genuinely doesn't exist in English, so let's slow down: many German verbs have a prefix that DETACHES and flies to the very end of the sentence in the present tense. The verb 'anrufen' (to call) becomes 'rufe...an' — split across the sentence.",
           "ex": "anrufen → Ich rufe dich an.",
+          "exTranslation": "to call → I'm calling you. (literally: I call you [pause]... on/up)",
           "audioId": "unit8-ex1"
         },
         {
-          "h": "Common separable prefixes",
-          "p": "auf-, an-, ab-, mit-, aus- often separate.",
+          "h": "Common prefixes that separate",
+          "p": "auf-, an-, ab-, mit-, aus- are the usual suspects. A good habit: whenever you learn a new verb with one of these prefixes, say the full sentence out loud so the split feels natural, not just theoretical.",
           "ex": "aufstehen → Ich stehe um sieben Uhr auf.",
+          "exTranslation": "to get up → I get up at seven o'clock.",
           "audioId": "unit8-ex2"
         },
         {
-          "h": "Inseparable verbs",
-          "p": "Prefixes like be-, ge-, ver-, ent- never separate from the verb.",
+          "h": "Inseparable prefixes — these never split",
+          "p": "be-, ge-, ver-, ent- are the opposite case: permanently glued to the verb, no matter the sentence. There's no shortcut for knowing which prefix type a new verb has — you learn it alongside the verb itself, same as gender.",
           "ex": "verstehen → Ich verstehe das.",
+          "exTranslation": "to understand → I understand that.",
           "audioId": "unit8-ex3"
         },
         {
-          "h": "In subordinate clauses",
-          "p": "Separable verbs reunite at the end when the whole verb moves there.",
+          "h": "In subordinate clauses, the two halves reunite",
+          "p": "Remember from Lesson 4: subordinate clauses send the whole verb to the end. When that happens to a separable verb, its two halves rejoin into one word again.",
           "ex": "..., weil ich dich anrufe.",
+          "exTranslation": "...because I'm calling you.",
           "audioId": "unit8-ex4"
         }
       ],
       "quiz": [
         {
           "type": "fill",
-          "q": "Ich rufe dich ___. (anrufen, separated)",
+          "q": "Ich rufe dich ___. (I'm calling you — anrufen, separated)",
           "answer": "an",
           "audioId": "unit8-q1"
         },
@@ -512,13 +542,13 @@
         },
         {
           "type": "fill",
-          "q": "Ich ___ um sieben Uhr auf. (aufstehen)",
+          "q": "Ich ___ um sieben Uhr auf. (I get up at seven — aufstehen)",
           "answer": "stehe",
           "audioId": "unit8-q3"
         },
         {
           "type": "mc",
-          "q": "\"verstehen\" is:",
+          "q": "'verstehen' is:",
           "options": ["separable", "inseparable"],
           "answer": "inseparable",
           "audioId": "unit8-q4"
@@ -538,27 +568,31 @@
       "icon": "⏱️",
       "teaching": [
         {
-          "h": "Präsens (present)",
-          "p": "Used for now and often for the near future too.",
-          "ex": "Ich arbeite heute.",
+          "h": "Präsens covers more ground than 'present' does in English",
+          "p": "German's present tense is often used for the near future too — no separate 'going to' construction needed most of the time.",
+          "ex": "Ich arbeite heute. Ich arbeite morgen.",
+          "exTranslation": "I work today. I'm working tomorrow.",
           "audioId": "unit9-ex1"
         },
         {
-          "h": "Perfekt (conversational past)",
-          "p": "haben/sein + past participle — the most common past tense in speech.",
+          "h": "Perfekt — the past tense you'll actually hear in conversation",
+          "p": "haben or sein (conjugated) + a past participle at the end. Most verbs use haben; verbs of motion or state-change (going, coming, becoming) use sein instead. This is genuinely the most common way Germans talk about the past out loud.",
           "ex": "Ich habe gearbeitet. Ich bin gegangen.",
+          "exTranslation": "I have worked. I have gone / I went.",
           "audioId": "unit9-ex2"
         },
         {
-          "h": "Präteritum (narrative past)",
-          "p": "A single past-tense verb form, common in writing and with sein/haben/modals even in speech.",
+          "h": "Präteritum — the 'storytelling' past",
+          "p": "A single-word past form, much more common in writing (books, news) than speech. One big exception: sein, haben, and the modal verbs DO get used in their Präteritum form even in casual speech — 'ich war' (I was) is far more natural than the Perfekt equivalent.",
           "ex": "Ich arbeitete. Ich war müde.",
+          "exTranslation": "I worked. I was tired.",
           "audioId": "unit9-ex3"
         },
         {
-          "h": "Futur I",
-          "p": "werden + infinitive, for future actions.",
+          "h": "Futur I — for the more distant or emphasized future",
+          "p": "werden (conjugated) + infinitive at the end. In casual speech Germans often just use the present tense for the future instead (like Lesson 9's first point) — Futur I adds a bit more certainty or formality.",
           "ex": "Ich werde morgen arbeiten.",
+          "exTranslation": "I will work tomorrow.",
           "audioId": "unit9-ex4"
         }
       ],
@@ -572,7 +606,7 @@
         },
         {
           "type": "fill",
-          "q": "Ich ___ gearbeitet. (haben, Perfekt)",
+          "q": "Ich ___ gearbeitet. (I have worked — haben, Perfekt)",
           "answer": "habe",
           "audioId": "unit9-q2"
         },
@@ -585,13 +619,13 @@
         },
         {
           "type": "fill",
-          "q": "Ich ___ morgen arbeiten. (werden, Futur I)",
+          "q": "Ich ___ morgen arbeiten. (I will work tomorrow — werden, Futur I)",
           "answer": "werde",
           "audioId": "unit9-q4"
         },
         {
           "type": "mc",
-          "q": "\"Ich war müde\" uses which tense?",
+          "q": "'Ich war müde' uses which tense?",
           "options": ["Präteritum", "Perfekt"],
           "answer": "Präteritum",
           "audioId": "unit9-q5"
@@ -604,41 +638,45 @@
       "icon": "🔀",
       "teaching": [
         {
-          "h": "Real conditions",
-          "p": "wenn + present tense, present or future — for realistic situations.",
+          "h": "Real conditions — just present tense doing double duty",
+          "p": "For realistic 'if this, then that' situations, German just uses wenn with normal present-tense verbs — no special mood needed, unlike the hypothetical case below.",
           "ex": "Wenn es regnet, bleibe ich zuhause.",
+          "exTranslation": "If it rains, I'll stay home.",
           "audioId": "unit10-ex1"
         },
         {
-          "h": "Konjunktiv II — hypothetical",
-          "p": "Used for unreal or hypothetical situations, often with würde + infinitive.",
+          "h": "Konjunktiv II — for things that aren't real (yet, or ever)",
+          "p": "For hypothetical, unreal, or wishful situations, German switches to a different verb mood. The easiest way to build it: würde (would) + infinitive — this works for almost any verb and is what you'll hear most in real conversation.",
           "ex": "Wenn ich reich wäre, würde ich reisen.",
+          "exTranslation": "If I were rich, I would travel.",
           "audioId": "unit10-ex2"
         },
         {
-          "h": "wäre and hätte",
-          "p": "The Konjunktiv II forms of sein and haben are irregular and very common.",
-          "ex": "ich wäre (I would be), ich hätte (I would have)",
+          "h": "wäre and hätte — the two irregulars worth memorizing by heart",
+          "p": "sein and haben don't use the würde-construction — they have their own short Konjunktiv II forms instead, and you'll hear these constantly.",
+          "ex": "ich wäre, ich hätte",
+          "exTranslation": "I would be, I would have",
           "audioId": "unit10-ex3"
         },
         {
-          "h": "Past hypotheticals",
-          "p": "hätte/wäre + past participle, for imagined past outcomes.",
+          "h": "Talking about a past that didn't happen",
+          "p": "To imagine a different past ('if only I had...'), combine hätte/wäre with a past participle. This is the German equivalent of English's 'would have' constructions.",
           "ex": "Wenn ich Zeit gehabt hätte, wäre ich gekommen.",
+          "exTranslation": "If I had had time, I would have come.",
           "audioId": "unit10-ex4"
         }
       ],
       "quiz": [
         {
           "type": "mc",
-          "q": "\"Wenn es regnet, bleibe ich zuhause.\" describes:",
+          "q": "'Wenn es regnet, bleibe ich zuhause.' describes:",
           "options": ["a realistic condition", "an unreal hypothetical"],
           "answer": "a realistic condition",
           "audioId": "unit10-q1"
         },
         {
           "type": "fill",
-          "q": "Wenn ich reich ___, würde ich reisen. (sein, Konjunktiv II)",
+          "q": "Wenn ich reich ___, würde ich reisen. (if I were rich — sein, Konjunktiv II)",
           "answer": "wäre",
           "audioId": "unit10-q2"
         },
@@ -651,7 +689,7 @@
         },
         {
           "type": "fill",
-          "q": "ich ___ (Konjunktiv II of haben)",
+          "q": "ich ___ (Konjunktiv II of haben — I would have)",
           "answer": "hätte",
           "audioId": "unit10-q4"
         },
@@ -670,35 +708,38 @@
       "icon": "🧩",
       "teaching": [
         {
-          "h": "Satzglied (sentence element)",
-          "p": "A group of words functioning as one unit within the sentence — subject, object, adverbial.",
-          "ex": "Der alte Mann (subject) liest ein Buch.",
+          "h": "Satzglied — a chunk that moves as one unit",
+          "p": "A Satzglied is a group of words functioning together as a single sentence element — a subject, an object, a time expression. Recognizing these chunks is what makes German's flexible word order (remember Lesson 4?) actually readable.",
+          "ex": "Der alte Mann liest ein Buch.",
+          "exTranslation": "The old man is reading a book. ('Der alte Mann' moves as one chunk)",
           "audioId": "unit11-ex1"
         },
         {
-          "h": "Hauptsatz (main clause)",
-          "p": "Can stand alone; verb in position 2.",
+          "h": "Hauptsatz — a complete sentence on its own",
+          "p": "Verb in position 2, can stand entirely alone. You've been writing these since day one.",
           "ex": "Ich lese ein Buch.",
+          "exTranslation": "I'm reading a book.",
           "audioId": "unit11-ex2"
         },
         {
-          "h": "Nebensatz (subordinate clause)",
-          "p": "Cannot stand alone; verb moves to the end.",
+          "h": "Nebensatz — depends on a Hauptsatz to make sense",
+          "p": "This is the formal name for the 'verb goes to the end' pattern you already know from weil-clauses.",
           "ex": "..., weil ich ein Buch lese.",
-          "answer_hint": "",
+          "exTranslation": "...because I'm reading a book.",
           "audioId": "unit11-ex3"
         },
         {
-          "h": "Relativsatz (relative clause)",
-          "p": "Adds extra information about a noun using der/die/das as relative pronouns.",
+          "h": "Relativsatz — a clause that describes a noun",
+          "p": "Uses der/die/das (matching the described noun's gender) as a relative pronoun, adding extra detail — like English 'who/which/that'.",
           "ex": "Der Mann, der dort steht, ist mein Lehrer.",
+          "exTranslation": "The man who is standing there is my teacher.",
           "audioId": "unit11-ex4"
         }
       ],
       "quiz": [
         {
           "type": "mc",
-          "q": "\"Ich lese ein Buch.\" is a:",
+          "q": "'Ich lese ein Buch.' is a:",
           "options": ["Hauptsatz", "Nebensatz"],
           "answer": "Hauptsatz",
           "audioId": "unit11-q1"
@@ -712,7 +753,7 @@
         },
         {
           "type": "fill",
-          "q": "Der Mann, ___ dort steht, ist mein Lehrer. (relative pronoun)",
+          "q": "Der Mann, ___ dort steht, ist mein Lehrer. (who is standing there — relative pronoun)",
           "answer": "der",
           "audioId": "unit11-q3"
         },
@@ -738,41 +779,45 @@
       "icon": "🔄",
       "teaching": [
         {
-          "h": "Aktiv (active)",
-          "p": "The subject performs the action.",
+          "h": "Aktiv — the doer is the subject",
+          "p": "The default, most direct sentence structure — you've been using this the whole course.",
           "ex": "Der Koch kocht das Essen.",
+          "exTranslation": "The chef cooks the food.",
           "audioId": "unit12-ex1"
         },
         {
-          "h": "Passiv (passive)",
-          "p": "werden + past participle — the subject receives the action.",
+          "h": "Passiv — the receiver becomes the subject",
+          "p": "Built with werden (conjugated) + a past participle. The focus shifts from who's doing the action to what's being done to.",
           "ex": "Das Essen wird vom Koch gekocht.",
+          "exTranslation": "The food is being cooked by the chef.",
           "audioId": "unit12-ex2"
         },
         {
-          "h": "When to use Passiv",
-          "p": "When the doer is unknown or unimportant, or to emphasize the action's receiver.",
+          "h": "When Germans actually reach for Passiv",
+          "p": "When the doer is unknown, unimportant, or obvious from context — very common in instructions, news, and formal writing.",
           "ex": "Das Fenster wurde zerbrochen.",
+          "exTranslation": "The window was broken. (nobody says by whom)",
           "audioId": "unit12-ex3"
         },
         {
-          "h": "Passiv across tenses",
-          "p": "werden changes form to match the tense; the participle stays the same.",
+          "h": "werden changes, the participle doesn't",
+          "p": "Across different tenses, only the helper verb werden conjugates — the past participle stays frozen in its one form.",
           "ex": "wird gekocht (present), wurde gekocht (past)",
+          "exTranslation": "is cooked, was cooked",
           "audioId": "unit12-ex4"
         }
       ],
       "quiz": [
         {
           "type": "mc",
-          "q": "\"Der Koch kocht das Essen.\" is:",
+          "q": "'Der Koch kocht das Essen.' is:",
           "options": ["Aktiv", "Passiv"],
           "answer": "Aktiv",
           "audioId": "unit12-q1"
         },
         {
           "type": "fill",
-          "q": "Das Essen ___ vom Koch gekocht. (werden, present)",
+          "q": "Das Essen ___ vom Koch gekocht. (is cooked by the chef — werden, present)",
           "answer": "wird",
           "audioId": "unit12-q2"
         },
@@ -785,7 +830,7 @@
         },
         {
           "type": "fill",
-          "q": "Das Fenster ___ zerbrochen. (werden, past)",
+          "q": "Das Fenster ___ zerbrochen. (was broken — werden, past)",
           "answer": "wurde",
           "audioId": "unit12-q4"
         },
@@ -807,41 +852,45 @@
       "icon": "💬",
       "teaching": [
         {
-          "h": "Direkte Rede",
-          "p": "The exact words, in quotation marks.",
+          "h": "Direkte Rede — the exact words",
+          "p": "Just like English quotation marks — repeating precisely what someone said.",
           "ex": "Sie sagte: \"Ich bin müde.\"",
+          "exTranslation": "She said: \"I am tired.\"",
           "audioId": "unit13-ex1"
         },
         {
-          "h": "Indirekte Rede",
-          "p": "Reports what was said, often using Konjunktiv I.",
+          "h": "Indirekte Rede — reporting the idea, formally",
+          "p": "In formal/written German, indirect speech uses a special mood called Konjunktiv I, which subtly signals 'this is what someone else said, I'm not vouching for it.'",
           "ex": "Sie sagte, sie sei müde.",
+          "exTranslation": "She said (that) she was tired.",
           "audioId": "unit13-ex2"
         },
         {
-          "h": "Konjunktiv I forms",
-          "p": "A special verb mood mainly used in reported speech, especially in writing/news.",
-          "ex": "er sei (Konjunktiv I of sein)",
+          "h": "Konjunktiv I — mostly a written/news thing",
+          "p": "You'll encounter this in newspapers and formal reporting far more than in daily conversation.",
+          "ex": "er sei",
+          "exTranslation": "he is/was (Konjunktiv I of sein)",
           "audioId": "unit13-ex3"
         },
         {
-          "h": "In everyday speech",
-          "p": "Spoken German often just uses dass + normal indicative instead of Konjunktiv I.",
+          "h": "What people actually say out loud",
+          "p": "In everyday spoken German, most people skip Konjunktiv I entirely and just use dass (that) with a completely normal indicative verb — much easier, and totally acceptable in casual speech.",
           "ex": "Sie sagte, dass sie müde ist.",
+          "exTranslation": "She said that she is tired.",
           "audioId": "unit13-ex4"
         }
       ],
       "quiz": [
         {
           "type": "mc",
-          "q": "\"Sie sagte: 'Ich bin müde.'\" is:",
+          "q": "'Sie sagte: 'Ich bin müde.'' is:",
           "options": ["direkte Rede", "indirekte Rede"],
           "answer": "direkte Rede",
           "audioId": "unit13-q1"
         },
         {
           "type": "fill",
-          "q": "Sie sagte, sie ___ müde. (Konjunktiv I of sein)",
+          "q": "Sie sagte, sie ___ müde. (she was tired — Konjunktiv I of sein)",
           "answer": "sei",
           "audioId": "unit13-q2"
         },
@@ -864,7 +913,7 @@
         },
         {
           "type": "fill",
-          "q": "Sie sagte, ___ sie müde ist. (dass)",
+          "q": "Sie sagte, ___ sie müde ist. (that — dass)",
           "answer": "dass",
           "audioId": "unit13-q5"
         }
@@ -876,27 +925,31 @@
       "icon": "✍️",
       "teaching": [
         {
-          "h": "All nouns are capitalized",
-          "p": "Unlike English, this applies to every noun, everywhere in the sentence.",
+          "h": "The capitalization rule you now already know",
+          "p": "You met this back in Lesson 6, but it's worth repeating: every noun, everywhere in the sentence, gets a capital letter — no exceptions.",
           "ex": "Der Hund spielt mit dem Ball.",
+          "exTranslation": "The dog is playing with the ball.",
           "audioId": "unit14-ex1"
         },
         {
-          "h": "Comma before dass/weil/wenn",
-          "p": "A comma is required before subordinate clauses.",
+          "h": "A comma is REQUIRED before dass/weil/wenn",
+          "p": "Unlike English, where a comma before 'because' is often optional stylistic choice, German requires it before every subordinate clause connector — it's not optional, it's grammar.",
           "ex": "Ich weiß, dass du müde bist.",
+          "exTranslation": "I know that you are tired.",
           "audioId": "unit14-ex2"
         },
         {
-          "h": "Comma in Satzreihen",
-          "p": "Usually required between independent clauses joined by aber, denn, sondern.",
+          "h": "Commas in Satzreihen too",
+          "p": "When joining two independent clauses with aber, denn, or sondern, a comma is required (though und and oder are more flexible about it).",
           "ex": "Ich wollte kommen, aber ich war krank.",
+          "exTranslation": "I wanted to come, but I was sick.",
           "audioId": "unit14-ex3"
         },
         {
-          "h": "Formal Sie is often capitalized mid-sentence",
-          "p": "The formal \"you\" (Sie/Ihnen/Ihr) is capitalized wherever it appears.",
+          "h": "The formal Sie stays capitalized everywhere",
+          "p": "Unlike regular nouns which only get capitalized because they're nouns, Sie (formal you) is capitalized specifically to distinguish it from sie (she/they) — and this holds no matter where it falls in the sentence.",
           "ex": "Wie geht es Ihnen?",
+          "exTranslation": "How are you? (formal)",
           "audioId": "unit14-ex4"
         }
       ],
@@ -909,9 +962,10 @@
           "audioId": "unit14-q1"
         },
         {
-          "type": "fill",
-          "q": "Ich weiß___ dass du müde bist. (comma)",
-          "answer": ",",
+          "type": "mc",
+          "q": "Is a comma required before a dass-clause?",
+          "options": ["Yes, always", "No, it's optional"],
+          "answer": "Yes, always",
           "audioId": "unit14-q2"
         },
         {
@@ -923,7 +977,7 @@
         },
         {
           "type": "mc",
-          "q": "The formal \"Sie\" is:",
+          "q": "The formal 'Sie' is:",
           "options": [
             "capitalized wherever it appears",
             "only capitalized at the start of a sentence"
@@ -933,7 +987,7 @@
         },
         {
           "type": "mc",
-          "q": "Ich wollte kommen, aber ich war krank — the comma appears because:",
+          "q": "'Ich wollte kommen, aber ich war krank' — the comma appears because:",
           "options": [
             "it joins two independent clauses with aber",
             "aber never needs a comma"
@@ -949,34 +1003,38 @@
       "icon": "🎓",
       "teaching": [
         {
-          "h": "Reflexive verbs",
-          "p": "Verbs used with a reflexive pronoun (mich, dich, sich...) referring back to the subject.",
+          "h": "Reflexive verbs — actions that loop back to yourself",
+          "p": "Some verbs need a reflexive pronoun (mich, dich, sich, uns, euch, sich) that refers back to the subject — often for feelings or self-directed actions, where English would just say 'I'm happy' without any equivalent extra word.",
           "ex": "Ich freue mich. Er wäscht sich.",
+          "exTranslation": "I'm happy (literally: I make myself glad). He washes himself.",
           "audioId": "unit15-ex1"
         },
         {
-          "h": "Genitive case",
-          "p": "Shows possession; des/der + noun, often with an -s ending on masculine/neuter nouns.",
+          "h": "The genitive case — showing possession, the formal way",
+          "p": "des/der + noun, with an added -s (or -es) on masculine and neuter nouns. In casual speech, Germans increasingly use 'von + dative' instead, but genitive still appears constantly in writing.",
           "ex": "das Auto des Mannes",
+          "exTranslation": "the man's car",
           "audioId": "unit15-ex2"
         },
         {
-          "h": "Two-way prepositions",
-          "p": "Prepositions like in, auf, unter take accusative for movement, dative for location.",
-          "ex": "Ich gehe in die Küche (accusative). Ich bin in der Küche (dative).",
+          "h": "Two-way prepositions — the case depends on movement vs. location",
+          "p": "This is a genuinely clever system once it clicks: prepositions like in, auf, unter take ACCUSATIVE when there's movement into a place, but DATIVE when describing a fixed location. Ask yourself 'is something moving into/onto this place, or just sitting there?'",
+          "ex": "Ich gehe in die Küche. Ich bin in der Küche.",
+          "exTranslation": "I'm going into the kitchen (movement, accusative). I am in the kitchen (location, dative).",
           "audioId": "unit15-ex3"
         },
         {
-          "h": "Adjective endings",
-          "p": "Adjective endings change based on gender, case, and whether an article precedes them.",
+          "h": "Adjective endings — the last major puzzle piece",
+          "p": "The ending on an adjective before a noun depends on THREE things at once: the noun's gender, its case, and whether an article comes before the adjective. This feels like a lot at first, but it becomes automatic with exposure far before you can consciously explain the rule.",
           "ex": "der große Hund, ein großer Hund",
+          "exTranslation": "the big dog, a big dog (notice the ending changes: -e vs -er)",
           "audioId": "unit15-ex4"
         }
       ],
       "quiz": [
         {
           "type": "fill",
-          "q": "Ich freue ___. (reflexive pronoun for ich)",
+          "q": "Ich freue ___. (I'm happy — reflexive pronoun for ich)",
           "answer": "mich",
           "audioId": "unit15-q1"
         },
@@ -989,7 +1047,7 @@
         },
         {
           "type": "mc",
-          "q": "\"Ich gehe in die Küche\" uses which case, and why?",
+          "q": "'Ich gehe in die Küche' uses which case, and why?",
           "options": [
             "accusative, because of movement",
             "dative, because of location"
@@ -999,14 +1057,14 @@
         },
         {
           "type": "mc",
-          "q": "\"Ich bin in der Küche\" uses which case?",
+          "q": "'Ich bin in der Küche' uses which case?",
           "options": ["accusative", "dative"],
           "answer": "dative",
           "audioId": "unit15-q4"
         },
         {
           "type": "fill",
-          "q": "der ___ Hund (adjective ending for großer with definite article)",
+          "q": "der ___ Hund (the big dog — adjective ending with definite article)",
           "answer": "große",
           "audioId": "unit15-q5"
         }
@@ -1018,27 +1076,31 @@
       "icon": "🔗",
       "teaching": [
         {
-          "h": "What Konnektoren do",
-          "p": "Words connecting ideas smoothly between sentences, showing the relationship between them.",
+          "h": "What Konnektoren do for your German",
+          "p": "These words are what separate choppy, disconnected sentences from writing/speaking that actually flows — they show HOW ideas relate to each other.",
           "ex": "trotzdem, deshalb, außerdem, zum Beispiel",
+          "exTranslation": "nevertheless, therefore, additionally, for example",
           "audioId": "unit16-ex1"
         },
         {
-          "h": "Showing contrast",
-          "p": "trotzdem and aber signal a contrasting idea.",
+          "h": "Signaling contrast",
+          "p": "trotzdem (nevertheless) and aber (but) both flag that what follows goes against expectation.",
           "ex": "Sie war müde. Trotzdem arbeitete sie weiter.",
+          "exTranslation": "She was tired. Nevertheless, she kept working.",
           "audioId": "unit16-ex2"
         },
         {
-          "h": "Showing cause and result",
-          "p": "deshalb and deswegen connect a cause to its effect.",
+          "h": "Connecting cause and effect",
+          "p": "deshalb and deswegen both mean 'therefore/because of that' — genuinely interchangeable in most contexts.",
           "ex": "Es regnete stark. Deshalb wurde das Spiel abgesagt.",
+          "exTranslation": "It rained heavily. Therefore, the game was cancelled.",
           "audioId": "unit16-ex3"
         },
         {
-          "h": "Adding ideas",
-          "p": "außerdem and zusätzlich add another related point.",
+          "h": "Adding another point",
+          "p": "außerdem (furthermore) and zusätzlich (additionally) both stack another related idea onto what you just said.",
           "ex": "Sie ist klug. Außerdem ist sie sehr fleißig.",
+          "exTranslation": "She's smart. Furthermore, she's very hardworking.",
           "audioId": "unit16-ex4"
         }
       ],
@@ -1052,20 +1114,20 @@
         },
         {
           "type": "fill",
-          "q": "Es regnete stark. ___ wurde das Spiel abgesagt. (cause/result)",
+          "q": "Es regnete stark. ___ wurde das Spiel abgesagt. (therefore)",
           "answer": "Deshalb",
           "audioId": "unit16-q2"
         },
         {
           "type": "mc",
-          "q": "\"außerdem\" is used to:",
+          "q": "'außerdem' is used to:",
           "options": ["add another related idea", "show contrast"],
           "answer": "add another related idea",
           "audioId": "unit16-q3"
         },
         {
           "type": "mc",
-          "q": "\"zum Beispiel\" means:",
+          "q": "'zum Beispiel' means:",
           "options": ["for example", "as a result"],
           "answer": "for example",
           "audioId": "unit16-q4"
