@@ -6,27 +6,31 @@
       "icon": "📘",
       "teaching": [
         {
-          "h": "Nouns have gender",
-          "p": "Spanish nouns are masculine or feminine — usually -o is masculine, -a is feminine, with exceptions.",
+          "h": "Why every noun has a gender",
+          "p": "Spanish nouns are masculine or feminine, and the article (el/la) has to match. The good news: endings are a strong clue — most -o words are masculine, most -a words are feminine — but it's not 100%, so the article gets learned together with the noun, like in German.",
           "ex": "el libro (m), la mesa (f)",
+          "exTranslation": "the book (m), the table (f)",
           "audioId": "unit1-ex1"
         },
         {
-          "h": "Definite articles",
-          "p": "el (m singular), la (f singular), los (m plural), las (f plural).",
+          "h": "The four definite articles",
+          "p": "One word for 'the' becomes four in Spanish, split by gender AND number.",
           "ex": "el gato, la casa, los gatos, las casas",
+          "exTranslation": "the cat, the house, the cats, the houses",
           "audioId": "unit1-ex2"
         },
         {
-          "h": "Indefinite articles",
-          "p": "un (m), una (f).",
+          "h": "Indefinite articles work the same way",
+          "p": "un for masculine, una for feminine — the 'a/an' equivalent.",
           "ex": "un perro, una flor",
+          "exTranslation": "a dog, a flower",
           "audioId": "unit1-ex3"
         },
         {
-          "h": "Watch for exceptions",
-          "p": "Some -a words are masculine, and some -o words are feminine.",
+          "h": "The exceptions everyone learns the hard way",
+          "p": "A handful of common words break the -o/-a pattern. 'día' (day) looks feminine but is masculine; 'mano' (hand) looks masculine but is feminine. These get memorized individually.",
           "ex": "el día, la mano",
+          "exTranslation": "the day, the hand",
           "audioId": "unit1-ex4"
         }
       ],
@@ -40,7 +44,7 @@
         },
         {
           "type": "fill",
-          "q": "___ perro es grande.",
+          "q": "___ perro es grande. (the dog is big)",
           "answer": "el",
           "audioId": "unit1-q2"
         },
@@ -53,7 +57,7 @@
         },
         {
           "type": "fill",
-          "q": "Tengo ___ flor bonita.",
+          "q": "Tengo ___ flor bonita. (I have a pretty flower)",
           "answer": "una",
           "audioId": "unit1-q4"
         },
@@ -72,28 +76,39 @@
       "icon": "🧩",
       "teaching": [
         {
-          "h": "Ser for permanent traits",
-          "p": "Identity, characteristics, origin, profession.",
-          "ex": "Ella es doctora.",
+          "h": "Why Spanish needs two different verbs for 'to be'",
+          "p": "English uses one word for both permanent identity and temporary states, which hides a real distinction. Spanish makes it explicit: ser for what something fundamentally IS, estar for the state it's currently IN.",
+          "ex": "Ella es doctora. Estoy cansado.",
+          "exTranslation": "She is a doctor. I am tired.",
           "audioId": "unit2-ex1"
         },
         {
-          "h": "Estar for temporary states",
-          "p": "Feelings, conditions, location.",
-          "ex": "Estoy cansado.",
+          "h": "Ser: identity, traits, origin, profession",
+          "p": "Things that don't change moment to moment.",
+          "ex": "Ella es doctora.",
+          "exTranslation": "She is a doctor.",
           "audioId": "unit2-ex2"
         },
         {
-          "h": "Same adjective, different meaning",
-          "p": "Ser aburrido = boring; estar aburrido = to be bored.",
-          "ex": "Él es aburrido. Él está aburrido.",
+          "h": "Estar: feelings, conditions, location",
+          "p": "Things that can change today, tomorrow, or in five minutes.",
+          "ex": "Estoy cansado.",
+          "exTranslation": "I am tired.",
           "audioId": "unit2-ex3"
         },
         {
-          "h": "Estar for location, always",
-          "p": "Even permanent locations use estar.",
-          "ex": "Madrid está en España.",
+          "h": "The same adjective, two different meanings",
+          "p": "This is the clearest proof the distinction is real: swapping ser/estar with the identical adjective genuinely changes what you're saying.",
+          "ex": "Él es aburrido. Él está aburrido.",
+          "exTranslation": "He is boring (a trait). He is bored (right now).",
           "audioId": "unit2-ex4"
+        },
+        {
+          "h": "Location always uses estar — even permanently",
+          "p": "This one surprises learners: you'd think a city's location is permanent, so it 'should' be ser — but Spanish always uses estar for location, no exceptions.",
+          "ex": "Madrid está en España.",
+          "exTranslation": "Madrid is in Spain.",
+          "audioId": "unit2-ex5"
         }
       ],
       "quiz": [
@@ -106,20 +121,20 @@
         },
         {
           "type": "fill",
-          "q": "Yo ___ cansado. (estar)",
+          "q": "Yo ___ cansado. (I am tired — estar)",
           "answer": "estoy",
           "audioId": "unit2-q2"
         },
         {
           "type": "mc",
-          "q": "Ser aburrido means:",
+          "q": "\"Ser aburrido\" means:",
           "options": ["boring", "bored"],
           "answer": "boring",
           "audioId": "unit2-q3"
         },
         {
           "type": "fill",
-          "q": "Madrid ___ en España. (estar)",
+          "q": "Madrid ___ en España. (is in Spain — estar)",
           "answer": "está",
           "audioId": "unit2-q4"
         },
@@ -138,27 +153,31 @@
       "icon": "🗣️",
       "teaching": [
         {
-          "h": "Three verb groups",
-          "p": "Verbs end in -ar, -er, or -ir, each with its own pattern.",
+          "h": "Three verb families, one pattern each",
+          "p": "Every Spanish verb ends in -ar, -er, or -ir, and each family conjugates in its own consistent way. Learn the pattern once per family, and you can conjugate hundreds of regular verbs.",
           "ex": "hablar, comer, vivir",
+          "exTranslation": "to speak, to eat, to live",
           "audioId": "unit3-ex1"
         },
         {
-          "h": "-ar conjugation",
-          "p": "hablar → hablo, hablas, habla, hablamos, habláis, hablan",
-          "ex": "Yo hablo español.",
+          "h": "-ar verbs",
+          "p": "The most common family.",
+          "ex": "hablar → hablo, hablas, habla, hablamos, habláis, hablan",
+          "exTranslation": "to speak → I speak, you speak, he/she speaks, we speak, you all speak, they speak",
           "audioId": "unit3-ex2"
         },
         {
-          "h": "-er conjugation",
-          "p": "comer → como, comes, come, comemos, coméis, comen",
-          "ex": "Nosotros comemos pizza.",
+          "h": "-er verbs",
+          "p": "Very similar to -ar, with e instead of a in most endings.",
+          "ex": "comer → como, comes, come, comemos, coméis, comen",
+          "exTranslation": "to eat → I eat, you eat, he/she eats, we eat, you all eat, they eat",
           "audioId": "unit3-ex3"
         },
         {
-          "h": "-ir conjugation",
-          "p": "vivir → vivo, vives, vive, vivimos, vivís, viven",
-          "ex": "Ella vive en Madrid.",
+          "h": "-ir verbs",
+          "p": "Nearly identical to -er, differing only in the nosotros/vosotros forms.",
+          "ex": "vivir → vivo, vives, vive, vivimos, vivís, viven",
+          "exTranslation": "to live → I live, you live, he/she lives, we live, you all live, they live",
           "audioId": "unit3-ex4"
         }
       ],
@@ -172,13 +191,13 @@
         },
         {
           "type": "fill",
-          "q": "Yo ___ español. (hablar)",
+          "q": "Yo ___ español. (I speak — hablar)",
           "answer": "hablo",
           "audioId": "unit3-q2"
         },
         {
           "type": "fill",
-          "q": "Nosotros ___ pizza. (comer)",
+          "q": "Nosotros ___ pizza. (we eat — comer)",
           "answer": "comemos",
           "audioId": "unit3-q3"
         },
@@ -191,7 +210,7 @@
         },
         {
           "type": "fill",
-          "q": "Ella ___ en Madrid. (vivir)",
+          "q": "Ella ___ en Madrid. (she lives — vivir)",
           "answer": "vive",
           "audioId": "unit3-q5"
         }
@@ -203,47 +222,51 @@
       "icon": "🔗",
       "teaching": [
         {
-          "h": "Subject pronouns",
-          "p": "yo, tú, él/ella, nosotros, vosotros, ellos/ellas.",
+          "h": "Subject pronouns — often skipped entirely",
+          "p": "Because Spanish verb endings already show who's doing the action, subject pronouns (yo, tú...) are frequently dropped altogether — 'hablo' alone already means 'I speak', pronoun optional.",
           "ex": "Yo hablo. Nosotros hablamos.",
+          "exTranslation": "I speak. We speak.",
           "audioId": "unit4-ex1"
         },
         {
-          "h": "Direct object pronouns",
-          "p": "me, te, lo/la, nos, os, los/las.",
+          "h": "Direct object pronouns replace the thing being acted on",
+          "p": "Once something's already been mentioned, these pronouns let you avoid repeating the full noun.",
           "ex": "Lo veo.",
+          "exTranslation": "I see it/him.",
           "audioId": "unit4-ex2"
         },
         {
-          "h": "Indirect object pronouns",
-          "p": "me, te, le, nos, os, les.",
+          "h": "Indirect object pronouns answer 'to/for whom?'",
+          "p": "Different set of pronouns for the receiver of an action, as opposed to the thing directly acted on.",
           "ex": "Le doy el libro.",
+          "exTranslation": "I give him/her the book.",
           "audioId": "unit4-ex3"
         },
         {
-          "h": "Placement",
-          "p": "Object pronouns usually go before the conjugated verb.",
+          "h": "Placement: before the conjugated verb",
+          "p": "Unlike English, where object pronouns come after the verb, Spanish usually places them right before it.",
           "ex": "Te quiero.",
+          "exTranslation": "I love you.",
           "audioId": "unit4-ex4"
         }
       ],
       "quiz": [
         {
           "type": "mc",
-          "q": "The subject pronoun for we is:",
+          "q": "The subject pronoun for \"we\" is:",
           "options": ["nosotros", "ellos", "vosotros"],
           "answer": "nosotros",
           "audioId": "unit4-q1"
         },
         {
           "type": "fill",
-          "q": "___ veo. (I see it/him)",
+          "q": "___ veo. (I see it/him — direct object)",
           "answer": "Lo",
           "audioId": "unit4-q2"
         },
         {
           "type": "mc",
-          "q": "The indirect object pronoun for to him/her is:",
+          "q": "The indirect object pronoun for \"to him/her\" is:",
           "options": ["lo", "le", "la"],
           "answer": "le",
           "audioId": "unit4-q3"
@@ -269,28 +292,39 @@
       "icon": "⌛",
       "teaching": [
         {
-          "h": "Preterite for completed actions",
-          "p": "A specific, finished past event.",
-          "ex": "Comí pizza ayer.",
+          "h": "Two pasts because Spanish separates 'event' from 'background'",
+          "p": "This mirrors ser/estar's logic: one tense for a specific completed action, another for the ongoing backdrop it happened against.",
+          "ex": "Comí pizza ayer. Cuando era niño, jugaba fútbol.",
+          "exTranslation": "I ate pizza yesterday. When I was a child, I used to play soccer.",
           "audioId": "unit5-ex1"
         },
         {
-          "h": "Imperfect for ongoing/habitual past",
-          "p": "Descriptions, habits, background context.",
-          "ex": "Cuando era niño, jugaba fútbol.",
+          "h": "Preterite — a finished, specific event",
+          "p": "Use this for something that happened and ended at a definite point.",
+          "ex": "Comí pizza ayer.",
+          "exTranslation": "I ate pizza yesterday.",
           "audioId": "unit5-ex2"
         },
         {
-          "h": "Preterite conjugation example",
-          "p": "hablar → hablé, hablaste, habló, hablamos, hablasteis, hablaron",
-          "ex": "",
-          "audioId": ""
+          "h": "Imperfect — descriptions, habits, ongoing background",
+          "p": "Use this for 'used to' situations, ongoing states, or scene-setting — not a single finished event.",
+          "ex": "Cuando era niño, jugaba fútbol.",
+          "exTranslation": "When I was a child, I used to play soccer.",
+          "audioId": "unit5-ex3"
         },
         {
-          "h": "Imperfect conjugation example",
-          "p": "hablar → hablaba, hablabas, hablaba, hablábamos, hablabais, hablaban",
-          "ex": "",
-          "audioId": ""
+          "h": "Preterite conjugation pattern (-ar)",
+          "p": "",
+          "ex": "hablar → hablé, hablaste, habló, hablamos, hablasteis, hablaron",
+          "exTranslation": "I spoke, you spoke, he/she spoke, we spoke, you all spoke, they spoke",
+          "audioId": "unit5-ex4"
+        },
+        {
+          "h": "Imperfect conjugation pattern (-ar)",
+          "p": "",
+          "ex": "hablar → hablaba, hablabas, hablaba, hablábamos, hablabais, hablaban",
+          "exTranslation": "I used to speak, you used to speak, he/she used to speak, we used to speak, you all used to speak, they used to speak",
+          "audioId": "unit5-ex5"
         }
       ],
       "quiz": [
@@ -303,7 +337,7 @@
         },
         {
           "type": "fill",
-          "q": "Ayer ___ pizza. (comer, preterite)",
+          "q": "Ayer ___ pizza. (I ate — comer, preterite)",
           "answer": "comí",
           "audioId": "unit5-q2"
         },
@@ -316,7 +350,7 @@
         },
         {
           "type": "fill",
-          "q": "Cuando era niño, ___ fútbol. (jugar, imperfect)",
+          "q": "Cuando era niño, ___ fútbol. (I used to play — jugar, imperfect)",
           "answer": "jugaba",
           "audioId": "unit5-q4"
         },
@@ -335,27 +369,31 @@
       "icon": "🧱",
       "teaching": [
         {
-          "h": "Main word classes",
-          "p": "sustantivo (noun), verbo, adjetivo, adverbio, pronombre, preposición, conjunción.",
+          "h": "Why part of speech matters extra in Spanish",
+          "p": "Because Spanish adjectives agree with the nouns they describe, correctly identifying a word's category is what tells you whether it needs to match gender/number at all.",
           "ex": "correr (verbo), rápido (adverbio), maestro (sustantivo)",
+          "exTranslation": "to run (verb), fast (adverb), teacher (noun)",
           "audioId": "unit6-ex1"
         },
         {
-          "h": "Sustantivos and pronombres",
-          "p": "Nouns name things; pronouns replace them.",
+          "h": "Sustantivos and pronombres work together",
+          "p": "Same relationship as in English — pronouns exist so you don't repeat the same noun endlessly.",
           "ex": "La maestra calificó los exámenes. Ella estaba cansada.",
+          "exTranslation": "The teacher graded the exams. She was tired.",
           "audioId": "unit6-ex2"
         },
         {
-          "h": "Verbos and adjetivos",
-          "p": "Verbs show action; adjectives describe nouns and usually match gender/number.",
+          "h": "Verbos drive the action; adjetivos describe and must agree",
+          "p": "Unlike English adjectives, Spanish ones change ending to match the noun's gender and number — 'alta' here matches 'maestra' being feminine.",
           "ex": "La maestra alta corre cada mañana.",
+          "exTranslation": "The tall teacher runs every morning.",
           "audioId": "unit6-ex3"
         },
         {
-          "h": "Preposiciones and conjunciones",
-          "p": "Prepositions show relationships (en, sobre, bajo). Conjunctions connect ideas (y, pero, porque).",
+          "h": "Preposiciones and conjunciones connect, without carrying standalone meaning",
+          "p": "",
           "ex": "El gato está sobre la mesa, pero duerme.",
+          "exTranslation": "The cat is on the table, but it's sleeping.",
           "audioId": "unit6-ex4"
         }
       ],
@@ -376,7 +414,7 @@
         },
         {
           "type": "fill",
-          "q": "Él es un ___ maestro. (adjective, e.g. good = bueno)",
+          "q": "Él es un ___ maestro. (a good teacher — bueno/buen)",
           "answer": "buen",
           "audioId": "unit6-q3"
         },
@@ -402,27 +440,31 @@
       "icon": "🏗️",
       "teaching": [
         {
-          "h": "Oración simple",
-          "p": "One independent clause, one complete thought.",
+          "h": "Oración simple — one complete idea",
+          "p": "",
           "ex": "El perro ladró.",
+          "exTranslation": "The dog barked.",
           "audioId": "unit7-ex1"
         },
         {
-          "h": "Oración compuesta",
-          "p": "Two independent clauses joined by y, pero, o.",
+          "h": "Oración compuesta — two equal ideas joined",
+          "p": "Connected with y, pero, or o — each half could be its own sentence.",
           "ex": "El perro ladró, y el gato huyó.",
+          "exTranslation": "The dog barked, and the cat ran away.",
           "audioId": "unit7-ex2"
         },
         {
-          "h": "Oración compleja",
-          "p": "An independent clause plus a dependent clause.",
+          "h": "Oración compleja — one idea depends on another",
+          "p": "",
           "ex": "Porque llovía, nos quedamos en casa.",
+          "exTranslation": "Because it was raining, we stayed home.",
           "audioId": "unit7-ex3"
         },
         {
-          "h": "Cláusulas subordinadas",
-          "p": "Introduced by porque, cuando, si, que — they can't stand alone.",
+          "h": "Cláusulas subordinadas — the dependent piece",
+          "p": "Introduced by porque, cuando, si, que — grammatically incomplete without the main clause.",
           "ex": "..., cuando llegó a casa.",
+          "exTranslation": "...when he/she arrived home.",
           "audioId": "unit7-ex4"
         }
       ],
@@ -472,27 +514,31 @@
       "icon": "🤝",
       "teaching": [
         {
-          "h": "When to use the subjunctive",
-          "p": "For wishes, doubts, emotions, recommendations — not simple facts.",
+          "h": "Why Spanish has a whole separate mood for uncertainty",
+          "p": "The subjunctive exists to grammatically flag 'this isn't a fact, it's a wish, doubt, or emotion.' English does this too in small ways ('I wish I were...'), but Spanish uses it constantly and systematically.",
           "ex": "Espero que vengas.",
+          "exTranslation": "I hope you come.",
           "audioId": "unit8-ex1"
         },
         {
-          "h": "Regular subjunctive formation",
-          "p": "Take the yo-form, drop -o, swap for the opposite vowel ending.",
+          "h": "Building it from the yo-form",
+          "p": "Take the yo-form of the present indicative, drop the -o, then add the OPPOSITE set of endings (-ar verbs get e-endings, -er/-ir verbs get a-endings).",
           "ex": "hablar → hable, comer → coma",
+          "exTranslation": "(that) I speak, (that) I eat",
           "audioId": "unit8-ex2"
         },
         {
-          "h": "Triggered by certain expressions",
-          "p": "Phrases like \"espero que,\" \"es importante que,\" \"quiero que\" trigger the subjunctive.",
+          "h": "The trigger phrases that force subjunctive",
+          "p": "Certain expressions of hope, necessity, or desire automatically pull the following verb into subjunctive.",
           "ex": "Es importante que estudies.",
+          "exTranslation": "It's important that you study.",
           "audioId": "unit8-ex3"
         },
         {
-          "h": "Not used for simple facts",
-          "p": "The indicative is used for certainty; subjunctive for uncertainty or emotion.",
+          "h": "Certainty stays indicative — this is the real contrast",
+          "p": "When you're simply stating a known fact, use the normal indicative; switch to subjunctive only when there's genuine doubt, wish, or emotion involved.",
           "ex": "Sé que vienes. (indicative) vs. Espero que vengas. (subjunctive)",
+          "exTranslation": "I know you're coming. vs. I hope you come.",
           "audioId": "unit8-ex4"
         }
       ],
@@ -506,7 +552,7 @@
         },
         {
           "type": "fill",
-          "q": "Espero que ___. (venir, tú, subjunctive)",
+          "q": "Espero que ___. (I hope you come — venir, tú, subjunctive)",
           "answer": "vengas",
           "audioId": "unit8-q2"
         },
@@ -519,7 +565,7 @@
         },
         {
           "type": "fill",
-          "q": "Es importante que ___. (estudiar, tú, subjunctive)",
+          "q": "Es importante que ___. (that you study — estudiar, tú, subjunctive)",
           "answer": "estudies",
           "audioId": "unit8-q4"
         },
@@ -541,34 +587,38 @@
       "icon": "⏱️",
       "teaching": [
         {
-          "h": "Simple future",
-          "p": "Infinitive + endings (é, ás, á, emos, éis, án).",
+          "h": "Simple future — one clean pattern",
+          "p": "Unlike present tense (which varies by verb family), the future uses the SAME endings for -ar, -er, and -ir verbs alike, attached to the full infinitive.",
           "ex": "hablaré, hablarás, hablará",
+          "exTranslation": "I will speak, you will speak, he/she will speak",
           "audioId": "unit9-ex1"
         },
         {
-          "h": "ir a + infinitive",
-          "p": "A very common informal way to talk about the near future.",
+          "h": "ir a + infinitive — how people actually talk about the near future",
+          "p": "Just like English 'going to', this is the more casual, common way to express near-future plans in everyday speech.",
           "ex": "Voy a estudiar mañana.",
+          "exTranslation": "I'm going to study tomorrow.",
           "audioId": "unit9-ex2"
         },
         {
-          "h": "Conditional",
-          "p": "Infinitive + endings (ía, ías, ía, íamos, íais, ían) — for \"would\" statements.",
+          "h": "Conditional — the Spanish 'would'",
+          "p": "Same infinitive-based pattern as the future, but with different endings.",
           "ex": "Yo hablaría con ella.",
+          "exTranslation": "I would talk to her.",
           "audioId": "unit9-ex3"
         },
         {
-          "h": "Irregular stems",
-          "p": "Some verbs use an irregular stem for both future and conditional.",
+          "h": "Irregular stems — shared between future and conditional",
+          "p": "A handful of common verbs use a shortened, irregular stem for BOTH future and conditional — learn the stem once, apply it to both tenses.",
           "ex": "tener → tendré, tendría",
+          "exTranslation": "to have → I will have, I would have",
           "audioId": "unit9-ex4"
         }
       ],
       "quiz": [
         {
           "type": "fill",
-          "q": "Yo ___ mañana. (hablar, simple future)",
+          "q": "Yo ___ mañana. (I will speak — hablar, simple future)",
           "answer": "hablaré",
           "audioId": "unit9-q1"
         },
@@ -581,7 +631,7 @@
         },
         {
           "type": "fill",
-          "q": "Yo ___ con ella. (hablar, conditional)",
+          "q": "Yo ___ con ella. (I would talk — hablar, conditional)",
           "answer": "hablaría",
           "audioId": "unit9-q3"
         },
@@ -594,7 +644,7 @@
         },
         {
           "type": "fill",
-          "q": "yo ___ (tener, future, irregular stem)",
+          "q": "yo ___ (I will have — tener, future, irregular stem)",
           "answer": "tendré",
           "audioId": "unit9-q5"
         }
@@ -606,27 +656,31 @@
       "icon": "🔀",
       "teaching": [
         {
-          "h": "Real conditions",
-          "p": "si + present, present or future — realistic situations.",
+          "h": "Real conditions — plain present tense doing the job",
+          "p": "For realistic situations, si (if) just pairs with normal present/future tense — no special mood required, same logic as English's first conditional.",
           "ex": "Si llueve, me quedo en casa.",
+          "exTranslation": "If it rains, I stay home.",
           "audioId": "unit10-ex1"
         },
         {
-          "h": "Hypothetical conditions",
-          "p": "si + imperfect subjunctive, conditional — unreal/unlikely situations.",
+          "h": "Hypothetical conditions — where subjunctive comes back",
+          "p": "For unreal or unlikely situations, si pairs with the imperfect subjunctive, and the result clause uses the conditional.",
           "ex": "Si tuviera dinero, viajaría.",
+          "exTranslation": "If I had money, I would travel.",
           "audioId": "unit10-ex2"
         },
         {
-          "h": "Imperfect subjunctive forms",
-          "p": "Often built from the preterite \"ellos\" form, -ra ending.",
+          "h": "Imperfect subjunctive formation",
+          "p": "Usually built from the preterite ellos-form, swapping the ending for -ra.",
           "ex": "tener → tuviera, hablar → hablara",
+          "exTranslation": "(if I) had, (if I) spoke",
           "audioId": "unit10-ex3"
         },
         {
-          "h": "Past hypotheticals",
-          "p": "si + pluperfect subjunctive, conditional perfect — imagined past outcomes.",
+          "h": "Past hypotheticals — imagining a different past",
+          "p": "Same idea as third conditional in English: si + pluperfect subjunctive, result in conditional perfect.",
           "ex": "Si hubiera estudiado, habría aprobado.",
+          "exTranslation": "If I had studied, I would have passed.",
           "audioId": "unit10-ex4"
         }
       ],
@@ -640,7 +694,7 @@
         },
         {
           "type": "fill",
-          "q": "Si ___ dinero, viajaría. (tener, imperfect subjunctive)",
+          "q": "Si ___ dinero, viajaría. (if I had money — tener, imperfect subjunctive)",
           "answer": "tuviera",
           "audioId": "unit10-q2"
         },
@@ -656,7 +710,7 @@
         },
         {
           "type": "fill",
-          "q": "Si hubiera estudiado, ___ aprobado. (haber, conditional perfect)",
+          "q": "Si hubiera estudiado, ___ aprobado. (I would have passed — haber, conditional perfect)",
           "answer": "habría",
           "audioId": "unit10-q4"
         },
@@ -678,27 +732,31 @@
       "icon": "🧩",
       "teaching": [
         {
-          "h": "Frase (phrase)",
-          "p": "A group of words with no subject-verb pair, acting as one unit.",
+          "h": "Frase — a chunk with no subject-verb pairing",
+          "p": "",
           "ex": "por la mañana, muy rápido",
+          "exTranslation": "in the morning, very fast",
           "audioId": "unit11-ex1"
         },
         {
-          "h": "Cláusula (clause)",
-          "p": "A group of words with a subject and a verb.",
+          "h": "Cláusula — has its own subject and verb",
+          "p": "",
           "ex": "ella corre, porque llegó tarde",
+          "exTranslation": "she runs, because he arrived late",
           "audioId": "unit11-ex2"
         },
         {
-          "h": "Cláusula independiente",
-          "p": "Can stand alone as a complete sentence.",
+          "h": "Cláusula independiente stands alone",
+          "p": "",
           "ex": "Ella corre cada mañana.",
+          "exTranslation": "She runs every morning.",
           "audioId": "unit11-ex3"
         },
         {
-          "h": "Cláusula dependiente",
-          "p": "Has a subject and verb but can't stand alone.",
+          "h": "Cláusula dependiente needs the main clause",
+          "p": "Has the subject-verb pairing, but the connector word makes it incomplete alone.",
           "ex": "porque llegó tarde (incomplete alone)",
+          "exTranslation": "because he arrived late",
           "audioId": "unit11-ex4"
         }
       ],
@@ -749,27 +807,31 @@
       "icon": "🔄",
       "teaching": [
         {
-          "h": "Voz activa",
-          "p": "The subject performs the action.",
+          "h": "Voz activa — the default",
+          "p": "",
           "ex": "El chef cocinó la comida.",
+          "exTranslation": "The chef cooked the food.",
           "audioId": "unit12-ex1"
         },
         {
-          "h": "Voz pasiva con ser",
-          "p": "ser + past participle + por — formal, less common in speech.",
+          "h": "Voz pasiva con ser — formal, less common in speech",
+          "p": "ser + past participle + por, structurally similar to English passive but used more sparingly in everyday Spanish.",
           "ex": "La comida fue cocinada por el chef.",
+          "exTranslation": "The food was cooked by the chef.",
           "audioId": "unit12-ex2"
         },
         {
-          "h": "Pasiva refleja with se",
-          "p": "A more common, informal way to express passive meaning in Spanish.",
+          "h": "Pasiva refleja — how Spanish speakers actually express this",
+          "p": "Using se plus the verb is the far more natural, common way to express passive-like meaning in real conversation.",
           "ex": "Se vendieron muchos libros.",
+          "exTranslation": "Many books were sold.",
           "audioId": "unit12-ex3"
         },
         {
-          "h": "When to use passive",
-          "p": "When the doer is unknown or unimportant, or to emphasize the action's receiver.",
+          "h": "When passive meaning gets used at all",
+          "p": "Same logic as English: when the doer is unknown or unimportant.",
           "ex": "Se rompió la ventana.",
+          "exTranslation": "The window broke/was broken.",
           "audioId": "unit12-ex4"
         }
       ],
@@ -783,7 +845,7 @@
         },
         {
           "type": "fill",
-          "q": "La comida ___ cocinada por el chef. (ser, past)",
+          "q": "La comida ___ cocinada por el chef. (was cooked — ser, past)",
           "answer": "fue",
           "audioId": "unit12-q2"
         },
@@ -803,7 +865,7 @@
         },
         {
           "type": "fill",
-          "q": "___ rompió la ventana. (se, pasiva refleja)",
+          "q": "___ rompió la ventana. (the window broke — se, pasiva refleja)",
           "answer": "Se",
           "audioId": "unit12-q5"
         }
@@ -815,27 +877,31 @@
       "icon": "💬",
       "teaching": [
         {
-          "h": "Estilo directo",
-          "p": "The exact words, in quotation marks.",
+          "h": "Estilo directo — the exact words",
+          "p": "",
           "ex": "Ella dijo: \"Estoy cansada.\"",
+          "exTranslation": "She said: \"I am tired.\"",
           "audioId": "unit13-ex1"
         },
         {
-          "h": "Estilo indirecto",
-          "p": "Reports what was said, tense often shifts back.",
+          "h": "Estilo indirecto — reporting, with a tense shift",
+          "p": "Same backshift logic as English — the reported tense usually moves one step further into the past.",
           "ex": "Ella dijo que estaba cansada.",
+          "exTranslation": "She said that she was tired.",
           "audioId": "unit13-ex2"
         },
         {
-          "h": "Present becomes imperfect",
-          "p": "Present tense in direct speech often becomes imperfect in reported speech.",
+          "h": "Present becomes imperfect when reported",
+          "p": "",
           "ex": "\"Estoy cansada\" → dijo que estaba cansada",
+          "exTranslation": "\"I am tired\" → she said that she was tired",
           "audioId": "unit13-ex3"
         },
         {
-          "h": "Time and place words shift too",
-          "p": "\"hoy\" often becomes \"ese día\", matching the new perspective.",
+          "h": "Time words shift to match the new perspective",
+          "p": "\"hoy\" (today) often becomes \"ese día\" (that day), just like English's today→that day.",
           "ex": "\"Vendré hoy\" → dijo que vendría ese día",
+          "exTranslation": "\"I will come today\" → she said she would come that day",
           "audioId": "unit13-ex4"
         }
       ],
@@ -849,7 +915,7 @@
         },
         {
           "type": "fill",
-          "q": "Ella dijo que ___ cansada. (estar, imperfect)",
+          "q": "Ella dijo que ___ cansada. (she was tired — estar, imperfect)",
           "answer": "estaba",
           "audioId": "unit13-q2"
         },
@@ -884,27 +950,31 @@
       "icon": "✍️",
       "teaching": [
         {
-          "h": "Inverted question and exclamation marks",
-          "p": "Spanish uses ¿ and ¡ at the start of questions and exclamations, plus the normal marks at the end.",
+          "h": "Inverted marks — a genuinely unique Spanish feature",
+          "p": "¿ and ¡ appear at the START of questions and exclamations too, not just the end — this actually helps readers, since you know from the first word how to read the intonation.",
           "ex": "¿Cómo estás? ¡Qué bien!",
+          "exTranslation": "How are you? How great!",
           "audioId": "unit14-ex1"
         },
         {
           "h": "Capitalization is less frequent than English",
-          "p": "Days, months, and nationalities are NOT capitalized in Spanish.",
+          "p": "Days, months, and nationalities are lowercase in Spanish, unlike English — this trips up a lot of English-speaking learners who over-capitalize by habit.",
           "ex": "lunes, enero, español (all lowercase)",
+          "exTranslation": "Monday, January, Spanish",
           "audioId": "unit14-ex2"
         },
         {
           "h": "Commas in lists",
-          "p": "Same basic rule as English — separate items in a series.",
+          "p": "Basically the same rule as English.",
           "ex": "Compré manzanas, pan y leche.",
+          "exTranslation": "I bought apples, bread, and milk.",
           "audioId": "unit14-ex3"
         },
         {
-          "h": "Accent marks change meaning",
-          "p": "Written accents aren't optional — they can distinguish entirely different words.",
+          "h": "Accent marks aren't decorative — they change meaning",
+          "p": "This is a genuine trap for learners typing quickly: dropping the accent can turn one word into a completely different one.",
           "ex": "tú (you) vs. tu (your), sí (yes) vs. si (if)",
+          "exTranslation": "you vs. your, yes vs. if",
           "audioId": "unit14-ex4"
         }
       ],
@@ -954,34 +1024,38 @@
       "icon": "🎓",
       "teaching": [
         {
-          "h": "Reflexive verbs",
-          "p": "Verbs used with a reflexive pronoun referring back to the subject.",
+          "h": "Reflexive verbs — actions directed back at the subject",
+          "p": "Similar concept to German's reflexives — a pronoun signals the action loops back to whoever's doing it.",
           "ex": "Me levanto. Se ducha.",
+          "exTranslation": "I get (myself) up. He/she showers (themself).",
           "audioId": "unit15-ex1"
         },
         {
-          "h": "Por vs. para",
-          "p": "Por = cause/means/duration; para = purpose/destination/deadline — a classic learner confusion.",
+          "h": "Por vs. para — the classic learner confusion",
+          "p": "Both can translate to English 'for', which is exactly why they're confusing. Rough guide: por = cause, means, duration, movement through; para = purpose, destination, deadline, recipient.",
           "ex": "Camino por el parque. Este regalo es para ti.",
+          "exTranslation": "I walk through the park. This gift is for you.",
           "audioId": "unit15-ex2"
         },
         {
-          "h": "Gerund forms",
-          "p": "estar + gerundio for ongoing actions, similar to English continuous tenses.",
+          "h": "The gerund — for ongoing actions",
+          "p": "estar + gerundio mirrors English's continuous tenses closely.",
           "ex": "Estoy comiendo. Está lloviendo.",
+          "exTranslation": "I am eating. It is raining.",
           "audioId": "unit15-ex3"
         },
         {
           "h": "Relative clauses with que/quien",
-          "p": "\"que\" for things/people, \"quien\" specifically for people after a preposition.",
+          "p": "que covers both people and things in most cases; quien is reserved specifically for people, usually after a preposition.",
           "ex": "La mujer que llamó es mi profesora.",
+          "exTranslation": "The woman who called is my teacher.",
           "audioId": "unit15-ex4"
         }
       ],
       "quiz": [
         {
           "type": "fill",
-          "q": "Me ___. (levantar, reflexive, yo)",
+          "q": "Me ___. (I get up — levantar, reflexive, yo)",
           "answer": "levanto",
           "audioId": "unit15-q1"
         },
@@ -994,7 +1068,7 @@
         },
         {
           "type": "fill",
-          "q": "Estoy ___. (comer, gerund)",
+          "q": "Estoy ___. (I am eating — comer, gerund)",
           "answer": "comiendo",
           "audioId": "unit15-q3"
         },
@@ -1019,27 +1093,31 @@
       "icon": "🔗",
       "teaching": [
         {
-          "h": "What conectores do",
-          "p": "Words connecting ideas smoothly between sentences.",
+          "h": "Why conectores make Spanish sound fluent",
+          "p": "Same principle as English — these words explicitly show how ideas relate, turning a list of facts into flowing speech or writing.",
           "ex": "sin embargo, por lo tanto, además, por ejemplo",
+          "exTranslation": "however, therefore, furthermore, for example",
           "audioId": "unit16-ex1"
         },
         {
           "h": "Showing contrast",
-          "p": "sin embargo and pero signal a contrasting idea.",
+          "p": "",
           "ex": "Estaba cansada. Sin embargo, siguió trabajando.",
+          "exTranslation": "She was tired. However, she kept working.",
           "audioId": "unit16-ex2"
         },
         {
           "h": "Showing cause and result",
-          "p": "por lo tanto and por eso connect a cause to its effect.",
+          "p": "",
           "ex": "Llovió mucho. Por eso, cancelaron el partido.",
+          "exTranslation": "It rained a lot. Because of that, they cancelled the game.",
           "audioId": "unit16-ex3"
         },
         {
           "h": "Adding ideas",
-          "p": "además and también add another related point.",
+          "p": "",
           "ex": "Es inteligente. Además, es muy trabajadora.",
+          "exTranslation": "She's smart. Furthermore, she's very hardworking.",
           "audioId": "unit16-ex4"
         }
       ],
@@ -1053,7 +1131,7 @@
         },
         {
           "type": "fill",
-          "q": "Llovió mucho. ___, cancelaron el partido. (cause/result)",
+          "q": "Llovió mucho. ___, cancelaron el partido. (because of that)",
           "answer": "Por eso",
           "audioId": "unit16-q2"
         },

@@ -6,26 +6,26 @@
       "icon": "📘",
       "teaching": [
         {
-          "h": "Basic sentence order",
-          "p": "English follows Subject-Verb-Object (SVO) order, unlike many languages with flexible word order.",
+          "h": "Why word order matters so much in English",
+          "p": "Many languages show 'who did what' through word endings, so word order can move around freely. English mostly lost those endings, which means word order is doing almost all the work instead. That's why English sticks tightly to Subject-Verb-Object — swap the order and the meaning genuinely changes, not just the style.",
           "ex": "She reads books.",
           "audioId": "unit1-ex1"
         },
         {
-          "h": "Articles: a vs an",
-          "p": "Use \"a\" before consonant sounds, \"an\" before vowel sounds — based on sound, not spelling.",
+          "h": "a vs. an — it's about sound, not spelling",
+          "p": "The rule everyone half-remembers wrong: it's not about whether the next word starts with a vowel LETTER, it's about the SOUND. 'A university' sounds like it starts with 'y', so it takes 'a', not 'an' — even though u is a vowel.",
           "ex": "a university, but an hour",
           "audioId": "unit1-ex2"
         },
         {
-          "h": "Definite vs indefinite",
-          "p": "\"The\" refers to something specific; \"a/an\" introduces something new or non-specific.",
+          "h": "the vs. a/an — specific vs. new information",
+          "p": "Use a/an the first time you introduce something, then switch to 'the' once both people know what you're talking about. This is why the same sentence can correctly use both.",
           "ex": "I saw a dog. The dog was brown.",
           "audioId": "unit1-ex3"
         },
         {
-          "h": "No article for general plurals",
-          "p": "Plural or uncountable nouns often take no article when speaking generally.",
+          "h": "When to skip the article entirely",
+          "p": "When speaking generally about a whole category — not one specific example — plural and uncountable nouns often take no article at all.",
           "ex": "Dogs are loyal. I like coffee.",
           "audioId": "unit1-ex4"
         }
@@ -76,26 +76,26 @@
       "icon": "⏱️",
       "teaching": [
         {
-          "h": "Simple present for routines/facts",
-          "p": "Used for habits, facts, and schedules.",
+          "h": "Two present tenses because English separates 'always true' from 'right now'",
+          "p": "Simple present is for routines and facts that stay true regardless of this exact moment. Continuous is specifically for what's happening as you speak. Mixing these up is one of the most common learner mistakes — 'I work' and 'I am working' genuinely mean different things.",
           "ex": "He works every day.",
           "audioId": "unit2-ex1"
         },
         {
-          "h": "Present continuous for now",
-          "p": "Used for actions happening right now or temporary situations: be + verb-ing.",
+          "h": "Continuous = be + verb-ing",
+          "p": "The structure signals 'in progress right now, temporary.'",
           "ex": "He is working right now.",
           "audioId": "unit2-ex2"
         },
         {
-          "h": "Stative verbs stay simple",
-          "p": "Verbs like know, like, want usually stay in simple form even for current states.",
+          "h": "Some verbs refuse to go continuous",
+          "p": "Verbs describing a state rather than an action — know, like, want, believe, own — almost never take the -ing form, even when talking about right now. 'I am knowing' sounds broken to a native ear because knowledge isn't something you do in progress, it's just a state.",
           "ex": "I know the answer, not I am knowing.",
           "audioId": "unit2-ex3"
         },
         {
-          "h": "Forming the continuous",
-          "p": "Subject + am/is/are + verb-ing.",
+          "h": "Full formation pattern",
+          "p": "am/is/are, matched to the subject, plus the -ing form of the verb.",
           "ex": "They are studying English.",
           "audioId": "unit2-ex4"
         }
@@ -142,26 +142,26 @@
       "icon": "⌛",
       "teaching": [
         {
-          "h": "Regular past tense",
-          "p": "Add -ed to the base verb.",
+          "h": "The regular pattern — and why it's not always enough",
+          "p": "Adding -ed is the default rule, and it works for the vast majority of English verbs. The catch: the most common, most frequently-used verbs in English (go, see, eat, have, be) are almost all irregular, precisely because we use them so much that their old, unpredictable forms never got smoothed out over time.",
           "ex": "walk becomes walked",
           "audioId": "unit3-ex1"
         },
         {
-          "h": "Irregular verbs",
-          "p": "Don't follow the -ed pattern and must be memorized individually.",
+          "h": "Irregular verbs just have to be memorized",
+          "p": "There's no shortcut here — you learn each one individually, ideally in short phrases rather than as an isolated list.",
           "ex": "go becomes went, see becomes saw, eat becomes ate",
           "audioId": "unit3-ex2"
         },
         {
           "h": "\"To be\" in the past",
-          "p": "Was/were, depending on the subject.",
+          "p": "Was for I/he/she/it, were for you/we/they.",
           "ex": "I was tired. They were happy.",
           "audioId": "unit3-ex3"
         },
         {
-          "h": "Negative past tense",
-          "p": "Use did not / didn't + base verb, not the past form of the verb.",
+          "h": "Negating the past — a common trap",
+          "p": "Once you add 'did' to a negative sentence, the main verb goes BACK to its base form — you don't double up on past tense. This is why 'I didn't went' is wrong even though it feels like it should match.",
           "ex": "I didn't go, not I didn't went.",
           "audioId": "unit3-ex4"
         }
@@ -208,26 +208,26 @@
       "icon": "❓",
       "teaching": [
         {
-          "h": "Yes/no questions with do/does",
-          "p": "Add do/does before the subject, then the base verb.",
+          "h": "Why English questions need a 'helper' word at all",
+          "p": "Unlike many languages that form questions just by changing intonation or word order, English usually needs a helper verb (do/does/did) inserted at the front — this is one of the more distinctive things about English grammar.",
           "ex": "Do you like tea?",
           "audioId": "unit4-ex1"
         },
         {
-          "h": "Past tense questions use did",
-          "p": "Did + subject + base verb, regardless of the original tense.",
+          "h": "Past tense questions always use 'did', regardless of the original verb",
+          "p": "No matter how irregular the past tense was (went, saw, ate), the question form always uses plain 'did' plus the base verb — the irregularity disappears in questions.",
           "ex": "Did you see him?",
           "audioId": "unit4-ex2"
         },
         {
-          "h": "Negation",
-          "p": "do/does/did + not + base verb.",
+          "h": "Negation follows the same helper-verb pattern",
+          "p": "do/does/did + not, then the base form of the verb.",
           "ex": "She doesn't like coffee.",
           "audioId": "unit4-ex3"
         },
         {
-          "h": "Wh- questions",
-          "p": "Question word + do/does/did + subject + verb.",
+          "h": "Wh- questions just add a question word to the front",
+          "p": "Same do/does/did structure, just preceded by where/what/when/why/who.",
           "ex": "Where do you live?",
           "audioId": "unit4-ex4"
         }
@@ -274,26 +274,26 @@
       "icon": "🔧",
       "teaching": [
         {
-          "h": "in/on/at for time",
-          "p": "in = months/years, on = days/dates, at = specific times.",
+          "h": "Why prepositions are notoriously hard to learn logically",
+          "p": "Prepositions rarely follow a clean rule — they're mostly memorized through exposure, which is exactly why they're one of the last things learners fully master. Still, a few patterns genuinely help.",
           "ex": "in May, on Monday, at 5pm",
           "audioId": "unit5-ex1"
         },
         {
-          "h": "in/on/at for place",
-          "p": "in = enclosed spaces, on = surfaces, at = specific points.",
-          "ex": "in the room, on the table, at the door",
+          "h": "in/on/at for time — big to small",
+          "p": "Think of it as zooming in: in for the biggest chunks of time (months, years), on for a specific day, at for an exact point in time.",
+          "ex": "in May, on Monday, at 5pm",
           "audioId": "unit5-ex2"
         },
         {
-          "h": "\"married to\", not \"married with\"",
-          "p": "A common mistake — the correct preposition is \"to\".",
+          "h": "\"married to\" — a fixed pairing worth memorizing directly",
+          "p": "This is one of those combinations native speakers never think about, but always gets 'with' from learners because it feels logical. It isn't — it's just fixed.",
           "ex": "She is married to a doctor.",
           "audioId": "unit5-ex3"
         },
         {
-          "h": "\"depend on\", not \"depend of\"",
-          "p": "Another common mistake — the correct preposition is \"on\".",
+          "h": "\"depend on\" — another fixed pairing",
+          "p": "Same story: 'depend of' feels reasonable if you're translating from certain other languages, but English fixed on 'on' for this verb specifically.",
           "ex": "It depends on the weather.",
           "audioId": "unit5-ex4"
         }
@@ -340,26 +340,26 @@
       "icon": "🧱",
       "teaching": [
         {
-          "h": "The eight parts of speech",
-          "p": "Every English word falls into one of eight categories based on its job in a sentence: noun, pronoun, verb, adjective, adverb, preposition, conjunction, interjection.",
+          "h": "Why this matters beyond just labeling words",
+          "p": "Knowing a word's part of speech tells you how it's allowed to behave in a sentence — where it can go, what it can pair with. This is the foundation everything else in grammar builds on.",
           "ex": "run (verb), quickly (adverb), teacher (noun)",
           "audioId": "unit6-ex1"
         },
         {
-          "h": "Nouns and pronouns",
-          "p": "Nouns name people, places, or things. Pronouns replace nouns so we don't repeat them.",
+          "h": "Nouns and pronouns work as a team",
+          "p": "Pronouns exist specifically so you don't have to keep repeating the same noun — without them, every sentence would feel painfully repetitive.",
           "ex": "The teacher graded the papers. She was tired.",
           "audioId": "unit6-ex2"
         },
         {
-          "h": "Verbs and adjectives",
-          "p": "Verbs show action or a state of being. Adjectives describe nouns.",
+          "h": "Verbs and adjectives play very different roles",
+          "p": "Verbs drive the sentence forward (the action or state); adjectives just add detail to a noun without moving anything.",
           "ex": "The tall teacher runs every morning.",
           "audioId": "unit6-ex3"
         },
         {
-          "h": "Prepositions, conjunctions, interjections",
-          "p": "Prepositions show relationships (in, on, under). Conjunctions join words or clauses (and, but, because). Interjections express sudden emotion.",
+          "h": "Prepositions, conjunctions, interjections — the connective tissue",
+          "p": "None of these carry meaning entirely on their own — they exist to link other words together or express a sudden reaction.",
           "ex": "Wow, she sat on the chair and read quietly.",
           "audioId": "unit6-ex4"
         }
@@ -407,26 +407,32 @@
       "icon": "🏗️",
       "teaching": [
         {
-          "h": "Simple sentences",
-          "p": "A simple sentence has just one independent clause — one complete thought, one subject, one verb.",
+          "h": "Why varying sentence length actually matters",
+          "p": "Native-sounding English rarely strings together only simple sentences — real writing and speech mixes short, punchy statements with longer, connected ones. Understanding these four structures is what lets you deliberately control that rhythm.",
           "ex": "The dog barked.",
           "audioId": "unit7-ex1"
         },
         {
-          "h": "Compound sentences",
-          "p": "Two independent clauses joined by a coordinating conjunction (and, but, or, so, yet).",
+          "h": "Simple sentences — one complete thought",
+          "p": "Just a single independent clause: one subject, one verb, nothing attached.",
+          "ex": "The dog barked.",
+          "audioId": "unit7-ex1b"
+        },
+        {
+          "h": "Compound sentences — two equal ideas, joined",
+          "p": "Two independent clauses connected by and, but, or, so, yet — both halves could stand alone if you split them.",
           "ex": "The dog barked, and the cat ran away.",
           "audioId": "unit7-ex2"
         },
         {
-          "h": "Complex sentences",
-          "p": "One independent clause plus at least one dependent clause that can't stand alone.",
+          "h": "Complex sentences — one idea depends on another",
+          "p": "An independent clause plus a dependent one that can't stand by itself — the dependent clause needs the main clause to make sense.",
           "ex": "Because it was raining, we stayed inside.",
           "audioId": "unit7-ex3"
         },
         {
-          "h": "Compound-complex sentences",
-          "p": "Combines a compound sentence with a dependent clause — the most advanced structure.",
+          "h": "Compound-complex — combining both patterns at once",
+          "p": "This is what genuinely sophisticated writing often looks like: a dependent clause attached to a full compound sentence.",
           "ex": "Because it was raining, we stayed inside, and we watched a movie.",
           "audioId": "unit7-ex4"
         }
@@ -489,26 +495,26 @@
       "icon": "🤝",
       "teaching": [
         {
-          "h": "The basic rule",
-          "p": "A singular subject takes a singular verb; a plural subject takes a plural verb.",
+          "h": "The core rule, and why it trips people up in longer sentences",
+          "p": "Singular subject, singular verb; plural subject, plural verb. This feels obvious in short sentences, but gets genuinely tricky once other words sit between the subject and the verb, tempting you to match the wrong noun.",
           "ex": "The student studies. The students study.",
           "audioId": "unit8-ex1"
         },
         {
-          "h": "Compound subjects with \"and\"",
-          "p": "Two subjects joined by \"and\" usually take a plural verb.",
+          "h": "\"And\" almost always makes it plural",
+          "p": "Two subjects joined by 'and' are treated as a combined plural, even if each one is individually singular.",
           "ex": "Tom and Jerry are friends.",
           "audioId": "unit8-ex2"
         },
         {
-          "h": "Subjects joined by \"or\"/\"nor\"",
-          "p": "The verb agrees with the subject closer to it.",
+          "h": "\"Or\"/\"nor\" — the verb listens to the closer subject",
+          "p": "This is the genuinely counterintuitive one: when subjects are joined by or/nor, the verb matches whichever subject is physically closest to it, not the first one.",
           "ex": "Neither the teacher nor the students are ready.",
           "audioId": "unit8-ex3"
         },
         {
-          "h": "Indefinite pronouns",
-          "p": "Words like everyone, each, and somebody take a singular verb, even though they can feel plural.",
+          "h": "Indefinite pronouns sound plural but grammatically aren't",
+          "p": "Everyone, each, somebody, nobody all take a SINGULAR verb, even though they seem to describe a group of people.",
           "ex": "Everyone is here.",
           "audioId": "unit8-ex4"
         }
@@ -557,26 +563,26 @@
       "icon": "⏱️",
       "teaching": [
         {
-          "h": "Present tenses",
-          "p": "Simple (I work), continuous (I am working), perfect (I have worked), perfect continuous (I have been working) — each shows a different relationship to \"now.\"",
+          "h": "Why English has twelve tenses instead of three",
+          "p": "English doesn't just mark WHEN something happens — it separately marks whether it's a simple fact, an ongoing process, a completed action, or a completed-and-ongoing mix. Multiply 4 aspects by 3 time periods (past/present/future) and you get the full 12-tense grid.",
           "ex": "I work. I am working. I have worked. I have been working.",
           "audioId": "unit9-ex1"
         },
         {
-          "h": "Past tenses",
-          "p": "Simple (I worked), continuous (I was working), perfect (I had worked), perfect continuous (I had been working).",
+          "h": "The past follows the exact same four-way split",
+          "p": "Simple, continuous, perfect, perfect continuous — same logic, just shifted to the past.",
           "ex": "I worked. I was working. I had worked. I had been working.",
           "audioId": "unit9-ex2"
         },
         {
-          "h": "Future tenses",
-          "p": "Simple (I will work), continuous (I will be working), perfect (I will have worked), perfect continuous (I will have been working).",
+          "h": "The future too",
+          "p": "Same four-way pattern, now with 'will' involved.",
           "ex": "I will work. I will be working. I will have worked.",
           "audioId": "unit9-ex3"
         },
         {
-          "h": "Choosing the right tense",
-          "p": "Ask: is it happening now, finished, ongoing, or will it happen later? That answer usually points to the correct tense.",
+          "h": "The practical shortcut for choosing the right one",
+          "p": "Ask yourself: is this happening right now, already finished, still ongoing up to now, or yet to happen? That single question narrows you down to the right tense almost every time, faster than memorizing all 12 forms as a flat list.",
           "ex": "",
           "audioId": ""
         }
@@ -623,26 +629,26 @@
       "icon": "🔀",
       "teaching": [
         {
-          "h": "Zero conditional — general truths",
-          "p": "If + present simple, present simple. Used for facts that are always true.",
+          "h": "Four conditionals, four different relationships to reality",
+          "p": "Each conditional signals how likely or real the situation is — from 'always true' facts through 'realistic future,' 'unlikely hypothetical,' down to 'impossible, because the past already happened.' Once you see them as a scale of realness, they stop feeling arbitrary.",
           "ex": "If you heat water to 100°C, it boils.",
           "audioId": "unit10-ex1"
         },
         {
-          "h": "First conditional — real future possibility",
-          "p": "If + present simple, will + base verb. Used for realistic future situations.",
+          "h": "First conditional — genuinely possible futures",
+          "p": "If + present simple, will + base verb — used when there's a real, reasonable chance the condition happens.",
           "ex": "If it rains, I will bring an umbrella.",
           "audioId": "unit10-ex2"
         },
         {
-          "h": "Second conditional — unreal present/future",
-          "p": "If + past simple, would + base verb. Used for hypothetical or unlikely situations.",
+          "h": "Second conditional — imagining something unlikely or untrue right now",
+          "p": "If + past simple, would + base verb. Using past tense here doesn't mean past TIME — it's a grammatical signal for 'this isn't real.'",
           "ex": "If I won the lottery, I would travel the world.",
           "audioId": "unit10-ex3"
         },
         {
-          "h": "Third conditional — unreal past",
-          "p": "If + past perfect, would have + past participle. Used for imagined outcomes of things that didn't happen.",
+          "h": "Third conditional — the past you can't change",
+          "p": "If + past perfect, would have + past participle — imagining a different outcome for something that already, unchangeably, happened.",
           "ex": "If I had studied, I would have passed.",
           "audioId": "unit10-ex4"
         }
@@ -695,26 +701,26 @@
       "icon": "🧩",
       "teaching": [
         {
-          "h": "What is a phrase?",
-          "p": "A group of words that works as a single unit but does NOT have both a subject and a verb.",
+          "h": "Why this distinction is worth learning explicitly",
+          "p": "Recognizing phrases vs. clauses is the key to fixing one of the most common writing errors: the sentence fragment (mistaking a phrase or dependent clause for a complete sentence).",
           "ex": "in the morning, running quickly, a big red house",
           "audioId": "unit11-ex1"
         },
         {
-          "h": "What is a clause?",
-          "p": "A group of words that DOES have both a subject and a verb.",
+          "h": "A clause always has both a subject and a verb",
+          "p": "That subject-verb pairing is the one test that separates a clause from a phrase, every time.",
           "ex": "she runs, because he was late",
           "audioId": "unit11-ex2"
         },
         {
-          "h": "Independent clauses",
-          "p": "Can stand alone as a complete sentence.",
+          "h": "Independent clauses are complete on their own",
+          "p": "If it has a subject, a verb, and expresses a full thought, it can stand alone as its own sentence.",
           "ex": "She runs every morning.",
           "audioId": "unit11-ex3"
         },
         {
-          "h": "Dependent clauses",
-          "p": "Have a subject and verb but can't stand alone — they depend on an independent clause to make sense.",
+          "h": "Dependent clauses have the pieces but not the independence",
+          "p": "They technically have a subject and verb, but a connector word (because, although, when) makes them incomplete without a main clause attached.",
           "ex": "because he was late (incomplete on its own)",
           "audioId": "unit11-ex4"
         }
@@ -769,26 +775,26 @@
       "icon": "🔄",
       "teaching": [
         {
-          "h": "Active voice",
-          "p": "The subject performs the action. This is the most direct, common sentence structure.",
+          "h": "Active voice — the natural default",
+          "p": "The subject performs the action. Most confident, direct English writing leans active voice by default.",
           "ex": "The chef cooked the meal.",
           "audioId": "unit12-ex1"
         },
         {
-          "h": "Passive voice",
-          "p": "The subject receives the action instead of performing it. Formed with a form of \"be\" + past participle.",
+          "h": "Passive voice — flipping the focus",
+          "p": "The subject now receives the action instead of doing it, built with a form of 'be' plus the past participle.",
           "ex": "The meal was cooked by the chef.",
           "audioId": "unit12-ex2"
         },
         {
-          "h": "When to use passive voice",
-          "p": "Use it when the doer is unknown, unimportant, or you want to emphasize the receiver of the action.",
+          "h": "When passive actually earns its place",
+          "p": "Use it deliberately when the doer is unknown, unimportant, or you specifically want to emphasize what happened to something rather than who did it — not just as a random stylistic choice.",
           "ex": "The window was broken. (we don't know or care who did it)",
           "audioId": "unit12-ex3"
         },
         {
-          "h": "Changing tense in passive voice",
-          "p": "The \"be\" verb changes to match the tense, but the past participle stays the same.",
+          "h": "Only the 'be' verb changes across tenses",
+          "p": "The past participle itself stays frozen; only the helper verb shifts to match the tense.",
           "ex": "The meal is cooked. The meal was cooked. The meal will be cooked.",
           "audioId": "unit12-ex4"
         }
@@ -842,26 +848,26 @@
       "icon": "💬",
       "teaching": [
         {
-          "h": "Direct speech",
-          "p": "Repeats someone's exact words, inside quotation marks.",
+          "h": "Direct speech preserves the exact words",
+          "p": "Quotation marks signal 'these are the precise words someone said', unchanged.",
           "ex": "She said, \"I am tired.\"",
           "audioId": "unit13-ex1"
         },
         {
-          "h": "Indirect (reported) speech",
-          "p": "Reports what someone said without quoting them exactly — no quotation marks, and the tense usually shifts back.",
+          "h": "Indirect speech reports the idea, from a shifted viewpoint",
+          "p": "No quotation marks, and crucially, the tense usually shifts one step further into the past — because you're now speaking from a later point in time than when the words were originally said.",
           "ex": "She said that she was tired.",
           "audioId": "unit13-ex2"
         },
         {
-          "h": "Tense shifts backward",
-          "p": "Present simple becomes past simple, present continuous becomes past continuous, and so on, when reporting.",
+          "h": "The backshift pattern, explained",
+          "p": "Present simple slides to past simple, present continuous slides to past continuous — the whole system shifts back by one tense to reflect that time has passed since the original statement.",
           "ex": "\"I am working\" becomes: She said she was working.",
           "audioId": "unit13-ex3"
         },
         {
-          "h": "Pronouns and time words also change",
-          "p": "\"I\" often becomes \"she/he\", \"today\" often becomes \"that day\", matching the new perspective.",
+          "h": "Pronouns and time words shift too, for the same reason",
+          "p": "\"I\" often becomes \"she/he\" and \"today\" often becomes \"that day\" — everything realigns to the new speaker's perspective and the new point in time.",
           "ex": "\"I will come today\" becomes: He said he would come that day.",
           "audioId": "unit13-ex4"
         }
@@ -911,26 +917,26 @@
       "icon": "✍️",
       "teaching": [
         {
-          "h": "Commas in lists and clauses",
-          "p": "Use commas to separate items in a list, and before a coordinating conjunction joining two independent clauses.",
+          "h": "Commas: the pause that changes meaning, not just rhythm",
+          "p": "Beyond just separating list items, a comma before a coordinating conjunction (and, but) joining two full independent clauses is what keeps long sentences from becoming confusing run-ons.",
           "ex": "I bought apples, bread, and milk. She was tired, but she kept working.",
           "audioId": "unit14-ex1"
         },
         {
-          "h": "Apostrophes",
-          "p": "Used for contractions (don't) and possession (the dog's leash). Never used to make a plain plural.",
+          "h": "Apostrophes have exactly two jobs — and 'plural' isn't one of them",
+          "p": "Contractions (don't, it's) and possession (the dog's leash) are the only correct uses. Using an apostrophe to make a plain plural — 'apple's for sale' — is one of the most common English writing errors, in native and non-native writing alike.",
           "ex": "The dog's leash was chewed. It's raining. (correct)",
           "audioId": "unit14-ex2"
         },
         {
-          "h": "Capitalization rules",
-          "p": "Capitalize the first word of a sentence, proper nouns, and the pronoun \"I\", always.",
+          "h": "The three things that always get capitalized",
+          "p": "The first word of a sentence, every proper noun, and the pronoun 'I' — always, with no exceptions, even mid-sentence.",
           "ex": "My friend John and I visited London.",
           "audioId": "unit14-ex3"
         },
         {
-          "h": "Semicolons and colons",
-          "p": "A semicolon joins two related independent clauses without a conjunction. A colon introduces a list or explanation.",
+          "h": "Semicolons and colons — related but distinct jobs",
+          "p": "A semicolon connects two closely related independent clauses without needing a conjunction. A colon specifically introduces something — a list, an explanation, an elaboration.",
           "ex": "She was exhausted; she kept working anyway. Bring these: a pen, paper, and a laptop.",
           "audioId": "unit14-ex4"
         }
@@ -984,26 +990,26 @@
       "icon": "🎓",
       "teaching": [
         {
-          "h": "Gerunds and infinitives",
-          "p": "A gerund is a verb + -ing used as a noun. An infinitive is \"to\" + base verb. Some verbs take one, some the other, some both.",
+          "h": "Gerunds vs. infinitives — why some verbs demand one or the other",
+          "p": "There's no universal logic here; certain verbs (enjoy, avoid, finish) simply require the -ing gerund form after them, while others (want, decide, hope) require 'to' + base verb. This gets learned per-verb, through exposure, more than through a single rule.",
           "ex": "I enjoy swimming. (gerund) I want to swim. (infinitive)",
           "audioId": "unit15-ex1"
         },
         {
-          "h": "Relative clauses",
-          "p": "Clauses starting with who, which, that, whose — they add extra information about a noun.",
+          "h": "Relative clauses add detail without starting a new sentence",
+          "p": "who/which/that/whose let you attach extra information about a noun directly, instead of breaking it into two separate sentences.",
           "ex": "The woman who called earlier is my teacher.",
           "audioId": "unit15-ex2"
         },
         {
-          "h": "Phrasal verbs",
-          "p": "A verb + preposition/particle that creates a new meaning, often not guessable from the individual words.",
+          "h": "Phrasal verbs — where the meaning isn't in the individual words",
+          "p": "This is genuinely one of the hardest parts of English for learners, because you can know every individual word and still not guess the combined meaning. 'Give up' has nothing literal to do with 'giving' or 'up' — it just means to quit.",
           "ex": "give up (quit), look after (take care of), run into (meet by chance)",
           "audioId": "unit15-ex3"
         },
         {
-          "h": "The subjunctive mood",
-          "p": "Used for wishes, suggestions, and hypothetical situations — often uses the base form of the verb regardless of subject.",
+          "h": "The subjunctive — a quiet, easy-to-miss mood",
+          "p": "Used for wishes, suggestions, and hypotheticals, this mood often uses the base verb form regardless of the subject — which is why 'I suggest that he arrive early' sounds slightly unusual but is actually correct.",
           "ex": "I suggest that he arrive early. If I were you, I would rest.",
           "audioId": "unit15-ex4"
         }
@@ -1048,31 +1054,31 @@
       ]
     },
     {
-      "id": "transitional-cohesive-devices",
+      "id": "transitional-devices",
       "title": "Transitional and Cohesive Devices",
       "icon": "🔗",
       "teaching": [
         {
-          "h": "What transitional devices do",
-          "p": "Words and phrases that connect ideas smoothly between sentences and paragraphs, showing the relationship between them.",
+          "h": "Why these words are what make writing feel connected",
+          "p": "Without transitions, a paragraph is just a pile of separate facts. Transitional devices explicitly signal HOW one idea relates to the next — contrast, cause, addition, sequence — which is exactly what makes writing read smoothly instead of choppily.",
           "ex": "however, therefore, in addition, for example",
           "audioId": "unit16-ex1"
         },
         {
-          "h": "Showing contrast",
-          "p": "Words like however, on the other hand, and nevertheless signal a contrasting idea.",
+          "h": "Signaling contrast",
+          "p": "however, on the other hand, and nevertheless all flag that what's coming pushes against the previous idea.",
           "ex": "She studied hard. However, she still felt nervous.",
           "audioId": "unit16-ex2"
         },
         {
-          "h": "Showing cause and result",
-          "p": "Words like therefore, as a result, and consequently connect a cause to its effect.",
+          "h": "Signaling cause and result",
+          "p": "therefore, as a result, and consequently all connect a cause directly to its effect.",
           "ex": "It rained heavily. As a result, the game was cancelled.",
           "audioId": "unit16-ex3"
         },
         {
-          "h": "Adding and sequencing ideas",
-          "p": "Words like furthermore, in addition, first, next, finally help organize ideas in order.",
+          "h": "Adding ideas and sequencing steps",
+          "p": "furthermore and in addition stack on a related point; first, next, finally organize steps in order — both make multi-part explanations far easier to follow.",
           "ex": "First, preheat the oven. Next, mix the ingredients.",
           "audioId": "unit16-ex4"
         }
