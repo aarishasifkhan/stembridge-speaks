@@ -6,27 +6,31 @@
       "icon": "📘",
       "teaching": [
         {
-          "h": "Three genders",
-          "p": "Russian nouns are masculine, feminine, or neuter, usually predictable from the ending.",
+          "h": "Why gender is the first thing to learn in Russian",
+          "p": "Every Russian noun is masculine, feminine, or neuter, and this choice ripples into adjective endings, past-tense verbs, and more — getting gender right early saves a lot of confusion later. The good news: the ending usually tells you which one.",
           "ex": "стол (m), книга (f), окно (n)",
+          "exTranslation": "table, book, window",
           "audioId": "unit1-ex1"
         },
         {
-          "h": "Masculine endings",
-          "p": "Usually end in a consonant.",
+          "h": "Masculine — usually a bare consonant ending",
+          "p": "",
           "ex": "стол, дом",
+          "exTranslation": "table, house",
           "audioId": "unit1-ex2"
         },
         {
-          "h": "Feminine endings",
-          "p": "Usually end in -а or -я.",
+          "h": "Feminine — usually -а or -я",
+          "p": "",
           "ex": "книга, земля",
+          "exTranslation": "book, land",
           "audioId": "unit1-ex3"
         },
         {
-          "h": "Neuter endings",
-          "p": "Usually end in -о or -е.",
+          "h": "Neuter — usually -о or -е",
+          "p": "",
           "ex": "окно, море",
+          "exTranslation": "window, sea",
           "audioId": "unit1-ex4"
         }
       ],
@@ -73,27 +77,31 @@
       "icon": "🧩",
       "teaching": [
         {
-          "h": "What cases do",
-          "p": "Russian nouns/adjectives change form based on their grammatical role — six cases total.",
+          "h": "Why Russian has cases at all",
+          "p": "Like German, Russian shows a noun's grammatical role by changing its ENDING rather than relying only on word order — which is exactly why Russian sentences can rearrange more freely than English ones and still make sense.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         },
         {
-          "h": "Nominative",
-          "p": "The subject, dictionary form.",
+          "h": "Nominative — the subject, dictionary form",
+          "p": "This is the 'default' form you'd look up in a dictionary.",
           "ex": "Это стол.",
+          "exTranslation": "This is a table.",
           "audioId": "unit2-ex1"
         },
         {
-          "h": "Accusative",
-          "p": "The direct object.",
+          "h": "Accusative — the direct object",
+          "p": "",
           "ex": "Я вижу стол.",
+          "exTranslation": "I see the table.",
           "audioId": "unit2-ex2"
         },
         {
-          "h": "Genitive, Dative, Instrumental, Prepositional",
-          "p": "Show possession, indirect objects, means, and location/topic.",
+          "h": "The other four, briefly",
+          "p": "Genitive shows possession ('of'), dative shows the indirect object ('to/for'), instrumental shows means ('by/with'), and prepositional is used for location or topic ('about/in'). Each of the next several lessons builds on this foundation.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         }
       ],
@@ -141,40 +149,44 @@
       "icon": "🗣️",
       "teaching": [
         {
-          "h": "Two conjugation groups",
-          "p": "Russian verbs belong to Conjugation I or II, each with distinct present-tense endings.",
+          "h": "Two conjugation patterns, and you learn which one per verb",
+          "p": "Every Russian verb belongs to Conjugation I or Conjugation II — the ending pattern tells you which, and once you know the type, the whole conjugation is predictable.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         },
         {
           "h": "Conjugation I example",
-          "p": "читать → читаю, читаешь, читает, читаем, читаете, читают",
-          "ex": "Я читаю книгу.",
+          "p": "",
+          "ex": "читать → читаю, читаешь, читает, читаем, читаете, читают",
+          "exTranslation": "to read → I read, you read, he/she reads, we read, you all read, they read",
           "audioId": "unit3-ex1"
         },
         {
           "h": "Conjugation II example",
-          "p": "говорить → говорю, говоришь, говорит, говорим, говорите, говорят",
-          "ex": "Он говорит по-русски.",
+          "p": "",
+          "ex": "говорить → говорю, говоришь, говорит, говорим, говорите, говорят",
+          "exTranslation": "to speak → I speak, you speak, he/she speaks, we speak, you all speak, they speak",
           "audioId": "unit3-ex2"
         },
         {
-          "h": "No separate to be in the present",
-          "p": "Russian usually omits to be in present-tense sentences entirely.",
+          "h": "Present-tense sentences often skip 'to be' entirely",
+          "p": "Unlike English, which always needs 'am/is/are', Russian usually just drops the verb 'to be' in present-tense statements — the sentence still makes complete sense without it.",
           "ex": "Я студент.",
+          "exTranslation": "I am a student. (literally: I student)",
           "audioId": "unit3-ex3"
         }
       ],
       "quiz": [
         {
           "type": "fill",
-          "q": "Я ___ книгу. (читать)",
+          "q": "Я ___ книгу. (I read — читать)",
           "answer": "читаю",
           "audioId": "unit3-q1"
         },
         {
           "type": "fill",
-          "q": "Он ___ по-русски. (говорить)",
+          "q": "Он ___ по-русски. (he speaks — говорить)",
           "answer": "говорит",
           "audioId": "unit3-q2"
         },
@@ -194,7 +206,7 @@
         },
         {
           "type": "fill",
-          "q": "Ты ___ газету. (читать)",
+          "q": "Ты ___ газету. (you read — читать)",
           "answer": "читаешь",
           "audioId": "unit3-q5"
         }
@@ -206,27 +218,31 @@
       "icon": "🔗",
       "teaching": [
         {
-          "h": "Adjectives agree with their noun",
-          "p": "In gender, number, and case.",
+          "h": "Why adjective endings change so much",
+          "p": "Since the noun itself already tells you gender, the adjective describing it has to match — this is the same underlying logic as German and Spanish adjective agreement, just with Russian's own set of endings.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         },
         {
-          "h": "Masculine ending",
-          "p": "Typically -ый/-ой.",
+          "h": "Masculine ending: -ый/-ой",
+          "p": "",
           "ex": "новый стол",
+          "exTranslation": "new table",
           "audioId": "unit4-ex1"
         },
         {
-          "h": "Feminine ending",
-          "p": "Typically -ая.",
+          "h": "Feminine ending: -ая",
+          "p": "",
           "ex": "новая книга",
+          "exTranslation": "new book",
           "audioId": "unit4-ex2"
         },
         {
-          "h": "Neuter ending",
-          "p": "Typically -ое.",
+          "h": "Neuter ending: -ое",
+          "p": "",
           "ex": "новое окно",
+          "exTranslation": "new window",
           "audioId": "unit4-ex3"
         }
       ],
@@ -271,27 +287,31 @@
       "icon": "⏳",
       "teaching": [
         {
-          "h": "Two aspects",
-          "p": "Almost every Russian verb has an imperfective and perfective partner.",
+          "h": "A distinction English speakers have to build a new instinct for",
+          "p": "Russian doesn't just mark WHEN an action happened — nearly every verb comes in an imperfective/perfective PAIR, marking whether the action is ongoing/repeated or a single completed event. Choosing the right one is genuinely one of the harder parts of Russian for English speakers.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         },
         {
-          "h": "Imperfective",
-          "p": "Process, repetition, ongoing action.",
-          "ex": "читать (to read, ongoing)",
+          "h": "Imperfective — process, repetition, ongoing",
+          "p": "",
+          "ex": "читать",
+          "exTranslation": "to read (ongoing/habitual)",
           "audioId": "unit5-ex1"
         },
         {
-          "h": "Perfective",
-          "p": "A single, completed action, often with a result.",
-          "ex": "прочитать (to read to completion)",
+          "h": "Perfective — one completed action, often with a clear result",
+          "p": "",
+          "ex": "прочитать",
+          "exTranslation": "to read (to completion)",
           "audioId": "unit5-ex2"
         },
         {
-          "h": "No present tense for perfective",
-          "p": "Perfective verbs are used only in past and future.",
+          "h": "Perfective verbs don't have a present tense",
+          "p": "This is a genuinely useful fact for narrowing down which form you need: perfective verbs only exist in past and future forms, since 'a completed action happening right now' is a contradiction.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         }
       ],
@@ -338,27 +358,31 @@
       "icon": "🧱",
       "teaching": [
         {
-          "h": "Main word classes",
-          "p": "существительное (noun), глагол (verb), прилагательное (adjective), наречие (adverb), предлог (preposition), союз (conjunction).",
+          "h": "Why parts of speech connect directly to case and agreement",
+          "p": "In Russian, knowing a word's category tells you exactly what it's required to do grammatically — nouns decline by case, adjectives must agree with their noun, but adverbs stay frozen.",
           "ex": "бежать (глагол), быстро (наречие), учитель (существительное)",
+          "exTranslation": "to run, quickly, teacher",
           "audioId": "unit6-ex1"
         },
         {
-          "h": "Nouns decline by case",
-          "p": "Unlike adjectives (which agree with nouns), all nouns themselves change ending based on their case in the sentence.",
-          "ex": "стол → стола → столу (nominative → genitive → dative)",
+          "h": "Nouns themselves change form based on case",
+          "p": "This is the practical payoff of everything from Lesson 2 — the noun isn't just labeled with a case, its actual ENDING changes.",
+          "ex": "стол → стола → столу",
+          "exTranslation": "table (nominative) → of the table (genitive) → to the table (dative)",
           "audioId": "unit6-ex2"
         },
         {
-          "h": "Adverbs are usually invariable",
-          "p": "Unlike adjectives, adverbs don't change form for gender/number/case.",
-          "ex": "быстро (quickly) — always the same form",
+          "h": "Adverbs, refreshingly, never change",
+          "p": "Unlike adjectives, which must match gender/case/number, adverbs are invariable — one form, used everywhere.",
+          "ex": "быстро",
+          "exTranslation": "quickly — always the same, no matter the sentence",
           "audioId": "unit6-ex3"
         },
         {
-          "h": "Prepositions govern specific cases",
-          "p": "Each preposition requires a specific case for the noun that follows it.",
-          "ex": "в доме (в + prepositional case)",
+          "h": "Each preposition demands a specific case",
+          "p": "You can't just pick any case after a preposition — each one requires a particular case for the noun that follows, and this pairing has to be memorized alongside the preposition itself.",
+          "ex": "в доме",
+          "exTranslation": "in the house (в + prepositional case)",
           "audioId": "unit6-ex4"
         }
       ],
@@ -386,7 +410,7 @@
         },
         {
           "type": "fill",
-          "q": "в дом___ (prepositional case ending for \"дом\")",
+          "q": "в дом___ (prepositional case ending for дом)",
           "answer": "е",
           "audioId": "unit6-q4"
         },
@@ -405,27 +429,31 @@
       "icon": "🏗️",
       "teaching": [
         {
-          "h": "Повествовательное (statement)",
-          "p": "A simple declarative sentence.",
+          "h": "Повествовательное — the plain statement",
+          "p": "",
           "ex": "Я люблю кошек.",
+          "exTranslation": "I love cats.",
           "audioId": "unit7-ex1"
         },
         {
-          "h": "Вопросительное (question)",
-          "p": "Formed with question words or just rising intonation in speech.",
+          "h": "Вопросительное — the question",
+          "p": "In spoken Russian, a question is often formed with the exact same word order as a statement, just with rising intonation — no verb-flip required like in German.",
           "ex": "Ты любишь кошек?",
+          "exTranslation": "Do you love cats?",
           "audioId": "unit7-ex2"
         },
         {
-          "h": "Побудительное (command)",
-          "p": "Directly instructs someone, often with the imperative verb form.",
+          "h": "Побудительное — the command",
+          "p": "Uses the imperative verb form, directly instructing someone.",
           "ex": "Сядь, пожалуйста.",
+          "exTranslation": "Sit down, please.",
           "audioId": "unit7-ex3"
         },
         {
-          "h": "Сложное предложение (compound/complex sentence)",
-          "p": "Two clauses joined by и (and), но (but), потому что (because).",
+          "h": "Сложное предложение — combining ideas",
+          "p": "и (and), но (but), потому что (because) connect clauses, similar to English/German connectors.",
           "ex": "Я люблю кошек, но у меня есть собака.",
+          "exTranslation": "I love cats, but I have a dog.",
           "audioId": "unit7-ex4"
         }
       ],
@@ -478,27 +506,31 @@
       "icon": "🚶",
       "teaching": [
         {
-          "h": "Two verbs for \"to go\"",
-          "p": "идти (going now, on foot, one direction) vs. ходить (habitual/repeated, on foot).",
-          "ex": "Я иду в школу. (right now) vs. Я хожу в школу каждый день. (habitually)",
-          "audioId": "unit8-ex1"
-        },
-        {
-          "h": "Going by vehicle",
-          "p": "ехать (going now, by vehicle) vs. ездить (habitual, by vehicle).",
-          "ex": "Я еду на работу. vs. Я езжу на работу каждый день.",
-          "audioId": "unit8-ex2"
-        },
-        {
-          "h": "Unidirectional vs. multidirectional",
-          "p": "идти/ехать describe one specific trip; ходить/ездить describe repeated or round trips.",
+          "h": "Why Russian needs FOUR words for 'to go'",
+          "p": "This genuinely trips up learners: Russian distinguishes not just walking vs. by-vehicle, but also a single specific trip vs. habitual/repeated travel. Four separate verbs cover what English handles with just 'go'.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         },
         {
-          "h": "Prefixed motion verbs",
-          "p": "Prefixes change the meaning: при- (arrive), у- (leave), пере- (cross).",
-          "ex": "прийти (to arrive on foot), уйти (to leave on foot)",
+          "h": "идти vs. ходить — walking, right now vs. habitually",
+          "p": "",
+          "ex": "Я иду в школу. Я хожу в школу каждый день.",
+          "exTranslation": "I am going to school (right now). I go to school every day (habitually).",
+          "audioId": "unit8-ex1"
+        },
+        {
+          "h": "ехать vs. ездить — the same split, but by vehicle",
+          "p": "",
+          "ex": "Я еду на работу. Я езжу на работу каждый день.",
+          "exTranslation": "I am going to work (right now, by vehicle). I go to work every day (by vehicle, habitually).",
+          "audioId": "unit8-ex2"
+        },
+        {
+          "h": "Prefixes change the meaning further",
+          "p": "при- (arriving), у- (leaving), пере- (crossing) attach to these motion-verb roots to specify direction even more precisely.",
+          "ex": "прийти, уйти",
+          "exTranslation": "to arrive (on foot), to leave (on foot)",
           "audioId": "unit8-ex3"
         }
       ],
@@ -544,28 +576,31 @@
       "icon": "⚖️",
       "teaching": [
         {
-          "h": "Simple comparative",
-          "p": "Often formed by adding -ее/-ей to the adjective stem.",
-          "ex": "быстрый → быстрее (faster)",
+          "h": "Simple comparative — a predictable ending change",
+          "p": "",
+          "ex": "быстрый → быстрее",
+          "exTranslation": "fast → faster",
           "audioId": "unit9-ex1"
         },
         {
-          "h": "Comparing with чем",
-          "p": "чем (than) introduces the second item being compared.",
-          "ex": "Он быстрее, чем я. (He is faster than me.)",
-          "answer_hint": "",
+          "h": "чем introduces the comparison, like English 'than'",
+          "p": "",
+          "ex": "Он быстрее, чем я.",
+          "exTranslation": "He is faster than me.",
           "audioId": "unit9-ex2"
         },
         {
-          "h": "Superlative with самый",
-          "p": "самый + adjective forms the superlative, agreeing in gender/case with the noun.",
-          "ex": "самый быстрый (the fastest)",
+          "h": "самый + adjective forms the superlative",
+          "p": "самый agrees in gender/case with the noun it describes.",
+          "ex": "самый быстрый",
+          "exTranslation": "the fastest",
           "audioId": "unit9-ex3"
         },
         {
-          "h": "Irregular comparatives",
-          "p": "Some common adjectives have irregular comparative forms, similar to English good/better.",
-          "ex": "хороший → лучше (good → better)",
+          "h": "A few common irregulars",
+          "p": "Just like English's good/better/best breaks the normal pattern, a handful of high-frequency Russian adjectives do too.",
+          "ex": "хороший → лучше",
+          "exTranslation": "good → better",
           "audioId": "unit9-ex4"
         }
       ],
@@ -610,27 +645,31 @@
       "icon": "🔀",
       "teaching": [
         {
-          "h": "Real conditions with если",
-          "p": "если + present/future — realistic situations.",
-          "ex": "Если пойдёт дождь, я останусь дома. (If it rains, I'll stay home.)",
+          "h": "Real conditions — plain present/future with если",
+          "p": "For realistic situations, если (if) pairs with normal present or future tense, no special mood needed.",
+          "ex": "Если пойдёт дождь, я останусь дома.",
+          "exTranslation": "If it rains, I'll stay home.",
           "audioId": "unit10-ex1"
         },
         {
-          "h": "Hypothetical conditions with бы",
-          "p": "если бы + past tense form, + бы — for unreal/hypothetical situations. Russian conditional doesn't distinguish present vs. past hypothetical the way English does.",
-          "ex": "Если бы у меня было время, я бы поехал. (If I had time, I would go.)",
+          "h": "Hypothetical conditions — a single flexible particle",
+          "p": "Unlike English, Spanish, or German (which have distinct structures for present vs. past hypotheticals), Russian just uses если бы plus a past-tense-form verb, for BOTH cases — genuinely simpler once you know this.",
+          "ex": "Если бы у меня было время, я бы поехал.",
+          "exTranslation": "If I had time, I would go.",
           "audioId": "unit10-ex2"
         },
         {
-          "h": "бы is not tied to a specific tense",
-          "p": "The particle бы attaches to a past-tense verb form to signal the conditional mood, regardless of when the hypothetical situation is imagined.",
+          "h": "бы doesn't care what time you're imagining",
+          "p": "The particle бы attaches to a past-form verb purely to signal 'this is hypothetical' — it's not actually marking past time at all, which is why it works equally for present and past hypotheticals.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         },
         {
-          "h": "Word order flexibility",
-          "p": "бы can move within the clause, but the если...бы structure stays recognizable.",
+          "h": "бы can move around in the sentence",
+          "p": "Its position is flexible, but the если...бы structure remains recognizable wherever it lands.",
           "ex": "Я бы поехал, если бы у меня было время.",
+          "exTranslation": "I would go, if I had time.",
           "audioId": "unit10-ex3"
         }
       ],
@@ -679,27 +718,31 @@
       "icon": "🧩",
       "teaching": [
         {
-          "h": "Словосочетание (phrase)",
-          "p": "A group of words functioning as a unit, no independent subject-verb pairing.",
-          "ex": "новый дом (a new house)",
+          "h": "Словосочетание — a chunk with no independent subject-verb pairing",
+          "p": "",
+          "ex": "новый дом",
+          "exTranslation": "a new house",
           "audioId": "unit11-ex1"
         },
         {
-          "h": "Придаточное предложение (subordinate clause)",
-          "p": "Has its own subject and verb but depends on the main clause.",
-          "ex": "..., потому что я устал. (..., because I'm tired.)",
+          "h": "Придаточное предложение — depends on the main clause",
+          "p": "",
+          "ex": "..., потому что я устал.",
+          "exTranslation": "...because I'm tired.",
           "audioId": "unit11-ex2"
         },
         {
-          "h": "Relative clauses with который",
-          "p": "который (who/which) introduces a clause describing a noun, and agrees with it in gender/number.",
+          "h": "который — introducing a relative clause",
+          "p": "Agrees with the noun it describes in gender and number, similar to German's der/die/das relative pronouns.",
           "ex": "Человек, который звонил, — мой учитель.",
+          "exTranslation": "The person who called is my teacher.",
           "audioId": "unit11-ex3"
         },
         {
-          "h": "Comma rules",
-          "p": "Subordinate clauses are always set off by a comma in Russian, unlike English which sometimes omits it.",
+          "h": "Commas before subordinate clauses are mandatory",
+          "p": "Unlike English, where this comma is sometimes optional stylistically, Russian requires it every time — not a stylistic choice.",
           "ex": "Я знаю, что ты устал.",
+          "exTranslation": "I know that you are tired.",
           "audioId": "unit11-ex4"
         }
       ],
@@ -745,27 +788,31 @@
       "icon": "🔄",
       "teaching": [
         {
-          "h": "Действительный залог (active)",
-          "p": "The subject performs the action.",
-          "ex": "Повар готовит еду. (The chef cooks the food.)",
+          "h": "Действительный залог — the default",
+          "p": "",
+          "ex": "Повар готовит еду.",
+          "exTranslation": "The chef cooks the food.",
           "audioId": "unit12-ex1"
         },
         {
-          "h": "Страдательный залог (passive) with -ся",
-          "p": "A reflexive-style verb ending often expresses passive meaning informally.",
-          "ex": "Еда готовится поваром. (The food is being cooked by the chef.)",
+          "h": "The informal -ся passive",
+          "p": "A verb ending in -ся often carries passive-like meaning in casual usage — this is the version you'll hear far more often.",
+          "ex": "Еда готовится поваром.",
+          "exTranslation": "The food is being cooked by the chef.",
           "audioId": "unit12-ex2"
         },
         {
-          "h": "Passive with short-form participles",
-          "p": "A more formal passive uses a past passive participle + a form of быть.",
-          "ex": "Еда была приготовлена поваром. (The food was cooked by the chef.)",
+          "h": "The formal passive, with participles",
+          "p": "Past passive participle + a form of быть — this version shows up mainly in formal or written Russian.",
+          "ex": "Еда была приготовлена поваром.",
+          "exTranslation": "The food was cooked by the chef.",
           "audioId": "unit12-ex3"
         },
         {
-          "h": "When passive is used",
-          "p": "Often in formal, written, or scientific Russian; spoken Russian tends to prefer active voice.",
+          "h": "Register matters here",
+          "p": "Casual spoken Russian actually prefers active voice most of the time — passive constructions lean formal/written.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         }
       ],
@@ -812,27 +859,31 @@
       "icon": "💬",
       "teaching": [
         {
-          "h": "Прямая речь (direct speech)",
-          "p": "The exact words, in quotation marks.",
-          "ex": "Она сказала: \"Я устала.\" (She said, \"I'm tired.\")",
+          "h": "Прямая речь — the exact words",
+          "p": "",
+          "ex": "Она сказала: \"Я устала.\"",
+          "exTranslation": "She said: \"I am tired.\"",
           "audioId": "unit13-ex1"
         },
         {
-          "h": "Косвенная речь (indirect speech)",
-          "p": "Uses что (that) to introduce the reported idea, without quotation marks.",
-          "ex": "Она сказала, что устала. (She said that she was tired.)",
+          "h": "Косвенная речь — reporting with что",
+          "p": "Similar structure to English's 'that' clause.",
+          "ex": "Она сказала, что устала.",
+          "exTranslation": "She said that she was tired.",
           "audioId": "unit13-ex2"
         },
         {
-          "h": "Tense usually stays the same",
-          "p": "Unlike English, Russian typically does NOT shift tense backward in reported speech.",
-          "ex": "\"Я иду домой\" → Он сказал, что идёт домой. (present tense kept)",
+          "h": "No tense backshift needed — different from English",
+          "p": "This is genuinely easier than English: Russian typically KEEPS the original tense when reporting speech, rather than shifting it further into the past.",
+          "ex": "\"Я иду домой\" → Он сказал, что идёт домой.",
+          "exTranslation": "\"I'm going home\" → He said that he's going home. (present tense kept)",
           "audioId": "unit13-ex3"
         },
         {
-          "h": "Pronouns still shift",
-          "p": "\"я\" (I) often becomes \"он/она\" to match the new perspective.",
+          "h": "Pronouns still shift, same as other languages",
+          "p": "",
           "ex": "\"Я устал\" → Он сказал, что он устал.",
+          "exTranslation": "\"I'm tired\" → He said that he was tired.",
           "audioId": "unit13-ex4"
         }
       ],
@@ -885,27 +936,31 @@
       "icon": "✍️",
       "teaching": [
         {
-          "h": "Commas before subordinate clauses",
-          "p": "Russian requires a comma before что, потому что, который, если, и other subordinators — more strictly than English.",
+          "h": "Comma requirements are stricter than in English",
+          "p": "Before что, потому что, который, если, and similar subordinators, a comma is mandatory — no stylistic flexibility here, unlike English.",
           "ex": "Я знаю, что ты прав.",
+          "exTranslation": "I know that you're right.",
           "audioId": "unit14-ex1"
         },
         {
-          "h": "Dashes for direct speech",
-          "p": "Russian often uses a dash (—) instead of quotation marks to introduce dialogue.",
+          "h": "A dash instead of quotation marks for dialogue",
+          "p": "Where English encloses speech in quotation marks, Russian often just uses a dash at the start of the line — a genuinely different visual convention.",
           "ex": "— Привет! — сказала она.",
+          "exTranslation": "\"Hi!\" she said.",
           "audioId": "unit14-ex2"
         },
         {
-          "h": "Capitalization is less frequent than English",
-          "p": "Days of the week, months, and nationalities are NOT capitalized in Russian.",
-          "ex": "понедельник, январь, русский (all lowercase)",
+          "h": "Less capitalization than English overall",
+          "p": "Days, months, nationalities all stay lowercase — matching the same pattern you saw in Spanish.",
+          "ex": "понедельник, январь, русский",
+          "exTranslation": "Monday, January, Russian",
           "audioId": "unit14-ex3"
         },
         {
-          "h": "Ё vs Е",
-          "p": "The letter ё is often written as е in casual text, but changes pronunciation — a small but real distinction.",
-          "ex": "все (everyone) vs. всё (everything)",
+          "h": "ё vs. е — a small mark with real consequences",
+          "p": "ё is often written as plain е in casual text, but the two represent different sounds and can distinguish entirely different words.",
+          "ex": "все vs. всё",
+          "exTranslation": "everyone vs. everything",
           "audioId": "unit14-ex4"
         }
       ],
@@ -955,28 +1010,32 @@
       "icon": "🎓",
       "teaching": [
         {
-          "h": "Причастие (participle)",
-          "p": "A verb form acting as an adjective, agreeing with the noun in gender/case/number.",
-          "ex": "читающий человек (a reading/the man who is reading)",
+          "h": "Two verb forms English handles very differently",
+          "p": "Both let you pack more information into a sentence without adding a whole new clause — a genuinely efficient feature of literary Russian.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
+        },
+        {
+          "h": "Причастие — a verb acting as an adjective",
+          "p": "Agrees with its noun in gender, case, and number, just like a regular adjective.",
+          "ex": "читающий человек",
+          "exTranslation": "the reading person / a person who is reading",
           "audioId": "unit15-ex1"
         },
         {
-          "h": "Past passive participles",
-          "p": "Describe something that had an action done to it — very common in formal writing.",
-          "ex": "прочитанная книга (the book that was read)",
+          "h": "Past passive participles are especially common",
+          "p": "Describe something that had an action done to it.",
+          "ex": "прочитанная книга",
+          "exTranslation": "the book that was read",
           "audioId": "unit15-ex2"
         },
         {
-          "h": "Деепричастие (gerund/adverbial participle)",
-          "p": "A verb form acting as an adverb, describing a simultaneous or preceding action — invariable, doesn't agree with anything.",
-          "ex": "читая книгу, он улыбался (while reading the book, he smiled)",
+          "h": "Деепричастие — a verb acting as an adverb, and never changing form",
+          "p": "Unlike причастие, this form is invariable — it doesn't agree with anything, since it's describing the ACTION, not a noun.",
+          "ex": "читая книгу, он улыбался",
+          "exTranslation": "while reading the book, he smiled",
           "audioId": "unit15-ex3"
-        },
-        {
-          "h": "When these appear",
-          "p": "Common in written/literary Russian; spoken Russian often prefers a full clause instead.",
-          "ex": "",
-          "audioId": ""
         }
       ],
       "quiz": [
@@ -1022,27 +1081,31 @@
       "icon": "🔗",
       "teaching": [
         {
-          "h": "What союзные слова do",
-          "p": "Words connecting ideas smoothly between sentences.",
+          "h": "Why these words matter for sounding fluent",
+          "p": "Same role as in every other language in this course — they show HOW ideas connect, rather than just listing facts one after another.",
           "ex": "однако, поэтому, кроме того, например",
+          "exTranslation": "however, therefore, furthermore, for example",
           "audioId": "unit16-ex1"
         },
         {
-          "h": "Showing contrast",
-          "p": "однако (however) signals a contrasting idea.",
+          "h": "однако — contrast",
+          "p": "",
           "ex": "Он старался. Однако, у него не получилось.",
+          "exTranslation": "He tried. However, it didn't work out.",
           "audioId": "unit16-ex2"
         },
         {
-          "h": "Showing cause and result",
-          "p": "поэтому (therefore) connects a cause to its effect.",
+          "h": "поэтому — cause and result",
+          "p": "",
           "ex": "Шёл сильный дождь, поэтому матч отменили.",
+          "exTranslation": "It was raining heavily, therefore the match was cancelled.",
           "audioId": "unit16-ex3"
         },
         {
-          "h": "Adding ideas",
-          "p": "кроме того (furthermore) adds another related point.",
+          "h": "кроме того — adding a point",
+          "p": "",
           "ex": "Она умная. Кроме того, она очень трудолюбивая.",
+          "exTranslation": "She's smart. Furthermore, she's very hardworking.",
           "audioId": "unit16-ex4"
         }
       ],

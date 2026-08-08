@@ -6,27 +6,31 @@
       "icon": "📘",
       "teaching": [
         {
-          "h": "Basic word order",
-          "p": "Mandarin follows Subject-Verb-Object, and verbs never change form for tense or subject.",
-          "ex": "我喝茶 (wǒ hē chá) — I drink tea",
+          "h": "Why Mandarin grammar feels different from the start",
+          "p": "Mandarin has no verb conjugation at all — no tenses, no subject agreement. Instead, meaning comes almost entirely from word order and extra marker words. This is actually good news: once you learn the order, you don't have to memorize dozens of verb forms.",
+          "ex": "我喝茶",
+          "exTranslation": "wǒ hē chá — I drink tea",
           "audioId": "unit1-ex1"
         },
         {
-          "h": "No verb conjugation",
-          "p": "The verb stays the same no matter who's doing it or when.",
-          "ex": "他喝茶 (tā hē chá) — he drinks tea",
+          "h": "The same verb, for everyone, every time",
+          "p": "喝 (hē, 'drink') never changes, whether it's me, you, or them, past or present. Compare that to English's drink/drinks/drank — Mandarin skips all of that.",
+          "ex": "他喝茶",
+          "exTranslation": "tā hē chá — he drinks tea",
           "audioId": "unit1-ex2"
         },
         {
-          "h": "Time words come early",
-          "p": "Time expressions usually come right after the subject.",
-          "ex": "我今天喝茶 (wǒ jīntiān hē chá)",
+          "h": "Time words go right after the subject",
+          "p": "Since verbs can't show tense themselves, Mandarin puts a time word early in the sentence to establish when something happens — and that time word then applies for the rest of the sentence.",
+          "ex": "我今天喝茶",
+          "exTranslation": "wǒ jīntiān hē chá — I today drink tea (I'm drinking tea today)",
           "audioId": "unit1-ex3"
         },
         {
-          "h": "No plural verb forms",
-          "p": "Nouns and verbs don't change for singular/plural.",
-          "ex": "一个人 / 两个人 (yí gè rén / liǎng gè rén)",
+          "h": "No plural forms either",
+          "p": "Nouns and verbs stay exactly the same whether you mean one or many — quantity gets shown separately, with numbers and measure words (which is exactly what Lesson 2 covers).",
+          "ex": "一个人 / 两个人",
+          "exTranslation": "yí gè rén / liǎng gè rén — one person / two people",
           "audioId": "unit1-ex4"
         }
       ],
@@ -72,27 +76,31 @@
       "icon": "🔢",
       "teaching": [
         {
-          "h": "What measure words do",
-          "p": "Between a number and a noun, Mandarin requires a measure word.",
-          "ex": "一个人 (yí gè rén)",
+          "h": "A concept English simply doesn't have",
+          "p": "In Mandarin, you can't just say 'three apples' — a measure word has to sit between the number and the noun, chosen based on the noun's shape or category. English has a faint echo of this ('two pieces of paper'), but Mandarin requires it for almost every noun.",
+          "ex": "一个人",
+          "exTranslation": "yí gè rén — one person",
           "audioId": "unit2-ex1"
         },
         {
-          "h": "个 (gè) — the general measure word",
-          "p": "Used for people and many general objects.",
-          "ex": "三个苹果 (sān gè píngguǒ)",
+          "h": "个 (gè) — your safe default",
+          "p": "When you're not sure which measure word to use, gè is the closest thing to a universal fallback for people and many general objects — not always technically correct, but usually understood.",
+          "ex": "三个苹果",
+          "exTranslation": "sān gè píngguǒ — three apples",
           "audioId": "unit2-ex2"
         },
         {
-          "h": "本 (běn) for books",
-          "p": "Used specifically for bound, book-like objects.",
-          "ex": "两本书 (liǎng běn shū)",
+          "h": "本 (běn) — specifically for bound objects",
+          "p": "Books, magazines, anything with pages bound together.",
+          "ex": "两本书",
+          "exTranslation": "liǎng běn shū — two books",
           "audioId": "unit2-ex3"
         },
         {
-          "h": "杯 (bēi) for cups/glasses",
-          "p": "Used for drinks measured by cup.",
-          "ex": "一杯茶 (yì bēi chá)",
+          "h": "杯 (bēi) — measured by the cup",
+          "p": "This measure word doubles as the actual container word too — same pattern as English 'a cup of tea'.",
+          "ex": "一杯茶",
+          "exTranslation": "yì bēi chá — one cup of tea",
           "audioId": "unit2-ex4"
         }
       ],
@@ -138,28 +146,32 @@
       "icon": "🧩",
       "teaching": [
         {
-          "h": "了 (le) marks completed action",
-          "p": "Shows something happened or changed.",
-          "ex": "我吃了 (wǒ chī le)",
+          "h": "Small words carrying big grammatical jobs",
+          "p": "These three particles don't translate word-for-word into English — they're pure grammar markers, each doing a specific job that English handles completely differently (through tense, possessive 's, or a question mark).",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
+        },
+        {
+          "h": "了 (le) — marks that something happened or changed",
+          "p": "This is Mandarin's substitute for a past-tense verb ending — instead of changing the verb, you add 了 after it.",
+          "ex": "我吃了",
+          "exTranslation": "wǒ chī le — I ate",
           "audioId": "unit3-ex1"
         },
         {
-          "h": "的 (de) shows possession",
-          "p": "Placed between the owner and the thing owned.",
-          "ex": "我的书 (wǒ de shū)",
+          "h": "的 (de) — shows possession, like English's 's",
+          "p": "Sits between the owner and the thing owned.",
+          "ex": "我的书",
+          "exTranslation": "wǒ de shū — my book",
           "audioId": "unit3-ex2"
         },
         {
-          "h": "吗 (ma) forms yes/no questions",
-          "p": "Added at the very end of a sentence.",
-          "ex": "你喝茶吗？ (nǐ hē chá ma?)",
+          "h": "吗 (ma) — turns any statement into a yes/no question",
+          "p": "The easiest question-forming trick in Mandarin: just add 吗 to the end of a normal sentence, no word order change needed.",
+          "ex": "你喝茶吗？",
+          "exTranslation": "nǐ hē chá ma? — Do you drink tea?",
           "audioId": "unit3-ex3"
-        },
-        {
-          "h": "Grammatical markers, not standalone words",
-          "p": "These particles don't translate word-for-word into English.",
-          "ex": "",
-          "audioId": ""
         }
       ],
       "quiz": [
@@ -204,27 +216,38 @@
       "icon": "❓",
       "teaching": [
         {
-          "h": "Yes/no questions with 吗",
-          "p": "Add 吗 to the end of a normal statement — no word order change.",
-          "ex": "你是学生吗？ (nǐ shì xuéshēng ma?)",
+          "h": "Four different ways to ask, each with its own flavor",
+          "p": "Mandarin doesn't have just one question pattern — knowing which to use makes you sound much more natural, not just grammatically correct.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
+        },
+        {
+          "h": "吗 for a simple yes/no",
+          "p": "The one you already know from Lesson 3.",
+          "ex": "你是学生吗？",
+          "exTranslation": "nǐ shì xuéshēng ma? — Are you a student?",
           "audioId": "unit4-ex1"
         },
         {
-          "h": "Choice questions with 还是",
-          "p": "Present two options connected by 还是 (háishì, \"or\").",
-          "ex": "你要茶还是咖啡？ (nǐ yào chá háishì kāfēi?)",
+          "h": "还是 for choosing between options",
+          "p": "When you're offering someone a choice, not just a yes/no.",
+          "ex": "你要茶还是咖啡？",
+          "exTranslation": "nǐ yào chá háishì kāfēi? — Do you want tea or coffee?",
           "audioId": "unit4-ex2"
         },
         {
-          "h": "Question words stay in place",
-          "p": "Words like 什么 (shénme, \"what\") stay where the answer would go.",
-          "ex": "你要什么？ (nǐ yào shénme?)",
+          "h": "Question words stay exactly where the answer would go",
+          "p": "This is different from English, where 'what' jumps to the front. In Mandarin, 什么 (what) sits right where the answer word would naturally be.",
+          "ex": "你要什么？",
+          "exTranslation": "nǐ yào shénme? — What do you want?",
           "audioId": "unit4-ex3"
         },
         {
-          "h": "A-not-A questions",
-          "p": "Repeating the verb with 不 (bù) in between also forms a yes/no question.",
-          "ex": "你要不要茶？ (nǐ yào bú yào chá?)",
+          "h": "A-not-A — repeating the verb for a yes/no question",
+          "p": "Say the verb, then 不 (not), then the verb again — a very common, casual way to ask yes/no questions.",
+          "ex": "你要不要茶？",
+          "exTranslation": "nǐ yào bú yào chá? — Do you want tea (or not)?",
           "audioId": "unit4-ex4"
         }
       ],
@@ -270,28 +293,32 @@
       "icon": "⏳",
       "teaching": [
         {
-          "h": "了 (le) for completed/change",
-          "p": "Marks a completed action or a new state.",
-          "ex": "我到了 (wǒ dào le)",
+          "h": "Aspect instead of tense — a genuinely different way of thinking about time",
+          "p": "Rather than marking WHEN something happened, Mandarin marks HOW an action relates to time — is it done, ever-experienced, or ongoing right now? These three particles are the core toolkit.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
+        },
+        {
+          "h": "了 (le) — completion or a new state",
+          "p": "Same particle from Lesson 3, now shown clearly marking a finished action.",
+          "ex": "我到了",
+          "exTranslation": "wǒ dào le — I've arrived",
           "audioId": "unit5-ex1"
         },
         {
-          "h": "过 (guo) for past experience",
-          "p": "Indicates something has been experienced at least once, ever.",
-          "ex": "我去过中国 (wǒ qùguo Zhōngguó)",
+          "h": "过 (guo) — 'have you ever...'",
+          "p": "Marks an experience that happened at least once, at some unspecified point, without saying exactly when — this is genuinely a different concept from just 'past tense'.",
+          "ex": "我去过中国",
+          "exTranslation": "wǒ qùguo Zhōngguó — I've been to China (at some point)",
           "audioId": "unit5-ex2"
         },
         {
-          "h": "在 (zài) for ongoing action",
-          "p": "Placed before the verb to show an action is currently in progress.",
-          "ex": "我在吃饭 (wǒ zài chīfàn)",
+          "h": "在 (zài) — happening right now",
+          "p": "Placed BEFORE the verb (unlike 了 and 过, which come after) to show an action currently in progress.",
+          "ex": "我在吃饭",
+          "exTranslation": "wǒ zài chīfàn — I am eating",
           "audioId": "unit5-ex3"
-        },
-        {
-          "h": "Aspect, not strict tense",
-          "p": "Mandarin marks how an action relates to time, not when exactly it happened.",
-          "ex": "",
-          "audioId": ""
         }
       ],
       "quiz": [
@@ -339,27 +366,31 @@
       "icon": "🧱",
       "teaching": [
         {
-          "h": "Main word classes",
-          "p": "名词 (noun), 动词 (verb), 形容词 (adjective), 副词 (adverb), 介词 (preposition), 连词 (conjunction).",
+          "h": "Familiar categories, some surprising behavior",
+          "p": "Mandarin has nouns, verbs, adjectives, adverbs, prepositions, conjunctions — but a few of them behave in ways that'll surprise an English speaker.",
           "ex": "跑 (dòngcí/verb), 快 (fùcí/adverb), 老师 (míngcí/noun)",
+          "exTranslation": "to run, fast, teacher",
           "audioId": "unit6-ex1"
         },
         {
-          "h": "形容词 (adjectives) can act as verbs",
-          "p": "Many Chinese adjectives function like stative verbs and don't need 是 (to be) before them.",
-          "ex": "她很高。(She is tall.) — no 是 needed",
+          "h": "形容词 (adjectives) secretly act like verbs",
+          "p": "This is the surprising part: Chinese adjectives function as stative verbs, meaning you DON'T need a 'to be' verb before them — 很高 already means 'is tall' on its own.",
+          "ex": "她很高。",
+          "exTranslation": "tā hěn gāo — She is tall. (no separate 'is' needed)",
           "audioId": "unit6-ex2"
         },
         {
-          "h": "副词 (adverbs) come before the verb",
-          "p": "Unlike English, adverbs are placed before, not after, the verb they modify.",
-          "ex": "他很快跑。(He runs quickly.)",
+          "h": "副词 (adverbs) always come before the verb",
+          "p": "Unlike English, which often puts adverbs after the verb ('runs quickly'), Mandarin puts them before ('quickly runs').",
+          "ex": "他很快跑。",
+          "exTranslation": "tā hěn kuài pǎo — He runs quickly. (literally: he quickly runs)",
           "audioId": "unit6-ex3"
         },
         {
-          "h": "介词 (prepositions) form phrases before the verb",
-          "p": "Prepositional phrases usually come before the verb, not after like in English.",
-          "ex": "我在家吃饭。(I eat at home.)",
+          "h": "介词 (preposition) phrases go before the verb too",
+          "p": "Same 'before, not after' pattern — a whole prepositional phrase sits ahead of the verb, unlike English's 'eat at home'.",
+          "ex": "我在家吃饭。",
+          "exTranslation": "wǒ zài jiā chīfàn — I eat at home. (literally: I at home eat)",
           "audioId": "unit6-ex4"
         }
       ],
@@ -409,27 +440,31 @@
       "icon": "🏗️",
       "teaching": [
         {
-          "h": "陈述句 (statement)",
-          "p": "A simple declarative sentence, following SVO order.",
-          "ex": "我喜欢猫。(I like cats.)",
+          "h": "陈述句 — the plain statement",
+          "p": "Just normal SVO order, nothing extra.",
+          "ex": "我喜欢猫。",
+          "exTranslation": "wǒ xǐhuān māo — I like cats.",
           "audioId": "unit7-ex1"
         },
         {
-          "h": "疑问句 (question)",
-          "p": "Formed with 吗, a question word, or A-not-A structure.",
+          "h": "疑问句 — the question",
+          "p": "Formed with 吗, a question word, or A-not-A — all covered in Lesson 4.",
           "ex": "你喜欢猫吗？",
+          "exTranslation": "nǐ xǐhuān māo ma? — Do you like cats?",
           "audioId": "unit7-ex2"
         },
         {
-          "h": "祈使句 (command)",
-          "p": "Directly instructs someone, often with 请 (please) for politeness.",
-          "ex": "请坐。(Please sit.)",
+          "h": "祈使句 — the command",
+          "p": "请 (please) softens a direct instruction and is genuinely important for sounding polite, not just correct.",
+          "ex": "请坐。",
+          "exTranslation": "qǐng zuò — Please sit.",
           "audioId": "unit7-ex3"
         },
         {
-          "h": "并列句 (compound sentence)",
-          "p": "Two clauses joined by connectors like 和 (and) or 但是 (but).",
+          "h": "并列句 — the compound sentence",
+          "p": "Connector words like 和 (and) and 但是 (but) link two ideas, similar to English.",
           "ex": "我喜欢猫，但是我更喜欢狗。",
+          "exTranslation": "wǒ xǐhuān māo, dànshì wǒ gèng xǐhuān gǒu — I like cats, but I like dogs more.",
           "audioId": "unit7-ex4"
         }
       ],
@@ -476,27 +511,38 @@
       "icon": "🤝",
       "teaching": [
         {
-          "h": "Result complements (结果补语)",
-          "p": "A second verb/adjective right after the main verb shows the result of the action.",
-          "ex": "我听懂了。(I heard and understood.)",
+          "h": "A concept with no real English equivalent",
+          "p": "A complement is a word or phrase attached right after the verb that tells you the RESULT, DIRECTION, or DEGREE of the action. This is genuinely one of the more advanced, distinctive parts of Mandarin grammar.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
+        },
+        {
+          "h": "Result complements — did it actually succeed?",
+          "p": "懂 (dǒng, 'understand') attached after 听 (tīng, 'listen') tells you the listening actually resulted in understanding — not just that listening happened.",
+          "ex": "我听懂了。",
+          "exTranslation": "wǒ tīng dǒng le — I heard and understood.",
           "audioId": "unit8-ex1"
         },
         {
-          "h": "Directional complements (趋向补语)",
-          "p": "Words like 来/去 after a verb show the direction of movement.",
-          "ex": "他走进来了。(He walked in.)",
+          "h": "Directional complements — which way?",
+          "p": "来 (come) or 去 (go) after a verb shows the direction of movement relative to the speaker.",
+          "ex": "他走进来了。",
+          "exTranslation": "tā zǒu jìnlái le — He walked in (toward the speaker).",
           "audioId": "unit8-ex2"
         },
         {
-          "h": "Degree complements (程度补语)",
-          "p": "得 + adjective after a verb describes how well/much an action is done.",
-          "ex": "她说得很好。(She speaks very well.)",
+          "h": "Degree complements — how well?",
+          "p": "得 (de) plus an adjective after the verb describes the quality of how the action was done.",
+          "ex": "她说得很好。",
+          "exTranslation": "tā shuō de hěn hǎo — She speaks very well.",
           "audioId": "unit8-ex3"
         },
         {
-          "h": "Potential complements",
-          "p": "得/不 inserted between verb and complement shows possibility or impossibility.",
-          "ex": "我听得懂。(I can understand.) 我听不懂。(I can't understand.)",
+          "h": "Potential complements — can or can't",
+          "p": "Insert 得 (possible) or 不 (impossible) between the verb and complement to express ability.",
+          "ex": "我听得懂。我听不懂。",
+          "exTranslation": "wǒ tīng de dǒng — I can understand. / wǒ tīng bù dǒng — I can't understand.",
           "audioId": "unit8-ex4"
         }
       ],
@@ -542,27 +588,31 @@
       "icon": "⚖️",
       "teaching": [
         {
-          "h": "比 (bǐ) for comparison",
-          "p": "A + 比 + B + adjective compares two things directly.",
-          "ex": "他比我高。(He is taller than me.)",
+          "h": "比 (bǐ) — the direct comparison word",
+          "p": "Structure: A + 比 + B + adjective. Notice there's no separate word for 'than' — 比 itself carries that meaning.",
+          "ex": "他比我高。",
+          "exTranslation": "tā bǐ wǒ gāo — He is taller than me.",
           "audioId": "unit9-ex1"
         },
         {
-          "h": "跟...一样 for equality",
-          "p": "Shows two things are the same in some way.",
-          "ex": "我跟他一样高。(I'm as tall as him.)",
+          "h": "跟...一样 — expressing equality",
+          "p": "Literally 'with...the same' — used when two things are equal in some way.",
+          "ex": "我跟他一样高。",
+          "exTranslation": "wǒ gēn tā yíyàng gāo — I'm as tall as him.",
           "audioId": "unit9-ex2"
         },
         {
-          "h": "没有...那么 for inequality",
-          "p": "Shows one thing is less than another.",
-          "ex": "我没有他那么高。(I'm not as tall as him.)",
+          "h": "没有...那么 — expressing 'less than'",
+          "p": "The negative counterpart to 比 — literally 'doesn't have...that much'.",
+          "ex": "我没有他那么高。",
+          "exTranslation": "wǒ méiyǒu tā nàme gāo — I'm not as tall as him.",
           "audioId": "unit9-ex3"
         },
         {
-          "h": "最 for superlatives",
-          "p": "最 before an adjective means \"the most.\"",
-          "ex": "他最高。(He is the tallest.)",
+          "h": "最 (zuì) — the superlative",
+          "p": "Simply placed before an adjective to mean 'the most'.",
+          "ex": "他最高。",
+          "exTranslation": "tā zuì gāo — He is the tallest.",
           "audioId": "unit9-ex4"
         }
       ],
@@ -608,27 +658,31 @@
       "icon": "🔀",
       "teaching": [
         {
-          "h": "如果...就 (if...then)",
-          "p": "The most common way to express a real or hypothetical condition.",
-          "ex": "如果下雨，我就不去。(If it rains, I won't go.)",
+          "h": "如果...就 — the most common if-then pattern",
+          "p": "如果 (if) sets up the condition, 就 (then) introduces the result — used for both realistic and hypothetical situations alike, since Mandarin doesn't grammatically distinguish them the way English/Spanish/German do.",
+          "ex": "如果下雨，我就不去。",
+          "exTranslation": "rúguǒ xiàyǔ, wǒ jiù bú qù — If it rains, I won't go.",
           "audioId": "unit10-ex1"
         },
         {
-          "h": "要是...的话",
-          "p": "A more conversational way to say \"if,\" often used in spoken Mandarin.",
-          "ex": "要是你有时间的话，来吧。(If you have time, come.)",
+          "h": "要是...的话 — the conversational version",
+          "p": "More common in casual spoken Mandarin than 如果.",
+          "ex": "要是你有时间的话，来吧。",
+          "exTranslation": "yàoshi nǐ yǒu shíjiān dehuà, lái ba — If you have time, come.",
           "audioId": "unit10-ex2"
         },
         {
-          "h": "No verb tense changes",
-          "p": "Unlike English/Spanish, Mandarin conditionals don't change verb forms — context and time words carry the meaning.",
+          "h": "No verb changes needed — genuinely simpler here",
+          "p": "Unlike German/Spanish/English, which shift verb tense or mood for hypotheticals, Mandarin verbs stay exactly the same regardless — context and time words carry all the meaning.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         },
         {
-          "h": "只要...就 (as long as...then)",
-          "p": "Expresses a sufficient condition.",
-          "ex": "只要你努力，就会成功。(As long as you try hard, you'll succeed.)",
+          "h": "只要...就 — 'as long as'",
+          "p": "Expresses a sufficient condition — do this one thing, and the result follows.",
+          "ex": "只要你努力，就会成功。",
+          "exTranslation": "zhǐyào nǐ nǔlì, jiù huì chénggōng — As long as you try hard, you'll succeed.",
           "audioId": "unit10-ex3"
         }
       ],
@@ -677,27 +731,31 @@
       "icon": "🧩",
       "teaching": [
         {
-          "h": "短语 (phrase)",
-          "p": "A group of words functioning as one unit, no complete subject-verb pairing needed.",
-          "ex": "在家里 (at home), 很高兴 (very happy)",
+          "h": "短语 — a chunk with no complete subject-verb pairing",
+          "p": "",
+          "ex": "在家里，很高兴",
+          "exTranslation": "at home, very happy",
           "audioId": "unit11-ex1"
         },
         {
-          "h": "从句 (clause)",
-          "p": "Has its own subject and verb.",
-          "ex": "他说的话 (what he said)",
+          "h": "从句 — has its own subject and verb",
+          "p": "",
+          "ex": "他说的话",
+          "exTranslation": "tā shuō de huà — what he said",
           "audioId": "unit11-ex2"
         },
         {
-          "h": "的-clauses as modifiers",
-          "p": "的 turns a clause into a description attached to a noun, similar to a relative clause.",
-          "ex": "我昨天买的书 (the book I bought yesterday)",
+          "h": "的-clauses turn a whole idea into a noun modifier",
+          "p": "This is a distinctly Mandarin structure: 的 lets you attach an entire clause as a description before a noun, similar in function to English's relative clauses ('the book that I bought') but built completely differently.",
+          "ex": "我昨天买的书",
+          "exTranslation": "wǒ zuótiān mǎi de shū — the book I bought yesterday",
           "audioId": "unit11-ex3"
         },
         {
-          "h": "Connecting clauses",
-          "p": "Words like 因为...所以 (because...so) and 虽然...但是 (although...but) link clauses together.",
+          "h": "Connector pairs link two clauses together",
+          "p": "因为...所以 (because...so) and 虽然...但是 (although...but) work as matched pairs, both halves appearing in the sentence — unlike English, which usually only needs one connector word.",
           "ex": "因为下雨，所以我没去。",
+          "exTranslation": "yīnwèi xiàyǔ, suǒyǐ wǒ méi qù — Because it rained, so I didn't go.",
           "audioId": "unit11-ex4"
         }
       ],
@@ -746,27 +804,38 @@
       "icon": "🔄",
       "teaching": [
         {
-          "h": "The 把 (bǎ) construction",
-          "p": "Moves the object before the verb to emphasize what happened to it — common when the object is affected/disposed of.",
-          "ex": "我把书放在桌子上。(I put the book on the table.)",
+          "h": "Two structures worth learning deliberately",
+          "p": "These reorder the sentence in ways that feel unusual at first but are extremely common in real Mandarin — worth practicing beyond just recognizing them.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
+        },
+        {
+          "h": "把 (bǎ) — moving the object forward for emphasis",
+          "p": "Pulls the object BEFORE the verb, emphasizing exactly what happened to it. Typically used when the action clearly disposes of, moves, or changes the object in a specific way.",
+          "ex": "我把书放在桌子上。",
+          "exTranslation": "wǒ bǎ shū fàng zài zhuōzi shàng — I put the book on the table.",
           "audioId": "unit12-ex1"
         },
         {
-          "h": "When to use 把",
-          "p": "Typically when the action clearly does something specific and definite to the object.",
-          "ex": "他把门关了。(He closed the door.)",
+          "h": "When 把 shows up in real usage",
+          "p": "Especially common with specific, completed actions done TO something.",
+          "ex": "他把门关了。",
+          "exTranslation": "tā bǎ mén guān le — He closed the door.",
           "audioId": "unit12-ex2"
         },
         {
-          "h": "The 被 (bèi) construction — passive voice",
-          "p": "Subject + 被 + (doer) + verb — the closest equivalent to English passive voice.",
-          "ex": "书被他拿走了。(The book was taken by him.)",
+          "h": "被 (bèi) — Mandarin's version of passive voice",
+          "p": "Subject + 被 + (doer) + verb — the closest structural match to English's passive voice.",
+          "ex": "书被他拿走了。",
+          "exTranslation": "shū bèi tā ná zǒu le — The book was taken by him.",
           "audioId": "unit12-ex3"
         },
         {
-          "h": "被 without a stated doer",
-          "p": "The doer can be omitted if unknown or unimportant.",
-          "ex": "杯子被打破了。(The cup was broken.)",
+          "h": "被 works even without naming who did it",
+          "p": "Just like English passive voice, you can drop the doer entirely if it's unknown or doesn't matter.",
+          "ex": "杯子被打破了。",
+          "exTranslation": "bēizi bèi dǎpò le — The cup was broken.",
           "audioId": "unit12-ex4"
         }
       ],
@@ -815,27 +884,31 @@
       "icon": "💬",
       "teaching": [
         {
-          "h": "Direct speech",
-          "p": "The exact words, often marked with quotation marks in writing.",
-          "ex": "他说：\"我很累。\" (He said, \"I'm tired.\")",
+          "h": "Direct speech — the exact words",
+          "p": "",
+          "ex": "他说：\"我很累。\"",
+          "exTranslation": "tā shuō: \"wǒ hěn lèi.\" — He said, \"I'm tired.\"",
           "audioId": "unit13-ex1"
         },
         {
-          "h": "Indirect speech with 说",
-          "p": "他说 + clause, without quotation marks — reports the idea, not the exact words.",
-          "ex": "他说他很累。(He said he was tired.)",
+          "h": "Indirect speech with 说 — genuinely simpler than English",
+          "p": "Just 他说 (he said) plus the idea, no quotation marks needed.",
+          "ex": "他说他很累。",
+          "exTranslation": "tā shuō tā hěn lèi — He said he was tired.",
           "audioId": "unit13-ex2"
         },
         {
-          "h": "No tense shifting needed",
-          "p": "Unlike English, Mandarin verbs don't change form when reporting speech — the meaning stays clear from context.",
+          "h": "No tense backshift required — a real relief for learners",
+          "p": "Since Mandarin verbs don't change form for tense at all, there's nothing to shift when reporting speech — unlike the backshift rules in English, Spanish, and German.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         },
         {
-          "h": "Pronouns still shift",
-          "p": "\"我\" (I) in direct speech often becomes \"他/她\" in reported speech, matching the new perspective.",
+          "h": "Pronouns still shift to match the new speaker",
+          "p": "我 (I) in the original quote often becomes 他/她 (he/she) once someone else is reporting it.",
           "ex": "\"我很忙\" → 他说他很忙。",
+          "exTranslation": "\"wǒ hěn máng\" → tā shuō tā hěn máng — \"I'm busy\" → He said he was busy.",
           "audioId": "unit13-ex3"
         }
       ],
@@ -885,27 +958,31 @@
       "icon": "✍️",
       "teaching": [
         {
-          "h": "No capitalization system",
-          "p": "Chinese characters have no uppercase/lowercase — capitalization rules from English don't apply.",
+          "h": "No capital letters at all",
+          "p": "Chinese characters simply don't have an uppercase/lowercase distinction — every capitalization rule you've learned in other languages just doesn't apply here.",
           "ex": "",
+          "exTranslation": "",
           "audioId": ""
         },
         {
-          "h": "The Chinese comma 、 vs ，",
-          "p": "、 separates items in a list; ， is used like a regular comma between clauses.",
-          "ex": "苹果、香蕉、橙子 (apples, bananas, oranges)",
+          "h": "、 vs. ， — two different commas with different jobs",
+          "p": "顿号 (、) separates items in a list specifically; the regular comma （，） is for pauses between clauses, similar to English's comma.",
+          "ex": "苹果、香蕉、橙子",
+          "exTranslation": "píngguǒ, xiāngjiāo, chéngzi — apples, bananas, oranges",
           "audioId": "unit14-ex1"
         },
         {
-          "h": "Full-width punctuation",
-          "p": "Chinese uses full-width versions of punctuation marks (， 。 ？ ！), visually wider than English ones.",
-          "ex": "你好吗？(full-width question mark)",
+          "h": "Full-width punctuation looks visually different",
+          "p": "Chinese punctuation marks (，。？！) are wider than their English counterparts — this is why Chinese text often looks visually distinct even before you read a single character.",
+          "ex": "你好吗？",
+          "exTranslation": "nǐ hǎo ma? — How are you?",
           "audioId": "unit14-ex2"
         },
         {
-          "h": "Book title marks 《》",
-          "p": "Used to mark titles of books, films, and other works, instead of italics or quotation marks.",
+          "h": "《》 — marking titles, instead of italics or quotes",
+          "p": "Where English might italicize a book title, Chinese wraps it in these angle-bracket-style marks.",
           "ex": "我在读《红楼梦》。",
+          "exTranslation": "wǒ zài dú \"Hóng Lóu Mèng\" — I'm reading Dream of the Red Chamber.",
           "audioId": "unit14-ex3"
         }
       ],
@@ -955,27 +1032,31 @@
       "icon": "🎓",
       "teaching": [
         {
-          "h": "虽然...但是 (although...but)",
-          "p": "Connects a contrasting idea across two clauses.",
-          "ex": "虽然很累，但是我很开心。(Although tired, I'm happy.)",
+          "h": "Paired connectors — Mandarin's way of linking clauses",
+          "p": "Unlike English's single connector words, Mandarin often uses matched PAIRS, one word in each clause, working together.",
+          "ex": "虽然很累，但是我很开心。",
+          "exTranslation": "suīrán hěn lèi, dànshì wǒ hěn kāixīn — Although tired, I'm happy.",
           "audioId": "unit15-ex1"
         },
         {
-          "h": "因为...所以 (because...so)",
-          "p": "Connects a cause to its result.",
-          "ex": "因为下雨，所以我没去。(Because it rained, I didn't go.)",
+          "h": "因为...所以 — cause and result, both marked",
+          "p": "Both 'because' and 'so' appear in the same sentence — this can feel redundant to an English speaker, but it's standard, expected Mandarin structure.",
+          "ex": "因为下雨，所以我没去。",
+          "exTranslation": "yīnwèi xiàyǔ, suǒyǐ wǒ méi qù — Because it rained, I didn't go.",
           "audioId": "unit15-ex2"
         },
         {
-          "h": "不但...而且 (not only...but also)",
-          "p": "Adds emphasis by connecting two related, escalating points.",
-          "ex": "她不但聪明，而且勤奋。(She's not only smart, but also hardworking.)",
+          "h": "不但...而且 — stacking emphasis",
+          "p": "Connects two escalating, related points — 'not only X, but also Y'.",
+          "ex": "她不但聪明，而且勤奋。",
+          "exTranslation": "tā búdàn cōngmíng, érqiě qínfèn — She's not only smart, but also hardworking.",
           "audioId": "unit15-ex3"
         },
         {
-          "h": "一边...一边 (doing two things at once)",
-          "p": "Describes two simultaneous actions.",
-          "ex": "他一边吃饭一边看电视。(He eats while watching TV.)",
+          "h": "一边...一边 — two things happening at once",
+          "p": "Describes simultaneous actions, both verbs marked with 一边.",
+          "ex": "他一边吃饭一边看电视。",
+          "exTranslation": "tā yìbiān chīfàn yìbiān kàn diànshì — He eats while watching TV.",
           "audioId": "unit15-ex4"
         }
       ],
@@ -1024,27 +1105,31 @@
       "icon": "🔗",
       "teaching": [
         {
-          "h": "What 关联词 do",
-          "p": "Words connecting ideas smoothly between clauses and sentences.",
-          "ex": "然而, 因此, 此外, 例如",
+          "h": "关联词 in more formal/written contexts",
+          "p": "Similar function to English transitions, but these versions lean more formal — the ones from Lessons 7 and 15 (但是, 所以) are more casual equivalents you'd actually say out loud.",
+          "ex": "然而，因此，此外，例如",
+          "exTranslation": "however, therefore, furthermore, for example",
           "audioId": "unit16-ex1"
         },
         {
-          "h": "Showing contrast",
-          "p": "然而 (however) signals a contrasting idea, more formal than 但是.",
+          "h": "然而 — formal contrast",
+          "p": "",
           "ex": "他很努力。然而，他没有成功。",
+          "exTranslation": "tā hěn nǔlì. rán'ér, tā méiyǒu chénggōng — He worked hard. However, he didn't succeed.",
           "audioId": "unit16-ex2"
         },
         {
-          "h": "Showing cause and result",
-          "p": "因此 (therefore) connects a cause to its effect, common in writing.",
+          "h": "因此 — formal cause/result",
+          "p": "Common in writing more than casual speech.",
           "ex": "下雨了，因此比赛取消了。",
+          "exTranslation": "xiàyǔ le, yīncǐ bǐsài qǔxiāo le — It rained, therefore the match was cancelled.",
           "audioId": "unit16-ex3"
         },
         {
-          "h": "Adding ideas",
-          "p": "此外 (furthermore) and 而且 (moreover) add another related point.",
+          "h": "此外 — adding a further point",
+          "p": "",
           "ex": "她很聪明，此外还很努力。",
+          "exTranslation": "tā hěn cōngmíng, cǐwài hái hěn nǔlì — She's smart; furthermore, she's hardworking.",
           "audioId": "unit16-ex4"
         }
       ],
