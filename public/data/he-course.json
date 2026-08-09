@@ -1,0 +1,1083 @@
+{
+  "units": [
+    {
+      "id": "alphabet-basics",
+      "title": "The Alef-Bet & Basic Sounds",
+      "icon": "📘",
+      "teaching": [
+        {
+          "h": "Hebrew reads right to left — the very first adjustment",
+          "p": "This is the single biggest habit shift for a new learner: Hebrew text flows right to left, and numbers within it still read left to right. Everything else follows from getting used to this direction.",
+          "ex": "שלום",
+          "exTranslation": "shalom — hello/peace",
+          "audioId": "unit1-ex1"
+        },
+        {
+          "h": "No lowercase, and five letters change shape at the end of a word",
+          "p": "Unlike Latin scripts, Hebrew has one letter form — no capital/lowercase distinction. But five letters (כ, מ, נ, פ, צ) take a special 'final form' when they're the last letter of a word.",
+          "ex": "מלך",
+          "exTranslation": "melekh — king (note the final ך)",
+          "audioId": "unit1-ex2"
+        },
+        {
+          "h": "Vowels are usually invisible in everyday writing",
+          "p": "Modern Hebrew is normally written WITHOUT vowel marks (nikkud) — native readers infer the vowels from context and familiarity with the word. Learning materials (including this course) show nikkud to help you, but real-world signs and books usually won't.",
+          "ex": "ספר",
+          "exTranslation": "sefer — book (vowels not shown, but pronounced 'SEH-fer')",
+          "audioId": "unit1-ex3"
+        },
+        {
+          "h": "A few sounds that don't exist in English",
+          "p": "ח and ר are the two most distinctive: ח is a raspy back-of-throat sound (similar to the 'ch' in Bach), and ר is a guttural r, not the tongue-tap r of Spanish or the retroflex r of English.",
+          "ex": "חבר",
+          "exTranslation": "chaver — friend",
+          "audioId": "unit1-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Hebrew text is read:",
+          "options": ["left to right", "right to left"],
+          "answer": "right to left",
+          "audioId": "unit1-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Does Hebrew have capital and lowercase letters?",
+          "options": ["Yes", "No"],
+          "answer": "No",
+          "audioId": "unit1-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Vowel marks (nikkud) in everyday Hebrew writing are:",
+          "options": ["always shown", "usually omitted"],
+          "answer": "usually omitted",
+          "audioId": "unit1-q3"
+        },
+        {
+          "type": "mc",
+          "q": "How many Hebrew letters have a special final form?",
+          "options": ["five", "all of them"],
+          "answer": "five",
+          "audioId": "unit1-q4"
+        },
+        {
+          "type": "mc",
+          "q": "שלום means:",
+          "options": ["hello/peace", "goodbye"],
+          "answer": "hello/peace",
+          "audioId": "unit1-q5"
+        }
+      ]
+    },
+    {
+      "id": "gender-nouns",
+      "title": "Gender & Nouns",
+      "icon": "🧩",
+      "teaching": [
+        {
+          "h": "Every noun is masculine or feminine — no neuter",
+          "p": "Simpler than German or Russian in one way: Hebrew only has two genders, not three. But like those languages, gender affects verbs and adjectives that go with the noun.",
+          "ex": "ספר (m), דלת (f)",
+          "exTranslation": "sefer (book, m), delet (door, f)",
+          "audioId": "unit2-ex1"
+        },
+        {
+          "h": "The ending ה often signals feminine",
+          "p": "Not a perfect rule, but a strong pattern — many feminine nouns end in ה (ah sound).",
+          "ex": "מורה",
+          "exTranslation": "morah — female teacher",
+          "audioId": "unit2-ex2"
+        },
+        {
+          "h": "Plurals: ים for masculine, ות for feminine (usually)",
+          "p": "Like the gender ending rule, this is a strong pattern with real exceptions you'll pick up over time.",
+          "ex": "ספרים, מורות",
+          "exTranslation": "sfarim (books), morot (female teachers)",
+          "audioId": "unit2-ex3"
+        },
+        {
+          "h": "No indefinite article at all",
+          "p": "Hebrew has no word for 'a/an' — you simply say the noun by itself, and context tells you it's indefinite.",
+          "ex": "ספר",
+          "exTranslation": "sefer — a book (no article needed)",
+          "audioId": "unit2-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "How many genders does Hebrew have?",
+          "options": ["two", "three"],
+          "answer": "two",
+          "audioId": "unit2-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which ending often signals a feminine noun?",
+          "options": ["ה", "ים"],
+          "answer": "ה",
+          "audioId": "unit2-q2"
+        },
+        {
+          "type": "mc",
+          "q": "The masculine plural ending is usually:",
+          "options": ["ים", "ות"],
+          "answer": "ים",
+          "audioId": "unit2-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Does Hebrew have a word for 'a/an'?",
+          "options": ["Yes", "No"],
+          "answer": "No",
+          "audioId": "unit2-q4"
+        },
+        {
+          "type": "mc",
+          "q": "מורות means:",
+          "options": ["female teachers", "one teacher"],
+          "answer": "female teachers",
+          "audioId": "unit2-q5"
+        }
+      ]
+    },
+    {
+      "id": "definite-article",
+      "title": "The Definite Article ה",
+      "icon": "📗",
+      "teaching": [
+        {
+          "h": "One tiny letter attached directly to the word",
+          "p": "Unlike English's separate word 'the', Hebrew's definite article is just the letter ה attached to the FRONT of the noun — no space, no separate word.",
+          "ex": "ה + ספר = הספר",
+          "exTranslation": "sefer (a book) → ha-sefer (the book)",
+          "audioId": "unit3-ex1"
+        },
+        {
+          "h": "It attaches to adjectives too, when describing a definite noun",
+          "p": "If the noun is definite, any adjective describing it also gets its own ה — both words carry the article.",
+          "ex": "הספר הגדול",
+          "exTranslation": "ha-sefer ha-gadol — the big book",
+          "audioId": "unit3-ex2"
+        },
+        {
+          "h": "Some letters trigger a small pronunciation shift",
+          "p": "When ה attaches to a word starting with certain letters, the vowel sound underneath it changes slightly — this is a pronunciation detail that becomes automatic with listening practice, not something to memorize as a rule upfront.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "___ספר (the book — add the definite article letter)",
+          "answer": "ה",
+          "audioId": "unit3-q1"
+        },
+        {
+          "type": "mc",
+          "q": "The Hebrew definite article is:",
+          "options": ["a separate word", "a letter attached to the noun"],
+          "answer": "a letter attached to the noun",
+          "audioId": "unit3-q2"
+        },
+        {
+          "type": "mc",
+          "q": "When a noun is definite, its adjective:",
+          "options": ["also gets ה", "never gets ה"],
+          "answer": "also gets ה",
+          "audioId": "unit3-q3"
+        },
+        {
+          "type": "mc",
+          "q": "הספר הגדול means:",
+          "options": ["the big book", "a big book"],
+          "answer": "the big book",
+          "audioId": "unit3-q4"
+        },
+        {
+          "type": "mc",
+          "q": "The definite article ה attaches:",
+          "options": ["to the front of the word", "to the end of the word"],
+          "answer": "to the front of the word",
+          "audioId": "unit3-q5"
+        }
+      ]
+    },
+    {
+      "id": "pronouns-present-tense",
+      "title": "Pronouns & Present Tense",
+      "icon": "🗣️",
+      "teaching": [
+        {
+          "h": "Present tense is genuinely simpler than you'd expect",
+          "p": "Hebrew present tense isn't conjugated the way past/future are — instead, it uses a special verb FORM (called a participle/beinoni) that changes based on gender and number, not person. This is a real structural difference from European languages.",
+          "ex": "אני כותב, את כותבת",
+          "exTranslation": "ani kotev (I write, masculine speaker), at kotevet (you write, feminine)",
+          "audioId": "unit4-ex1"
+        },
+        {
+          "h": "The pronoun set",
+          "p": "אני (I), אתה (you, m), את (you, f), הוא (he), היא (she), אנחנו (we), אתם (you all, m), אתן (you all, f), הם (they, m), הן (they, f).",
+          "ex": "אני, אתה, את, הוא, היא",
+          "exTranslation": "I, you (m), you (f), he, she",
+          "audioId": "unit4-ex2"
+        },
+        {
+          "h": "The present-tense verb changes with the SUBJECT's gender, not 'person'",
+          "p": "Notice above: 'kotev' vs 'kotevet' isn't about who's speaking, it's about whether the subject is male or female — a genuinely different logic from French/Spanish/German verb conjugation.",
+          "ex": "הוא כותב, היא כותבת",
+          "exTranslation": "hu kotev (he writes), hi kotevet (she writes)",
+          "audioId": "unit4-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Hebrew present tense changes based on:",
+          "options": [
+            "gender and number of the subject",
+            "which person is speaking (I/you/he)"
+          ],
+          "answer": "gender and number of the subject",
+          "audioId": "unit4-q1"
+        },
+        {
+          "type": "fill",
+          "q": "___ (I — pronoun)",
+          "answer": "אני",
+          "audioId": "unit4-q2"
+        },
+        {
+          "type": "mc",
+          "q": "הוא כותב means:",
+          "options": ["he writes", "she writes"],
+          "answer": "he writes",
+          "audioId": "unit4-q3"
+        },
+        {
+          "type": "mc",
+          "q": "את כותבת — the subject is:",
+          "options": ["you (feminine)", "you (masculine)"],
+          "answer": "you (feminine)",
+          "audioId": "unit4-q4"
+        },
+        {
+          "type": "mc",
+          "q": "The Hebrew present-tense verb form is called:",
+          "options": ["beinoni", "infinitive"],
+          "answer": "beinoni",
+          "audioId": "unit4-q5"
+        }
+      ]
+    },
+    {
+      "id": "past-tense",
+      "title": "Past Tense",
+      "icon": "⌛",
+      "teaching": [
+        {
+          "h": "Past tense DOES conjugate by person",
+          "p": "Unlike present tense, past tense verbs change endings for I/you/he/she/we/they — much closer to what a European-language learner would expect.",
+          "ex": "אני כתבתי, אתה כתבת",
+          "exTranslation": "ani katavti (I wrote), atah katavta (you wrote, m)",
+          "audioId": "unit5-ex1"
+        },
+        {
+          "h": "The root system underlies everything",
+          "p": "Most Hebrew verbs are built from a three-letter root that carries the core meaning, with different vowel patterns and prefixes/suffixes layered on for tense and person. כ-ת-ב (k-t-v) is the 'writing' root running through every form you've seen so far.",
+          "ex": "כתבתי, כותב, אכתוב",
+          "exTranslation": "katavti (I wrote), kotev (writing, present), ekhtov (I will write) — same root, different forms",
+          "audioId": "unit5-ex2"
+        },
+        {
+          "h": "Full past-tense pattern for one verb",
+          "p": "",
+          "ex": "כתבתי, כתבת, כתבת, כתב, כתבה, כתבנו, כתבתם, כתבו",
+          "exTranslation": "I wrote, you wrote (m), you wrote (f), he wrote, she wrote, we wrote, you all wrote, they wrote",
+          "audioId": "unit5-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Does past tense conjugate by person (I/you/he)?",
+          "options": ["Yes", "No, only present tense does"],
+          "answer": "Yes",
+          "audioId": "unit5-q1"
+        },
+        {
+          "type": "fill",
+          "q": "אני ___ (I wrote — katavti)",
+          "answer": "כתבתי",
+          "audioId": "unit5-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Most Hebrew verbs are built from a root of how many letters?",
+          "options": ["two", "three"],
+          "answer": "three",
+          "audioId": "unit5-q3"
+        },
+        {
+          "type": "mc",
+          "q": "כ-ת-ב is the root meaning:",
+          "options": ["to write", "to read"],
+          "answer": "to write",
+          "audioId": "unit5-q4"
+        },
+        {
+          "type": "mc",
+          "q": "היא כתבה means:",
+          "options": ["she wrote", "he wrote"],
+          "answer": "she wrote",
+          "audioId": "unit5-q5"
+        }
+      ]
+    },
+    {
+      "id": "parts-of-speech",
+      "title": "Parts of Speech",
+      "icon": "🧱",
+      "teaching": [
+        {
+          "h": "The basic categories, working similarly to what you'd expect",
+          "p": "שם עצם (noun), פועל (verb), שם תואר (adjective), תואר הפועל (adverb) — the categories themselves are familiar even though the words and the writing system are new.",
+          "ex": "רץ (verb), מהר (adverb), מורה (noun)",
+          "exTranslation": "runs, quickly, teacher",
+          "audioId": "unit6-ex1"
+        },
+        {
+          "h": "Adjectives come AFTER the noun, and must agree with it",
+          "p": "This is the reverse of English order, and the adjective's gender/number must match the noun exactly — same agreement logic as Spanish or German, just positioned differently.",
+          "ex": "ספר גדול",
+          "exTranslation": "sefer gadol — a big book (literally: book big)",
+          "audioId": "unit6-ex2"
+        },
+        {
+          "h": "Prepositions often attach directly to the following word",
+          "p": "Small prepositions like ב (in/at), ל (to/for), and מ (from) are typically prefixed directly onto the next word, not written as separate words — similar in spirit to the definite article ה.",
+          "ex": "בבית",
+          "exTranslation": "ba-bayit — in the house (ב + הבית, contracted)",
+          "audioId": "unit6-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "In Hebrew, adjectives typically come:",
+          "options": ["before the noun", "after the noun"],
+          "answer": "after the noun",
+          "audioId": "unit6-q1"
+        },
+        {
+          "type": "mc",
+          "q": "ספר גדול literally means:",
+          "options": ["book big", "big book (word for word in English order)"],
+          "answer": "book big",
+          "audioId": "unit6-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Small prepositions like ב (in) are usually:",
+          "options": [
+            "prefixed directly onto the next word",
+            "written as separate words"
+          ],
+          "answer": "prefixed directly onto the next word",
+          "audioId": "unit6-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Adjectives must agree with their noun in:",
+          "options": ["gender and number", "nothing, they're fixed"],
+          "answer": "gender and number",
+          "answer_note": "",
+          "audioId": "unit6-q4"
+        },
+        {
+          "type": "mc",
+          "q": "מהר means:",
+          "options": ["quickly", "slowly"],
+          "answer": "quickly",
+          "audioId": "unit6-q5"
+        }
+      ]
+    },
+    {
+      "id": "sentence-structure",
+      "title": "Sentence Structure",
+      "icon": "🏗️",
+      "teaching": [
+        {
+          "h": "Basic word order: Subject-Verb-Object, like English",
+          "p": "This is genuinely reassuring for an English speaker — the underlying logical order matches, even though the script and direction are totally different.",
+          "ex": "דוד אוכל תפוח",
+          "exTranslation": "David okhel tapuach — David eats an apple",
+          "audioId": "unit7-ex1"
+        },
+        {
+          "h": "No verb 'to be' needed in the present tense",
+          "p": "Just like Russian, Hebrew present-tense sentences typically OMIT any equivalent of 'is/are' — you just place the two things next to each other.",
+          "ex": "דוד מורה",
+          "exTranslation": "David moreh — David is a teacher (literally: David teacher)",
+          "audioId": "unit7-ex2"
+        },
+        {
+          "h": "Yes/no questions often just use intonation or האם",
+          "p": "You can turn a statement into a question just by rising intonation (in speech) or by adding האם at the front (more formal/written).",
+          "ex": "האם דוד מורה?",
+          "exTranslation": "ha-im David moreh? — Is David a teacher?",
+          "audioId": "unit7-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Hebrew basic word order is:",
+          "options": ["SVO", "SOV"],
+          "answer": "SVO",
+          "audioId": "unit7-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Does Hebrew present tense need a 'to be' verb?",
+          "options": ["No, it's usually omitted", "Yes, always"],
+          "answer": "No, it's usually omitted",
+          "audioId": "unit7-q2"
+        },
+        {
+          "type": "fill",
+          "q": "___ דוד מורה? (is David a teacher — question marker)",
+          "answer": "האם",
+          "audioId": "unit7-q3"
+        },
+        {
+          "type": "mc",
+          "q": "דוד מורה literally means:",
+          "options": ["David teacher", "David is a good teacher"],
+          "answer": "David teacher",
+          "audioId": "unit7-q4"
+        },
+        {
+          "type": "mc",
+          "q": "One way to ask a yes/no question is:",
+          "options": [
+            "rising intonation",
+            "always moving the verb to the front"
+          ],
+          "answer": "rising intonation",
+          "audioId": "unit7-q5"
+        }
+      ]
+    },
+    {
+      "id": "construct-state",
+      "title": "The Construct State (Smichut)",
+      "icon": "🔗",
+      "teaching": [
+        {
+          "h": "Hebrew's own way of showing possession",
+          "p": "Instead of an apostrophe-s or a separate 'of', Hebrew often shows 'X of Y' by putting two nouns next to each other and slightly changing the FIRST one's form — this pairing is called smichut.",
+          "ex": "בית ספר",
+          "exTranslation": "beit sefer — school (literally: house-of book)",
+          "audioId": "unit8-ex1"
+        },
+        {
+          "h": "The first noun often shortens or changes",
+          "p": "בית (bayit, house) becomes בית (beit) in construct form — a subtle vowel shift that's worth listening for rather than memorizing as a spelling rule.",
+          "ex": "בית + ספר = בית ספר",
+          "exTranslation": "house + book = school",
+          "audioId": "unit8-ex2"
+        },
+        {
+          "h": "Only the second noun can take the definite article",
+          "p": "In a smichut pair, ה attaches to the SECOND word only, and that makes the whole phrase definite.",
+          "ex": "בית הספר",
+          "exTranslation": "beit ha-sefer — the school",
+          "audioId": "unit8-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Smichut is Hebrew's way of expressing:",
+          "options": ["possession/'of'", "negation"],
+          "answer": "possession/'of'",
+          "audioId": "unit8-q1"
+        },
+        {
+          "type": "mc",
+          "q": "בית ספר literally means:",
+          "options": ["house-of book", "big house"],
+          "answer": "house-of book",
+          "audioId": "unit8-q2"
+        },
+        {
+          "type": "mc",
+          "q": "In a smichut pair, the definite article ה attaches to:",
+          "options": ["the second word only", "the first word only"],
+          "answer": "the second word only",
+          "audioId": "unit8-q3"
+        },
+        {
+          "type": "fill",
+          "q": "בית ה___ (the school — add sefer)",
+          "answer": "ספר",
+          "audioId": "unit8-q4"
+        },
+        {
+          "type": "mc",
+          "q": "בית הספר means:",
+          "options": ["the school", "a school"],
+          "answer": "the school",
+          "audioId": "unit8-q5"
+        }
+      ]
+    },
+    {
+      "id": "future-tense",
+      "title": "Future Tense",
+      "icon": "⏱️",
+      "teaching": [
+        {
+          "h": "Future tense conjugates by person, using prefixes",
+          "p": "Unlike present tense (which changes by gender/number) and similar to past tense (which conjugates fully), future tense adds a PREFIX to the root that identifies the subject.",
+          "ex": "אני אכתוב, אתה תכתוב",
+          "exTranslation": "ani ekhtov (I will write), atah tikhtov (you will write, m)",
+          "audioId": "unit9-ex1"
+        },
+        {
+          "h": "Full future-tense pattern",
+          "p": "",
+          "ex": "אכתוב, תכתוב, תכתבי, יכתוב, תכתוב, נכתוב, תכתבו, יכתבו",
+          "exTranslation": "I will write, you (m) will write, you (f) will write, he will write, she will write, we will write, you all will write, they will write",
+          "audioId": "unit9-ex2"
+        },
+        {
+          "h": "The future tense also works as a command form",
+          "p": "In casual Hebrew, the future-tense 'you' form is often used to give instructions or requests, especially in the negative — a genuinely practical thing to recognize when someone's asking you (not) to do something.",
+          "ex": "אל תדאג",
+          "exTranslation": "al tid'ag — don't worry",
+          "audioId": "unit9-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Future tense conjugates using:",
+          "options": [
+            "a prefix identifying the subject",
+            "gender/number of the subject only"
+          ],
+          "answer": "a prefix identifying the subject",
+          "audioId": "unit9-q1"
+        },
+        {
+          "type": "fill",
+          "q": "אני ___ (I will write — ekhtov)",
+          "answer": "אכתוב",
+          "audioId": "unit9-q2"
+        },
+        {
+          "type": "mc",
+          "q": "הוא יכתוב means:",
+          "options": ["he will write", "she will write"],
+          "answer": "he will write",
+          "audioId": "unit9-q3"
+        },
+        {
+          "type": "mc",
+          "q": "אל תדאג means:",
+          "options": ["don't worry", "you will worry"],
+          "answer": "don't worry",
+          "audioId": "unit9-q4"
+        },
+        {
+          "type": "mc",
+          "q": "The future-tense form is sometimes used for:",
+          "options": ["commands/instructions", "only distant future events"],
+          "answer": "commands/instructions",
+          "audioId": "unit9-q5"
+        }
+      ]
+    },
+    {
+      "id": "conditional-sentences",
+      "title": "Conditional Sentences",
+      "icon": "🔀",
+      "teaching": [
+        {
+          "h": "Real conditions with אם",
+          "p": "אם (if) plus normal tense — for realistic situations, similar to how German/Spanish handle it.",
+          "ex": "אם ירד גשם, אני אשאר בבית",
+          "exTranslation": "im yered geshem, ani eshaer ba-bayit — If it rains, I'll stay home",
+          "audioId": "unit10-ex1"
+        },
+        {
+          "h": "Hypothetical conditions with אילו",
+          "p": "For unreal or unlikely situations, אילו replaces אם and pairs with the היה (was) form for a 'would have been' feel.",
+          "ex": "אילו הייתי עשיר, הייתי נוסע",
+          "exTranslation": "ilu hayiti ashir, hayiti nosea — If I were rich, I would travel",
+          "audioId": "unit10-ex2"
+        },
+        {
+          "h": "היה shows up constantly in hypotheticals",
+          "p": "This is Hebrew's rough equivalent of 'would' — it appears in both halves of a hypothetical sentence.",
+          "ex": "הייתי, היית",
+          "exTranslation": "hayiti (I would/was), hayita (you would/were, m)",
+          "audioId": "unit10-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "___ ירד גשם, אני אשאר בבית (if — realistic)",
+          "answer": "אם",
+          "audioId": "unit10-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Hypothetical conditions use:",
+          "options": ["אילו", "אם only"],
+          "answer": "אילו",
+          "audioId": "unit10-q2"
+        },
+        {
+          "type": "fill",
+          "q": "___ הייתי עשיר, הייתי נוסע (if — hypothetical)",
+          "answer": "אילו",
+          "audioId": "unit10-q3"
+        },
+        {
+          "type": "mc",
+          "q": "היה is roughly Hebrew's equivalent of:",
+          "options": ["would/was", "will"],
+          "answer": "would/was",
+          "audioId": "unit10-q4"
+        },
+        {
+          "type": "mc",
+          "q": "אם is used for:",
+          "options": ["realistic conditions", "only impossible situations"],
+          "answer": "realistic conditions",
+          "audioId": "unit10-q5"
+        }
+      ]
+    },
+    {
+      "id": "phrases-clauses",
+      "title": "Phrases and Clauses",
+      "icon": "🧩",
+      "teaching": [
+        {
+          "h": "A clause needs a subject and verb — same test as any language",
+          "p": "This universal grammatical test still applies in Hebrew, even with the unfamiliar script.",
+          "ex": "היא רצה, כי היא איחרה",
+          "exTranslation": "hi ratzah, ki hi ich'ra — she ran, because she was late",
+          "audioId": "unit11-ex1"
+        },
+        {
+          "h": "כי and מפני ש both mean 'because'",
+          "p": "כי is shorter and more common in everyday speech; מפני ש is a bit more formal.",
+          "ex": "היא רצה כי היא איחרה",
+          "exTranslation": "she ran because she was late",
+          "audioId": "unit11-ex2"
+        },
+        {
+          "h": "ש attaches directly to introduce a clause, like English 'that'",
+          "p": "Similar to how ה attaches for 'the', ש attaches to the front of a word to introduce a subordinate clause.",
+          "ex": "אני יודע שאתה עייף",
+          "exTranslation": "ani yode'a she-atah ayef — I know that you are tired",
+          "audioId": "unit11-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "כי means:",
+          "options": ["because", "and"],
+          "answer": "because",
+          "audioId": "unit11-q1"
+        },
+        {
+          "type": "fill",
+          "q": "אני יודע ___אתה עייף (that — attached prefix)",
+          "answer": "ש",
+          "audioId": "unit11-q2"
+        },
+        {
+          "type": "mc",
+          "q": "ש typically:",
+          "options": [
+            "attaches to the front of the next word",
+            "stands alone as a separate word"
+          ],
+          "answer": "attaches to the front of the next word",
+          "audioId": "unit11-q3"
+        },
+        {
+          "type": "mc",
+          "q": "A clause requires:",
+          "options": ["a subject and a verb", "just a noun"],
+          "answer": "a subject and a verb",
+          "audioId": "unit11-q4"
+        },
+        {
+          "type": "mc",
+          "q": "מפני ש compared to כי is:",
+          "options": ["more formal", "less formal"],
+          "answer": "more formal",
+          "audioId": "unit11-q5"
+        }
+      ]
+    },
+    {
+      "id": "active-passive-voice",
+      "title": "Active and Passive (Binyanim)",
+      "icon": "🔄",
+      "teaching": [
+        {
+          "h": "Binyanim — Hebrew's unique verb-pattern system",
+          "p": "This doesn't map neatly onto European grammar: Hebrew verbs fall into 7 patterns (binyanim) built from the same 3-letter root, and switching between certain patterns is how Hebrew expresses active vs. passive, among other things.",
+          "ex": "כתב (active), נכתב (passive)",
+          "exTranslation": "katav (he wrote, active), nikhtav (it was written, passive)",
+          "audioId": "unit12-ex1"
+        },
+        {
+          "h": "Same root, different pattern, related meaning",
+          "p": "This is the elegant part once it clicks: כ-ת-ב (root: write) appears in both, just wrapped in a different binyan pattern to shift the meaning.",
+          "ex": "הספר נכתב",
+          "exTranslation": "ha-sefer nikhtav — the book was written",
+          "audioId": "unit12-ex2"
+        },
+        {
+          "h": "You don't need all 7 binyanim to start speaking",
+          "p": "This is genuinely a longer-term learning project — for now, just recognize that when a verb 'looks different but related' to one you know, it's likely the same root in a different binyan.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Binyanim are:",
+          "options": [
+            "verb patterns built from a shared root",
+            "types of nouns"
+          ],
+          "answer": "verb patterns built from a shared root",
+          "audioId": "unit12-q1"
+        },
+        {
+          "type": "mc",
+          "q": "כתב (katav) is:",
+          "options": ["active", "passive"],
+          "answer": "active",
+          "audioId": "unit12-q2"
+        },
+        {
+          "type": "fill",
+          "q": "הספר ___ (was written — passive form)",
+          "answer": "נכתב",
+          "audioId": "unit12-q3"
+        },
+        {
+          "type": "mc",
+          "q": "How many binyanim does Hebrew have?",
+          "options": ["7", "3"],
+          "answer": "7",
+          "audioId": "unit12-q4"
+        },
+        {
+          "type": "mc",
+          "q": "כתב and נכתב share:",
+          "options": ["the same 3-letter root", "no relationship"],
+          "answer": "the same 3-letter root",
+          "audioId": "unit12-q5"
+        }
+      ]
+    },
+    {
+      "id": "direct-indirect-speech",
+      "title": "Direct and Indirect Speech",
+      "icon": "💬",
+      "teaching": [
+        {
+          "h": "Direct speech — the exact words",
+          "p": "",
+          "ex": "היא אמרה: \"אני עייפה\"",
+          "exTranslation": "hi amrah: \"ani ayefah\" — She said: \"I am tired\"",
+          "audioId": "unit13-ex1"
+        },
+        {
+          "h": "Indirect speech with ש",
+          "p": "Same ש you saw in Lesson 11, now introducing reported speech instead of just any subordinate clause.",
+          "ex": "היא אמרה שהיא עייפה",
+          "exTranslation": "hi amrah she-hi ayefah — She said that she was tired",
+          "audioId": "unit13-ex2"
+        },
+        {
+          "h": "Tense mostly stays the same when reporting",
+          "p": "Similar to Russian and Mandarin, Hebrew doesn't require the elaborate tense-backshift that English does — the original tense usually just carries over.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "\"היא אמרה: 'אני עייפה'\" is:",
+          "options": ["direct speech", "indirect speech"],
+          "answer": "direct speech",
+          "audioId": "unit13-q1"
+        },
+        {
+          "type": "fill",
+          "q": "היא אמרה ___היא עייפה (that)",
+          "answer": "ש",
+          "audioId": "unit13-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Does Hebrew require extensive tense-backshift like English?",
+          "options": ["No", "Yes, always"],
+          "answer": "No",
+          "audioId": "unit13-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Indirect speech in Hebrew uses:",
+          "options": [
+            "ש + clause, no quotation marks",
+            "always quotation marks"
+          ],
+          "answer": "ש + clause, no quotation marks",
+          "audioId": "unit13-q4"
+        },
+        {
+          "type": "mc",
+          "q": "היא אמרה שהיא עייפה means:",
+          "options": ["She said that she was tired", "She is tired now"],
+          "answer": "She said that she was tired",
+          "audioId": "unit13-q5"
+        }
+      ]
+    },
+    {
+      "id": "punctuation-writing",
+      "title": "Punctuation & Writing Conventions",
+      "icon": "✍️",
+      "teaching": [
+        {
+          "h": "No capital letters, same as Mandarin/Arabic",
+          "p": "Hebrew has one letter form throughout, so none of the capitalization rules from European languages apply here.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
+        },
+        {
+          "h": "Punctuation marks generally match English usage",
+          "p": "Periods, commas, question marks work basically the same way as in English — the visual direction just flips because the text itself flows right to left.",
+          "ex": "מה שלומך?",
+          "exTranslation": "mah shlomkha? — How are you?",
+          "audioId": "unit14-ex1"
+        },
+        {
+          "h": "Numbers are written left to right, even inside RTL text",
+          "p": "This creates a genuinely interesting visual effect: within a right-to-left sentence, any numerals still read in their normal left-to-right order.",
+          "ex": "יש לי 25 ספרים",
+          "exTranslation": "yesh li 25 sfarim — I have 25 books",
+          "audioId": "unit14-ex2"
+        },
+        {
+          "h": "Nikkud (vowel points) appear mainly in children's books, poetry, and prayer texts",
+          "p": "Outside of learning materials, expect to encounter unvocalized Hebrew almost everywhere — this course shows nikkud specifically to help you learn, but real fluency means getting comfortable reading without it.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": ""
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Does Hebrew have capital letters?",
+          "options": ["No", "Yes"],
+          "answer": "No",
+          "audioId": "unit14-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Numbers within Hebrew text are written:",
+          "options": ["left to right", "right to left"],
+          "answer": "left to right",
+          "audioId": "unit14-q2"
+        },
+        {
+          "type": "mc",
+          "q": "Nikkud (vowel marks) in everyday adult writing are:",
+          "options": ["rarely used", "always required"],
+          "answer": "rarely used",
+          "audioId": "unit14-q3"
+        },
+        {
+          "type": "mc",
+          "q": "מה שלומך? means:",
+          "options": ["How are you?", "What is your name?"],
+          "answer": "How are you?",
+          "audioId": "unit14-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Basic punctuation marks (periods, question marks) in Hebrew:",
+          "options": ["work similarly to English", "don't exist"],
+          "answer": "work similarly to English",
+          "audioId": "unit14-q5"
+        }
+      ]
+    },
+    {
+      "id": "advanced-grammar-topics",
+      "title": "Advanced Grammar Topics",
+      "icon": "🎓",
+      "teaching": [
+        {
+          "h": "Prepositions with attached pronoun suffixes",
+          "p": "Instead of a separate word for 'to me/to you/to him', Hebrew often attaches a pronoun SUFFIX directly onto the preposition — a compact structure with no real English equivalent.",
+          "ex": "לי, לך, לו",
+          "exTranslation": "li (to me), lekha (to you, m), lo (to him)",
+          "audioId": "unit15-ex1"
+        },
+        {
+          "h": "The infinitive form (שם הפועל)",
+          "p": "Formed with a ל- prefix on the root, similar in function to English 'to + verb'.",
+          "ex": "לכתוב",
+          "exTranslation": "likhtov — to write",
+          "audioId": "unit15-ex2"
+        },
+        {
+          "h": "Construct chains can go three nouns deep",
+          "p": "The smichut structure from Lesson 8 can extend further — 'the door of the house of the teacher' style chains, though this gets genuinely complex and is more of an awareness point than something to actively produce yet.",
+          "ex": "דלת בית הספר",
+          "exTranslation": "delet beit ha-sefer — the door of the school",
+          "audioId": "unit15-ex3"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "fill",
+          "q": "___ (to me — preposition + suffix)",
+          "answer": "לי",
+          "audioId": "unit15-q1"
+        },
+        {
+          "type": "mc",
+          "q": "The infinitive prefix in Hebrew is:",
+          "options": ["ל", "ה"],
+          "answer": "ל",
+          "audioId": "unit15-q2"
+        },
+        {
+          "type": "fill",
+          "q": "___כתוב (to write — infinitive prefix)",
+          "answer": "ל",
+          "audioId": "unit15-q3"
+        },
+        {
+          "type": "mc",
+          "q": "לו means:",
+          "options": ["to him", "to me"],
+          "answer": "to him",
+          "audioId": "unit15-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Construct chains (smichut) can extend to:",
+          "options": ["more than two nouns", "only ever two nouns"],
+          "answer": "more than two nouns",
+          "audioId": "unit15-q5"
+        }
+      ]
+    },
+    {
+      "id": "transitional-devices",
+      "title": "Transitional Devices",
+      "icon": "🔗",
+      "teaching": [
+        {
+          "h": "Words that connect ideas smoothly",
+          "p": "Same core function as in every other language in this course — signaling how one idea relates to the next.",
+          "ex": "אבל, לכן, בנוסף, לדוגמה",
+          "exTranslation": "but, therefore, in addition, for example",
+          "audioId": "unit16-ex1"
+        },
+        {
+          "h": "אבל — everyday contrast",
+          "p": "The most common, casual way to say 'but'.",
+          "ex": "היא הייתה עייפה, אבל היא המשיכה לעבוד",
+          "exTranslation": "hi haytah ayefah, aval hi himshikhah la'avod — She was tired, but she kept working",
+          "audioId": "unit16-ex2"
+        },
+        {
+          "h": "לכן — cause and result",
+          "p": "",
+          "ex": "ירד גשם חזק, לכן ביטלו את המשחק",
+          "exTranslation": "yarad geshem chazak, lakhen bitlu et ha-mischak — It rained heavily, therefore they cancelled the game",
+          "audioId": "unit16-ex3"
+        },
+        {
+          "h": "בנוסף — adding a point",
+          "p": "",
+          "ex": "היא חכמה. בנוסף, היא חרוצה מאוד",
+          "exTranslation": "hi chakhamah. be-nosaf, hi charutzah me'od — She's smart. In addition, she's very hardworking",
+          "audioId": "unit16-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which word means \"but\"?",
+          "options": ["אבל", "לכן", "בנוסף"],
+          "answer": "אבל",
+          "audioId": "unit16-q1"
+        },
+        {
+          "type": "fill",
+          "q": "ירד גשם חזק, ___ ביטלו את המשחק (therefore)",
+          "answer": "לכן",
+          "audioId": "unit16-q2"
+        },
+        {
+          "type": "mc",
+          "q": "בנוסף is used to:",
+          "options": ["add another related idea", "show contrast"],
+          "answer": "add another related idea",
+          "audioId": "unit16-q3"
+        },
+        {
+          "type": "mc",
+          "q": "לדוגמה means:",
+          "options": ["for example", "as a result"],
+          "answer": "for example",
+          "audioId": "unit16-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Transitional devices mainly help with:",
+          "options": [
+            "connecting ideas smoothly",
+            "changing the subject entirely"
+          ],
+          "answer": "connecting ideas smoothly",
+          "audioId": "unit16-q5"
+        }
+      ]
+    }
+  ]
+}

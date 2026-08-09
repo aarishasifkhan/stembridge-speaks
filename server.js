@@ -53,6 +53,7 @@ const languages = {
   mandarin: { name: "Mandarin Chinese", ttsLang: "zh-CN" },
   russian: { name: "Russian", ttsLang: "ru-RU" },
   arabic: { name: "Arabic", ttsLang: "ar-SA" },
+  hebrew: { name: "Hebrew", ttsLang: "he-IL" },
 };
 
 const levelGuidance = {
@@ -71,6 +72,7 @@ const edgeVoices = {
   mandarin: "zh-CN-XiaoxiaoNeural",
   russian: "ru-RU-SvetlanaNeural",
   arabic: "ar-SA-ZariyahNeural",
+  hebrew: "he-IL-HilaNeural",
 };
 
 const rateByLevel = {

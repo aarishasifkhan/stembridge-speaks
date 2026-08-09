@@ -892,6 +892,7 @@
         spanish: { name: "Spanish", flag: "🇪🇸", available: true, units: [] },
         mandarin: { name: "Mandarin", flag: "🇨🇳", available: true, units: [] },
         russian: { name: "Russian", flag: "🇷🇺", available: true, units: [] },
+        hebrew: { name: "Hebrew", flag: "🇮🇱", available: true, units: [] },
       };
       const langCodes = {
         german: "de",
@@ -899,6 +900,7 @@
         spanish: "es",
         mandarin: "zh",
         russian: "ru",
+        hebrew: "he",
       };
       const FOUNDATIONS_COUNT = 5;
 
@@ -1010,6 +1012,7 @@
         const container = document.getElementById("lessonChunks");
         container.innerHTML = "";
         const lang = langCodes[currentLang];
+        container.setAttribute("dir", currentLang === "hebrew" ? "rtl" : "ltr");
 
         unit.teaching.forEach((chunk, i) => {
           const div = document.createElement("div");
