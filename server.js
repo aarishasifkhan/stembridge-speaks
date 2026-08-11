@@ -411,6 +411,53 @@ app.post("/chat-audio", async (req, res) => {
   }
 });
 
+app.post("/chat/start", async (req, res) => {
+  try {
+    const { chatId, clientId, scenario, language, level } = req.body;
+    const chat = await chatsCollection.findOne({
+      _id: new ObjectId(chatId),
+      clientId,
+    });
+    if (!chat) return res.status(404).json({ error: "Chat not found." });
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-flash-latest",
+      systemInstruction: buildSystemInstruction(
+        scenario,
+        language,
+        "text",
+        level,
+      ),
+    });
+
+    const result = await model.generateContent(
+      "Start the conversation naturally, in character, with a short opening line or question — as if the user just walked up to you. Do not wait for the user to speak first.",
+    );
+    const text = result.response.text();
+
+    const newMessages = [...chat.messages, { role: "model", text }];
+    await chatsCollection.updateOne(
+      { _id: chat._id },
+      {
+        $set: {
+          messages: newMessages,
+          updatedAt: new Date(),
+          language,
+          scenario,
+          level,
+        },
+      },
+    );
+
+    res.json({ reply: text });
+  } catch (err) {
+    console.error(err);
+    res
+      .status(500)
+      .json({ error: "Something went wrong starting the conversation." });
+  }
+});
+
 app.post("/tts", async (req, res) => {
   try {
     const { text, level, language } = req.body;

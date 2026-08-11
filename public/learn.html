@@ -95,6 +95,70 @@
         font-weight: 600;
         color: var(--forest-dark);
       }
+
+      .preview-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 48, 31, 0.55);
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .preview-overlay.hidden {
+        display: none;
+      }
+      .preview-card {
+        background: var(--cream);
+        border-radius: 16px;
+        padding: 32px;
+        max-width: 420px;
+        width: 100%;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+      .preview-close {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        background: none;
+        border: none;
+        font-size: 22px;
+        color: var(--forest-dark);
+        cursor: pointer;
+      }
+      .preview-icon {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+      .preview-card h2 {
+        font-size: 20px;
+        margin: 0 0 8px;
+      }
+      .preview-difficulty {
+        display: inline-block;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        background: var(--sage);
+        color: var(--forest-dark);
+        padding: 4px 10px;
+        border-radius: 20px;
+        margin-bottom: 16px;
+      }
+      .preview-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--forest-dark);
+        margin: 8px 0 6px;
+      }
+      .preview-list {
+        margin: 0;
+        padding-left: 20px;
+        font-size: 13.5px;
+        color: #3a3f42;
+        line-height: 1.6;
+      }
       .mono {
         font-family: "IBM Plex Mono", monospace;
       }
@@ -848,7 +912,9 @@
     <footer>
       © 2026 STEMBridge Speaks
       <div style="margin-top: 6px">
-        STEMBridgeLearning · STEMBridgeStats · STEMBridgeTools
+        <a href="https://stembridgelearning.blogspot.com">STEMBridgeLearning</a>
+        · <a href="https://stembridgestats.netlify.app">STEMBridgeStats</a> ·
+        <a href="https://stembridgetools.netlify.app">STEMBridgeTools</a>
       </div>
       <div style="margin-top: 12px">
         <a
@@ -1171,6 +1237,34 @@
         });
       }
 
+      function showLessonPreview(unit, globalIndex) {
+        document.getElementById("previewIcon").textContent = unit.icon;
+        document.getElementById("previewTitle").textContent = unit.title;
+        document.getElementById("previewDifficulty").textContent =
+          globalIndex < FOUNDATIONS_COUNT
+            ? "Foundations · Beginner"
+            : "Advanced Grammar";
+
+        const list = document.getElementById("previewList");
+        list.innerHTML = "";
+        unit.teaching.forEach((chunk) => {
+          const li = document.createElement("li");
+          li.textContent = chunk.h;
+          list.appendChild(li);
+        });
+
+        document
+          .getElementById("lessonPreviewOverlay")
+          .classList.remove("hidden");
+
+        document.getElementById("previewStartBtn").onclick = () => {
+          document
+            .getElementById("lessonPreviewOverlay")
+            .classList.add("hidden");
+          openUnit(unit.id);
+        };
+      }
+
       function renderPath() {
         const container = document.getElementById("pathContainer");
         container.innerHTML = "";
@@ -1234,7 +1328,9 @@
               "node" + (locked ? " locked" : "") + (done ? " done" : "");
             node.innerHTML = `<span class="n-num">${globalIndex + 1}</span><span class="n-icon">${done ? "✓" : locked ? "🔒" : unit.icon}</span>`;
             if (!locked)
-              node.addEventListener("click", () => openUnit(unit.id));
+              node.addEventListener("click", () =>
+                showLessonPreview(unit, globalIndex),
+              );
 
             const label = document.createElement("div");
             label.className = "n-label";
@@ -1317,6 +1413,34 @@
       revealEls.forEach((el) => revealObserver.observe(el));
 
       loadAllForGrid();
+    </script>
+
+    <div id="lessonPreviewOverlay" class="preview-overlay hidden">
+      <div class="preview-card">
+        <button class="preview-close" id="previewCloseBtn">×</button>
+        <div class="preview-icon" id="previewIcon"></div>
+        <h2 id="previewTitle"></h2>
+        <span class="preview-difficulty" id="previewDifficulty"></span>
+        <p class="preview-label">What you'll learn:</p>
+        <ul class="preview-list" id="previewList"></ul>
+        <button
+          class="btn btn-gold"
+          id="previewStartBtn"
+          style="width: 100%; margin-top: 16px"
+        >
+          Start Lesson →
+        </button>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("previewCloseBtn")
+        .addEventListener("click", () => {
+          document
+            .getElementById("lessonPreviewOverlay")
+            .classList.add("hidden");
+        });
     </script>
   </body>
 </html>

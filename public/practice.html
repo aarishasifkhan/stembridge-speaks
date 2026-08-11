@@ -868,13 +868,17 @@
         if (chat.messages.length === 0) {
           showEmptyChat();
         } else {
-          for (let i = 0; i < chat.messages.length; i += 2) {
-            const userMsg = chat.messages[i];
-            const modelMsg = chat.messages[i + 1];
-            if (userMsg) addUserMessage(userMsg.text, true);
-            if (modelMsg)
-              addTutorMessage(modelMsg.text, userMsg ? userMsg.text : "", true);
-          }
+          let lastUserText = "";
+          let sawUser = false;
+          chat.messages.forEach((msg) => {
+            if (msg.role === "user") {
+              addUserMessage(msg.text, true);
+              lastUserText = msg.text;
+              sawUser = true;
+            } else {
+              addTutorMessage(msg.text, lastUserText, true, !sawUser);
+            }
+          });
         }
         loadChatList();
         if (window.innerWidth <= 768) sidebar.classList.remove("open");
@@ -900,6 +904,34 @@
         micBtn.disabled = false;
         loadChatList();
         if (window.innerWidth <= 768) sidebar.classList.remove("open");
+        await startConversationOpener();
+      }
+
+      async function startConversationOpener() {
+        removeEmptyState();
+        addSystemMessage("Getting started...");
+        try {
+          const res = await fetch("/chat/start", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chatId: currentChatId,
+              clientId,
+              scenario: scenarioSelect.value,
+              language: languageSelect.value,
+              level: levelSelect.value,
+            }),
+          });
+          const data = await res.json();
+          chatInner.lastChild.remove();
+          addTutorMessage(data.reply, "", false, true);
+          loadChatList();
+        } catch (err) {
+          chatInner.lastChild.remove();
+          addSystemMessage(
+            "Couldn't start automatically — just type or tap the mic to begin.",
+          );
+        }
       }
 
       document
@@ -944,7 +976,12 @@
         scrollToBottom();
       }
 
-      function addTutorMessage(fullText, userMsgForFeedback, isReplay) {
+      function addTutorMessage(
+        fullText,
+        userMsgForFeedback,
+        isReplay,
+        isOpener,
+      ) {
         removeEmptyState();
         const isRTL = rtlLanguages.includes(languageSelect.value);
         const [beforeCorrection, correction] =
@@ -1020,6 +1057,9 @@
           speak(mainSpan.textContent, readBtn),
         );
 
+        if (isOpener) {
+          fbRow.querySelector(".fb-retry").style.display = "none";
+        }
         fbRow.querySelector(".fb-retry").addEventListener("click", async () => {
           const retryBtn = fbRow.querySelector(".fb-retry");
           retryBtn.classList.add("loading");
