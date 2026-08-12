@@ -636,6 +636,7 @@
         }
       }
     </style>
+    <script src="/js/auth.js"></script>
   </head>
   <body>
     <h1 class="sr-only">
@@ -685,6 +686,7 @@
           </select>
           <button class="icon-btn" id="speakTestBtn">🔊 Intro</button>
           <button class="icon-btn" id="shareBtn">🔗 Share</button>
+          <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
         </div>
       </header>
 
@@ -721,6 +723,11 @@
     </div>
 
     <script>
+      let currentUser = null;
+      (async () => {
+        currentUser = await requireAuth();
+        if (!currentUser) return;
+      })();
       let exchangeCount = 0;
       const MAX_EXCHANGES = 15;
       let mediaRecorder;
@@ -1289,6 +1296,10 @@
       });
 
       loadChatList();
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        if (confirm("Log out?")) logout();
+      });
     </script>
   </body>
 </html>

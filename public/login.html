@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <meta name="robots" content="noindex, follow" />
+    <title>Log In or Sign Up — STEMBridge Speaks</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --gold: #e8a33d;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--cream);
+        font-family: "Work Sans", sans-serif;
+        color: var(--ink);
+        padding: 20px;
+      }
+      .card {
+        background: white;
+        border-radius: 16px;
+        padding: 40px;
+        max-width: 400px;
+        width: 100%;
+        box-shadow: 0 20px 50px rgba(18, 48, 31, 0.12);
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 22px;
+        color: var(--forest);
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      h1 {
+        font-family: "Fraunces", serif;
+        font-size: 22px;
+        text-align: center;
+        margin: 0 0 6px;
+        color: var(--forest-dark);
+      }
+      .subtitle {
+        text-align: center;
+        font-size: 13.5px;
+        color: #6b7062;
+        margin-bottom: 24px;
+      }
+      .tabs {
+        display: flex;
+        background: var(--sage);
+        border-radius: 8px;
+        padding: 4px;
+        margin-bottom: 24px;
+      }
+      .tab {
+        flex: 1;
+        text-align: center;
+        padding: 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--forest-dark);
+      }
+      .tab.active {
+        background: var(--forest);
+        color: var(--cream);
+      }
+      label {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--forest-dark);
+        display: block;
+        margin-bottom: 4px;
+      }
+      input {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1.5px solid rgba(27, 67, 50, 0.2);
+        font-size: 14px;
+        margin-bottom: 14px;
+        font-family: "Work Sans", sans-serif;
+      }
+      input:focus {
+        outline: none;
+        border-color: var(--forest);
+      }
+      button.submit {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        background: var(--gold);
+        color: var(--forest-dark);
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        margin-top: 6px;
+      }
+      button.submit:hover {
+        background: #d6922e;
+      }
+      button.submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      #errorMsg {
+        color: var(--brick);
+        font-size: 13px;
+        margin-bottom: 12px;
+        display: none;
+      }
+      .form {
+        display: none;
+      }
+      .form.active {
+        display: block;
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 18px;
+        font-size: 12.5px;
+        color: #6b7062;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <a href="/" class="logo">STEMBridge Speaks</a>
+      <h1 id="pageTitle">Welcome back</h1>
+      <p class="subtitle" id="pageSubtitle">Log in to continue practicing.</p>
+
+      <div class="tabs">
+        <div class="tab active" id="loginTab">Log In</div>
+        <div class="tab" id="signupTab">Sign Up</div>
+      </div>
+
+      <p id="errorMsg"></p>
+
+      <div class="form active" id="loginForm">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" />
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" />
+        <button class="submit" id="loginBtn">Log In</button>
+      </div>
+
+      <div class="form" id="signupForm">
+        <label for="signupName">Name</label>
+        <input type="text" id="signupName" placeholder="Your name" />
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" placeholder="you@example.com" />
+        <label for="signupPassword">Password</label>
+        <input
+          type="password"
+          id="signupPassword"
+          placeholder="At least 8 characters"
+        />
+        <button class="submit" id="signupBtn">Create Account</button>
+      </div>
+
+      <a href="/" class="back-link">← Back to home</a>
+    </div>
+
+    <script src="/js/auth.js"></script>
+    <script>
+      const loginTab = document.getElementById("loginTab");
+      const signupTab = document.getElementById("signupTab");
+      const loginForm = document.getElementById("loginForm");
+      const signupForm = document.getElementById("signupForm");
+      const errorMsg = document.getElementById("errorMsg");
+      const pageTitle = document.getElementById("pageTitle");
+      const pageSubtitle = document.getElementById("pageSubtitle");
+
+      function showError(msg) {
+        errorMsg.textContent = msg;
+        errorMsg.style.display = "block";
+      }
+      function clearError() {
+        errorMsg.style.display = "none";
+      }
+
+      loginTab.addEventListener("click", () => {
+        loginTab.classList.add("active");
+        signupTab.classList.remove("active");
+        loginForm.classList.add("active");
+        signupForm.classList.remove("active");
+        pageTitle.textContent = "Welcome back";
+        pageSubtitle.textContent = "Log in to continue practicing.";
+        clearError();
+      });
+      signupTab.addEventListener("click", () => {
+        signupTab.classList.add("active");
+        loginTab.classList.remove("active");
+        signupForm.classList.add("active");
+        loginForm.classList.remove("active");
+        pageTitle.textContent = "Create your account";
+        pageSubtitle.textContent = "Free, forever — no card required.";
+        clearError();
+      });
+
+      function getRedirectTarget() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("redirect") || "/practice.html";
+      }
+
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", async () => {
+          clearError();
+          const email = document.getElementById("loginEmail").value.trim();
+          const password = document.getElementById("loginPassword").value;
+          if (!email || !password)
+            return showError("Please fill in both fields.");
+
+          const btn = document.getElementById("loginBtn");
+          btn.disabled = true;
+          btn.textContent = "Logging in...";
+          try {
+            const res = await fetch("/api/auth/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, password }),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+              showError(data.error || "Could not log in.");
+              btn.disabled = false;
+              btn.textContent = "Log In";
+              return;
+            }
+            saveAuth(data.token, data.user);
+            window.location.href = getRedirectTarget();
+          } catch (err) {
+            showError("Could not reach the server. Try again.");
+            btn.disabled = false;
+            btn.textContent = "Log In";
+          }
+        });
+
+      document
+        .getElementById("signupBtn")
+        .addEventListener("click", async () => {
+          clearError();
+          const name = document.getElementById("signupName").value.trim();
+          const email = document.getElementById("signupEmail").value.trim();
+          const password = document.getElementById("signupPassword").value;
+          if (!name || !email || !password)
+            return showError("Please fill in all fields.");
+          if (password.length < 8)
+            return showError("Password must be at least 8 characters.");
+
+          const btn = document.getElementById("signupBtn");
+          btn.disabled = true;
+          btn.textContent = "Creating account...";
+          try {
+            const res = await fetch("/api/auth/register", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ name, email, password }),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+              showError(data.error || "Could not create account.");
+              btn.disabled = false;
+              btn.textContent = "Create Account";
+              return;
+            }
+            saveAuth(data.token, data.user);
+            window.location.href = getRedirectTarget();
+          } catch (err) {
+            showError("Could not reach the server. Try again.");
+            btn.disabled = false;
+            btn.textContent = "Create Account";
+          }
+        });
+
+      // If already logged in, skip straight past this page
+      if (getToken()) {
+        requireAuth().then((user) => {
+          if (user) window.location.href = getRedirectTarget();
+        });
+      }
+    </script>
+  </body>
+</html>

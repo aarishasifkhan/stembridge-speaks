@@ -429,6 +429,8 @@
         }
       }
     </style>
+
+    <script src="/js/auth.js"></script>
   </head>
   <body>
     <header>
@@ -438,6 +440,7 @@
         <a href="/learn.html">Learn Grammar</a>
         <a href="/about.html">About</a>
         <a href="/practice.html" class="btn">Practice free</a>
+        <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
       </nav>
     </header>
 
@@ -539,6 +542,11 @@
     </footer>
 
     <script>
+      let currentUser = null;
+      (async () => {
+        currentUser = await requireAuth();
+        if (!currentUser) return;
+      })();
       const wordInput = document.getElementById("wordInput");
       const langSelect = document.getElementById("langSelect");
       const searchBtn = document.getElementById("searchBtn");
@@ -715,6 +723,10 @@
         { threshold: 0.15 },
       );
       revealEls.forEach((el) => observer.observe(el));
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        if (confirm("Log out?")) logout();
+      });
     </script>
   </body>
 </html>

@@ -828,6 +828,7 @@
         }
       }
     </style>
+    <script src="/js/auth.js"></script>
   </head>
   <body>
     <header>
@@ -837,6 +838,7 @@
         <a href="/dictionary.html">Dictionary</a>
         <a href="/about.html">About</a>
         <a href="/practice.html" class="btn">Practice free</a>
+        <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
       </nav>
     </header>
 
@@ -944,6 +946,11 @@
     </footer>
 
     <script>
+      let currentUser = null;
+      (async () => {
+        currentUser = await requireAuth();
+        if (!currentUser) return;
+      })();
       function playAudio(audioId, lang) {
         if (!audioId) return;
         const audio = new Audio(`/audio/${lang}/${audioId}.mp3`);
@@ -1078,7 +1085,7 @@
         const container = document.getElementById("lessonChunks");
         container.innerHTML = "";
         const lang = langCodes[currentLang];
-        container.setAttribute("dir", currentLang === "hebrew" ? "rtl" : "ltr");
+        const exDir = currentLang === "hebrew" ? "rtl" : "ltr";
 
         unit.teaching.forEach((chunk, i) => {
           const div = document.createElement("div");
@@ -1089,8 +1096,8 @@
             (chunk.ex
               ? `<div class="example">
        <div>
-         <div class="ex-original">${chunk.ex}</div>
-         ${chunk.exTranslation ? `<div class="ex-translation-line">${chunk.exTranslation}</div>` : ""}
+         <div class="ex-original" dir="${exDir}">${chunk.ex}</div>
+         ${chunk.exTranslation ? `<div class="ex-translation-line" dir="ltr">${chunk.exTranslation}</div>` : ""}
        </div>
        <button class="speak-btn" data-audio="${chunk.audioId}">🔊</button>
      </div>`
@@ -1413,6 +1420,10 @@
       revealEls.forEach((el) => revealObserver.observe(el));
 
       loadAllForGrid();
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        if (confirm("Log out?")) logout();
+      });
     </script>
 
     <div id="lessonPreviewOverlay" class="preview-overlay hidden">

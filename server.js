@@ -8,6 +8,8 @@ const os = require("os");
 const path = require("path");
 const { MsEdgeTTS, OUTPUT_FORMAT } = require("msedge-tts");
 const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 function generateId() {
   return crypto.randomBytes(12).toString("hex");
@@ -16,12 +18,14 @@ function generateId() {
 const mongoClient = new MongoClient(process.env.MONGODB_URI);
 let feedbackCollection;
 let chatsCollection;
+let usersCollection;
 
 async function connectDB() {
   try {
     await mongoClient.connect();
     feedbackCollection = mongoClient.db("stembridge").collection("feedback");
     chatsCollection = mongoClient.db("stembridge").collection("chats");
+    usersCollection = mongoClient.db("stembridge").collection("users");
     console.log("Connected to MongoDB");
   } catch (err) {
     console.error("MongoDB connection failed:", err);
@@ -523,6 +527,121 @@ app.post("/api/dictionary", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
+
+// ---------- AUTHENTICATION ----------
+
+function generateToken(userId) {
+  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "30d" });
+}
+
+function requireAuth(req, res, next) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "Not logged in." });
+  }
+  try {
+    const token = authHeader.split(" ")[1];
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = payload.userId;
+    next();
+  } catch (err) {
+    return res
+      .status(401)
+      .json({ error: "Session expired. Please log in again." });
+  }
+}
+
+app.post("/api/auth/register", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      return res
+        .status(400)
+        .json({ error: "Name, email, and password are all required." });
+    }
+    if (password.length < 8) {
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 8 characters." });
+    }
+
+    const existing = await usersCollection.findOne({
+      email: email.toLowerCase(),
+    });
+    if (existing) {
+      return res
+        .status(409)
+        .json({ error: "An account with that email already exists." });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const user = {
+      name,
+      email: email.toLowerCase(),
+      passwordHash,
+      isPublic: false,
+      createdAt: new Date(),
+    };
+    const result = await usersCollection.insertOne(user);
+    const token = generateToken(result.insertedId);
+
+    res.json({
+      token,
+      user: { id: result.insertedId, name: user.name, email: user.email },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not create account." });
+  }
+});
+
+app.post("/api/auth/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ error: "Email and password are required." });
+    }
+
+    const user = await usersCollection.findOne({ email: email.toLowerCase() });
+    if (!user) {
+      return res.status(401).json({ error: "Incorrect email or password." });
+    }
+    const validPassword = await bcrypt.compare(password, user.passwordHash);
+    if (!validPassword) {
+      return res.status(401).json({ error: "Incorrect email or password." });
+    }
+
+    const token = generateToken(user._id);
+    res.json({
+      token,
+      user: { id: user._id, name: user.name, email: user.email },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not log in." });
+  }
+});
+
+app.get("/api/auth/me", requireAuth, async (req, res) => {
+  try {
+    const user = await usersCollection.findOne({
+      _id: new ObjectId(req.userId),
+    });
+    if (!user) return res.status(404).json({ error: "User not found." });
+    res.json({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      isPublic: user.isPublic,
+      createdAt: user.createdAt,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load account." });
+  }
+});
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
