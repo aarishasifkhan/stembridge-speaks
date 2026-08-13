@@ -637,6 +637,7 @@
       }
     </style>
     <script src="/js/auth.js"></script>
+    <script src="/js/read-aloud.js"></script>
   </head>
   <body>
     <h1 class="sr-only">
@@ -967,7 +968,7 @@
         removeEmptyState();
         const row = document.createElement("div");
         row.className = "msg-row tutor";
-        row.innerHTML = `<div class="bubble system">${text}</div>`;
+        row.innerHTML = `<div class="bubble system" data-lang="english">${text}</div>`;
         chatInner.appendChild(row);
         scrollToBottom();
       }
@@ -977,7 +978,7 @@
         const isRTL = rtlLanguages.includes(languageSelect.value);
         const row = document.createElement("div");
         row.className = "msg-row user";
-        row.innerHTML = `<div class="bubble user" dir="${isRTL ? "rtl" : "ltr"}"></div>`;
+        row.innerHTML = `<div class="bubble user" dir="${isRTL ? "rtl" : "ltr"}" data-lang="${languageSelect.value}"></div>`;
         row.querySelector(".bubble").textContent = text;
         chatInner.appendChild(row);
         scrollToBottom();
@@ -1000,6 +1001,7 @@
         const bubble = document.createElement("div");
         bubble.className = "bubble tutor";
         bubble.setAttribute("dir", isRTL ? "rtl" : "ltr");
+        bubble.setAttribute("data-lang", languageSelect.value);
 
         const mainSpan = document.createElement("div");
         mainSpan.textContent = main.trim();
@@ -1009,6 +1011,7 @@
           const transDiv = document.createElement("div");
           transDiv.className = "translation";
           transDiv.setAttribute("dir", "ltr");
+          transDiv.setAttribute("data-lang", "english");
           transDiv.textContent = "🌐 " + translation.trim();
           bubble.appendChild(transDiv);
         }
@@ -1016,6 +1019,7 @@
         if (correction && correction.trim()) {
           const corrDiv = document.createElement("div");
           corrDiv.className = "correction";
+          corrDiv.setAttribute("data-lang", "english");
           corrDiv.textContent = "Correction: " + correction.trim();
           bubble.appendChild(corrDiv);
         }
@@ -1095,6 +1099,7 @@
               const transDiv = document.createElement("div");
               transDiv.className = "translation";
               transDiv.setAttribute("dir", "ltr");
+              transDiv.setAttribute("data-lang", "english");
               transDiv.textContent = "🌐 " + newTranslation.trim();
               bubble.insertBefore(
                 transDiv,
@@ -1106,6 +1111,7 @@
             if (newCorrection && newCorrection.trim()) {
               const corrDiv = document.createElement("div");
               corrDiv.className = "correction";
+              corrDiv.setAttribute("data-lang", "english");
               corrDiv.textContent = "Correction: " + newCorrection.trim();
               bubble.insertBefore(corrDiv, fbRow);
             }

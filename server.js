@@ -19,6 +19,8 @@ const mongoClient = new MongoClient(process.env.MONGODB_URI);
 let feedbackCollection;
 let chatsCollection;
 let usersCollection;
+let progressCollection;
+let dictionaryHistoryCollection;
 
 async function connectDB() {
   try {
@@ -26,6 +28,10 @@ async function connectDB() {
     feedbackCollection = mongoClient.db("stembridge").collection("feedback");
     chatsCollection = mongoClient.db("stembridge").collection("chats");
     usersCollection = mongoClient.db("stembridge").collection("users");
+    progressCollection = mongoClient.db("stembridge").collection("progress");
+    dictionaryHistoryCollection = mongoClient
+      .db("stembridge")
+      .collection("dictionaryHistory");
     console.log("Connected to MongoDB");
   } catch (err) {
     console.error("MongoDB connection failed:", err);
@@ -189,11 +195,11 @@ app.get("/languages", (req, res) => {
 
 // ---------- CHAT MANAGEMENT ----------
 
-app.post("/api/chats", async (req, res) => {
+app.post("/api/chats", requireAuth, async (req, res) => {
   try {
-    const { clientId, language, scenario, level } = req.body;
+    const { language, scenario, level } = req.body;
     const chat = {
-      clientId,
+      userId: req.userId,
       title: "New chat",
       language: language || "german",
       scenario: scenario || "restaurant",
@@ -211,11 +217,10 @@ app.post("/api/chats", async (req, res) => {
   }
 });
 
-app.get("/api/chats", async (req, res) => {
+app.get("/api/chats", requireAuth, async (req, res) => {
   try {
-    const { clientId } = req.query;
     const chats = await chatsCollection
-      .find({ clientId })
+      .find({ userId: req.userId })
       .project({ title: 1, language: 1, scenario: 1, updatedAt: 1 })
       .sort({ updatedAt: -1 })
       .toArray();
@@ -226,12 +231,11 @@ app.get("/api/chats", async (req, res) => {
   }
 });
 
-app.get("/api/chats/:id", async (req, res) => {
+app.get("/api/chats/:id", requireAuth, async (req, res) => {
   try {
-    const { clientId } = req.query;
     const chat = await chatsCollection.findOne({
       _id: new ObjectId(req.params.id),
-      clientId,
+      userId: req.userId,
     });
     if (!chat) return res.status(404).json({ error: "Chat not found." });
     res.json(chat);
@@ -241,12 +245,11 @@ app.get("/api/chats/:id", async (req, res) => {
   }
 });
 
-app.delete("/api/chats/:id", async (req, res) => {
+app.delete("/api/chats/:id", requireAuth, async (req, res) => {
   try {
-    const { clientId } = req.query;
     await chatsCollection.deleteOne({
       _id: new ObjectId(req.params.id),
-      clientId,
+      userId: req.userId,
     });
     res.json({ status: "Chat deleted." });
   } catch (err) {
@@ -255,12 +258,11 @@ app.delete("/api/chats/:id", async (req, res) => {
   }
 });
 
-app.post("/api/chats/:id/share", async (req, res) => {
+app.post("/api/chats/:id/share", requireAuth, async (req, res) => {
   try {
-    const { clientId } = req.body;
     const chat = await chatsCollection.findOne({
       _id: new ObjectId(req.params.id),
-      clientId,
+      userId: req.userId,
     });
     if (!chat) return res.status(404).json({ error: "Chat not found." });
 
@@ -276,6 +278,7 @@ app.post("/api/chats/:id/share", async (req, res) => {
   }
 });
 
+// Public read-only view — intentionally NOT behind requireAuth, anyone with the link can view
 app.get("/api/shared/:shareId", async (req, res) => {
   try {
     const chat = await chatsCollection.findOne({ shareId: req.params.shareId });
@@ -289,13 +292,13 @@ app.get("/api/shared/:shareId", async (req, res) => {
 
 // ---------- CONVERSATION (now chat-scoped, not global) ----------
 
-app.post("/chat", async (req, res) => {
+app.post("/chat", requireAuth, async (req, res) => {
   try {
-    const { chatId, clientId, message, scenario, language, level } = req.body;
+    const { chatId, message, scenario, language, level } = req.body;
 
     const chat = await chatsCollection.findOne({
       _id: new ObjectId(chatId),
-      clientId,
+      userId: req.userId,
     });
     if (!chat) return res.status(404).json({ error: "Chat not found." });
 
@@ -349,13 +352,13 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-app.post("/chat-audio", async (req, res) => {
+app.post("/chat-audio", requireAuth, async (req, res) => {
   try {
-    const { chatId, clientId, audio, scenario, language, level } = req.body;
+    const { chatId, audio, scenario, language, level } = req.body;
 
     const chat = await chatsCollection.findOne({
       _id: new ObjectId(chatId),
-      clientId,
+      userId: req.userId,
     });
     if (!chat) return res.status(404).json({ error: "Chat not found." });
 
@@ -415,12 +418,12 @@ app.post("/chat-audio", async (req, res) => {
   }
 });
 
-app.post("/chat/start", async (req, res) => {
+app.post("/chat/start", requireAuth, async (req, res) => {
   try {
-    const { chatId, clientId, scenario, language, level } = req.body;
+    const { chatId, scenario, language, level } = req.body;
     const chat = await chatsCollection.findOne({
       _id: new ObjectId(chatId),
-      clientId,
+      userId: req.userId,
     });
     if (!chat) return res.status(404).json({ error: "Chat not found." });
 
@@ -642,6 +645,151 @@ app.get("/api/auth/me", requireAuth, async (req, res) => {
     res.status(500).json({ error: "Could not load account." });
   }
 });
+
+// ---------- LEARN PROGRESS ----------
+
+app.get("/api/progress", requireAuth, async (req, res) => {
+  try {
+    const doc = await progressCollection.findOne({ userId: req.userId });
+    res.json(doc ? doc.data : {});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load progress." });
+  }
+});
+
+app.post("/api/progress", requireAuth, async (req, res) => {
+  try {
+    const { language, unitId } = req.body;
+    if (!language || !unitId)
+      return res
+        .status(400)
+        .json({ error: "language and unitId are required." });
+
+    await progressCollection.updateOne(
+      { userId: req.userId },
+      { $set: { [`data.${language}.${unitId}`]: true, updatedAt: new Date() } },
+      { upsert: true },
+    );
+    res.json({ status: "Progress saved." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not save progress." });
+  }
+});
+
+// ---------- DICTIONARY HISTORY ----------
+
+app.get("/api/dictionary-history", requireAuth, async (req, res) => {
+  try {
+    const doc = await dictionaryHistoryCollection.findOne({
+      userId: req.userId,
+    });
+    res.json(doc ? doc.recent : []);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load history." });
+  }
+});
+
+app.post("/api/dictionary-history", requireAuth, async (req, res) => {
+  try {
+    const { word, lang } = req.body;
+    if (!word || !lang)
+      return res.status(400).json({ error: "word and lang are required." });
+
+    const doc = await dictionaryHistoryCollection.findOne({
+      userId: req.userId,
+    });
+    let recent = doc ? doc.recent : [];
+    recent = recent.filter((r) => !(r.word === word && r.lang === lang));
+    recent.unshift({ word, lang, timestamp: new Date() });
+    recent = recent.slice(0, 15);
+
+    await dictionaryHistoryCollection.updateOne(
+      { userId: req.userId },
+      { $set: { recent, updatedAt: new Date() } },
+      { upsert: true },
+    );
+    res.json({ status: "Saved.", recent });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not save history." });
+  }
+});
+
+app.delete("/api/dictionary-history", requireAuth, async (req, res) => {
+  try {
+    await dictionaryHistoryCollection.updateOne(
+      { userId: req.userId },
+      { $set: { recent: [], updatedAt: new Date() } },
+      { upsert: true },
+    );
+    res.json({ status: "Cleared." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not clear history." });
+  }
+});
+
+// ---------- ONE-TIME MIGRATION FROM LOCALSTORAGE-ERA DATA ----------
+
+app.post("/api/migrate", requireAuth, async (req, res) => {
+  try {
+    const { clientId, learnProgress, recentWords } = req.body;
+    let migratedChats = 0;
+
+    if (clientId) {
+      const result = await chatsCollection.updateMany(
+        { clientId, userId: { $exists: false } },
+        { $set: { userId: req.userId } },
+      );
+      migratedChats = result.modifiedCount;
+    }
+
+    if (learnProgress && typeof learnProgress === "object") {
+      const existing = await progressCollection.findOne({ userId: req.userId });
+      const merged = existing ? { ...existing.data } : {};
+      for (const lang in learnProgress) {
+        merged[lang] = { ...(merged[lang] || {}), ...learnProgress[lang] };
+      }
+      await progressCollection.updateOne(
+        { userId: req.userId },
+        { $set: { data: merged, updatedAt: new Date() } },
+        { upsert: true },
+      );
+    }
+
+    if (Array.isArray(recentWords) && recentWords.length > 0) {
+      const existing = await dictionaryHistoryCollection.findOne({
+        userId: req.userId,
+      });
+      let recent = existing ? existing.recent : [];
+      recentWords.forEach((r) => {
+        if (
+          !recent.some(
+            (existingR) =>
+              existingR.word === r.word && existingR.lang === r.lang,
+          )
+        ) {
+          recent.push({ word: r.word, lang: r.lang, timestamp: new Date() });
+        }
+      });
+      recent = recent.slice(0, 15);
+      await dictionaryHistoryCollection.updateOne(
+        { userId: req.userId },
+        { $set: { recent, updatedAt: new Date() } },
+        { upsert: true },
+      );
+    }
+
+    res.json({ status: "Migration complete.", migratedChats });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Migration failed." });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

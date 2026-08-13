@@ -545,7 +545,7 @@
         color: #3a3f32;
       }
       .lesson-chunk .example {
-        margin-top: 10px;
+        margin: 10px auto 0;
         font-family: "IBM Plex Mono", monospace;
         font-size: 13px;
         background: var(--cream);
@@ -553,12 +553,21 @@
         border-radius: 8px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 10px;
+        justify-content: flex-start;
+        gap: 14px;
+        width: fit-content;
+        max-width: 100%;
       }
 
       .example .ex-original {
         font-weight: 500;
+      }
+      /* Hebrew (and any other RTL) example text: bigger, so the script is
+         actually legible, not the tiny 13px mono size meant for Latin text */
+      .example .ex-original[dir="rtl"] {
+        font-size: 21px;
+        line-height: 1.6;
+        text-align: left;
       }
       .ex-translation-line {
         font-size: 12px;
@@ -572,20 +581,20 @@
         color: var(--cream);
         border: none;
         border-radius: 50%;
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
         flex-shrink: 0;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 19px;
         transition: transform 0.15s ease;
       }
       .speak-btn:hover {
         transform: scale(1.1);
       }
       .speak-btn.small {
-        width: 26px;
-        height: 26px;
-        font-size: 12px;
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
         background: transparent;
         color: var(--forest-dark);
       }
@@ -803,6 +812,17 @@
         }
         .speak-btn {
           align-self: flex-end;
+          width: 36px;
+          height: 36px;
+          font-size: 17px;
+        }
+        .speak-btn.small {
+          width: 30px;
+          height: 30px;
+          font-size: 15px;
+        }
+        .example .ex-original[dir="rtl"] {
+          font-size: 19px;
         }
         .q-block {
           padding: 16px;
@@ -829,6 +849,7 @@
       }
     </style>
     <script src="/js/auth.js"></script>
+    <script src="/js/read-aloud.js"></script>
   </head>
   <body>
     <header>
