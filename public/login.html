@@ -225,6 +225,46 @@
         clearError();
       });
 
+      async function runMigrationIfNeeded(token) {
+        try {
+          const clientId = localStorage.getItem("stembridge_client_id");
+          let learnProgress = null;
+          try {
+            learnProgress = JSON.parse(
+              localStorage.getItem("stembridge_learn_progress"),
+            );
+          } catch {}
+          let recentWords = null;
+          try {
+            recentWords = JSON.parse(
+              localStorage.getItem("stembridge_recent_words"),
+            );
+          } catch {}
+
+          if (
+            !clientId &&
+            !learnProgress &&
+            (!recentWords || recentWords.length === 0)
+          )
+            return;
+
+          await fetch("/api/migrate", {
+            method: "POST",
+            headers: {
+              Authorization: "Bearer " + token,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ clientId, learnProgress, recentWords }),
+          });
+
+          localStorage.removeItem("stembridge_client_id");
+          localStorage.removeItem("stembridge_learn_progress");
+          localStorage.removeItem("stembridge_recent_words");
+        } catch (err) {
+          console.error("Migration failed (non-fatal):", err);
+        }
+      }
+
       function getRedirectTarget() {
         const params = new URLSearchParams(window.location.search);
         return params.get("redirect") || "/practice.html";
@@ -256,6 +296,7 @@
               return;
             }
             saveAuth(data.token, data.user);
+            await runMigrationIfNeeded(data.token);
             window.location.href = getRedirectTarget();
           } catch (err) {
             showError("Could not reach the server. Try again.");
@@ -293,6 +334,7 @@
               return;
             }
             saveAuth(data.token, data.user);
+            await runMigrationIfNeeded(data.token);
             window.location.href = getRedirectTarget();
           } catch (err) {
             showError("Could not reach the server. Try again.");

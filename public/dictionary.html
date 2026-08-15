@@ -441,6 +441,12 @@
         <a href="/learn.html">Learn Grammar</a>
         <a href="/about.html">About</a>
         <a href="/practice.html" class="btn">Practice free</a>
+        <a
+          href="/settings.html"
+          class="icon-btn"
+          style="text-decoration: none; display: inline-block"
+          >⚙️ Settings</a
+        >
         <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
       </nav>
     </header>
@@ -544,10 +550,6 @@
 
     <script>
       let currentUser = null;
-      (async () => {
-        currentUser = await requireAuth();
-        if (!currentUser) return;
-      })();
       const wordInput = document.getElementById("wordInput");
       const langSelect = document.getElementById("langSelect");
       const searchBtn = document.getElementById("searchBtn");
@@ -557,35 +559,45 @@
       const playBtn = document.getElementById("playBtn");
       let lastLookup = null;
 
-      function getRecent() {
+      let recentCache = [];
+
+      async function loadRecent() {
         try {
-          return (
-            JSON.parse(localStorage.getItem("stembridge_recent_words")) || []
-          );
-        } catch {
-          return [];
+          const res = await fetch("/api/dictionary-history", {
+            headers: authHeaders(),
+          });
+          if (res.ok) recentCache = await res.json();
+        } catch (err) {
+          console.error("Could not load history:", err);
         }
-      }
-      function saveRecent(word, lang) {
-        let recent = getRecent().filter(
-          (r) => !(r.word === word && r.lang === lang),
-        );
-        recent.unshift({ word, lang });
-        recent = recent.slice(0, 15);
-        localStorage.setItem("stembridge_recent_words", JSON.stringify(recent));
         renderRecent();
       }
+
+      async function saveRecent(word, lang) {
+        try {
+          const res = await fetch("/api/dictionary-history", {
+            method: "POST",
+            headers: { ...authHeaders(), "Content-Type": "application/json" },
+            body: JSON.stringify({ word, lang }),
+          });
+          const data = await res.json();
+          if (data.recent) recentCache = data.recent;
+        } catch (err) {
+          console.error("Could not save to history:", err);
+        }
+        renderRecent();
+      }
+
       function renderRecent() {
-        const recent = getRecent();
         const section = document.getElementById("recentSection");
         const list = document.getElementById("recentList");
-        if (recent.length === 0) {
+        if (recentCache.length === 0) {
           section.style.display = "none";
           return;
         }
         section.style.display = "block";
         list.innerHTML = "";
-        recent.forEach((r) => {
+        recentCache.forEach((r) => {
           const chip = document.createElement("button");
           chip.className = "recent-chip";
           chip.textContent = r.word;
@@ -705,11 +717,18 @@
 
       document
         .getElementById("clearRecentBtn")
-        .addEventListener("click", () => {
-          localStorage.removeItem("stembridge_recent_words");
+        .addEventListener("click", async () => {
+          try {
+            await fetch("/api/dictionary-history", {
+              method: "DELETE",
+              headers: authHeaders(),
+            });
+          } catch (err) {
+            console.error("Could not clear history:", err);
+          }
+          recentCache = [];
           renderRecent();
         });
-      renderRecent();
 
       const revealEls = document.querySelectorAll(".reveal");
       const observer = new IntersectionObserver(
@@ -728,6 +747,12 @@
       document.getElementById("logoutBtn").addEventListener("click", () => {
         if (confirm("Log out?")) logout();
       });
+
+      (async () => {
+        currentUser = await requireAuth();
+        if (!currentUser) return;
+        loadRecent();
+      })();
     </script>
   </body>
 </html>

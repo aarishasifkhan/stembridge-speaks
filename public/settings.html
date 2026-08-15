@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <meta name="robots" content="noindex, follow" />
+    <title>Settings — STEMBridge Speaks</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --gold: #e8a33d;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 6vw;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 19px;
+        color: var(--forest);
+        text-decoration: none;
+      }
+      .back {
+        color: var(--forest-dark);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      main {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 40px 6vw 80px;
+      }
+      h1 {
+        font-family: "Fraunces", serif;
+        font-size: 26px;
+        color: var(--forest-dark);
+        margin: 0 0 24px;
+      }
+      .card {
+        background: white;
+        border-radius: 14px;
+        padding: 24px;
+        box-shadow: 0 6px 20px rgba(18, 48, 31, 0.06);
+        margin-bottom: 20px;
+      }
+      .field {
+        margin-bottom: 16px;
+      }
+      .field:last-child {
+        margin-bottom: 0;
+      }
+      .label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--brick);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 4px;
+      }
+      .value {
+        font-size: 15.5px;
+        color: var(--ink);
+      }
+      .toggle-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .toggle-row .desc {
+        font-size: 13px;
+        color: #6b7062;
+        margin-top: 2px;
+      }
+      .switch {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        inset: 0;
+        background: var(--sage);
+        border-radius: 24px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .slider::before {
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        left: 3px;
+        bottom: 3px;
+        background: white;
+        border-radius: 50%;
+        transition: 0.2s;
+      }
+      input:checked + .slider {
+        background: var(--forest);
+      }
+      input:checked + .slider::before {
+        transform: translateX(20px);
+      }
+      .logout-btn {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1.5px solid var(--brick);
+        background: transparent;
+        color: var(--brick);
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14.5px;
+      }
+      .logout-btn:hover {
+        background: rgba(140, 74, 58, 0.06);
+      }
+      #saveNote {
+        font-size: 12.5px;
+        color: var(--forest);
+        margin-top: 8px;
+        display: none;
+      }
+    </style>
+    <script src="/js/read-aloud.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">STEMBridge Speaks</a>
+      <a href="/practice.html" class="back">← Back to app</a>
+    </header>
+
+    <main>
+      <h1>Settings</h1>
+
+      <div class="card">
+        <div class="field">
+          <div class="label">Name</div>
+          <div class="value" id="userName">—</div>
+        </div>
+        <div class="field">
+          <div class="label">Email</div>
+          <div class="value" id="userEmail">—</div>
+        </div>
+        <div class="field">
+          <div class="label">Member since</div>
+          <div class="value" id="userSince">—</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="toggle-row">
+          <div>
+            <div class="label" style="margin-bottom: 0">Email Reminders</div>
+            <div class="desc">
+              Get an occasional email if you haven't practiced in a few days.
+            </div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="reminderToggle" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div id="saveNote">Saved.</div>
+      </div>
+
+      <div class="card">
+        <button class="logout-btn" id="logoutBtn">Log Out</button>
+      </div>
+    </main>
+
+    <script src="/js/auth.js"></script>
+    <script>
+      (async () => {
+        const user = await requireAuth();
+        if (!user) return;
+
+        document.getElementById("userName").textContent = user.name;
+        document.getElementById("userEmail").textContent = user.email;
+        document.getElementById("userSince").textContent = new Date(
+          user.createdAt,
+        ).toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        document.getElementById("reminderToggle").checked =
+          user.emailRemindersEnabled !== false;
+      })();
+
+      document
+        .getElementById("reminderToggle")
+        .addEventListener("change", async (e) => {
+          try {
+            await fetch("/api/auth/settings", {
+              method: "PATCH",
+              headers: { ...authHeaders(), "Content-Type": "application/json" },
+              body: JSON.stringify({ emailRemindersEnabled: e.target.checked }),
+            });
+            const note = document.getElementById("saveNote");
+            note.style.display = "block";
+            setTimeout(() => {
+              note.style.display = "none";
+            }, 2000);
+          } catch (err) {
+            console.error("Could not save setting:", err);
+          }
+        });
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        if (confirm("Log out?")) logout();
+      });
+    </script>
+  </body>
+</html>

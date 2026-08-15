@@ -10,6 +10,8 @@ const { MsEdgeTTS, OUTPUT_FORMAT } = require("msedge-tts");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { Resend } = require("resend");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 function generateId() {
   return crypto.randomBytes(12).toString("hex");
@@ -136,6 +138,36 @@ Respond with a JSON object only, no other text, in this exact format:
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+const MASCOT_NAME = "Bridgee";
+
+function buildTutorSystemInstruction(languageKey, unitTitle, chunkContext) {
+  const language = languages[languageKey] || languages.german;
+  const supportedList = Object.values(languages)
+    .map((l) => l.name)
+    .join(", ");
+
+  const lessonContext = unitTitle
+    ? `\n\nThe learner is currently on the lesson "${unitTitle}" in the ${language.name} grammar course.${
+        chunkContext
+          ? ` Here is the specific content they're looking at right now, which their question is likely about:\n"""\n${chunkContext}\n"""`
+          : ""
+      }`
+    : "";
+
+  return `You are ${MASCOT_NAME}, the friendly official mascot and AI tutor of STEMBridge Speaks, a free language-learning platform for students. You are a small cartoon chameleon character — warm, encouraging, a little playful, but always clear and genuinely helpful. You are talking to a student who is working through the Learn Grammar section.
+
+You are knowledgeable across all languages STEMBridge Speaks teaches: ${supportedList}. The learner is currently studying ${language.name}, but you should feel free to compare with other languages if it helps them understand (e.g. "this works like German cases" or "unlike English, this verb...").${lessonContext}
+
+Rules:
+- Answer clearly and correctly. Being right matters more than being cute — get grammar facts correct.
+- Keep responses SHORT: 2-4 sentences for a simple question, a short paragraph maximum for something that genuinely needs more explanation. This is a chat bubble, not an essay.
+- Use at most one small, natural touch of personality or encouragement (e.g. a brief "Nice question!" or an emoji) — don't overdo it or pad the answer with fluff.
+- Give a concrete example in the target language when it helps (with a quick English gloss).
+- If the question is about a different language than the current lesson, or general language-learning strategy, still help — you're not restricted to only the current lesson.
+- If the question is completely unrelated to language learning (e.g. general trivia, coding help, personal advice), gently decline and redirect: explain in character that you're focused on helping with language learning, and ask if they have a language question instead. Don't answer the off-topic question.
+- Never claim to be a human tutor or a real person — you're an AI mascot, and that's fine to acknowledge if asked directly.`;
 }
 
 async function generateChatTitle(userMessage, replyText, attempt = 1) {
@@ -515,6 +547,44 @@ app.post("/feedback", async (req, res) => {
   }
 });
 
+app.post("/api/tutor-help", async (req, res) => {
+  try {
+    const { message, language, unitTitle, chunkContext, history } = req.body;
+    if (!message || !message.trim()) {
+      return res.status(400).json({ error: "No question provided." });
+    }
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-flash-latest",
+      systemInstruction: buildTutorSystemInstruction(
+        language,
+        unitTitle,
+        chunkContext,
+      ),
+    });
+
+    // Client sends a short rolling window of prior turns for continuity;
+    // no server-side persistence needed for this feature.
+    const geminiHistory = Array.isArray(history)
+      ? history.slice(-10).map((m) => ({
+          role: m.role === "assistant" ? "model" : "user",
+          parts: [{ text: String(m.text || "").slice(0, 2000) }],
+        }))
+      : [];
+
+    const chatSession = model.startChat({ history: geminiHistory });
+    const result = await chatSession.sendMessage(message.slice(0, 1000));
+    const reply = result.response.text();
+
+    res.json({ reply, mascot: MASCOT_NAME });
+  } catch (err) {
+    console.error("Tutor help failed:", err);
+    res.status(500).json({
+      error: `${MASCOT_NAME} couldn't answer that just now — please try again.`,
+    });
+  }
+});
+
 app.post("/api/dictionary", async (req, res) => {
   try {
     const { word, language } = req.body;
@@ -546,6 +616,13 @@ function requireAuth(req, res, next) {
     const token = authHeader.split(" ")[1];
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = payload.userId;
+    // Fire-and-forget — don't slow down the actual request waiting on this.
+    usersCollection
+      .updateOne(
+        { _id: new ObjectId(req.userId) },
+        { $set: { lastActiveAt: new Date() } },
+      )
+      .catch(() => {});
     next();
   } catch (err) {
     return res
@@ -583,6 +660,9 @@ app.post("/api/auth/register", async (req, res) => {
       email: email.toLowerCase(),
       passwordHash,
       isPublic: false,
+      emailRemindersEnabled: true,
+      lastActiveAt: new Date(),
+      lastReminderSentAt: null,
       createdAt: new Date(),
     };
     const result = await usersCollection.insertOne(user);
@@ -643,6 +723,81 @@ app.get("/api/auth/me", requireAuth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Could not load account." });
+  }
+});
+
+app.patch("/api/auth/settings", requireAuth, async (req, res) => {
+  try {
+    const { emailRemindersEnabled } = req.body;
+    await usersCollection.updateOne(
+      { _id: new ObjectId(req.userId) },
+      { $set: { emailRemindersEnabled: !!emailRemindersEnabled } },
+    );
+    res.json({ status: "Settings updated." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not update settings." });
+  }
+});
+
+// ---------- INACTIVITY REMINDER EMAILS ----------
+
+async function sendReminderEmail(user) {
+  await resend.emails.send({
+    from: "STEMBridge Speaks <onboarding@resend.dev>",
+    to: user.email,
+    subject: "Your German (and more) is waiting for you 👋",
+    html: `
+      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; color: #22281E;">
+        <h2 style="color: #1B4332;">Hi ${user.name},</h2>
+        <p>It's been a few days since you last practiced on STEMBridge Speaks. A little consistency goes a long way with language learning — even five minutes helps.</p>
+        <p><a href="https://stembridge-speaks.onrender.com/practice.html" style="display:inline-block; background:#E8A33D; color:#12301F; padding:12px 22px; border-radius:8px; text-decoration:none; font-weight:bold;">Continue practicing →</a></p>
+        <p style="font-size:12px; color:#6B7062; margin-top:32px;">Don't want these emails? Turn them off anytime in <a href="https://stembridge-speaks.onrender.com/settings.html">Settings</a>.</p>
+      </div>
+    `,
+  });
+}
+
+app.post("/api/cron/send-reminders", async (req, res) => {
+  try {
+    if (req.headers["x-cron-secret"] !== process.env.CRON_SECRET) {
+      return res.status(401).json({ error: "Unauthorized." });
+    }
+
+    const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000);
+    const inactiveUsers = await usersCollection
+      .find({
+        emailRemindersEnabled: { $ne: false },
+        lastActiveAt: { $lt: threeDaysAgo },
+        $or: [
+          { lastReminderSentAt: null },
+          { lastReminderSentAt: { $lt: threeDaysAgo } },
+        ],
+      })
+      .toArray();
+
+    let sentCount = 0;
+    for (const user of inactiveUsers) {
+      try {
+        await sendReminderEmail(user);
+        await usersCollection.updateOne(
+          { _id: user._id },
+          { $set: { lastReminderSentAt: new Date() } },
+        );
+        sentCount++;
+      } catch (err) {
+        console.error(`Failed to email ${user.email}:`, err.message);
+      }
+    }
+
+    res.json({
+      status: "Reminder run complete.",
+      checked: inactiveUsers.length,
+      sent: sentCount,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Reminder run failed." });
   }
 });
 

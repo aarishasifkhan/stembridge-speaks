@@ -850,6 +850,7 @@
     </style>
     <script src="/js/auth.js"></script>
     <script src="/js/read-aloud.js"></script>
+    <script src="/js/mascot-tutor.js"></script>
   </head>
   <body>
     <header>
@@ -859,6 +860,12 @@
         <a href="/dictionary.html">Dictionary</a>
         <a href="/about.html">About</a>
         <a href="/practice.html" class="btn">Practice free</a>
+        <a
+          href="/settings.html"
+          class="icon-btn"
+          style="text-decoration: none; display: inline-block"
+          >⚙️ Settings</a
+        >
         <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
       </nav>
     </header>
@@ -967,11 +974,6 @@
     </footer>
 
     <script>
-      let currentUser = null;
-      (async () => {
-        currentUser = await requireAuth();
-        if (!currentUser) return;
-      })();
       function playAudio(audioId, lang) {
         if (!audioId) return;
         const audio = new Audio(`/audio/${lang}/${audioId}.mp3`);
@@ -1003,34 +1005,40 @@
       let quizAnswers = {};
       let resizeTimer = null;
 
-      function getProgress() {
+      let serverProgress = {};
+
+      async function loadServerProgress() {
         try {
-          return (
-            JSON.parse(localStorage.getItem("stembridge_learn_progress")) || {}
-          );
-        } catch {
-          return {};
+          const res = await fetch("/api/progress", { headers: authHeaders() });
+          if (res.ok) serverProgress = await res.json();
+        } catch (err) {
+          console.error("Could not load progress:", err);
         }
       }
-      function saveProgress(p) {
-        localStorage.setItem("stembridge_learn_progress", JSON.stringify(p));
-      }
+
       function isUnitDone(lang, unitId) {
-        const p = getProgress();
-        return !!(p[lang] && p[lang][unitId]);
+        return !!(serverProgress[lang] && serverProgress[lang][unitId]);
       }
-      function markUnitDone(lang, unitId) {
-        const p = getProgress();
-        if (!p[lang]) p[lang] = {};
-        p[lang][unitId] = true;
-        saveProgress(p);
+
+      async function markUnitDone(lang, unitId) {
+        if (!serverProgress[lang]) serverProgress[lang] = {};
+        serverProgress[lang][unitId] = true; // optimistic local update
+        try {
+          await fetch("/api/progress", {
+            method: "POST",
+            headers: { ...authHeaders(), "Content-Type": "application/json" },
+            body: JSON.stringify({ language: lang, unitId }),
+          });
+        } catch (err) {
+          console.error("Could not save progress:", err);
+        }
       }
+
       function countDone(lang) {
         const units = courseData[lang].units;
         if (!units.length) return 0;
         return units.filter((u) => isUnitDone(lang, u.id)).length;
       }
-
       function hideAllViews() {
         ["view-languages", "view-path", "view-lesson", "view-quiz"].forEach(
           (id) => document.getElementById(id).classList.add("hidden"),
@@ -1060,6 +1068,8 @@
 
       async function selectLanguage(key) {
         currentLang = key;
+        if (window.MascotTutor)
+          window.MascotTutor.setContext({ language: key });
         await ensureLoaded(key);
         showPath();
       }
@@ -1103,6 +1113,21 @@
           unit.icon + " " + unit.title;
         document.getElementById("lessonProgressNote").textContent =
           `Lesson ${unitIndex + 1} of ${units.length}`;
+
+        if (window.MascotTutor) {
+          const chunkSummary = unit.teaching
+            .map(
+              (c) =>
+                `${c.h}: ${c.p}${c.ex ? ` (e.g. "${c.ex}"${c.exTranslation ? ` — ${c.exTranslation}` : ""})` : ""}`,
+            )
+            .join("\n");
+          window.MascotTutor.setContext({
+            language: currentLang,
+            unitTitle: unit.title,
+            chunkContext: chunkSummary,
+          });
+        }
+
         const container = document.getElementById("lessonChunks");
         container.innerHTML = "";
         const lang = langCodes[currentLang];
@@ -1188,7 +1213,7 @@
 
       document
         .getElementById("checkAnswersBtn")
-        .addEventListener("click", () => {
+        .addEventListener("click", async () => {
           const unit = courseData[currentLang].units.find(
             (u) => u.id === currentUnit,
           );
@@ -1226,7 +1251,7 @@
           });
 
           const passed = correct >= 4;
-          if (passed) markUnitDone(currentLang, currentUnit);
+          if (passed) await markUnitDone(currentLang, currentUnit);
 
           document.getElementById("checkAnswersBtn").classList.add("hidden");
           const resultBox = document.getElementById("quizResult");
@@ -1440,11 +1465,16 @@
       );
       revealEls.forEach((el) => revealObserver.observe(el));
 
-      loadAllForGrid();
-
       document.getElementById("logoutBtn").addEventListener("click", () => {
         if (confirm("Log out?")) logout();
       });
+
+      (async () => {
+        currentUser = await requireAuth();
+        if (!currentUser) return;
+        await loadServerProgress();
+        loadAllForGrid();
+      })();
     </script>
 
     <div id="lessonPreviewOverlay" class="preview-overlay hidden">

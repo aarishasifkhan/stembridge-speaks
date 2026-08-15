@@ -9,7 +9,7 @@
     <title>STEMBridge Speaks — Conversational Practice</title>
     <meta
       name="description"
-      content="Practice speaking German, English, Spanish, Mandarin, Russian, or Arabic with an AI tutor. Real scenarios, live corrections, English translations, and adjustable difficulty from A1 to C2 — completely free."
+      content="Practice speaking German, English, Spanish, Mandarin, Russian, Arabic, or Hebrew with an AI tutor. Real scenarios, live corrections, English translations, and adjustable difficulty from A1 to C2 — completely free."
     />
     <link
       rel="canonical"
@@ -25,7 +25,7 @@
     />
     <meta
       property="og:description"
-      content="Speak or type in a real scenario, in 6 languages, and get corrected as you go — free."
+      content="Speak or type in a real scenario, in 7 languages, and get corrected as you go — free."
     />
     <meta property="og:type" content="website" />
     <meta
@@ -46,7 +46,7 @@
         "@type": "WebApplication",
         "name": "STEMBridge Speaks — Conversational Practice",
         "url": "https://stembridge-speaks.onrender.com/practice.html",
-        "description": "AI-powered conversational language practice in German, English, Spanish, Mandarin, Russian, and Arabic, with real-time corrections and translations.",
+        "description": "AI-powered conversational language practice in German, English, Spanish, Mandarin, Russian, Arabic, and Hebrew, with real-time corrections and translations.",
         "applicationCategory": "EducationalApplication",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "isPartOf": {
@@ -642,7 +642,7 @@
   <body>
     <h1 class="sr-only">
       STEMBridge Speaks — AI Conversation Practice in German, English, Spanish,
-      Mandarin, Russian, and Arabic
+      Mandarin, Russian, Arabic, and Hebrew
     </h1>
 
     <button id="sidebarToggle">☰</button>
@@ -655,7 +655,7 @@
       <button id="newChatBtn">+ <span class="label">New Chat</span></button>
       <input type="text" id="searchInput" placeholder="Search chats..." />
       <div id="chatList"></div>
-      <div id="sidebarFooter">Chats are stored locally to this browser.</div>
+      <div id="sidebarFooter">Your chats are saved to your account.</div>
     </div>
 
     <div id="mainArea">
@@ -669,7 +669,7 @@
             <option value="mandarin">🇨🇳 Mandarin</option>
             <option value="russian">🇷🇺 Russian</option>
             <option value="arabic">🇸🇦 Arabic</option>
-            <option value="hebrew">🇮🇱 hebrew</option>
+            <option value="hebrew">🇮🇱 Hebrew</option>
           </select>
           <select id="scenarioSelect">
             <option value="restaurant">🍽️ Restaurant</option>
@@ -687,6 +687,12 @@
           </select>
           <button class="icon-btn" id="speakTestBtn">🔊 Intro</button>
           <button class="icon-btn" id="shareBtn">🔗 Share</button>
+          <a
+            href="/settings.html"
+            class="icon-btn"
+            style="text-decoration: none; display: inline-block"
+            >⚙️ Settings</a
+          >
           <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
         </div>
       </header>
@@ -725,10 +731,6 @@
 
     <script>
       let currentUser = null;
-      (async () => {
-        currentUser = await requireAuth();
-        if (!currentUser) return;
-      })();
       let exchangeCount = 0;
       const MAX_EXCHANGES = 15;
       let mediaRecorder;
@@ -736,19 +738,6 @@
       let isRecording = false;
       let audioUnlocked = false;
       let currentChatId = null;
-
-      function getClientId() {
-        let id = localStorage.getItem("stembridge_client_id");
-        if (!id) {
-          id =
-            "client-" +
-            Math.random().toString(36).slice(2) +
-            Date.now().toString(36);
-          localStorage.setItem("stembridge_client_id", id);
-        }
-        return id;
-      }
-      const clientId = getClientId();
 
       const rtlLanguages = ["arabic", "hebrew"];
       const introLines = {
@@ -827,7 +816,8 @@
       }
 
       async function loadChatList() {
-        const res = await fetch(`/api/chats?clientId=${clientId}`);
+        const res = await fetch("/api/chats", { headers: authHeaders() });
+        if (!res.ok) return;
         const chats = await res.json();
         chatList.innerHTML = "";
         chats.forEach((chat) => {
@@ -847,8 +837,9 @@
             .addEventListener("click", async (e) => {
               e.stopPropagation();
               if (!confirm("Delete this chat?")) return;
-              await fetch(`/api/chats/${chat._id}?clientId=${clientId}`, {
+              await fetch(`/api/chats/${chat._id}`, {
                 method: "DELETE",
+                headers: authHeaders(),
               });
               if (chat._id === currentChatId) {
                 currentChatId = null;
@@ -863,7 +854,9 @@
 
       async function openChat(chatId) {
         currentChatId = chatId;
-        const res = await fetch(`/api/chats/${chatId}?clientId=${clientId}`);
+        const res = await fetch(`/api/chats/${chatId}`, {
+          headers: authHeaders(),
+        });
         if (!res.ok) return;
         const chat = await res.json();
 
@@ -895,9 +888,8 @@
       async function createNewChat() {
         const res = await fetch("/api/chats", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { ...authHeaders(), "Content-Type": "application/json" },
           body: JSON.stringify({
-            clientId,
             language: languageSelect.value,
             scenario: scenarioSelect.value,
             level: levelSelect.value,
@@ -921,10 +913,9 @@
         try {
           const res = await fetch("/chat/start", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { ...authHeaders(), "Content-Type": "application/json" },
             body: JSON.stringify({
               chatId: currentChatId,
-              clientId,
               scenario: scenarioSelect.value,
               language: languageSelect.value,
               level: levelSelect.value,
@@ -955,8 +946,7 @@
           }
           const res = await fetch(`/api/chats/${currentChatId}/share`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ clientId }),
+            headers: { ...authHeaders(), "Content-Type": "application/json" },
           });
           const data = await res.json();
           const link = `${window.location.origin}/shared.html?id=${data.shareId}`;
@@ -1077,10 +1067,9 @@
           try {
             const response = await fetch("/chat", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
+              headers: { ...authHeaders(), "Content-Type": "application/json" },
               body: JSON.stringify({
                 chatId: currentChatId,
-                clientId,
                 message: userMsgForFeedback,
                 scenario: scenarioSelect.value,
                 language: languageSelect.value,
@@ -1134,7 +1123,7 @@
         try {
           await fetch("/feedback", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { ...authHeaders(), "Content-Type": "application/json" },
             body: JSON.stringify({
               rating,
               scenario: scenarioSelect.value,
@@ -1204,10 +1193,9 @@
         try {
           const response = await fetch("/chat", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { ...authHeaders(), "Content-Type": "application/json" },
             body: JSON.stringify({
               chatId: currentChatId,
-              clientId,
               message: text,
               scenario: scenarioSelect.value,
               language: languageSelect.value,
@@ -1270,10 +1258,12 @@
               try {
                 const response = await fetch("/chat-audio", {
                   method: "POST",
-                  headers: { "Content-Type": "application/json" },
+                  headers: {
+                    ...authHeaders(),
+                    "Content-Type": "application/json",
+                  },
                   body: JSON.stringify({
                     chatId: currentChatId,
-                    clientId,
                     audio: base64Audio,
                     scenario: scenarioSelect.value,
                     language: languageSelect.value,
@@ -1301,11 +1291,15 @@
         speak(introLines[languageSelect.value] || introLines.english);
       });
 
-      loadChatList();
-
       document.getElementById("logoutBtn").addEventListener("click", () => {
         if (confirm("Log out?")) logout();
       });
+
+      (async () => {
+        currentUser = await requireAuth();
+        if (!currentUser) return;
+        loadChatList();
+      })();
     </script>
   </body>
 </html>
