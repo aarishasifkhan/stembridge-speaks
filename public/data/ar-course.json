@@ -1,0 +1,1144 @@
+{
+  "units": [
+    {
+      "id": "unit1",
+      "icon": "🔤",
+      "title": "The Arabic Alphabet & Sounds",
+      "teaching": [
+        {
+          "h": "Arabic reads right to left, and letters connect within a word",
+          "p": "Unlike Latin script, Arabic is written right to left, and most letters change shape depending on whether they're at the start, middle, or end of a word — this is cursive joining, not decoration.",
+          "ex": "كتاب",
+          "exTranslation": "kitāb — book",
+          "audioId": "unit1-ex1"
+        },
+        {
+          "h": "28 consonant letters, no separate uppercase",
+          "p": "Arabic has 28 letters, all consonants (plus long vowels shown by certain letters). There's no uppercase/lowercase distinction like in English.",
+          "ex": "ب ت ث",
+          "exTranslation": "b, t, th — three letters that look almost identical, differing only by the number and position of dots",
+          "audioId": "unit1-ex2"
+        },
+        {
+          "h": "Short vowels are marks above/below the letter, often left out",
+          "p": "Short vowels (a, i, u) are shown with small marks called tashkīl, placed above or below letters. Everyday newspapers and books usually omit them — native readers infer them from context.",
+          "ex": "كَتَبَ",
+          "exTranslation": "kataba — he wrote (with vowel marks shown)",
+          "audioId": "unit1-ex3"
+        },
+        {
+          "h": "Long vowels are actual letters",
+          "p": "Long vowels — ā, ī, ū — are written as full letters (ا, ي, و) rather than diacritics, so they're visible even in unvocalized text.",
+          "ex": "كِتَاب",
+          "exTranslation": "kitāb — book (the ا makes the long 'ā' sound)",
+          "audioId": "unit1-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which word means 'book'?",
+          "options": ["كتاب", "قلم", "مدرسة"],
+          "answer": "كتاب",
+          "audioId": "unit1-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which word means 'pen'?",
+          "options": ["قلم", "باب", "بيت"],
+          "answer": "قلم",
+          "audioId": "unit1-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Type the Arabic word for 'house'.",
+          "answer": "بيت",
+          "audioId": "unit1-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which word means 'school'?",
+          "options": ["مدرسة", "كتاب", "بيت"],
+          "answer": "مدرسة",
+          "audioId": "unit1-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which word means 'door'?",
+          "options": ["باب", "قلم", "مدرسة"],
+          "answer": "باب",
+          "audioId": "unit1-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit2",
+      "icon": "📘",
+      "title": "Nouns, Gender & the Definite Article",
+      "teaching": [
+        {
+          "h": "Every noun is masculine or feminine",
+          "p": "Arabic nouns are grammatically masculine or feminine — there's no neuter. Most feminine nouns end in ة (tāʼ marbūṭa), pronounced as a soft 'a'.",
+          "ex": "قَلَم، مَدْرَسَة",
+          "exTranslation": "qalam (pen, m), madrasa (school, f)",
+          "audioId": "unit2-ex1"
+        },
+        {
+          "h": "The definite article ال doesn't change for gender or number",
+          "p": "Unlike German's der/die/das, Arabic has just one definite article: ال (al-), prefixed directly onto the noun. It never changes, no matter the noun's gender or number.",
+          "ex": "الكِتَاب",
+          "exTranslation": "al-kitāb — the book",
+          "audioId": "unit2-ex2"
+        },
+        {
+          "h": "No indefinite article — nunation marks 'a/an'",
+          "p": "There's no separate word for 'a/an'. Instead, an extra 'n' sound (tanwīn) is added at the end of the indefinite noun, though it's usually silent in casual speech.",
+          "ex": "كِتَابٌ",
+          "exTranslation": "kitābun — a book (the ٌ mark shows indefinite nunation)",
+          "audioId": "unit2-ex3"
+        },
+        {
+          "h": "Definite vs indefinite changes the whole meaning of a sentence",
+          "p": "Adding or dropping ال is one of the most important habits to build early — it distinguishes 'a book' from 'the book,' and later determines how adjectives and cases behave.",
+          "ex": "كِتَاب / الكِتَاب",
+          "exTranslation": "kitāb (a book) / al-kitāb (the book)",
+          "audioId": "unit2-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which word is feminine (ends in ة)?",
+          "options": ["مدرسة", "قلم", "كتاب"],
+          "answer": "مدرسة",
+          "audioId": "unit2-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'the pen'?",
+          "options": ["القلم", "قلم", "قلمة"],
+          "answer": "القلم",
+          "audioId": "unit2-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Add the definite article to كتاب to say 'the book'.",
+          "answer": "الكتاب",
+          "audioId": "unit2-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'a school' (indefinite)?",
+          "options": ["مدرسة", "المدرسة", "مدرستان"],
+          "answer": "مدرسة",
+          "audioId": "unit2-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which word means 'the house'?",
+          "options": ["البيت", "بيت", "بيتة"],
+          "answer": "البيت",
+          "audioId": "unit2-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit3",
+      "icon": "🗣️",
+      "title": "Pronouns & Equational Sentences",
+      "teaching": [
+        {
+          "h": "Arabic sentences often skip the verb 'to be' in the present",
+          "p": "To say 'I am a student' or 'the book is new,' Arabic simply places two words side by side — no equivalent of 'am/is/are' is needed in the present tense.",
+          "ex": "أَنَا طَالِب",
+          "exTranslation": "anā ṭālib — I (am) a student",
+          "audioId": "unit3-ex1"
+        },
+        {
+          "h": "Personal pronouns for I, you, he, she",
+          "p": "The core singular pronouns are أنا (I), أنتَ (you, m), أنتِ (you, f), هو (he/it), and هي (she/it) — Arabic distinguishes gender even in 'you.'",
+          "ex": "أَنْتَ طَالِب، أَنْتِ طَالِبَة",
+          "exTranslation": "anta ṭālib (you, m, are a student), anti ṭāliba (you, f, are a student)",
+          "audioId": "unit3-ex2"
+        },
+        {
+          "h": "The subject can often be dropped, since the verb shows who's speaking",
+          "p": "In verbal sentences, Arabic verbs are marked for person, so pronouns like أنا are often optional — the verb ending alone shows who's doing the action.",
+          "ex": "هُوَ مُدَرِّس",
+          "exTranslation": "huwa mudarris — he (is) a teacher",
+          "audioId": "unit3-ex3"
+        },
+        {
+          "h": "Demonstratives: this / that also skip 'is'",
+          "p": "هذا (this, m) and هذه (this, f) work the same way — just place them next to a noun, no verb needed.",
+          "ex": "هَذَا كِتَاب",
+          "exTranslation": "hādhā kitāb — this (is) a book",
+          "audioId": "unit3-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which means 'I am a teacher'?",
+          "options": ["أنا مدرس", "أنت مدرس", "هو مدرس"],
+          "answer": "أنا مدرس",
+          "audioId": "unit3-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which pronoun means 'she'?",
+          "options": ["هي", "هو", "أنت"],
+          "answer": "هي",
+          "audioId": "unit3-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Complete: 'this is a book' → هذا ____",
+          "answer": "كتاب",
+          "audioId": "unit3-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'you' (speaking to a woman)?",
+          "options": ["أنتِ", "أنتَ", "أنا"],
+          "answer": "أنتِ",
+          "audioId": "unit3-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'he is a student'?",
+          "options": ["هو طالب", "هي طالبة", "أنا طالب"],
+          "answer": "هو طالب",
+          "audioId": "unit3-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit4",
+      "icon": "⏱️",
+      "title": "Present Tense Verbs",
+      "teaching": [
+        {
+          "h": "Present-tense verbs wrap the root with a prefix",
+          "p": "Arabic present-tense verbs add a prefix (and sometimes a suffix) to a base root to show who's doing the action — no separate helping word like 'do' or 'am' is needed.",
+          "ex": "أَكْتُبُ",
+          "exTranslation": "aktubu — I write",
+          "audioId": "unit4-ex1"
+        },
+        {
+          "h": "Different prefixes for I, you, he, she, we, they",
+          "p": "The prefix changes with the subject: أ- (I), تـ- (you/she), يـ- (he/they-m). Once you know the pattern, you can conjugate almost any regular verb.",
+          "ex": "أَكْتُبُ، تَكْتُبُ، يَكْتُبُ",
+          "exTranslation": "aktubu (I write), taktubu (you/she write(s)), yaktubu (he writes)",
+          "audioId": "unit4-ex2"
+        },
+        {
+          "h": "The same present form covers both 'write' and 'am writing'",
+          "p": "Arabic doesn't separate simple present from present continuous the way English does — يَكْتُبُ can mean 'he writes' or 'he is writing,' depending on context.",
+          "ex": "هُوَ يَكْتُبُ رِسَالَة",
+          "exTranslation": "huwa yaktubu risāla — he writes/is writing a letter",
+          "audioId": "unit4-ex3"
+        },
+        {
+          "h": "Negating the present with لا",
+          "p": "To make a present-tense verb negative, just put لا directly before it.",
+          "ex": "لَا أَفْهَمُ",
+          "exTranslation": "lā afhamu — I don't understand",
+          "audioId": "unit4-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which means 'I write'?",
+          "options": ["أكتب", "تكتب", "يكتب"],
+          "answer": "أكتب",
+          "audioId": "unit4-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'he writes'?",
+          "options": ["يكتب", "أكتب", "نكتب"],
+          "answer": "يكتب",
+          "audioId": "unit4-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Negate 'I understand' (أفهم) to say 'I don't understand'.",
+          "answer": "لا أفهم",
+          "audioId": "unit4-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'she writes'?",
+          "options": ["تكتب", "يكتب", "أكتب"],
+          "answer": "تكتب",
+          "audioId": "unit4-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which sentence means 'he is writing a letter'?",
+          "options": ["هو يكتب رسالة", "هي تكتب رسالة", "أنا أكتب رسالة"],
+          "answer": "هو يكتب رسالة",
+          "audioId": "unit4-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit5",
+      "icon": "🧩",
+      "title": "Basic Sentence Structure",
+      "teaching": [
+        {
+          "h": "Two sentence types: verbal and nominal",
+          "p": "Arabic has verbal sentences (starting with a verb: Verb-Subject-Object) and nominal sentences (starting with a noun/pronoun, as in Unit 3). Both are completely normal — the choice shifts emphasis.",
+          "ex": "كَتَبَ الطَّالِبُ الدَّرْسَ",
+          "exTranslation": "kataba aṭ-ṭālibu ad-darsa — the student wrote the lesson (verb first)",
+          "audioId": "unit5-ex1"
+        },
+        {
+          "h": "Verb-Subject-Object is the 'default' word order",
+          "p": "Unlike English's Subject-Verb-Object, formal Arabic often puts the verb first, then the subject, then the object — though spoken Arabic frequently uses S-V-O too.",
+          "ex": "يَشْرَبُ الوَلَدُ الحَلِيبَ",
+          "exTranslation": "yashrabu al-waladu al-ḥalība — the boy drinks the milk (drinks-boy-milk)",
+          "audioId": "unit5-ex2"
+        },
+        {
+          "h": "Adjectives come after the noun, not before",
+          "p": "Unlike English, descriptive adjectives follow the noun they describe, and must match it in gender, number, and definiteness (more on this in a later lesson).",
+          "ex": "بَيْتٌ كَبِيرٌ",
+          "exTranslation": "baytun kabīrun — a big house (literally: house big)",
+          "audioId": "unit5-ex3"
+        },
+        {
+          "h": "Questions often just add a question word to a normal sentence",
+          "p": "You can frequently turn a statement into a question just by adding a question word at the front — sentence order otherwise stays the same.",
+          "ex": "هَلْ تَفْهَمُ؟",
+          "exTranslation": "hal tafhamu? — do you understand?",
+          "audioId": "unit5-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "In 'the boy drinks the milk,' which Arabic word comes first?",
+          "options": ["يشرب (drinks)", "الولد (the boy)", "الحليب (the milk)"],
+          "answer": "يشرب (drinks)",
+          "audioId": "unit5-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which is grammatically correct for 'a big house'?",
+          "options": ["بيت كبير", "كبير بيت", "بيت الكبير"],
+          "answer": "بيت كبير",
+          "audioId": "unit5-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Turn 'you understand' (تفهم) into a question meaning 'do you understand?'",
+          "answer": "هل تفهم",
+          "audioId": "unit5-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which sentence follows Verb-Subject-Object order?",
+          "options": [
+            "كتب الطالب الدرس",
+            "الطالب كتب الدرس",
+            "الدرس كتب الطالب"
+          ],
+          "answer": "كتب الطالب الدرس",
+          "audioId": "unit5-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'a big house'?",
+          "options": ["بيت كبير", "بيت كبيرة", "كبير بيت"],
+          "answer": "بيت كبير",
+          "audioId": "unit5-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit6",
+      "icon": "☀️",
+      "title": "Sun Letters & Moon Letters",
+      "teaching": [
+        {
+          "h": "The ل in ال sometimes disappears in pronunciation",
+          "p": "Arabic letters split into two groups: sun letters (14) and moon letters (14). Before a sun letter, the ل of ال is silent and the following consonant doubles instead.",
+          "ex": "الشَّمْس",
+          "exTranslation": "ash-shams — the sun (ل is silent, ش doubles — a sun letter, fittingly)",
+          "audioId": "unit6-ex1"
+        },
+        {
+          "h": "Before moon letters, ال is pronounced normally",
+          "p": "Moon letters keep the ل sound exactly as written — no assimilation happens.",
+          "ex": "القَمَر",
+          "exTranslation": "al-qamar — the moon",
+          "audioId": "unit6-ex2"
+        },
+        {
+          "h": "Spelling never changes — only pronunciation does",
+          "p": "This is purely a pronunciation rule. Whether a word starts with a sun or moon letter, ال is always written the same way — you just say it differently.",
+          "ex": "الرَّجُل / الكِتَاب",
+          "exTranslation": "ar-rajul (the man, sun letter ر) / al-kitāb (the book, moon letter ك) — both spelled with ال",
+          "audioId": "unit6-ex3"
+        },
+        {
+          "h": "A doubling mark (shadda) shows the assimilation in vocalized text",
+          "p": "In fully vocalized writing, a small ّ (shadda) sits over the doubled sun letter, showing it's pronounced twice as long — the trace of the missing ل sound.",
+          "ex": "النَّهَار",
+          "exTranslation": "an-nahār — the daytime",
+          "audioId": "unit6-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which is a sun letter word (ل is silent)?",
+          "options": ["الشمس", "القمر", "الكتاب"],
+          "answer": "الشمس",
+          "audioId": "unit6-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which is a moon letter word (ل is pronounced)?",
+          "options": ["القمر", "الشمس", "الرجل"],
+          "answer": "القمر",
+          "audioId": "unit6-q2"
+        },
+        {
+          "type": "fill",
+          "q": "How is 'الرجل' (the man) pronounced — write the transliteration starting with 'ar-'.",
+          "answer": "ar-rajul",
+          "audioId": "unit6-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Does the spelling of ال change before sun letters?",
+          "options": ["لا، لا يتغير", "نعم، يتغير", "أحياناً فقط"],
+          "answer": "لا، لا يتغير",
+          "audioId": "unit6-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which word correctly means 'the daytime'?",
+          "options": ["النهار", "الليل", "الصباح"],
+          "answer": "النهار",
+          "audioId": "unit6-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit7",
+      "icon": "🎨",
+      "title": "Adjectives & Agreement",
+      "teaching": [
+        {
+          "h": "Adjectives must match their noun in gender",
+          "p": "If the noun is feminine, the adjective typically gets a ة ending too — even if the adjective wouldn't normally look feminine on its own.",
+          "ex": "وَلَدٌ صَغِيرٌ، بِنْتٌ صَغِيرَةٌ",
+          "exTranslation": "waladun ṣaghīr (a small boy), bintun ṣaghīra (a small girl)",
+          "audioId": "unit7-ex1"
+        },
+        {
+          "h": "Adjectives must also match definiteness",
+          "p": "If the noun has ال, the adjective needs ال too — dropping it on just one side is a common learner mistake.",
+          "ex": "الوَلَدُ الصَّغِيرُ",
+          "exTranslation": "al-waladu aṣ-ṣaghīru — the small boy (both noun and adjective take ال)",
+          "audioId": "unit7-ex2"
+        },
+        {
+          "h": "Word order: noun first, then adjective",
+          "p": "As covered earlier, the adjective always follows its noun. This never flips, even in questions or negative sentences.",
+          "ex": "بَيْتٌ جَمِيلٌ",
+          "exTranslation": "baytun jamīl — a beautiful house",
+          "audioId": "unit7-ex3"
+        },
+        {
+          "h": "Non-human plurals take FEMININE SINGULAR adjectives",
+          "p": "This one surprises a lot of learners: plural nouns for objects/animals (not people) are grammatically treated as feminine singular for agreement purposes.",
+          "ex": "كُتُبٌ جَدِيدَةٌ",
+          "exTranslation": "kutubun jadīda — new books (jadīda is feminine singular, even though 'books' is plural)",
+          "audioId": "unit7-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which correctly matches 'a small girl'?",
+          "options": ["بنت صغيرة", "بنت صغير", "بنتة صغيرة"],
+          "answer": "بنت صغيرة",
+          "audioId": "unit7-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which correctly says 'the beautiful house' (both definite)?",
+          "options": ["البيت الجميل", "بيت الجميل", "البيت جميل"],
+          "answer": "البيت الجميل",
+          "audioId": "unit7-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Make 'صغير' (small) agree with the feminine noun بنت.",
+          "answer": "صغيرة",
+          "audioId": "unit7-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which correctly describes 'new books' (non-human plural)?",
+          "options": ["كتب جديدة", "كتب جديد", "كتب جديدون"],
+          "answer": "كتب جديدة",
+          "audioId": "unit7-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'a small boy'?",
+          "options": ["ولد صغير", "ولد صغيرة", "بنت صغير"],
+          "answer": "ولد صغير",
+          "audioId": "unit7-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit8",
+      "icon": "🔗",
+      "title": "Possession: The Idafa Construction",
+      "teaching": [
+        {
+          "h": "Arabic has no separate word for 'of' — nouns just sit next to each other",
+          "p": "To say 'the student's book' or 'book of the student,' Arabic places two nouns back-to-back. This pairing is called iḍāfa (addition).",
+          "ex": "كِتَابُ الطَّالِبِ",
+          "exTranslation": "kitābu aṭ-ṭālibi — the student's book (literally: book-of the-student)",
+          "audioId": "unit8-ex1"
+        },
+        {
+          "h": "Only the second noun takes ال — never the first",
+          "p": "In an iḍāfa, the definite article only ever goes on the LAST word. The first noun (the 'possessed' item) never takes ال, even though the whole phrase is understood as definite.",
+          "ex": "بَيْتُ المُدَرِّسِ",
+          "exTranslation": "baytu al-mudarrisi — the teacher's house (بيت never gets ال here)",
+          "audioId": "unit8-ex2"
+        },
+        {
+          "h": "Longer chains just keep stacking",
+          "p": "You can chain more than two nouns together — 'the door of the house of the teacher' — and the same rule holds: only the very last noun takes ال.",
+          "ex": "بَابُ بَيْتِ المُدَرِّسِ",
+          "exTranslation": "bābu bayti al-mudarrisi — the door of the teacher's house",
+          "audioId": "unit8-ex3"
+        },
+        {
+          "h": "Pronoun suffixes are a shortcut for 'my/your/his/her'",
+          "p": "Instead of a full second noun, you can attach a pronoun suffix directly to the first noun to mean 'my book,' 'your book,' etc.",
+          "ex": "كِتَابِي، كِتَابُكَ، كِتَابُهُ",
+          "exTranslation": "kitābī (my book), kitābuka (your book, m), kitābuhu (his book)",
+          "audioId": "unit8-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which correctly means 'the student's book'?",
+          "options": ["كتاب الطالب", "الكتاب الطالب", "كتاب الطالبة"],
+          "answer": "كتاب الطالب",
+          "audioId": "unit8-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which correctly follows the idafa rule (only last noun gets ال)?",
+          "options": ["بيت المدرس", "البيت المدرس", "بيت مدرس الـ"],
+          "answer": "بيت المدرس",
+          "audioId": "unit8-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Say 'my book' using a pronoun suffix on كتاب.",
+          "answer": "كتابي",
+          "audioId": "unit8-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'his house'?",
+          "options": ["بيته", "بيتها", "بيتي"],
+          "answer": "بيته",
+          "audioId": "unit8-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which correctly means 'the door of the house'?",
+          "options": ["باب البيت", "الباب بيت", "باب البيتة"],
+          "answer": "باب البيت",
+          "audioId": "unit8-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit9",
+      "icon": "🔢",
+      "title": "Plurals: Sound & Broken",
+      "teaching": [
+        {
+          "h": "Sound masculine plural: add ون or ين",
+          "p": "For most masculine words describing people, add ون (subject position) or ين (object/after preposition) to the end.",
+          "ex": "مُدَرِّس ← مُدَرِّسُونَ",
+          "exTranslation": "mudarris (teacher) → mudarrisūn (teachers)",
+          "audioId": "unit9-ex1"
+        },
+        {
+          "h": "Sound feminine plural: swap ة for ات",
+          "p": "For most feminine words, just change the ة ending to ات.",
+          "ex": "مُدَرِّسَة ← مُدَرِّسَات",
+          "exTranslation": "mudarrisa (teacher, f) → mudarrisāt (teachers, f)",
+          "audioId": "unit9-ex2"
+        },
+        {
+          "h": "Broken plurals change the internal pattern — and must be memorized",
+          "p": "Most non-human nouns (and many human ones) form plurals by changing the internal vowel pattern entirely, not by adding an ending. There's no shortcut — each noun's broken plural is learned individually.",
+          "ex": "كِتَاب ← كُتُب",
+          "exTranslation": "kitāb (book) → kutub (books) — completely different internal pattern",
+          "audioId": "unit9-ex3"
+        },
+        {
+          "h": "Broken plurals act as feminine singular for agreement (recap)",
+          "p": "As covered in the adjectives lesson, broken plurals for non-human nouns are treated as grammatically feminine singular — this connects directly back to that rule.",
+          "ex": "بُيُوتٌ كَبِيرَةٌ",
+          "exTranslation": "buyūtun kabīra — big houses (buyūt is the broken plural of bayt)",
+          "audioId": "unit9-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "What's the plural of مدرس (teacher, m)?",
+          "options": ["مدرسون", "مدرسات", "مدارس"],
+          "answer": "مدرسون",
+          "audioId": "unit9-q1"
+        },
+        {
+          "type": "mc",
+          "q": "What's the plural of مدرسة (teacher, f)?",
+          "options": ["مدرسات", "مدرسون", "مدارس"],
+          "answer": "مدرسات",
+          "audioId": "unit9-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Give the broken plural of كتاب (book).",
+          "answer": "كتب",
+          "audioId": "unit9-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which is the correct plural of بيت (house)?",
+          "options": ["بيوت", "بيتون", "بيتات"],
+          "answer": "بيوت",
+          "audioId": "unit9-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which agreement is correct for a broken plural noun?",
+          "options": ["كتب جديدة", "كتب جدد", "كتب جديدون"],
+          "answer": "كتب جديدة",
+          "audioId": "unit9-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit10",
+      "icon": "👯",
+      "title": "The Dual (Mathanna)",
+      "teaching": [
+        {
+          "h": "Arabic has a special form just for exactly two",
+          "p": "Beyond singular and plural, Arabic has a third number: the dual, used for exactly two of something. It's not optional — using plural for two items sounds wrong.",
+          "ex": "كِتَابَانِ",
+          "exTranslation": "kitābāni — two books",
+          "audioId": "unit10-ex1"
+        },
+        {
+          "h": "Form the dual by adding ان (or ين)",
+          "p": "Add ان to the singular noun for the subject position, or ين elsewhere in the sentence — this mirrors the masculine sound plural's ون/ين pattern.",
+          "ex": "طَالِبَانِ / طَالِبَيْنِ",
+          "exTranslation": "ṭālibāni (two students, subject) / ṭālibayni (two students, object)",
+          "audioId": "unit10-ex2"
+        },
+        {
+          "h": "Feminine nouns keep their ة before the dual ending",
+          "p": "A feminine noun's ة becomes ت before the dual ending is added, since ة only appears at the very end of a word.",
+          "ex": "مُدَرِّسَتَانِ",
+          "exTranslation": "mudarrisatāni — two (female) teachers",
+          "audioId": "unit10-ex3"
+        },
+        {
+          "h": "Dual verbs and pronouns exist too",
+          "p": "It's not just nouns — Arabic also has dual pronouns (أنتما, هما) and matching dual verb endings, though many learners meet noun duals first.",
+          "ex": "هُمَا طَالِبَانِ",
+          "exTranslation": "humā ṭālibāni — the two of them (are) students",
+          "audioId": "unit10-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "How do you say 'two books'?",
+          "options": ["كتابان", "كتب", "كتابون"],
+          "answer": "كتابان",
+          "audioId": "unit10-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which correctly means 'two (female) teachers'?",
+          "options": ["مدرستان", "مدرسان", "مدرستون"],
+          "answer": "مدرستان",
+          "audioId": "unit10-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Give the dual form of طالب (student) for the subject position.",
+          "answer": "طالبان",
+          "audioId": "unit10-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which pronoun means 'the two of them'?",
+          "options": ["هما", "هم", "هي"],
+          "answer": "هما",
+          "audioId": "unit10-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which correctly means '(the) two of them are students'?",
+          "options": ["هما طالبان", "هما طلاب", "هو طالبان"],
+          "answer": "هما طالبان",
+          "audioId": "unit10-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit11",
+      "icon": "⏳",
+      "title": "Past Tense Verbs",
+      "teaching": [
+        {
+          "h": "Past tense uses suffixes instead of prefixes",
+          "p": "Unlike the present tense's prefixes, the past tense attaches a suffix to the verb root to show who did the action.",
+          "ex": "كَتَبْتُ",
+          "exTranslation": "katabtu — I wrote",
+          "audioId": "unit11-ex1"
+        },
+        {
+          "h": "The base 'he' form has no suffix at all",
+          "p": "The third-person masculine singular ('he') is the bare root with no ending added — it's the form dictionaries list verbs under.",
+          "ex": "كَتَبَ",
+          "exTranslation": "kataba — he wrote",
+          "audioId": "unit11-ex2"
+        },
+        {
+          "h": "Different suffixes for I, you, she, we, they",
+          "p": "تُ marks 'I,' تَ marks 'you (m),' تْ marks 'she,' نَا marks 'we' — memorizing this suffix set unlocks the whole past tense for regular verbs.",
+          "ex": "كَتَبْتَ، كَتَبَتْ، كَتَبْنَا",
+          "exTranslation": "katabta (you, m, wrote), katabat (she wrote), katabnā (we wrote)",
+          "audioId": "unit11-ex3"
+        },
+        {
+          "h": "Negate the past with ما, not لا",
+          "p": "While لا negates the present tense, ما is used to negate the past — a small but important switch.",
+          "ex": "مَا كَتَبْتُ",
+          "exTranslation": "mā katabtu — I did not write",
+          "audioId": "unit11-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which means 'I wrote'?",
+          "options": ["كَتَبْتُ", "كَتَبْتَ", "كَتَبَتْ"],
+          "answer": "كَتَبْتُ",
+          "audioId": "unit11-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'she wrote'?",
+          "options": ["كَتَبَتْ", "كَتَبَ", "كَتَبْتُ"],
+          "answer": "كَتَبَتْ",
+          "audioId": "unit11-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Negate 'كتبتُ' (I wrote) using ما to say 'I did not write'.",
+          "answer": "ما كتبت",
+          "audioId": "unit11-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which is the bare dictionary form, meaning 'he wrote'?",
+          "options": ["كَتَبَ", "كَتَبْتُ", "كَتَبْنَا"],
+          "answer": "كَتَبَ",
+          "audioId": "unit11-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'we wrote'?",
+          "options": ["كَتَبْنَا", "كَتَبْتُمْ", "كَتَبُوا"],
+          "answer": "كَتَبْنَا",
+          "audioId": "unit11-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit12",
+      "icon": "🚫",
+      "title": "Negation",
+      "teaching": [
+        {
+          "h": "Different negation words for different tenses",
+          "p": "Arabic doesn't use one all-purpose 'not' — لا negates the present, ما negates the past, and لن negates the future. Picking the right one matters.",
+          "ex": "لَا أَعْرِفُ، مَا عَرَفْتُ، لَنْ أَعْرِفَ",
+          "exTranslation": "lā aʻrifu (I don't know), mā ʻaraftu (I didn't know), lan aʻrifa (I won't know)",
+          "audioId": "unit12-ex1"
+        },
+        {
+          "h": "لم + jussive is a more formal way to negate the past",
+          "p": "Formal/written Arabic often prefers لم followed by a special present-tense form (the jussive) instead of ما — both mean 'did not,' but لم is more common in writing.",
+          "ex": "لَمْ أَفْهَمْ",
+          "exTranslation": "lam afham — I did not understand",
+          "audioId": "unit12-ex2"
+        },
+        {
+          "h": "Negating nominal (noun) sentences uses ليس",
+          "p": "For 'is not / are not' in equational sentences (no verb), Arabic uses the special word ليس, which itself conjugates like a past-tense verb.",
+          "ex": "هُوَ لَيْسَ طَالِباً",
+          "exTranslation": "huwa laysa ṭāliban — he is not a student",
+          "audioId": "unit12-ex3"
+        },
+        {
+          "h": "لن always signals the future, and takes the subjunctive",
+          "p": "لن exclusively negates future actions and requires the subjunctive verb form (a slightly different present-tense ending) — a nice giveaway that 'won't' is coming.",
+          "ex": "لَنْ أَذْهَبَ",
+          "exTranslation": "lan adhhaba — I will not go",
+          "audioId": "unit12-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which negates a present-tense verb?",
+          "options": ["لا", "ما", "لن"],
+          "answer": "لا",
+          "audioId": "unit12-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which negates a past-tense verb (simple form)?",
+          "options": ["ما", "لا", "لن"],
+          "answer": "ما",
+          "audioId": "unit12-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Negate 'أذهب' (I go) to mean 'I will not go', using لن + subjunctive.",
+          "answer": "لن أذهب",
+          "audioId": "unit12-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which word negates a nominal (verbless) sentence, like 'he is not...'?",
+          "options": ["ليس", "لا", "ما"],
+          "answer": "ليس",
+          "audioId": "unit12-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which is the more formal way to negate the past, using the jussive?",
+          "options": ["لم", "لن", "ليس"],
+          "answer": "لم",
+          "audioId": "unit12-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit13",
+      "icon": "❓",
+      "title": "Questions & Question Words",
+      "teaching": [
+        {
+          "h": "Yes/no questions: just add هل or أ to the front",
+          "p": "To turn any statement into a yes/no question, add هل (or the shorter أ) right at the start — the rest of the sentence stays exactly the same.",
+          "ex": "هَلْ أَنْتَ طَالِب؟",
+          "exTranslation": "hal anta ṭālib? — are you a student?",
+          "audioId": "unit13-ex1"
+        },
+        {
+          "h": "مَن asks 'who,' مَا/مَاذا asks 'what'",
+          "p": "مَن is for people ('who'), while مَا (before nouns) or مَاذا (before verbs) is for things ('what'). Mixing these up is one of the most common early mistakes.",
+          "ex": "مَنْ هَذَا؟ مَا هَذَا؟",
+          "exTranslation": "man hādhā? (who is this?) mā hādhā? (what is this?)",
+          "audioId": "unit13-ex2"
+        },
+        {
+          "h": "أَيْنَ (where), مَتَى (when), كَيْفَ (how), لِمَاذَا (why)",
+          "p": "These four question words work at the front of a sentence just like English, no special word order changes needed.",
+          "ex": "أَيْنَ البَيْتُ؟",
+          "exTranslation": "ayna al-baytu? — where is the house?",
+          "audioId": "unit13-ex3"
+        },
+        {
+          "h": "كَمْ (how many) is followed by a singular noun, not a plural",
+          "p": "This one trips up learners: after كم, the counted noun stays singular and takes an accusative ending — it feels backwards coming from English.",
+          "ex": "كَمْ كِتَاباً؟",
+          "exTranslation": "kam kitāban? — how many books? (kitāb stays singular)",
+          "audioId": "unit13-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which word turns a statement into a yes/no question?",
+          "options": ["هل", "من", "كم"],
+          "answer": "هل",
+          "audioId": "unit13-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which word means 'who'?",
+          "options": ["من", "ما", "متى"],
+          "answer": "من",
+          "audioId": "unit13-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Ask 'where is the house?' starting with أين.",
+          "answer": "أين البيت",
+          "audioId": "unit13-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which word means 'how many'?",
+          "options": ["كم", "كيف", "لماذا"],
+          "answer": "كم",
+          "audioId": "unit13-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which word means 'why'?",
+          "options": ["لماذا", "متى", "أين"],
+          "answer": "لماذا",
+          "audioId": "unit13-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit14",
+      "icon": "📍",
+      "title": "Prepositions",
+      "teaching": [
+        {
+          "h": "Prepositions always pull the noun after them into the genitive",
+          "p": "Any noun following a preposition takes a special ending called the genitive case (usually a kasra, or -i sound) — one of the most reliable case rules in Arabic.",
+          "ex": "فِي البَيْتِ",
+          "exTranslation": "fī al-bayti — in the house",
+          "audioId": "unit14-ex1"
+        },
+        {
+          "h": "في (in), على (on), إلى (to), مِن (from)",
+          "p": "These four cover most everyday situations and are worth memorizing as a set early on.",
+          "ex": "مِنَ المَدْرَسَةِ إِلَى البَيْتِ",
+          "exTranslation": "mina al-madrasati ilā al-bayti — from the school to the house",
+          "audioId": "unit14-ex2"
+        },
+        {
+          "h": "مَعَ (with) and عِنْدَ (at/have) are especially common",
+          "p": "عِنْدَ is worth special attention: it's also how Arabic expresses 'to have' — literally 'at me (is) a book' for 'I have a book.'",
+          "ex": "عِنْدِي كِتَاب",
+          "exTranslation": "ʻindī kitāb — I have a book (literally: at-me a book)",
+          "audioId": "unit14-ex3"
+        },
+        {
+          "h": "Prepositions combine with pronoun suffixes too",
+          "p": "Just like the idafa construction, pronoun suffixes attach directly onto prepositions instead of needing a separate word.",
+          "ex": "مَعِي، مَعَكَ، مَعَهُ",
+          "exTranslation": "maʻī (with me), maʻaka (with you, m), maʻahu (with him)",
+          "audioId": "unit14-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which means 'in the house'?",
+          "options": ["في البيت", "على البيت", "إلى البيت"],
+          "answer": "في البيت",
+          "audioId": "unit14-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which preposition means 'from'?",
+          "options": ["من", "إلى", "مع"],
+          "answer": "من",
+          "audioId": "unit14-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Say 'I have a book' using عند + a pronoun suffix.",
+          "answer": "عندي كتاب",
+          "audioId": "unit14-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'with him'?",
+          "options": ["معه", "معي", "معك"],
+          "answer": "معه",
+          "audioId": "unit14-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which means 'to the school'?",
+          "options": ["إلى المدرسة", "من المدرسة", "في المدرسة"],
+          "answer": "إلى المدرسة",
+          "audioId": "unit14-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit15",
+      "icon": "🏗️",
+      "title": "Case Endings (I'rab) Basics",
+      "teaching": [
+        {
+          "h": "Three cases: nominative, accusative, genitive",
+          "p": "Formal Arabic marks a noun's grammatical role with a short vowel case ending: -u for the subject (nominative), -a for the direct object (accusative), and -i after a preposition or in idafa (genitive).",
+          "ex": "الوَلَدُ، الوَلَدَ، الوَلَدِ",
+          "exTranslation": "al-waladu (the boy, subject) / al-walada (the boy, object) / al-waladi (the boy, after preposition/in idafa)",
+          "audioId": "unit15-ex1"
+        },
+        {
+          "h": "These endings are almost always silent in speech",
+          "p": "In everyday spoken Arabic, and even careful reading of unvocalized text, these case vowels are usually dropped. They matter most for formal recitation and grammatical analysis.",
+          "ex": "الوَلَدُ يَكْتُبُ الدَّرْسَ",
+          "exTranslation": "al-waladu yaktubu ad-darsa — the boy writes the lesson (subject -u, object -a marked)",
+          "audioId": "unit15-ex2"
+        },
+        {
+          "h": "Indefinite nouns double the case vowel (nunation), recap",
+          "p": "As covered back in Unit 2, indefinite nouns add an 'n' sound to the case ending — waladun (a boy, subject), waladan (a boy, object), waladin (a boy, genitive).",
+          "ex": "وَلَدٌ، وَلَدًا، وَلَدٍ",
+          "exTranslation": "waladun / waladan / waladin — a boy, in the three cases",
+          "audioId": "unit15-ex3"
+        },
+        {
+          "h": "Sound plurals use different, easier-to-spot case endings",
+          "p": "Instead of short vowels, sound masculine plurals switch their whole ending: ون for nominative, ين for accusative/genitive — visible even without diacritics.",
+          "ex": "المُدَرِّسُونَ، المُدَرِّسِينَ",
+          "exTranslation": "al-mudarrisūna (the teachers, subject) / al-mudarrisīna (the teachers, object/genitive)",
+          "audioId": "unit15-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which form of 'the boy' is correctly marked as the subject?",
+          "options": ["الولدُ", "الولدَ", "الولدِ"],
+          "answer": "الولدُ",
+          "audioId": "unit15-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which form correctly marks 'the boy' as a direct object?",
+          "options": ["الولدَ", "الولدُ", "الولدِ"],
+          "answer": "الولدَ",
+          "audioId": "unit15-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Give the genitive (after a preposition) form of الولد.",
+          "answer": "الولدِ",
+          "audioId": "unit15-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which is the correct indefinite accusative of ولد (a boy, as object)?",
+          "options": ["ولداً", "ولدٌ", "ولدٍ"],
+          "answer": "ولداً",
+          "audioId": "unit15-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which is the correct nominative plural of مدرس (teachers, subject)?",
+          "options": ["المدرسون", "المدرسين", "المدرسات"],
+          "answer": "المدرسون",
+          "audioId": "unit15-q5"
+        }
+      ]
+    },
+    {
+      "id": "unit16",
+      "icon": "🔟",
+      "title": "Numbers & Counting",
+      "teaching": [
+        {
+          "h": "Numbers 1 and 2 act like adjectives, agreeing with the noun",
+          "p": "واحد (one) and اثنان (two) come AFTER the noun and agree in gender, just like a regular adjective — though for 'two,' the dual form alone is usually enough without adding اثنان.",
+          "ex": "وَلَدٌ وَاحِدٌ، بِنْتَانِ",
+          "exTranslation": "waladun wāḥid (one boy), bintāni (two girls — dual form alone)",
+          "audioId": "unit16-ex1"
+        },
+        {
+          "h": "Numbers 3–10 flip gender and take a plural noun",
+          "p": "Here's the famous curveball: numbers 3 through 10 show the OPPOSITE gender of the noun they count, and the noun that follows is plural and genitive.",
+          "ex": "ثَلَاثَةُ كُتُبٍ",
+          "exTranslation": "thalāthatu kutubin — three books (kutub is grammatically masculine, so the number takes the feminine form thalātha)",
+          "audioId": "unit16-ex2"
+        },
+        {
+          "h": "Numbers 11–99 take a singular accusative noun",
+          "p": "Once you pass ten, the counted noun switches back to singular, now marked accusative — different again from both the 1–2 and 3–10 patterns.",
+          "ex": "عِشْرُونَ كِتَابًا",
+          "exTranslation": "ʻishrūna kitāban — twenty books (kitāb stays singular, accusative)",
+          "audioId": "unit16-ex3"
+        },
+        {
+          "h": "أَوَّل (first), ثَانِي (second)... ordinals work like adjectives too",
+          "p": "Ordinal numbers behave like regular adjectives — placed after the noun, agreeing in gender and definiteness.",
+          "ex": "الدَّرْسُ الأَوَّلُ",
+          "exTranslation": "ad-darsu al-awwalu — the first lesson",
+          "audioId": "unit16-ex4"
+        }
+      ],
+      "quiz": [
+        {
+          "type": "mc",
+          "q": "Which correctly means 'one boy'?",
+          "options": ["ولد واحد", "واحد ولد", "ولد واحدة"],
+          "answer": "ولد واحد",
+          "audioId": "unit16-q1"
+        },
+        {
+          "type": "mc",
+          "q": "Which correctly means 'three books' (3-10 rule)?",
+          "options": ["ثلاثة كتب", "ثلاث كتب", "ثلاثة كتاب"],
+          "answer": "ثلاثة كتب",
+          "audioId": "unit16-q2"
+        },
+        {
+          "type": "fill",
+          "q": "Give the ordinal 'first' as it agrees with الدرس (the lesson, m, definite).",
+          "answer": "الأول",
+          "audioId": "unit16-q3"
+        },
+        {
+          "type": "mc",
+          "q": "Which correctly means 'twenty books' (11-99 rule, singular accusative)?",
+          "options": ["عشرون كتاباً", "عشرون كتب", "عشرون كتاب"],
+          "answer": "عشرون كتاباً",
+          "audioId": "unit16-q4"
+        },
+        {
+          "type": "mc",
+          "q": "Which correctly means 'two girls' using the dual form alone?",
+          "options": ["بنتان", "بنتان اثنان", "بنت اثنان"],
+          "answer": "بنتان",
+          "audioId": "unit16-q5"
+        }
+      ]
+    }
+  ]
+}

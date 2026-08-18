@@ -373,6 +373,86 @@
         width: 0%;
       }
 
+      .certificate-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        background: var(--forest-dark);
+        color: var(--cream);
+        border-radius: 14px;
+        padding: 18px 22px;
+        margin: 0 0 20px;
+        flex-wrap: wrap;
+      }
+      .certificate-banner-text {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .certificate-banner-icon {
+        font-size: 30px;
+        flex-shrink: 0;
+      }
+      .certificate-banner-title {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .certificate-banner-sub {
+        font-size: 12.5px;
+        opacity: 0.8;
+        margin-top: 2px;
+      }
+
+      .cert-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 48, 31, 0.6);
+        z-index: 60;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .cert-modal-overlay.hidden {
+        display: none;
+      }
+      .cert-modal-card {
+        background: var(--cream);
+        border-radius: 16px;
+        padding: 30px;
+        max-width: 400px;
+        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+      .cert-modal-card h2 {
+        font-size: 19px;
+        margin: 0 0 6px;
+      }
+      .cert-modal-card p {
+        font-size: 13.5px;
+        color: #4a4f42;
+        margin: 0 0 16px;
+      }
+      .cert-modal-card input {
+        width: 100%;
+        padding: 11px 14px;
+        border-radius: 8px;
+        border: 1.5px solid rgba(27, 67, 50, 0.25);
+        font-size: 14.5px;
+        font-family: "Work Sans", sans-serif;
+        margin-bottom: 16px;
+      }
+      .cert-modal-actions {
+        display: flex;
+        gap: 10px;
+      }
+      .cert-modal-actions .btn {
+        flex: 1;
+        text-align: center;
+      }
+
       /* Section dividers within the path */
       .section-divider {
         display: flex;
@@ -859,13 +939,8 @@
         <a href="/practice.html">Conversation Practice</a>
         <a href="/dictionary.html">Dictionary</a>
         <a href="/about.html">About</a>
+        <a href="/blog.html">Blog</a>
         <a href="/practice.html" class="btn">Practice free</a>
-        <a
-          href="/settings.html"
-          class="icon-btn"
-          style="text-decoration: none; display: inline-block"
-          >⚙️ Settings</a
-        >
         <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
       </nav>
     </header>
@@ -908,6 +983,20 @@
           <div class="progress-bar-track">
             <div class="progress-bar-fill" id="progressBarFill"></div>
           </div>
+        </div>
+        <div class="certificate-banner hidden" id="certificateBanner">
+          <div class="certificate-banner-text">
+            <span class="certificate-banner-icon">🎓</span>
+            <div>
+              <div class="certificate-banner-title">Course complete!</div>
+              <div class="certificate-banner-sub">
+                You've finished every lesson. Claim your certificate.
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-gold" id="claimCertificateBtn">
+            Claim Certificate
+          </button>
         </div>
         <div class="path" id="pathContainer"></div>
       </div>
@@ -989,6 +1078,7 @@
         mandarin: { name: "Mandarin", flag: "🇨🇳", available: true, units: [] },
         russian: { name: "Russian", flag: "🇷🇺", available: true, units: [] },
         hebrew: { name: "Hebrew", flag: "🇮🇱", available: true, units: [] },
+        arabic: { name: "Arabic", flag: "🇸🇦", available: true, units: [] },
       };
       const langCodes = {
         german: "de",
@@ -997,6 +1087,7 @@
         mandarin: "zh",
         russian: "ru",
         hebrew: "he",
+        arabic: "ar",
       };
       const FOUNDATIONS_COUNT = 5;
 
@@ -1096,6 +1187,10 @@
         requestAnimationFrame(() => {
           fill.style.width = pct + "%";
         });
+
+        document
+          .getElementById("certificateBanner")
+          .classList.toggle("hidden", !(total > 0 && done === total));
       }
 
       function openUnit(unitId) {
@@ -1131,7 +1226,8 @@
         const container = document.getElementById("lessonChunks");
         container.innerHTML = "";
         const lang = langCodes[currentLang];
-        const exDir = currentLang === "hebrew" ? "rtl" : "ltr";
+        const rtlLanguages = ["hebrew", "arabic"];
+        const exDir = rtlLanguages.includes(currentLang) ? "rtl" : "ltr";
 
         unit.teaching.forEach((chunk, i) => {
           const div = document.createElement("div");
@@ -1475,6 +1571,173 @@
         await loadServerProgress();
         loadAllForGrid();
       })();
+
+      // ---------- Certificate ----------
+
+      function openCertModal() {
+        const input = document.getElementById("certNameInput");
+        input.value = (currentUser && currentUser.name) || "";
+        document.getElementById("certModalOverlay").classList.remove("hidden");
+        setTimeout(() => input.focus(), 50);
+      }
+
+      function closeCertModal() {
+        document.getElementById("certModalOverlay").classList.add("hidden");
+      }
+
+      document
+        .getElementById("claimCertificateBtn")
+        .addEventListener("click", openCertModal);
+      document
+        .getElementById("certCancelBtn")
+        .addEventListener("click", closeCertModal);
+      document
+        .getElementById("certModalOverlay")
+        .addEventListener("click", (e) => {
+          if (e.target.id === "certModalOverlay") closeCertModal();
+        });
+      document
+        .getElementById("certNameInput")
+        .addEventListener("keydown", (e) => {
+          if (e.key === "Enter")
+            document.getElementById("certConfirmBtn").click();
+        });
+      document
+        .getElementById("certConfirmBtn")
+        .addEventListener("click", () => {
+          const name = document.getElementById("certNameInput").value.trim();
+          if (!name) {
+            alert("Please enter a name for the certificate.");
+            return;
+          }
+          generateCertificatePDF(name, courseData[currentLang].name);
+          closeCertModal();
+        });
+
+      function generateCertificatePDF(studentName, languageName) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+          orientation: "landscape",
+          unit: "pt",
+          format: "a4",
+        });
+        const pageW = doc.internal.pageSize.getWidth();
+        const pageH = doc.internal.pageSize.getHeight();
+
+        const FOREST = [27, 67, 50];
+        const FOREST_DARK = [18, 48, 31];
+        const GOLD = [232, 163, 61];
+        const CREAM = [251, 247, 238];
+        const BRICK = [140, 74, 58];
+        const INK = [58, 63, 50];
+
+        // Background
+        doc.setFillColor(...CREAM);
+        doc.rect(0, 0, pageW, pageH, "F");
+
+        // Outer + inner decorative borders
+        doc.setDrawColor(...FOREST);
+        doc.setLineWidth(3);
+        doc.rect(24, 24, pageW - 48, pageH - 48);
+        doc.setDrawColor(...GOLD);
+        doc.setLineWidth(1.2);
+        doc.rect(34, 34, pageW - 68, pageH - 68);
+
+        // Brand header
+        doc.setTextColor(...FOREST);
+        doc.setFont("times", "bold");
+        doc.setFontSize(16);
+        doc.text("STEMBridge Speaks", pageW / 2, 78, { align: "center" });
+
+        // Title
+        doc.setTextColor(...FOREST_DARK);
+        doc.setFont("times", "bold");
+        doc.setFontSize(34);
+        doc.text("Certificate of Completion", pageW / 2, 130, {
+          align: "center",
+        });
+        doc.setDrawColor(...GOLD);
+        doc.setLineWidth(1.5);
+        doc.line(pageW / 2 - 80, 145, pageW / 2 + 80, 145);
+
+        // "This certifies that"
+        doc.setFont("times", "normal");
+        doc.setFontSize(14);
+        doc.setTextColor(...INK);
+        doc.text("This certifies that", pageW / 2, 185, { align: "center" });
+
+        // Student name
+        doc.setFont("times", "bolditalic");
+        doc.setFontSize(30);
+        doc.setTextColor(...BRICK);
+        doc.text(studentName, pageW / 2, 225, { align: "center" });
+        const nameWidth = doc.getTextWidth(studentName);
+        doc.setDrawColor(...BRICK);
+        doc.setLineWidth(1);
+        doc.line(
+          pageW / 2 - nameWidth / 2 - 10,
+          233,
+          pageW / 2 + nameWidth / 2 + 10,
+          233,
+        );
+
+        // Description
+        doc.setFont("times", "normal");
+        doc.setFontSize(14);
+        doc.setTextColor(...INK);
+        doc.text(
+          `has successfully completed the ${languageName} Grammar Course,`,
+          pageW / 2,
+          262,
+          { align: "center" },
+        );
+        doc.text(
+          "16 lessons spanning Foundations through Advanced Grammar,",
+          pageW / 2,
+          282,
+          { align: "center" },
+        );
+        doc.text("on STEMBridge Speaks.", pageW / 2, 302, { align: "center" });
+
+        // Footer: date + certificate ID
+        const dateStr = new Date().toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        const certId =
+          "STB-" +
+          (langCodes[currentLang] || "xx").toUpperCase() +
+          "-" +
+          Date.now().toString(36).toUpperCase();
+
+        doc.setFontSize(10.5);
+        doc.setTextColor(...FOREST);
+        doc.text(`Issued ${dateStr}`, pageW / 2 - 140, pageH - 60, {
+          align: "center",
+        });
+        doc.text(`Certificate ID: ${certId}`, pageW / 2 + 140, pageH - 60, {
+          align: "center",
+        });
+
+        // Signature line
+        doc.setFont("times", "italic");
+        doc.setFontSize(16);
+        doc.setTextColor(...FOREST_DARK);
+        doc.text("STEMBridge Speaks", pageW / 2, pageH - 90, {
+          align: "center",
+        });
+        doc.setDrawColor(...FOREST);
+        doc.setLineWidth(0.8);
+        doc.line(pageW / 2 - 90, pageH - 82, pageW / 2 + 90, pageH - 82);
+        doc.setFont("times", "normal");
+        doc.setFontSize(10);
+        doc.text("Course Provider", pageW / 2, pageH - 68, { align: "center" });
+
+        const safeLang = languageName.replace(/\s+/g, "-");
+        const safeName = studentName.replace(/\s+/g, "-");
+        doc.save(`STEMBridge-Speaks-${safeLang}-Certificate-${safeName}.pdf`);
+      }
     </script>
 
     <div id="lessonPreviewOverlay" class="preview-overlay hidden">
@@ -1495,6 +1758,22 @@
       </div>
     </div>
 
+    <div id="certModalOverlay" class="cert-modal-overlay hidden">
+      <div class="cert-modal-card">
+        <h2>🎓 Claim your certificate</h2>
+        <p>
+          Confirm the name to print on your certificate. This should be your
+          full name, exactly as you'd like it to appear.
+        </p>
+        <input type="text" id="certNameInput" placeholder="Your full name" />
+        <div class="cert-modal-actions">
+          <button class="btn" id="certCancelBtn">Cancel</button>
+          <button class="btn btn-gold" id="certConfirmBtn">Generate PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
       document
         .getElementById("previewCloseBtn")

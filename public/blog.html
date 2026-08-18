@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1B4332" />
+    <title>Blog — STEMBridge Speaks</title>
+    <meta
+      name="description"
+      content="Articles on language learning, grammar, and making sense of the tools out there — from the team behind STEMBridge Speaks."
+    />
+    <link
+      rel="canonical"
+      href="https://stembridge-speaks.onrender.com/blog.html"
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --gold: #e8a33d;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+        line-height: 1.55;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        color: var(--forest-dark);
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 6vw;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 19px;
+        color: var(--forest);
+        text-decoration: none;
+      }
+      nav {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+      }
+      nav a.btn {
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 600;
+      }
+      main {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 48px 6vw 80px;
+      }
+      main > p.intro {
+        color: #4a4f42;
+        font-size: 16px;
+        max-width: 60ch;
+      }
+      .post-list {
+        margin-top: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .post-card {
+        background: var(--sage);
+        border-radius: 14px;
+        padding: 26px;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .post-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(27, 67, 50, 0.12);
+      }
+      .post-tag {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--brick);
+      }
+      .post-card h2 {
+        font-size: 21px;
+        margin: 8px 0 8px;
+      }
+      .post-card p {
+        font-size: 14.5px;
+        color: #3a3f32;
+        margin: 0 0 10px;
+      }
+      .post-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        color: #6b7062;
+      }
+      footer {
+        margin-top: 40px;
+        padding: 32px 6vw;
+        text-align: center;
+        font-size: 13px;
+        color: #6b7062;
+        border-top: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      footer a {
+        margin: 0 10px;
+        color: var(--forest-dark);
+      }
+      @media (max-width: 600px) {
+        header {
+          padding: 16px 5vw;
+        }
+        nav a:not(.btn) {
+          display: none;
+        }
+        main {
+          padding: 32px 5vw 60px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">STEMBridge Speaks</a>
+      <nav>
+        <a href="/practice.html">Conversation Practice</a>
+        <a href="/learn.html">Learn Grammar</a>
+        <a href="/practice.html" class="btn">Practice free</a>
+      </nav>
+    </header>
+    <main>
+      <h1>Blog</h1>
+      <p class="intro">
+        Thoughts on language learning, grammar explained plainly, and honest
+        looks at the tools out there — written by the person building STEMBridge
+        Speaks.
+      </p>
+      <div class="post-list" id="postList"><p>Loading posts...</p></div>
+    </main>
+    <footer>
+      © 2026 STEMBridge Speaks
+      <div style="margin-top: 12px">
+        <a href="/about.html">About</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+    </footer>
+    <script>
+      fetch("/data/blog-posts.json")
+        .then((res) => res.json())
+        .then((data) => {
+          const list = document.getElementById("postList");
+          list.innerHTML = "";
+          data.posts
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .forEach((post) => {
+              const a = document.createElement("a");
+              a.className = "post-card";
+              a.href = `/blog/${post.slug}.html`;
+              const dateStr = new Date(post.date).toLocaleDateString(
+                undefined,
+                { year: "numeric", month: "long", day: "numeric" },
+              );
+              a.innerHTML = `
+            <span class="post-tag">${post.tag}</span>
+            <h2>${post.title}</h2>
+            <p>${post.excerpt}</p>
+            <span class="post-meta">${dateStr} · ${post.readTime}</span>
+          `;
+              list.appendChild(a);
+            });
+        });
+    </script>
+  </body>
+</html>

@@ -738,6 +738,7 @@
       let isRecording = false;
       let audioUnlocked = false;
       let currentChatId = null;
+      let chatIsOpenerOnly = false;
 
       const rtlLanguages = ["arabic", "hebrew"];
       const introLines = {
@@ -897,6 +898,7 @@
         });
         const data = await res.json();
         currentChatId = data.chatId;
+        chatIsOpenerOnly = false;
         currentChatTitle.textContent = "New chat";
         showEmptyChat();
         exchangeCount = 0;
@@ -924,6 +926,7 @@
           const data = await res.json();
           chatInner.lastChild.remove();
           addTutorMessage(data.reply, "", false, true);
+          chatIsOpenerOnly = true;
           loadChatList();
         } catch (err) {
           chatInner.lastChild.remove();
@@ -932,6 +935,16 @@
           );
         }
       }
+
+      async function handleContextChange() {
+        if (!currentChatId || !chatIsOpenerOnly) return; // only auto-regenerate before the user has actually said anything
+        chatInner.innerHTML = "";
+        await startConversationOpener();
+      }
+
+      languageSelect.addEventListener("change", handleContextChange);
+      scenarioSelect.addEventListener("change", handleContextChange);
+      levelSelect.addEventListener("change", handleContextChange);
 
       document
         .getElementById("newChatBtn")
@@ -1186,9 +1199,9 @@
       async function ensureChatExists() {
         if (!currentChatId) await createNewChat();
       }
-
       async function sendTextMessage(text) {
         await ensureChatExists();
+        chatIsOpenerOnly = false;
         addUserMessage(text);
         try {
           const response = await fetch("/chat", {
@@ -1248,6 +1261,7 @@
 
           mediaRecorder.onstop = async () => {
             await ensureChatExists();
+            chatIsOpenerOnly = false;
             const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
             addSystemMessage("Processing your speech...");
 

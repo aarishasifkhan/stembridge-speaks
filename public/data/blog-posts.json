@@ -1,0 +1,28 @@
+{
+  "posts": [
+    {
+      "slug": "why-you-freeze-up-speaking",
+      "title": "Why You Freeze Up Speaking a Language You Know on Paper",
+      "excerpt": "You can conjugate every verb and ace every quiz — so why does your mind go blank the moment someone actually talks to you? Here's what's really happening.",
+      "date": "2026-08-10",
+      "readTime": "6 min read",
+      "tag": "Language Learning"
+    },
+    {
+      "slug": "german-cases-explained",
+      "title": "German Cases, Explained Without the Textbook Jargon",
+      "excerpt": "Nominative, accusative, dative — the words alone are enough to make anyone want to quit. Here's the plain-English version of how German cases actually work.",
+      "date": "2026-08-12",
+      "readTime": "8 min read",
+      "tag": "Grammar"
+    },
+    {
+      "slug": "free-vs-paid-language-apps",
+      "title": "Free vs. Paid Language Apps: What You're Actually Paying For",
+      "excerpt": "Before you hand over $15 a month, it's worth knowing exactly what that subscription buys you — and what it doesn't.",
+      "date": "2026-08-14",
+      "readTime": "7 min read",
+      "tag": "Comparison"
+    }
+  ]
+}

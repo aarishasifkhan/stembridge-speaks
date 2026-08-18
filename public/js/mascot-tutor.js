@@ -226,6 +226,32 @@
         font-size: 13.5px;
         line-height: 1.45;
         white-space: pre-wrap;
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+      }
+      .mascot-bubble-text {
+        flex: 1;
+        min-width: 0;
+      }
+      .mascot-speak-btn {
+        flex-shrink: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 13px;
+        opacity: 0.75;
+        padding: 2px;
+        line-height: 1;
+        transition: opacity 0.15s ease, transform 0.15s ease;
+      }
+      .mascot-speak-btn:hover {
+        opacity: 1;
+        transform: scale(1.12);
+      }
+      .mascot-speak-btn:disabled {
+        opacity: 0.5;
+        cursor: default;
       }
       .mascot-bubble.user {
         background: ${COLORS.sage};
@@ -421,16 +447,70 @@
     els.messages.scrollTop = els.messages.scrollHeight;
   }
 
-  function addBubble(role, text) {
+  function addBubble(role, text, topicLanguage) {
     const row = document.createElement("div");
     row.className = "mascot-msg-row " + (role === "user" ? "user" : "bot");
     const bubble = document.createElement("div");
     bubble.className = "mascot-bubble " + (role === "user" ? "user" : "bot");
-    bubble.textContent = text;
+
+    const textSpan = document.createElement("span");
+    textSpan.className = "mascot-bubble-text";
+    textSpan.textContent = text;
+    bubble.appendChild(textSpan);
+
+    if (role !== "user") {
+      const speakBtn = document.createElement("button");
+      speakBtn.className = "mascot-speak-btn";
+      speakBtn.type = "button";
+      speakBtn.textContent = "🔊";
+      speakBtn.setAttribute(
+        "aria-label",
+        `Read this aloud with a ${languageLabel(topicLanguage || context.language)} accent`,
+      );
+      speakBtn.addEventListener("click", () =>
+        speakReply(text, topicLanguage || context.language, speakBtn),
+      );
+      bubble.appendChild(speakBtn);
+    }
+
     row.appendChild(bubble);
     els.messages.appendChild(row);
     scrollMessagesToBottom();
     return bubble;
+  }
+
+  async function speakReply(text, topicLanguage, btnEl) {
+    const original = btnEl.textContent;
+    btnEl.textContent = "⏳";
+    btnEl.disabled = true;
+    try {
+      const res = await fetch("/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // Deliberately English text through a target-language voice: Bridgee
+        // always replies in English, but reading it through e.g. the German
+        // voice gives a natural German-accented reading (and pronounces any
+        // embedded foreign example words correctly) instead of a single
+        // fixed English voice mangling them.
+        body: JSON.stringify({ text, language: topicLanguage, level: "B1" }),
+      });
+      const data = await res.json();
+      if (!data.audio) throw new Error("No audio returned from /tts");
+      const audio = new Audio("data:audio/mp3;base64," + data.audio);
+      audio.onended = () => {
+        btnEl.textContent = original;
+        btnEl.disabled = false;
+      };
+      audio.onerror = () => {
+        btnEl.textContent = original;
+        btnEl.disabled = false;
+      };
+      await audio.play();
+    } catch (err) {
+      console.error("Bridgee accent playback failed:", err);
+      btnEl.textContent = original;
+      btnEl.disabled = false;
+    }
   }
 
   function addTypingIndicator() {
@@ -528,7 +608,7 @@
           data.error || "Sorry, I couldn't answer that just now.",
         );
       } else {
-        addBubble("bot", data.reply);
+        addBubble("bot", data.reply, data.topicLanguage);
         history.push({ role: "assistant", text: data.reply });
         history = history.slice(-HISTORY_LIMIT);
       }
