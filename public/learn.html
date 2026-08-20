@@ -624,6 +624,57 @@
         margin: 0;
         color: #3a3f32;
       }
+      .lesson-table-wrap {
+        margin-top: 14px;
+        overflow-x: auto;
+        border-radius: 10px;
+        border: 1px solid rgba(27, 67, 50, 0.15);
+      }
+      .lesson-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+        background: var(--cream);
+        min-width: 340px;
+      }
+      .lesson-table caption {
+        caption-side: top;
+        text-align: left;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--brick);
+        padding: 10px 14px 6px;
+        background: var(--cream);
+      }
+      .lesson-table th,
+      .lesson-table td {
+        padding: 10px 14px;
+        text-align: left;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+        white-space: nowrap;
+      }
+      .lesson-table th {
+        background: var(--forest-dark);
+        color: var(--cream);
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .lesson-table th:first-child,
+      .lesson-table td:first-child {
+        font-weight: 600;
+        color: var(--forest-dark);
+        background: var(--sage);
+      }
+      .lesson-table tbody tr:nth-child(even) td:not(:first-child) {
+        background: rgba(27, 67, 50, 0.04);
+      }
+      .lesson-table td[dir="rtl"] {
+        text-align: right;
+        font-size: 15px;
+      }
       .lesson-chunk .example {
         margin: 10px auto 0;
         font-family: "IBM Plex Mono", monospace;
@@ -884,6 +935,14 @@
         .lesson-chunk p {
           font-size: 13.5px;
         }
+        .lesson-table {
+          font-size: 12.5px;
+          min-width: 300px;
+        }
+        .lesson-table th,
+        .lesson-table td {
+          padding: 8px 10px;
+        }
         .lesson-chunk .example {
           font-size: 12px;
           flex-direction: column;
@@ -938,8 +997,8 @@
       <nav>
         <a href="/practice.html">Conversation Practice</a>
         <a href="/dictionary.html">Dictionary</a>
+        <a href="/assessments.html">Assessment Prep</a>
         <a href="/about.html">About</a>
-        <a href="/blog.html">Blog</a>
         <a href="/practice.html" class="btn">Practice free</a>
         <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
       </nav>
@@ -1030,11 +1089,6 @@
 
     <footer>
       © 2026 STEMBridge Speaks
-      <div style="margin-top: 6px">
-        <a href="https://stembridgelearning.blogspot.com">STEMBridgeLearning</a>
-        · <a href="https://stembridgestats.netlify.app">STEMBridgeStats</a> ·
-        <a href="https://stembridgetools.netlify.app">STEMBridgeTools</a>
-      </div>
       <div style="margin-top: 12px">
         <a
           href="/dictionary.html"
@@ -1229,12 +1283,39 @@
         const rtlLanguages = ["hebrew", "arabic"];
         const exDir = rtlLanguages.includes(currentLang) ? "rtl" : "ltr";
 
+        function buildLessonTableHTML(table, dir) {
+          const caption = table.caption
+            ? `<caption>${table.caption}</caption>`
+            : "";
+          const headRow = table.headers.map((h) => `<th>${h}</th>`).join("");
+          const bodyRows = table.rows
+            .map((row) => {
+              const cells = row
+                .map((cell, ci) =>
+                  ci === 0
+                    ? `<td>${cell}</td>`
+                    : `<td dir="${dir}">${cell}</td>`,
+                )
+                .join("");
+              return `<tr>${cells}</tr>`;
+            })
+            .join("");
+          return `<div class="lesson-table-wrap">
+       <table class="lesson-table">
+         ${caption}
+         <thead><tr>${headRow}</tr></thead>
+         <tbody>${bodyRows}</tbody>
+       </table>
+     </div>`;
+        }
+
         unit.teaching.forEach((chunk, i) => {
           const div = document.createElement("div");
           div.className = "lesson-chunk";
           div.style.animationDelay = i * 0.08 + "s";
           div.innerHTML =
             `<h3>${chunk.h}</h3><p>${chunk.p}</p>` +
+            (chunk.table ? buildLessonTableHTML(chunk.table, exDir) : "") +
             (chunk.ex
               ? `<div class="example">
        <div>

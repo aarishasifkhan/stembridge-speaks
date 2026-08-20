@@ -179,6 +179,30 @@
           "ex": "vivir → vivo, vives, vive, vivimos, vivís, viven",
           "exTranslation": "to live → I live, you live, he/she lives, we live, you all live, they live",
           "audioId": "unit3-ex4"
+        },
+        {
+          "h": "Regular endings across all three families, side by side",
+          "p": "Once you see -ar, -er, and -ir stacked together, the pattern is obvious: swap the vowel, keep the same skeleton. hablar (to speak), comer (to eat), and vivir (to live) as the model verbs.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": "",
+          "table": {
+            "caption": "Present-tense endings by verb family",
+            "headers": [
+              "Pronoun",
+              "-AR (hablar)",
+              "-ER (comer)",
+              "-IR (vivir)"
+            ],
+            "rows": [
+              ["yo", "hablo", "como", "vivo"],
+              ["tú", "hablas", "comes", "vives"],
+              ["él / ella / usted", "habla", "come", "vive"],
+              ["nosotros", "hablamos", "comemos", "vivimos"],
+              ["vosotros", "habláis", "coméis", "vivís"],
+              ["ellos / ellas / ustedes", "hablan", "comen", "viven"]
+            ]
+          }
         }
       ],
       "quiz": [

@@ -164,6 +164,27 @@
           "p": "Once you add 'did' to a negative sentence, the main verb goes BACK to its base form — you don't double up on past tense. This is why 'I didn't went' is wrong even though it feels like it should match.",
           "ex": "I didn't go, not I didn't went.",
           "audioId": "unit3-ex4"
+        },
+        {
+          "h": "The most common irregular verbs at a glance",
+          "p": "These eight cover an enormous share of everyday English. Notice there's no single pattern — that's exactly why they have to be memorized as whole sets, not derived from a rule.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": "",
+          "table": {
+            "caption": "Common irregular verbs",
+            "headers": ["Base", "Past", "Past Participle"],
+            "rows": [
+              ["go", "went", "gone"],
+              ["see", "saw", "seen"],
+              ["eat", "ate", "eaten"],
+              ["take", "took", "taken"],
+              ["write", "wrote", "written"],
+              ["speak", "spoke", "spoken"],
+              ["give", "gave", "given"],
+              ["be", "was / were", "been"]
+            ]
+          }
         }
       ],
       "quiz": [

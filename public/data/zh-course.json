@@ -102,6 +102,44 @@
           "ex": "一杯茶",
           "exTranslation": "yì bēi chá — one cup of tea",
           "audioId": "unit2-ex4"
+        },
+        {
+          "h": "Common measure words at a glance",
+          "p": "These five cover a huge share of daily conversation. When in doubt and none of these obviously fit, 个 (gè) is still the safest fallback.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": "",
+          "table": {
+            "caption": "Frequently used measure words",
+            "headers": ["Measure word", "Pinyin", "Used for", "Example"],
+            "rows": [
+              [
+                "个",
+                "gè",
+                "people, general objects (safe default)",
+                "一个人 — one person"
+              ],
+              [
+                "本",
+                "běn",
+                "bound objects: books, magazines",
+                "两本书 — two books"
+              ],
+              [
+                "杯",
+                "bēi",
+                "cups/glasses of something",
+                "一杯茶 — a cup of tea"
+              ],
+              [
+                "张",
+                "zhāng",
+                "flat objects: paper, tickets, tables",
+                "三张纸 — three sheets of paper"
+              ],
+              ["只", "zhī", "animals, one of a pair", "一只猫 — one cat"]
+            ]
+          }
         }
       ],
       "quiz": [

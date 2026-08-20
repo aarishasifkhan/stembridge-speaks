@@ -761,6 +761,36 @@
           "ex": "",
           "exTranslation": "",
           "audioId": ""
+        },
+        {
+          "h": "The seven binyanim at a glance",
+          "p": "You don't need to memorize all seven today — but seeing them side by side, built from the same root כ-ת-ב (write), makes the pattern concept click faster than reading about it in isolation.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": "",
+          "table": {
+            "caption": "Binyanim built from the root כ-ת-ב (k-t-v, \"write\")",
+            "headers": ["Binyan", "Voice", "Example", "Meaning"],
+            "rows": [
+              ["Pa'al", "active", "כָּתַב", "he wrote"],
+              ["Nif'al", "passive/reflexive", "נִכְתַּב", "it was written"],
+              [
+                "Pi'el",
+                "active, intensive",
+                "כִּתֵּב",
+                "he wrote in detail / addressed"
+              ],
+              ["Pu'al", "passive of Pi'el", "כֻּתַּב", "it was written up"],
+              ["Hif'il", "causative", "הִכְתִּיב", "he dictated"],
+              ["Huf'al", "passive of Hif'il", "הֻכְתַּב", "it was dictated"],
+              [
+                "Hitpa'el",
+                "reflexive",
+                "הִתְכַּתֵּב",
+                "he corresponded (with someone)"
+              ]
+            ]
+          }
         }
       ],
       "quiz": [

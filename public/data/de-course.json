@@ -175,10 +175,19 @@
         },
         {
           "h": "The full article table — the single most useful reference in this course",
-          "p": "Nominative: der (m) / die (f) / das (n) / die (plural). Accusative: den (m) / die (f) / das (n) / die (plural) — only masculine changes. Dative: dem (m) / der (f) / dem (n) / den (plural) — everything changes here, and plural dative nouns even take an extra -n ending. Bookmark this pattern; almost every German sentence relies on it.",
+          "p": "Here's the full pattern side by side. Bookmark this table — almost every German sentence relies on it, and once it clicks, cases stop being scary.",
           "ex": "",
           "exTranslation": "",
-          "audioId": ""
+          "audioId": "",
+          "table": {
+            "caption": "Definite article by case and gender",
+            "headers": ["Case", "Masculine", "Feminine", "Neuter", "Plural"],
+            "rows": [
+              ["Nominative", "der", "die", "das", "die"],
+              ["Accusative", "den", "die", "das", "die"],
+              ["Dative", "dem", "der", "dem", "den (+n)"]
+            ]
+          }
         }
       ],
       "quiz": [

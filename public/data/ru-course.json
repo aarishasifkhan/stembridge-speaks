@@ -103,6 +103,29 @@
           "ex": "",
           "exTranslation": "",
           "audioId": ""
+        },
+        {
+          "h": "The six cases at a glance",
+          "p": "This is the map for everything ahead in this course — every noun, adjective, and pronoun you learn will bend to fit one of these six roles.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": "",
+          "table": {
+            "caption": "Russian case system overview",
+            "headers": ["Case", "Used for", "Asks"],
+            "rows": [
+              ["Nominative", "the subject; dictionary form", "who? what?"],
+              ["Genitive", "possession, absence, \"of\"", "of whom? of what?"],
+              ["Dative", "indirect object, \"to/for\"", "to whom? to what?"],
+              ["Accusative", "the direct object", "whom? what?"],
+              ["Instrumental", "means, \"by/with\"", "by whom? with what?"],
+              [
+                "Prepositional",
+                "location, after certain prepositions",
+                "about whom? where?"
+              ]
+            ]
+          }
         }
       ],
       "quiz": [

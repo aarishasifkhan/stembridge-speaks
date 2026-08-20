@@ -1,0 +1,530 @@
+{
+  "exams": [
+    {
+      "id": "ielts",
+      "language": "English",
+      "flag": "🇬🇧",
+      "name": "IELTS",
+      "fullName": "International English Language Testing System",
+      "body": "British Council / IDP / Cambridge",
+      "overview": "IELTS is scored on a 9-band scale rather than pass/fail, and comes in two versions: Academic (for university admission) and General Training (for work/immigration). Most universities want an overall band of 6.5–7.5, so the goal isn't perfection — it's consistency across all four sections, since your overall score is an average.",
+      "sections": [
+        {
+          "name": "Listening",
+          "duration": "30 minutes + 10 min transfer time",
+          "tips": [
+            "You only hear each recording once — read the questions BEFORE the audio starts so you know what to listen for.",
+            "Spelling and word count matter: writing 'a' instead of 'an' or exceeding the word limit loses the point even if you understood correctly.",
+            "The four sections get progressively harder — don't panic if section 4 feels much tougher than section 1."
+          ]
+        },
+        {
+          "name": "Reading",
+          "duration": "60 minutes, 40 questions",
+          "tips": [
+            "Read the questions first, then scan the passage for keywords rather than reading top to bottom like a novel.",
+            "'True/False/Not Given' is the most commonly misunderstood question type — 'Not Given' means the passage never mentions it, not that it's false.",
+            "Don't spend more than 20 minutes per passage — leave and come back if you're stuck."
+          ]
+        },
+        {
+          "name": "Writing",
+          "duration": "60 minutes, 2 tasks",
+          "tips": [
+            "Task 2 (the essay) is worth twice as much as Task 1 — if you're short on time, prioritize it.",
+            "For Task 1 (Academic), describe the overall trend first before diving into specific numbers.",
+            "Examiners specifically look for a range of grammar and vocabulary — repeating the same sentence structure caps your score even if it's correct."
+          ]
+        },
+        {
+          "name": "Speaking",
+          "duration": "11–14 minutes, 3 parts",
+          "tips": [
+            "Part 2 gives you 1 minute to prepare a 2-minute answer — actually use the full minute to jot notes, don't rush in.",
+            "Extend your answers with reasons and examples; one-word or one-sentence answers signal lower fluency regardless of accuracy.",
+            "It's fine to pause and self-correct — that's more natural than speaking perfectly but robotically."
+          ]
+        }
+      ],
+      "practice": [
+        {
+          "section": "Reading",
+          "type": "mc",
+          "q": "In IELTS Reading, if a statement is never mentioned in the passage at all, the correct answer is:",
+          "options": ["True", "False", "Not Given"],
+          "answer": "Not Given",
+          "explanation": "\"Not Given\" specifically means the information isn't addressed in the passage — it's not the same as \"False,\" which means the passage contradicts the statement."
+        },
+        {
+          "section": "Listening",
+          "type": "fill",
+          "q": "Complete the sentence with NO MORE THAN TWO WORDS: The library closes at ___ on weekdays. (audio says 'nine PM')",
+          "answer": "nine pm",
+          "explanation": "Listening answers must match the word limit exactly — writing extra words, even correct ones, marks the answer wrong."
+        },
+        {
+          "section": "Vocabulary",
+          "type": "mc",
+          "q": "Which word most naturally replaces 'a considerable number of' in an academic sentence?",
+          "options": ["many", "a lot of", "loads of"],
+          "answer": "many",
+          "explanation": "\"Many\" fits the formal register examiners expect; \"a lot of\" and \"loads of\" are too casual for Academic Writing or Speaking Part 3."
+        },
+        {
+          "section": "Grammar",
+          "type": "fill",
+          "q": "Complete: \"If the government ___ (invest) more in public transport, congestion would decrease.\"",
+          "answer": "invested",
+          "explanation": "This is a second conditional (hypothetical present/future) — 'if' + past simple, 'would' + base verb."
+        },
+        {
+          "section": "Reading",
+          "type": "mc",
+          "q": "The best strategy for IELTS Reading's True/False/Not Given questions is to:",
+          "options": [
+            "read the whole passage carefully first, then answer",
+            "read the questions first, then scan for relevant keywords"
+          ],
+          "answer": "read the questions first, then scan for relevant keywords",
+          "explanation": "With only 60 minutes for 3 passages, scanning for keywords after reading the questions is significantly faster than reading everything in full first."
+        },
+        {
+          "section": "Writing",
+          "type": "mc",
+          "q": "In IELTS Writing Task 1 (Academic), you should primarily:",
+          "options": [
+            "describe every single data point in detail",
+            "summarize the overall trend and highlight key features"
+          ],
+          "answer": "summarize the overall trend and highlight key features",
+          "explanation": "Task 1 rewards overview and selection of key data, not an exhaustive description of every number in the chart."
+        }
+      ],
+      "writingPrompt": "Some people believe that unpaid community service should be a compulsory part of high school education. To what extent do you agree or disagree? (Write at least 250 words.)",
+      "speakingPrompt": "Describe a skill you learned outside of school. You should say: what the skill is, how you learned it, how long it took, and explain why this skill has been useful to you."
+    },
+    {
+      "id": "testdaf",
+      "language": "German",
+      "flag": "🇩🇪",
+      "name": "TestDaF",
+      "fullName": "Test Deutsch als Fremdsprache",
+      "body": "TestDaF-Institut",
+      "overview": "TestDaF is the standard test for non-native speakers applying to German universities. Unlike IELTS's 9-band scale, TestDaF uses three levels (TDN 3, 4, 5) per section — TDN 4 is roughly B2/C1 and is what most universities require. Each of the four sections is scored and reported separately, so a weak Writing score won't be hidden by a strong Listening score.",
+      "sections": [
+        {
+          "name": "Leseverstehen (Reading)",
+          "duration": "60 minutes, 3 texts",
+          "tips": [
+            "The texts get progressively more complex — the third is often an academic/argumentative text, so budget extra time for it.",
+            "Some questions are True/False/'Text says nothing about this' — treat this like IELTS's Not Given: don't guess based on outside knowledge.",
+            "Underline key terms in the question before searching the text, not after."
+          ]
+        },
+        {
+          "name": "Hörverstehen (Listening)",
+          "duration": "About 40 minutes, 3 recordings",
+          "tips": [
+            "The first recording is usually played once, the others sometimes twice — pay close attention to the instructions given before each one.",
+            "Academic lecture-style recordings are common — practice following spoken academic German, not just conversational German.",
+            "Note-taking during the recording is expected and necessary; you won't have time to rely on memory alone."
+          ]
+        },
+        {
+          "name": "Schriftlicher Ausdruck (Writing)",
+          "duration": "60 minutes, 1 task",
+          "tips": [
+            "You'll typically describe a graph/chart AND give your own argued opinion — don't skip the opinion half, it's heavily weighted.",
+            "Use clear connector words (allerdings, daher, dennoch) — TestDaF graders specifically reward structural clarity.",
+            "Aim for a clear three-part structure: introduction, description/argument, conclusion — don't just write a stream of thoughts."
+          ]
+        },
+        {
+          "name": "Mündlicher Ausdruck (Speaking)",
+          "duration": "About 35 minutes, 7 tasks, recorded",
+          "tips": [
+            "This is recorded, not live with a person — speak clearly and at a measured pace since there's no interviewer to ask you to repeat yourself.",
+            "Some tasks ask you to react to a specific everyday situation (e.g., declining an invitation politely) — practice common social registers, not just grammar accuracy.",
+            "You get brief prep time per task — use it to structure 2-3 key points rather than trying to write a full script."
+          ]
+        }
+      ],
+      "practice": [
+        {
+          "section": "Grammar",
+          "type": "fill",
+          "q": "Complete: \"Wenn ich mehr Zeit ___ (haben), würde ich öfter Sport machen.\"",
+          "answer": "hätte",
+          "explanation": "Hypothetical situations in German use Konjunktiv II — 'hätte' (would have), matching the würde-construction in the main clause."
+        },
+        {
+          "section": "Vocabulary",
+          "type": "mc",
+          "q": "Which connector best expresses contrast in formal academic writing?",
+          "options": ["allerdings", "und", "auch"],
+          "answer": "allerdings",
+          "explanation": "\"Allerdings\" (however) signals contrast and is standard in formal/academic register — \"und\" and \"auch\" are simple additive connectors."
+        },
+        {
+          "section": "Reading",
+          "type": "mc",
+          "q": "In TestDaF Reading, if a statement isn't addressed anywhere in the text, you should mark it as:",
+          "options": [
+            "richtig (true)",
+            "falsch (false)",
+            "dazu steht nichts im Text (the text says nothing about this)"
+          ],
+          "answer": "dazu steht nichts im Text (the text says nothing about this)",
+          "explanation": "This mirrors IELTS's Not Given — don't infer an answer from outside knowledge if the text simply doesn't mention it."
+        },
+        {
+          "section": "Grammar",
+          "type": "fill",
+          "q": "Complete with the correct case: \"Der Bericht wurde ___ (der Professor) sehr genau gelesen.\" (passive, by-agent)",
+          "answer": "vom",
+          "explanation": "The passive agent (\"by the professor\") uses von + dative — von dem contracts to vom."
+        },
+        {
+          "section": "Writing",
+          "type": "mc",
+          "q": "In the TestDaF Writing task, which part is typically weighted most heavily?",
+          "options": [
+            "only describing the graph accurately",
+            "the graph description AND your argued opinion together"
+          ],
+          "answer": "the graph description AND your argued opinion together",
+          "explanation": "Graders assess both halves — a purely descriptive answer without your own reasoned position will score lower even if the description is accurate."
+        },
+        {
+          "section": "Listening",
+          "type": "mc",
+          "q": "TestDaF listening recordings featuring academic lectures test your ability to:",
+          "options": [
+            "understand casual conversational German only",
+            "follow structured, formal spoken academic German"
+          ],
+          "answer": "follow structured, formal spoken academic German",
+          "explanation": "Since TestDaF prepares you for German university study, its listening section deliberately includes academic lecture-style German, not just everyday conversation."
+        }
+      ],
+      "writingPrompt": "Beschreiben Sie die Grafik zum Thema 'Freizeitaktivitäten deutscher Jugendlicher' und nehmen Sie anschließend Stellung: Sollten Schulen mehr Freizeitangebote anbieten? (Describe the chart on German teenagers' leisure activities, then argue whether schools should offer more leisure activities.)",
+      "speakingPrompt": "Ein Freund lädt Sie zu seiner Geburtstagsfeier ein, aber Sie haben an dem Tag bereits eine wichtige Verpflichtung. Lehnen Sie höflich ab und schlagen Sie eine Alternative vor. (A friend invites you to their birthday party, but you already have an important commitment that day. Politely decline and suggest an alternative.)"
+    },
+    {
+      "id": "dele",
+      "language": "Spanish",
+      "flag": "🇪🇸",
+      "name": "DELE",
+      "fullName": "Diplomas de Español como Lengua Extranjera",
+      "body": "Instituto Cervantes",
+      "overview": "Unlike IELTS or TestDaF, DELE isn't one test with a sliding score — you register for a SPECIFIC level (A1 through C2) and either pass or fail that exact level, which stays valid forever once earned. This means choosing the right level to attempt matters as much as your actual Spanish ability — B2 is the most commonly required level for work/study purposes.",
+      "sections": [
+        {
+          "name": "Comprensión de lectura (Reading)",
+          "duration": "60–90 min depending on level",
+          "tips": [
+            "Several short texts are more common than one long one at lower levels — practice switching context quickly between passages.",
+            "Multiple-choice options are often deliberately close in meaning — read all three before choosing, don't stop at the first plausible one.",
+            "At B2+, expect texts from newspapers/opinion pieces — practice reading authentic Spanish media, not just textbook Spanish."
+          ]
+        },
+        {
+          "name": "Comprensión auditiva (Listening)",
+          "duration": "40–50 min depending on level",
+          "tips": [
+            "Regional accents (Spain, Latin America) may both appear — don't train exclusively on one accent.",
+            "You typically hear each recording twice — use the first pass to get the gist, the second to catch specific details.",
+            "Numbers, dates, and names are common trap points — practice these specifically since they're easy to mishear under pressure."
+          ]
+        },
+        {
+          "name": "Expresión e interacción escritas (Writing)",
+          "duration": "60–80 min, 2 tasks",
+          "tips": [
+            "Register matters — a formal email and an informal note require genuinely different vocabulary and structure, not just different content.",
+            "Word count minimums are enforced strictly — going noticeably under costs points even with perfect grammar.",
+            "Ser/estar and por/para mistakes are heavily flagged by DELE graders — these are worth extra review before the exam."
+          ]
+        },
+        {
+          "name": "Expresión e interacción orales (Speaking)",
+          "duration": "About 20 minutes including 20 min prep",
+          "tips": [
+            "You get real preparation time beforehand — use it to plan structure, not to write a full script you'll try to memorize.",
+            "One task usually involves a simulated conversation with the examiner — practice natural back-and-forth, not just monologuing.",
+            "Filler words (bueno, o sea, es que) used naturally are fine and even sound more native — don't over-polish to the point of sounding robotic."
+          ]
+        }
+      ],
+      "practice": [
+        {
+          "section": "Grammar",
+          "type": "mc",
+          "q": "\"Madrid ___ la capital de España.\" (choose ser or estar)",
+          "options": ["es", "está"],
+          "answer": "es",
+          "explanation": "Permanent facts and identity use ser — 'Madrid is the capital' is a defining fact, not a temporary state or location detail."
+        },
+        {
+          "section": "Grammar",
+          "type": "fill",
+          "q": "Complete: \"Este regalo es ___ ti.\" (for you — por/para)",
+          "answer": "para",
+          "explanation": "\"Para\" expresses purpose/recipient — the gift is intended FOR you. \"Por\" would suggest cause, means, or exchange instead."
+        },
+        {
+          "section": "Reading",
+          "type": "mc",
+          "q": "DELE reading passages at B2+ level typically draw from:",
+          "options": [
+            "only simplified textbook Spanish",
+            "authentic sources like newspapers and opinion articles"
+          ],
+          "answer": "authentic sources like newspapers and opinion articles",
+          "explanation": "From B2 onward, DELE deliberately tests your ability to handle real-world Spanish, not simplified learner texts."
+        },
+        {
+          "section": "Vocabulary",
+          "type": "mc",
+          "q": "Which is more appropriate in a FORMAL DELE writing task (a complaint email)?",
+          "options": [
+            "Quisiera expresar mi descontento...",
+            "Estoy súper molesto porque..."
+          ],
+          "answer": "Quisiera expresar mi descontento...",
+          "explanation": "Formal register avoids casual intensifiers like \"súper\" — DELE writing tasks specify register, and mismatching it costs points even with correct grammar."
+        },
+        {
+          "section": "Listening",
+          "type": "mc",
+          "q": "DELE listening recordings may feature:",
+          "options": [
+            "only a single Spain-based accent",
+            "a mix of regional accents from Spain and Latin America"
+          ],
+          "answer": "a mix of regional accents from Spain and Latin America",
+          "explanation": "Since DELE certifies general Spanish proficiency, it doesn't limit itself to one regional accent — broad listening practice matters."
+        },
+        {
+          "section": "Speaking",
+          "type": "mc",
+          "q": "In the DELE speaking exam, using natural filler words like 'bueno' or 'o sea':",
+          "options": [
+            "is penalized as a mistake",
+            "is acceptable and can sound more natural"
+          ],
+          "answer": "is acceptable and can sound more natural",
+          "explanation": "Natural discourse markers are part of authentic spoken Spanish — over-polished, filler-free speech can actually sound less native, not more."
+        }
+      ],
+      "writingPrompt": "Escribe un correo formal a tu ayuntamiento quejándote del ruido excesivo en tu barrio durante las noches. Incluye una posible solución. (Write a formal email to your local council complaining about excessive noise in your neighborhood at night. Include a possible solution.)",
+      "speakingPrompt": "Describe una tradición de tu país que te parezca importante y explica por qué debería mantenerse en el futuro. (Describe a tradition from your country that you find important, and explain why it should be preserved.)"
+    },
+    {
+      "id": "hsk",
+      "language": "Mandarin",
+      "flag": "🇨🇳",
+      "name": "HSK",
+      "fullName": "Hànyǔ Shuǐpíng Kǎoshì (Chinese Proficiency Test)",
+      "body": "Chinese Testing International (Hanban)",
+      "overview": "HSK has 6 levels (1 being beginner, 6 being near-native), each a completely separate exam with its own vocabulary requirements. Importantly, standard HSK only tests Listening, Reading, and Writing — Speaking is assessed in a SEPARATE test called HSKK (Hànyǔ Shuǐpíng Kǒuyǔ Kǎoshì), which many learners overlook until it's suddenly required for a job or program.",
+      "sections": [
+        {
+          "name": "听力 Tīnglì (Listening)",
+          "duration": "Varies by level, ~20–40 min",
+          "tips": [
+            "At lower levels (1-2), listening is short and literal — at higher levels (5-6), expect natural-speed conversations and short lectures.",
+            "You'll see the questions printed before listening starts — use that time to predict what kind of answer you're listening for.",
+            "Tone recognition under time pressure is a common weak point — don't neglect pure listening practice even if your reading is strong."
+          ]
+        },
+        {
+          "name": "阅读 Yuèdú (Reading)",
+          "duration": "Varies by level, ~30–50 min",
+          "tips": [
+            "Character recognition speed matters more than perfect understanding — don't get stuck on one unfamiliar character, keep moving.",
+            "Higher levels (5-6) include matching, cloze, and short-passage questions — practice all three formats, not just one.",
+            "Radicals (character components) are a genuinely useful shortcut for guessing unfamiliar characters' rough meaning under time pressure."
+          ]
+        },
+        {
+          "name": "书写 Shūxiě (Writing)",
+          "duration": "Varies by level (HSK 3+)",
+          "tips": [
+            "Levels 1-2 have no writing section at all — this only becomes relevant from HSK 3 onward.",
+            "At HSK 3-4, you're often asked to reorder given words into a correct sentence — word order (especially time/place words) is the most common error point.",
+            "At higher levels, character stroke order and correct character choice (not just pinyin) genuinely matter for scoring."
+          ]
+        }
+      ],
+      "practice": [
+        {
+          "section": "Grammar",
+          "type": "mc",
+          "q": "Reorder to form a correct sentence: 明天 / 我 / 去 / 学校 (tomorrow / I / go / school)",
+          "options": ["我明天去学校", "去我明天学校", "学校我明天去"],
+          "answer": "我明天去学校",
+          "explanation": "Correct order: Subject + Time + Verb + Object → 我 (I) + 明天 (tomorrow) + 去 (go) + 学校 (school)."
+        },
+        {
+          "section": "Vocabulary",
+          "type": "mc",
+          "q": "Which measure word correctly completes: \"三___书\" (three books)?",
+          "options": ["个", "本", "杯"],
+          "answer": "本",
+          "explanation": "本 (běn) is specifically used for bound, book-like objects — 个 is the general default and would sound imprecise here."
+        },
+        {
+          "section": "Grammar",
+          "type": "fill",
+          "q": "Complete with the correct particle: \"我吃___了。\" (I have eaten — completed action)",
+          "answer": "",
+          "explanation": "The particle 了 (le) after a verb marks a completed action — this sentence should read 我吃了 (wǒ chī le)."
+        },
+        {
+          "section": "Reading",
+          "type": "mc",
+          "q": "At HSK 5-6, reading passages typically include:",
+          "options": [
+            "only single isolated sentences",
+            "matching, cloze, and short-passage comprehension formats"
+          ],
+          "answer": "matching, cloze, and short-passage comprehension formats",
+          "explanation": "Higher HSK levels test multiple reading formats, not just simple sentence recognition — practicing all formats matters, not just one."
+        },
+        {
+          "section": "Format",
+          "type": "mc",
+          "q": "Which skill does the standard HSK exam NOT test directly?",
+          "options": ["Listening", "Speaking", "Reading"],
+          "answer": "Speaking",
+          "explanation": "Speaking is tested separately through HSKK, not the standard HSK — many learners are surprised by this when a program requires both."
+        },
+        {
+          "section": "Writing",
+          "type": "mc",
+          "q": "In HSK 3-4 writing tasks that ask you to reorder words into a sentence, the most common mistake involves:",
+          "options": [
+            "choosing the wrong characters entirely",
+            "incorrect placement of time/place words"
+          ],
+          "answer": "incorrect placement of time/place words",
+          "explanation": "Time and place words have specific required positions in Mandarin sentences (typically after the subject, before the verb) — misplacing them is the most frequent error at this level."
+        }
+      ],
+      "writingPrompt": "用\"虽然...但是...\" 写一句话，介绍你正在学习的一门外语。(Using \"虽然...但是...\" (although...but...), write one sentence introducing a foreign language you are currently learning.)",
+      "speakingPrompt": "(HSKK, separate exam) 请介绍一下你的家乡。(Please introduce your hometown.) — Practice a 1-2 minute spoken description covering location, notable features, and why you like or don't like living there."
+    },
+    {
+      "id": "torfl",
+      "language": "Russian",
+      "flag": "🇷🇺",
+      "name": "TORFL / ТРКИ",
+      "fullName": "Test of Russian as a Foreign Language",
+      "body": "Russian Ministry of Education-affiliated testing centers",
+      "overview": "TORFL (known as ТРКИ in Russian) has levels from Elementary through TRKI-4, each a separate certification. TRKI-1 (roughly B1) is the most commonly required level for university admission or citizenship purposes. Uniquely, TORFL includes a dedicated Lexical-Grammar section separate from Reading — testing your grammatical control in isolation, not just your ability to understand context.",
+      "sections": [
+        {
+          "name": "Лексика и грамматика (Lexical-Grammar)",
+          "duration": "~50 minutes",
+          "tips": [
+            "This section tests grammar in isolation (fill-in-the-blank style) — case endings and verb aspect are the most heavily tested areas.",
+            "Verb aspect (perfective vs. imperfective) is consistently one of the hardest areas for English speakers — dedicate specific review time to it.",
+            "Don't assume context will save you here the way it might in Reading — this section rewards precise grammatical knowledge."
+          ]
+        },
+        {
+          "name": "Чтение (Reading)",
+          "duration": "~50 minutes",
+          "tips": [
+            "Skim for the general topic first, then go back for specific details — don't try to translate every word on a first pass.",
+            "Case endings on nouns often carry the meaning that word order would carry in English — pay attention to endings, not just word position.",
+            "Higher levels include more abstract, opinion-based texts — practice beyond simple narrative passages."
+          ]
+        },
+        {
+          "name": "Аудирование (Listening)",
+          "duration": "~35 minutes",
+          "tips": [
+            "Numbers, dates, and named entities are common detail-check points — these are easy to lose track of even at intermediate level.",
+            "You'll typically hear each recording only once at TRKI-1+ — note-taking during listening is essential, not optional.",
+            "Natural spoken Russian often drops or blends sounds compared to careful textbook pronunciation — expose yourself to real speech, not just slow textbook audio."
+          ]
+        },
+        {
+          "name": "Письмо и Говорение (Writing & Speaking)",
+          "duration": "~45 min writing, ~30 min speaking incl. prep",
+          "tips": [
+            "Writing tasks often include a formal letter and a short essay — practice both registers separately, they're graded differently.",
+            "In Speaking, examiners assess natural interaction, not memorized monologue — be ready for follow-up questions you didn't prepare for.",
+            "Case agreement mistakes in speech are far more tolerated than in writing — prioritize fluency and communication over perfect accuracy when speaking."
+          ]
+        }
+      ],
+      "practice": [
+        {
+          "section": "Grammar",
+          "type": "mc",
+          "q": "\"Я иду в ___.\" (to the store — choose the correct case form)",
+          "options": ["магазин", "магазина", "магазине"],
+          "answer": "магазин",
+          "explanation": "Motion toward a destination (в + accusative) uses магазин (accusative, same as nominative for this masculine inanimate noun)."
+        },
+        {
+          "section": "Grammar",
+          "type": "fill",
+          "q": "Complete: \"Вчера я ___ (читать, perfective) всю книгу.\" (choose the perfective past form: прочитал)",
+          "answer": "прочитал",
+          "explanation": "Since the whole book was completed, the perfective aspect (прочитал) is required — the imperfective (читал) would imply an ongoing/unfinished action instead."
+        },
+        {
+          "section": "Vocabulary",
+          "type": "mc",
+          "q": "Which verb pair correctly represents imperfective/perfective for \"to write\"?",
+          "options": [
+            "писать / написать",
+            "писать / писать",
+            "написать / написать"
+          ],
+          "answer": "писать / написать",
+          "explanation": "писать (imperfective, ongoing/habitual) and написать (perfective, completed) form the standard aspect pair for \"to write.\""
+        },
+        {
+          "section": "Reading",
+          "type": "mc",
+          "q": "In TORFL Reading, case endings on nouns primarily help you determine:",
+          "options": [
+            "the noun's grammatical role in the sentence",
+            "the noun's plural form only"
+          ],
+          "answer": "the noun's grammatical role in the sentence",
+          "explanation": "Since Russian relies on case rather than strict word order, endings tell you who's doing what to whom — critical for accurate comprehension."
+        },
+        {
+          "section": "Listening",
+          "type": "mc",
+          "q": "At TRKI-1 and above, listening recordings are typically played:",
+          "options": [
+            "twice, to allow for double-checking",
+            "only once, requiring active note-taking"
+          ],
+          "answer": "only once, requiring active note-taking",
+          "explanation": "Unlike some lower-level exams, TRKI-1+ generally plays each recording only once, making real-time note-taking a necessary skill to practice."
+        },
+        {
+          "section": "Speaking",
+          "type": "mc",
+          "q": "In TORFL Speaking, case agreement mistakes made while speaking are:",
+          "options": [
+            "scored identically to the same mistakes in writing",
+            "generally more tolerated than in the writing section"
+          ],
+          "answer": "generally more tolerated than in the writing section",
+          "explanation": "Spoken communication is assessed with more tolerance for minor grammatical slips, prioritizing fluency and successful communication over perfect accuracy."
+        }
+      ],
+      "writingPrompt": "Напишите короткое официальное письмо в университет с просьбой о переносе экзамена. (Write a short formal letter to a university requesting to reschedule an exam.)",
+      "speakingPrompt": "Расскажите о городе, в котором вы живёте: что вам в нём нравится и что бы вы хотели изменить. (Talk about the city you live in: what you like about it, and what you would want to change.)"
+    }
+  ]
+}

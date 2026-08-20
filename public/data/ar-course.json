@@ -1030,6 +1030,26 @@
           "ex": "المُدَرِّسُونَ، المُدَرِّسِينَ",
           "exTranslation": "al-mudarrisūna (the teachers, subject) / al-mudarrisīna (the teachers, object/genitive)",
           "audioId": "unit15-ex4"
+        },
+        {
+          "h": "The three cases at a glance",
+          "p": "The same word, ولد (boy), across all three roles and both definiteness states — this is the whole system in one view.",
+          "ex": "",
+          "exTranslation": "",
+          "audioId": "",
+          "table": {
+            "caption": "Case endings for الولد / ولد (\"the boy\" / \"a boy\")",
+            "headers": [
+              "Case",
+              "Definite ending",
+              "Indefinite ending (nunation)"
+            ],
+            "rows": [
+              ["Nominative", "الولدُ (-u)", "وَلَدٌ (-un)"],
+              ["Accusative", "الولدَ (-a)", "وَلَدًا (-an)"],
+              ["Genitive", "الولدِ (-i)", "وَلَدٍ (-in)"]
+            ]
+          }
         }
       ],
       "quiz": [
