@@ -1,0 +1,127 @@
+{
+  "dialogues": [
+    {
+      "id": "easy-introductions",
+      "title": "Introducing Yourself",
+      "difficulty": "easy",
+      "scenario": "Everyday Life",
+      "icon": "👋",
+      "description": "Two students introduce themselves and where they're from.",
+      "speakers": ["سارة", "يوسف"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "مرحباً! اسمي سارة. ما اسمك؟",
+          "translation": "Marḥaban! Ismī Sāra. Mā ismuka? — Hello! My name is Sarah. What's your name?"
+        },
+        {
+          "speaker": 2,
+          "text": "اسمي يوسف. تشرفت بمعرفتك.",
+          "translation": "Ismī Yūsuf. Tasharraftu bi-maʻrifatik. — My name is Yusuf. Nice to meet you."
+        },
+        {
+          "speaker": 1,
+          "text": "من أين أنت؟",
+          "translation": "Min ayna anta? — Where are you from?"
+        },
+        {
+          "speaker": 2,
+          "text": "أنا من القاهرة. وأنتِ؟",
+          "translation": "Anā min al-Qāhira. Wa anti? — I'm from Cairo. And you?"
+        },
+        {
+          "speaker": 1,
+          "text": "أنا من دبي.",
+          "translation": "Anā min Dubayy. — I'm from Dubai."
+        },
+        {
+          "speaker": 2,
+          "text": "تشرفنا! هل أنتِ طالبة؟",
+          "translation": "Tasharrafnā! Hal anti ṭāliba? — Nice to meet you! Are you a student?"
+        }
+      ]
+    },
+    {
+      "id": "medium-souq",
+      "title": "At the Souq",
+      "difficulty": "medium",
+      "scenario": "Food & Dining",
+      "icon": "🍎",
+      "description": "A customer buys fruit at a market.",
+      "speakers": ["البائع", "ليلى"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "أهلاً وسهلاً! كيف أساعدك؟",
+          "translation": "Ahlan wa sahlan! Kayfa usāʻiduk? — Welcome! How can I help you?"
+        },
+        {
+          "speaker": 2,
+          "text": "أريد كيلو من التفاح، من فضلك.",
+          "translation": "Urīdu kīlū min at-tuffāḥ, min faḍlik. — I want a kilo of apples, please."
+        },
+        {
+          "speaker": 1,
+          "text": "تفضلي. هل تريدين شيئاً آخر؟",
+          "translation": "Tafaḍḍalī. Hal turīdīna shayʼan ākhar? — Here you go. Do you want anything else?"
+        },
+        {
+          "speaker": 2,
+          "text": "نعم، أريد أيضاً بعض الموز.",
+          "translation": "Naʻam, urīdu ayḍan baʻḍ al-mawz. — Yes, I also want some bananas."
+        },
+        {
+          "speaker": 1,
+          "text": "بالتأكيد. المجموع عشرة دراهم.",
+          "translation": "Bit-taʼkīd. Al-majmūʻ ʻasharat darāhim. — Sure. The total is ten dirhams."
+        },
+        {
+          "speaker": 2,
+          "text": "تفضل، وشكراً لك.",
+          "translation": "Tafaḍḍal, wa shukran lak. — Here you go, and thank you."
+        }
+      ]
+    },
+    {
+      "id": "hard-family-plans",
+      "title": "Discussing Family Plans",
+      "difficulty": "hard",
+      "scenario": "Opinions",
+      "icon": "🏙️",
+      "description": "Two friends discuss a potential move to a new city.",
+      "speakers": ["أحمد", "منى"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "هل فكرتِ في الانتقال إلى مدينة أخرى؟",
+          "translation": "Hal fakkarti fī al-intiqāl ilā madīna ukhrā? — Have you thought about moving to another city?"
+        },
+        {
+          "speaker": 2,
+          "text": "نعم، لكن ذلك يعتمد على عمل زوجي الجديد.",
+          "translation": "Naʻam, lākin dhālika yaʻtamidu ʻalā ʻamal zawjī al-jadīd. — Yes, but that depends on my husband's new job."
+        },
+        {
+          "speaker": 1,
+          "text": "هل قررتما بعد؟",
+          "translation": "Hal qarrartumā baʻd? — Have you both decided yet?"
+        },
+        {
+          "speaker": 2,
+          "text": "ليس بعد، ننتظر نتيجة المقابلة الأسبوع القادم.",
+          "translation": "Laysa baʻd, nantaẓiru natījat al-muqābala al-usbūʻ al-qādim. — Not yet, we're waiting for the interview result next week."
+        },
+        {
+          "speaker": 1,
+          "text": "أتمنى لكما التوفيق.",
+          "translation": "Atamannā lakumā at-tawfīq. — I wish you both success."
+        },
+        {
+          "speaker": 2,
+          "text": "شكراً لك، سنخبركم بمجرد أن نعرف.",
+          "translation": "Shukran lak, sanukhbirukum bimujarradi an naʻrif. — Thank you, we'll let you know as soon as we find out."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "dialogues": [
+    {
+      "id": "easy-neighbor",
+      "title": "Meeting a Neighbor",
+      "difficulty": "easy",
+      "scenario": "Everyday Life",
+      "icon": "🏠",
+      "description": "Two neighbors introduce themselves in the hallway.",
+      "speakers": ["Carlos", "Elena"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "¡Hola! Soy Carlos, tu nuevo vecino.",
+          "translation": "Hi! I'm Carlos, your new neighbor."
+        },
+        {
+          "speaker": 2,
+          "text": "¡Mucho gusto, Carlos! Yo soy Elena.",
+          "translation": "Nice to meet you, Carlos! I'm Elena."
+        },
+        {
+          "speaker": 1,
+          "text": "¿Vives aquí desde hace mucho tiempo?",
+          "translation": "Have you lived here for a long time?"
+        },
+        {
+          "speaker": 2,
+          "text": "Sí, vivo aquí desde hace cinco años.",
+          "translation": "Yes, I've lived here for five years."
+        },
+        {
+          "speaker": 1,
+          "text": "¡Qué bien! ¿Hay un supermercado cerca?",
+          "translation": "Great! Is there a supermarket nearby?"
+        },
+        {
+          "speaker": 2,
+          "text": "Sí, hay uno a dos calles de aquí.",
+          "translation": "Yes, there's one two streets from here."
+        }
+      ]
+    },
+    {
+      "id": "medium-market",
+      "title": "At the Market",
+      "difficulty": "medium",
+      "scenario": "Food & Dining",
+      "icon": "🥬",
+      "description": "A customer buys fresh produce at a market stall.",
+      "speakers": ["Vendedora", "Marta"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Buenos días, ¿qué desea comprar hoy?",
+          "translation": "Good morning, what would you like to buy today?"
+        },
+        {
+          "speaker": 2,
+          "text": "Quisiera un kilo de tomates, por favor.",
+          "translation": "I'd like a kilo of tomatoes, please."
+        },
+        {
+          "speaker": 1,
+          "text": "Por supuesto. ¿Algo más?",
+          "translation": "Of course. Anything else?"
+        },
+        {
+          "speaker": 2,
+          "text": "Sí, también necesito cebollas y ajo.",
+          "translation": "Yes, I also need onions and garlic."
+        },
+        {
+          "speaker": 1,
+          "text": "Aquí tiene. Son ocho euros en total.",
+          "translation": "Here you go. That's eight euros total."
+        },
+        {
+          "speaker": 2,
+          "text": "Perfecto, aquí tiene el dinero.",
+          "translation": "Perfect, here's the money."
+        }
+      ]
+    },
+    {
+      "id": "hard-news-discussion",
+      "title": "Discussing the News",
+      "difficulty": "hard",
+      "scenario": "Opinions",
+      "icon": "📰",
+      "description": "Two friends debate a renewable energy project.",
+      "speakers": ["Diego", "Valentina"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "¿Viste las noticias sobre el nuevo proyecto de energía renovable?",
+          "translation": "Did you see the news about the new renewable energy project?"
+        },
+        {
+          "speaker": 2,
+          "text": "Sí, me parece prometedor, aunque algunos dudan de su viabilidad.",
+          "translation": "Yes, it seems promising to me, although some doubt its viability."
+        },
+        {
+          "speaker": 1,
+          "text": "Es cierto, pero si no invertimos ahora, será más difícil después.",
+          "translation": "That's true, but if we don't invest now, it'll be harder later."
+        },
+        {
+          "speaker": 2,
+          "text": "Estoy de acuerdo. El cambio climático no puede esperar.",
+          "translation": "I agree. Climate change can't wait."
+        },
+        {
+          "speaker": 1,
+          "text": "¿Crees que el gobierno aprobará el presupuesto?",
+          "translation": "Do you think the government will approve the budget?"
+        },
+        {
+          "speaker": 2,
+          "text": "Espero que sí, aunque la votación será reñida.",
+          "translation": "I hope so, although the vote will be close."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "dialogues": [
+    {
+      "id": "easy-introductions",
+      "title": "Meeting Someone New",
+      "difficulty": "easy",
+      "scenario": "Everyday Life",
+      "icon": "👋",
+      "description": "Two classmates introduce themselves before class.",
+      "speakers": ["Anna", "Ben"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Hallo! Ich heiße Anna. Wie heißt du?",
+          "translation": "Hello! My name is Anna. What's your name?"
+        },
+        {
+          "speaker": 2,
+          "text": "Ich heiße Ben. Freut mich!",
+          "translation": "My name is Ben. Nice to meet you!"
+        },
+        {
+          "speaker": 1,
+          "text": "Freut mich auch! Woher kommst du?",
+          "translation": "Nice to meet you too! Where are you from?"
+        },
+        {
+          "speaker": 2,
+          "text": "Ich komme aus München. Und du?",
+          "translation": "I'm from Munich. And you?"
+        },
+        {
+          "speaker": 1,
+          "text": "Ich komme aus Berlin. Bist du auch Student?",
+          "translation": "I'm from Berlin. Are you a student too?"
+        },
+        {
+          "speaker": 2,
+          "text": "Ja, ich studiere Biologie.",
+          "translation": "Yes, I study biology."
+        }
+      ]
+    },
+    {
+      "id": "medium-cafe",
+      "title": "At the Café",
+      "difficulty": "medium",
+      "scenario": "Food & Dining",
+      "icon": "☕",
+      "description": "A customer orders coffee and cake at a café.",
+      "speakers": ["Kellner", "Frau Klein"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Guten Tag! Was möchten Sie trinken?",
+          "translation": "Good afternoon! What would you like to drink?"
+        },
+        {
+          "speaker": 2,
+          "text": "Ich hätte gern einen Kaffee mit Milch, bitte.",
+          "translation": "I'd like a coffee with milk, please."
+        },
+        {
+          "speaker": 1,
+          "text": "Gerne. Möchten Sie auch etwas essen?",
+          "translation": "Of course. Would you like something to eat too?"
+        },
+        {
+          "speaker": 2,
+          "text": "Haben Sie Kuchen?",
+          "translation": "Do you have cake?"
+        },
+        {
+          "speaker": 1,
+          "text": "Ja, wir haben Apfelkuchen und Schokoladenkuchen.",
+          "translation": "Yes, we have apple cake and chocolate cake."
+        },
+        {
+          "speaker": 2,
+          "text": "Dann nehme ich ein Stück Apfelkuchen.",
+          "translation": "Then I'll have a piece of apple cake."
+        }
+      ]
+    },
+    {
+      "id": "hard-trip-planning",
+      "title": "Planning a Trip",
+      "difficulty": "hard",
+      "scenario": "Travel",
+      "icon": "✈️",
+      "description": "Two friends debate travel plans using subjunctive mood.",
+      "speakers": ["Lukas", "Mia"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Wenn ich genug Geld hätte, würde ich nach Japan reisen.",
+          "translation": "If I had enough money, I would travel to Japan."
+        },
+        {
+          "speaker": 2,
+          "text": "Das wäre toll! Ich wäre lieber in die Berge gefahren.",
+          "translation": "That would be great! I would have preferred to go to the mountains."
+        },
+        {
+          "speaker": 1,
+          "text": "Warum lieber in die Berge als ans Meer?",
+          "translation": "Why the mountains rather than the sea?"
+        },
+        {
+          "speaker": 2,
+          "text": "Weil ich das Wandern mehr genieße als das Schwimmen.",
+          "translation": "Because I enjoy hiking more than swimming."
+        },
+        {
+          "speaker": 1,
+          "text": "Vielleicht sollten wir beides machen, wenn wir zusammen reisen.",
+          "translation": "Maybe we should do both if we travel together."
+        },
+        {
+          "speaker": 2,
+          "text": "Das klingt nach einem guten Kompromiss!",
+          "translation": "That sounds like a good compromise!"
+        }
+      ]
+    }
+  ]
+}

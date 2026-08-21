@@ -486,6 +486,116 @@
         opacity: 0.7;
       }
 
+      .onboard-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 48, 31, 0.6);
+        z-index: 60;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .onboard-overlay.hidden {
+        display: none;
+      }
+      .onboard-card {
+        background: var(--cream);
+        border-radius: 18px;
+        padding: 30px;
+        max-width: 480px;
+        width: 100%;
+        max-height: 88vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+      .onboard-card h2 {
+        font-family: "Fraunces", serif;
+        font-size: 21px;
+        margin: 0 0 6px;
+        color: var(--forest-dark);
+      }
+      .onboard-card > p {
+        font-size: 13.5px;
+        color: #4a4f42;
+        margin: 0 0 20px;
+      }
+      .onboard-group {
+        margin-bottom: 18px;
+      }
+      .onboard-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--brick);
+        margin-bottom: 8px;
+      }
+      .onboard-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .onboard-chip {
+        background: var(--sage);
+        border: 1.5px solid transparent;
+        border-radius: 20px;
+        padding: 8px 14px;
+        font-size: 13px;
+        cursor: pointer;
+        font-family: "Work Sans", sans-serif;
+        transition:
+          background 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .onboard-chip:hover {
+        border-color: rgba(27, 67, 50, 0.3);
+      }
+      .onboard-chip.selected {
+        background: var(--forest);
+        color: var(--cream);
+        border-color: var(--forest-dark);
+        font-weight: 600;
+      }
+      #onboardStartBtn {
+        width: 100%;
+        margin-top: 6px;
+      }
+
+      .scenario-suggestion {
+        margin-top: 6px;
+        padding: 12px 14px;
+        background: var(--sage);
+        border-radius: 12px;
+        font-size: 13px;
+        color: var(--ink);
+      }
+      .scenario-suggestion .suggestion-title {
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .scenario-suggestion-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .scenario-chip {
+        background: var(--cream);
+        border: 1.5px solid rgba(27, 67, 50, 0.25);
+        border-radius: 20px;
+        padding: 7px 14px;
+        font-size: 12.5px;
+        cursor: pointer;
+        font-family: "Work Sans", sans-serif;
+        transition:
+          background 0.15s ease,
+          transform 0.15s ease;
+      }
+      .scenario-chip:hover {
+        background: var(--gold);
+        transform: translateY(-1px);
+      }
+
       #inputBar {
         flex-shrink: 0;
         display: flex;
@@ -687,6 +797,7 @@
           </select>
           <button class="icon-btn" id="speakTestBtn">🔊 Intro</button>
           <button class="icon-btn" id="shareBtn">🔗 Share</button>
+          <button class="icon-btn" id="guidedSetupBtn">🧭 Guided Setup</button>
           <a
             href="/settings.html"
             class="icon-btn"
@@ -727,6 +838,31 @@
         <a href="/privacy.html">Privacy</a>
         <a href="/contact.html">Contact</a>
       </footer>
+    </div>
+
+    <div id="onboardOverlay" class="onboard-overlay hidden">
+      <div class="onboard-card">
+        <h2>👋 Welcome to STEMBridge Speaks</h2>
+        <p>
+          Pick a language, your level, and a scenario to start with — you can
+          always change these later.
+        </p>
+        <div class="onboard-group">
+          <div class="onboard-label">Language</div>
+          <div class="onboard-options" id="onboardLangOptions"></div>
+        </div>
+        <div class="onboard-group">
+          <div class="onboard-label">Your level</div>
+          <div class="onboard-options" id="onboardLevelOptions"></div>
+        </div>
+        <div class="onboard-group">
+          <div class="onboard-label">Scenario</div>
+          <div class="onboard-options" id="onboardScenarioOptions"></div>
+        </div>
+        <button class="btn btn-gold" id="onboardStartBtn">
+          Start practicing →
+        </button>
+      </div>
     </div>
 
     <script>
@@ -818,7 +954,7 @@
 
       async function loadChatList() {
         const res = await fetch("/api/chats", { headers: authHeaders() });
-        if (!res.ok) return;
+        if (!res.ok) return 0;
         const chats = await res.json();
         chatList.innerHTML = "";
         chats.forEach((chat) => {
@@ -851,6 +987,7 @@
             });
           chatList.appendChild(item);
         });
+        return chats.length;
       }
 
       async function openChat(chatId) {
@@ -995,8 +1132,10 @@
       ) {
         removeEmptyState();
         const isRTL = rtlLanguages.includes(languageSelect.value);
+        const { text: cleanedText, complete: scenarioComplete } =
+          extractScenarioComplete(fullText);
         const [beforeCorrection, correction] =
-          fullText.split(/\n?Correction:/i);
+          cleanedText.split(/\n?Correction:/i);
         const [main, translation] = beforeCorrection.split(/\n?Translation:/i);
 
         const row = document.createElement("div");
@@ -1090,8 +1229,10 @@
               }),
             });
             const data = await response.json();
+            const { text: cleanedReply, complete: scenarioComplete } =
+              extractScenarioComplete(data.reply);
             const [beforeCorr, newCorrection] =
-              data.reply.split(/\n?Correction:/i);
+              cleanedReply.split(/\n?Correction:/i);
             const [newMain, newTranslation] =
               beforeCorr.split(/\n?Translation:/i);
             mainSpan.textContent = newMain.trim();
@@ -1117,6 +1258,7 @@
               corrDiv.textContent = "Correction: " + newCorrection.trim();
               bubble.insertBefore(corrDiv, fbRow);
             }
+            if (scenarioComplete) addScenarioSuggestion();
           } catch (err) {
             console.error("Regenerate failed:", err);
           }
@@ -1129,6 +1271,7 @@
         scrollToBottom();
 
         if (!isReplay) speak(mainSpan.textContent, readBtn);
+        if (scenarioComplete && !isReplay) addScenarioSuggestion();
       }
 
       async function submitFeedback(fbRow, userMsg, tutorMsg, rating) {
@@ -1309,10 +1452,127 @@
         if (confirm("Log out?")) logout();
       });
 
+      // ---------- Guided onboarding ----------
+
+      function selectOptionsFromSelect(selectEl, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = "";
+        Array.from(selectEl.options).forEach((opt) => {
+          const chip = document.createElement("button");
+          chip.type = "button";
+          chip.className =
+            "onboard-chip" + (opt.value === selectEl.value ? " selected" : "");
+          chip.textContent = opt.textContent;
+          chip.dataset.value = opt.value;
+          chip.addEventListener("click", () => {
+            container
+              .querySelectorAll(".onboard-chip")
+              .forEach((c) => c.classList.remove("selected"));
+            chip.classList.add("selected");
+          });
+          container.appendChild(chip);
+        });
+      }
+
+      function getSelectedChipValue(containerId) {
+        const selected = document.querySelector(
+          `#${containerId} .onboard-chip.selected`,
+        );
+        return selected ? selected.dataset.value : null;
+      }
+
+      function openOnboarding() {
+        selectOptionsFromSelect(languageSelect, "onboardLangOptions");
+        selectOptionsFromSelect(levelSelect, "onboardLevelOptions");
+        selectOptionsFromSelect(scenarioSelect, "onboardScenarioOptions");
+        document.getElementById("onboardOverlay").classList.remove("hidden");
+      }
+
+      function closeOnboarding() {
+        document.getElementById("onboardOverlay").classList.add("hidden");
+      }
+
+      document
+        .getElementById("guidedSetupBtn")
+        .addEventListener("click", openOnboarding);
+
+      document
+        .getElementById("onboardOverlay")
+        .addEventListener("click", (e) => {
+          if (e.target.id === "onboardOverlay") closeOnboarding();
+        });
+
+      document
+        .getElementById("onboardStartBtn")
+        .addEventListener("click", () => {
+          const lang = getSelectedChipValue("onboardLangOptions");
+          const level = getSelectedChipValue("onboardLevelOptions");
+          const scenario = getSelectedChipValue("onboardScenarioOptions");
+          if (lang) languageSelect.value = lang;
+          if (level) levelSelect.value = level;
+          if (scenario) scenarioSelect.value = scenario;
+          closeOnboarding();
+          createNewChat();
+        });
+
+      // ---------- Scenario-completion suggestions ----------
+      // The backend appends "ScenarioComplete: yes" as the final line of a
+      // reply once a scenario reaches a natural conclusion (per Daniel Bugl's
+      // suggestion — e.g. the meal's paid for, so offer what's next instead
+      // of leaving the conversation to awkwardly continue).
+
+      const SCENARIO_LABELS = {
+        restaurant: "🍽️ Restaurant",
+        directions: "🗺️ Directions",
+        shopping: "🛍️ Shopping",
+        hotel: "🏨 Hotel",
+      };
+
+      function extractScenarioComplete(fullText) {
+        const match = fullText.match(/\n?ScenarioComplete:\s*(yes|true)\s*$/i);
+        if (!match) return { text: fullText, complete: false };
+        return {
+          text: fullText.slice(0, match.index),
+          complete: true,
+        };
+      }
+
+      function addScenarioSuggestion() {
+        removeEmptyState();
+        const currentScenario = scenarioSelect.value;
+        const otherScenarios = Object.keys(SCENARIO_LABELS).filter(
+          (s) => s !== currentScenario,
+        );
+
+        const row = document.createElement("div");
+        row.className = "msg-row tutor";
+        const box = document.createElement("div");
+        box.className = "scenario-suggestion";
+        box.innerHTML = `
+      <div class="suggestion-title">🎉 Nice work — that scenario's wrapped up! Try another?</div>
+      <div class="scenario-suggestion-chips"></div>
+    `;
+        const chipsWrap = box.querySelector(".scenario-suggestion-chips");
+        otherScenarios.forEach((s) => {
+          const chip = document.createElement("button");
+          chip.className = "scenario-chip";
+          chip.textContent = SCENARIO_LABELS[s];
+          chip.addEventListener("click", () => {
+            scenarioSelect.value = s;
+            createNewChat();
+          });
+          chipsWrap.appendChild(chip);
+        });
+        row.appendChild(box);
+        chatInner.appendChild(row);
+        scrollToBottom();
+      }
+
       (async () => {
         currentUser = await requireAuth();
         if (!currentUser) return;
-        loadChatList();
+        const chatCount = await loadChatList();
+        if (chatCount === 0) openOnboarding();
       })();
     </script>
   </body>

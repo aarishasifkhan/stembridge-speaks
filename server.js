@@ -85,6 +85,19 @@ const edgeVoices = {
   hebrew: "he-IL-HilaNeural",
 };
 
+// A second, contrasting voice per language — used so two-speaker dialogues
+// (see /dialogues.html) actually sound like two different people instead
+// of one narrator reading both parts.
+const edgeVoicesSecondary = {
+  german: "de-DE-ConradNeural",
+  english: "en-US-GuyNeural",
+  spanish: "es-ES-AlvaroNeural",
+  mandarin: "zh-CN-YunxiNeural",
+  russian: "ru-RU-DmitryNeural",
+  arabic: "ar-SA-HamedNeural",
+  hebrew: "he-IL-AvriNeural",
+};
+
 const rateByLevel = {
   A1: "-40%",
   A2: "-25%",
@@ -114,7 +127,8 @@ Rules:
 - If the user made a grammar or vocabulary mistake, gently note the correction AFTER your in-character reply (and after the translation, if present), under a line that says "Correction:". Keep this to 1-2 sentences max. If there's no mistake, skip this line entirely.
 - Keep the tone warm and encouraging, never harsh.
 - If the user goes off-topic, gently and naturally steer the conversation back to the scenario, still in character.
-- Brevity is critical — the user is listening to this out loud and needs to process it quickly.`;
+- Brevity is critical — the user is listening to this out loud and needs to process it quickly.
+- If — and only if — this exchange brings the scenario to a natural, satisfying close (e.g. the meal is paid for and the customer is leaving, directions were given and confirmed, the item was purchased, check-in is complete), add one final line at the very end, after everything else: "ScenarioComplete: yes". If the scenario is still ongoing, do not add this line at all — omit it entirely rather than writing "no".`;
 
   if (mode === "audio") {
     return `${baseRules}
@@ -506,8 +520,9 @@ app.post("/chat/start", requireAuth, async (req, res) => {
 
 app.post("/tts", async (req, res) => {
   try {
-    const { text, level, language } = req.body;
-    const voice = edgeVoices[language] || edgeVoices.german;
+    const { text, level, language, speaker } = req.body;
+    const voiceMap = speaker === 2 ? edgeVoicesSecondary : edgeVoices;
+    const voice = voiceMap[language] || voiceMap.german;
     const rate = rateByLevel[level] || rateByLevel.B1;
 
     const tts = new MsEdgeTTS();

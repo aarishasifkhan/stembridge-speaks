@@ -1,0 +1,127 @@
+{
+  "dialogues": [
+    {
+      "id": "easy-first-day",
+      "title": "First Day at School",
+      "difficulty": "easy",
+      "scenario": "Everyday Life",
+      "icon": "🎒",
+      "description": "A new student meets her teacher on the first day.",
+      "speakers": ["Mr. Carter", "Maria"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Good morning! You must be Maria, our new student.",
+          "translation": "Good morning! You must be Maria, our new student."
+        },
+        {
+          "speaker": 2,
+          "text": "Yes, that's right. Nice to meet you.",
+          "translation": "Yes, that's right. Nice to meet you."
+        },
+        {
+          "speaker": 1,
+          "text": "Welcome! Your seat is next to the window.",
+          "translation": "Welcome! Your seat is next to the window."
+        },
+        {
+          "speaker": 2,
+          "text": "Thank you. Where should I put my bag?",
+          "translation": "Thank you. Where should I put my bag?"
+        },
+        {
+          "speaker": 1,
+          "text": "You can hang it on the hook by the door.",
+          "translation": "You can hang it on the hook by the door."
+        },
+        {
+          "speaker": 2,
+          "text": "Great, thank you very much!",
+          "translation": "Great, thank you very much!"
+        }
+      ]
+    },
+    {
+      "id": "medium-doctor",
+      "title": "Doctor's Appointment",
+      "difficulty": "medium",
+      "scenario": "Health",
+      "icon": "🩺",
+      "description": "A patient describes his symptoms to the doctor.",
+      "speakers": ["Dr. Lee", "Tom"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Good morning, Tom. What brings you in today?",
+          "translation": "Good morning, Tom. What brings you in today?"
+        },
+        {
+          "speaker": 2,
+          "text": "I've had a sore throat and a slight fever since yesterday.",
+          "translation": "I've had a sore throat and a slight fever since yesterday."
+        },
+        {
+          "speaker": 1,
+          "text": "I see. Have you been drinking enough water?",
+          "translation": "I see. Have you been drinking enough water?"
+        },
+        {
+          "speaker": 2,
+          "text": "Not really, I've been quite busy with work.",
+          "translation": "Not really, I've been quite busy with work."
+        },
+        {
+          "speaker": 1,
+          "text": "Try to rest and stay hydrated. I'll prescribe something for the throat.",
+          "translation": "Try to rest and stay hydrated. I'll prescribe something for the throat."
+        },
+        {
+          "speaker": 2,
+          "text": "Thank you, doctor. I appreciate it.",
+          "translation": "Thank you, doctor. I appreciate it."
+        }
+      ]
+    },
+    {
+      "id": "hard-job-interview",
+      "title": "Job Interview",
+      "difficulty": "hard",
+      "scenario": "Work",
+      "icon": "💼",
+      "description": "A candidate answers behavioral interview questions.",
+      "speakers": ["Interviewer", "Sarah"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "So, Sarah, what would you say is your greatest strength?",
+          "translation": "So, Sarah, what would you say is your greatest strength?"
+        },
+        {
+          "speaker": 2,
+          "text": "I'd say my ability to stay calm under pressure and prioritize effectively.",
+          "translation": "I'd say my ability to stay calm under pressure and prioritize effectively."
+        },
+        {
+          "speaker": 1,
+          "text": "Could you give an example of a time that was tested?",
+          "translation": "Could you give an example of a time that was tested?"
+        },
+        {
+          "speaker": 2,
+          "text": "During a product launch, two systems failed simultaneously, and I coordinated the team to resolve both within the hour.",
+          "translation": "During a product launch, two systems failed simultaneously, and I coordinated the team to resolve both within the hour."
+        },
+        {
+          "speaker": 1,
+          "text": "Impressive. How do you handle disagreements with colleagues?",
+          "translation": "Impressive. How do you handle disagreements with colleagues?"
+        },
+        {
+          "speaker": 2,
+          "text": "I try to understand their perspective first, then find common ground before proposing a solution.",
+          "translation": "I try to understand their perspective first, then find common ground before proposing a solution."
+        }
+      ]
+    }
+  ]
+}

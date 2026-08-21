@@ -1,0 +1,127 @@
+{
+  "dialogues": [
+    {
+      "id": "easy-greeting-friend",
+      "title": "Greeting a Friend",
+      "difficulty": "easy",
+      "scenario": "Everyday Life",
+      "icon": "👋",
+      "description": "Two friends catch up after not seeing each other for a while.",
+      "speakers": ["小明", "丽丽"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "你好！好久不见！",
+          "translation": "Nǐ hǎo! Hǎojiǔ bújiàn! — Hello! Long time no see!"
+        },
+        {
+          "speaker": 2,
+          "text": "是啊！你最近怎么样？",
+          "translation": "Shì a! Nǐ zuìjìn zěnmeyàng? — Yeah! How have you been lately?"
+        },
+        {
+          "speaker": 1,
+          "text": "我很好，谢谢。你呢？",
+          "translation": "Wǒ hěn hǎo, xièxie. Nǐ ne? — I'm good, thanks. And you?"
+        },
+        {
+          "speaker": 2,
+          "text": "我也不错，工作有点忙。",
+          "translation": "Wǒ yě búcuò, gōngzuò yǒudiǎn máng. — I'm doing well too, just a bit busy with work."
+        },
+        {
+          "speaker": 1,
+          "text": "有空一起吃饭吧！",
+          "translation": "Yǒu kòng yìqǐ chīfàn ba! — Let's grab a meal together sometime!"
+        },
+        {
+          "speaker": 2,
+          "text": "好啊，这个周末怎么样？",
+          "translation": "Hǎo a, zhège zhōumò zěnmeyàng? — Sure, how about this weekend?"
+        }
+      ]
+    },
+    {
+      "id": "medium-ordering-food",
+      "title": "Ordering Food",
+      "difficulty": "medium",
+      "scenario": "Food & Dining",
+      "icon": "🍜",
+      "description": "A customer orders a meal at a restaurant.",
+      "speakers": ["服务员", "王先生"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "欢迎光临，请问几位？",
+          "translation": "Huānyíng guānglín, qǐngwèn jǐ wèi? — Welcome, how many people?"
+        },
+        {
+          "speaker": 2,
+          "text": "两位，谢谢。",
+          "translation": "Liǎng wèi, xièxie. — Two people, thanks."
+        },
+        {
+          "speaker": 1,
+          "text": "好的，这是菜单，请看一下。",
+          "translation": "Hǎo de, zhè shì càidān, qǐng kàn yíxià. — Okay, here's the menu, please take a look."
+        },
+        {
+          "speaker": 2,
+          "text": "我要一份宫保鸡丁和一碗米饭。",
+          "translation": "Wǒ yào yí fèn gōngbǎo jīdīng hé yì wǎn mǐfàn. — I'd like a Kung Pao chicken and a bowl of rice."
+        },
+        {
+          "speaker": 1,
+          "text": "好的，还需要别的吗？",
+          "translation": "Hǎo de, hái xūyào bié de ma? — Okay, anything else?"
+        },
+        {
+          "speaker": 2,
+          "text": "不用了，谢谢。",
+          "translation": "Búyòngle, xièxie. — No, that's all, thanks."
+        }
+      ]
+    },
+    {
+      "id": "hard-weekend-plans",
+      "title": "Talking About Weekend Plans",
+      "difficulty": "hard",
+      "scenario": "Opinions",
+      "icon": "🥾",
+      "description": "Two friends plan a hiking trip, discussing conditions.",
+      "speakers": ["安娜", "大卫"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "这个周末你有什么计划吗？",
+          "translation": "Zhège zhōumò nǐ yǒu shénme jìhuà ma? — Do you have any plans this weekend?"
+        },
+        {
+          "speaker": 2,
+          "text": "我打算去爬山，如果天气好的话。",
+          "translation": "Wǒ dǎsuàn qù páshān, rúguǒ tiānqì hǎo dehuà. — I plan to go hiking, if the weather is good."
+        },
+        {
+          "speaker": 1,
+          "text": "听起来不错，我可以一起去吗？",
+          "translation": "Tīng qǐlái búcuò, wǒ kěyǐ yìqǐ qù ma? — Sounds good, can I join?"
+        },
+        {
+          "speaker": 2,
+          "text": "当然可以！不过山路比较陡，你要做好准备。",
+          "translation": "Dāngrán kěyǐ! Búguò shānlù bǐjiào dǒu, nǐ yào zuò hǎo zhǔnbèi. — Of course! But the trail is quite steep, so be prepared."
+        },
+        {
+          "speaker": 1,
+          "text": "没问题，我平时也经常锻炼。",
+          "translation": "Méi wèntí, wǒ píngshí yě jīngcháng duànliàn. — No problem, I exercise regularly too."
+        },
+        {
+          "speaker": 2,
+          "text": "太好了，那我们早上八点出发吧。",
+          "translation": "Tài hǎo le, nà wǒmen zǎoshang bā diǎn chūfā ba. — Great, let's set off at 8am then."
+        }
+      ]
+    }
+  ]
+}

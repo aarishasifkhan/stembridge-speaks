@@ -1,0 +1,127 @@
+{
+  "dialogues": [
+    {
+      "id": "easy-cafe-meeting",
+      "title": "Meeting at the Café",
+      "difficulty": "easy",
+      "scenario": "Everyday Life",
+      "icon": "☕",
+      "description": "Two people introduce themselves at a café.",
+      "speakers": ["דנה", "עומר"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "שלום! קוראים לי דנה. איך קוראים לך?",
+          "translation": "Shalom! Qor'im li Dana. Eikh qor'im lekha? — Hello! My name is Dana. What's your name?"
+        },
+        {
+          "speaker": 2,
+          "text": "קוראים לי עומר. נעים מאוד!",
+          "translation": "Qor'im li Omer. Na'im me'od! — My name is Omer. Nice to meet you!"
+        },
+        {
+          "speaker": 1,
+          "text": "מאיפה אתה?",
+          "translation": "Me'eifo ata? — Where are you from?"
+        },
+        {
+          "speaker": 2,
+          "text": "אני מתל אביב. ואת?",
+          "translation": "Ani miTel Aviv. Ve'at? — I'm from Tel Aviv. And you?"
+        },
+        {
+          "speaker": 1,
+          "text": "אני מירושלים.",
+          "translation": "Ani mIrushalayim. — I'm from Jerusalem."
+        },
+        {
+          "speaker": 2,
+          "text": "נחמד! את סטודנטית?",
+          "translation": "Nekhmad! At studentit? — Nice! Are you a student?"
+        }
+      ]
+    },
+    {
+      "id": "medium-directions",
+      "title": "Asking for Directions",
+      "difficulty": "medium",
+      "scenario": "Travel",
+      "icon": "🗺️",
+      "description": "A tourist asks a local for directions to the train station.",
+      "speakers": ["מארק", "רותי"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "סליחה, איך מגיעים לתחנת הרכבת?",
+          "translation": "Slikha, eikh magi'im letakhanat harakevet? — Excuse me, how do I get to the train station?"
+        },
+        {
+          "speaker": 2,
+          "text": "ישר קדימה, ואז שמאלה ברמזור.",
+          "translation": "Yashar kadima, ve'az smola baramzor. — Straight ahead, then left at the traffic light."
+        },
+        {
+          "speaker": 1,
+          "text": "זה רחוק מכאן?",
+          "translation": "Ze rakhoq mikan? — Is it far from here?"
+        },
+        {
+          "speaker": 2,
+          "text": "לא, רק חמש דקות הליכה.",
+          "translation": "Lo, raq khamesh daqot halikha. — No, just a five-minute walk."
+        },
+        {
+          "speaker": 1,
+          "text": "תודה רבה על העזרה!",
+          "translation": "Toda raba al ha'ezra! — Thank you very much for the help!"
+        },
+        {
+          "speaker": 2,
+          "text": "בבקשה, נסיעה טובה!",
+          "translation": "Bevaqasha, nesi'a tova! — You're welcome, have a good trip!"
+        }
+      ]
+    },
+    {
+      "id": "hard-job-interview",
+      "title": "A Job Interview",
+      "difficulty": "hard",
+      "scenario": "Work",
+      "icon": "💼",
+      "description": "A candidate discusses experience and how he handles pressure.",
+      "speakers": ["המראיינת", "יונתן"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "ספר לי קצת על הניסיון התעסוקתי שלך.",
+          "translation": "Saper li qtsat al hanisayon hata'asuqati shelkha. — Tell me a bit about your professional experience."
+        },
+        {
+          "speaker": 2,
+          "text": "עבדתי כמפתח תוכנה במשך שלוש שנים.",
+          "translation": "Avadeti kemefateakh tokhna bemeshekh shalosh shanim. — I worked as a software developer for three years."
+        },
+        {
+          "speaker": 1,
+          "text": "מה היה הפרויקט המאתגר ביותר שלך?",
+          "translation": "Ma haya haproyeqt hameatgger beyoter shelkha? — What was your most challenging project?"
+        },
+        {
+          "speaker": 2,
+          "text": "פיתחתי מערכת שהתמודדה עם עומס גבוה מאוד.",
+          "translation": "Pitakhti maarekhet shehitmodeda im omes gavoha meod. — I developed a system that handled very high load."
+        },
+        {
+          "speaker": 1,
+          "text": "איך אתה מתמודד עם לחץ בעבודה?",
+          "translation": "Eikh ata mitmoded im lakhats ba'avoda? — How do you handle pressure at work?"
+        },
+        {
+          "speaker": 2,
+          "text": "אני מנסה לתעדף משימות ולשמור על ראש קר.",
+          "translation": "Ani menase leta'adef mesimot velishmor al rosh qar. — I try to prioritize tasks and stay calm."
+        }
+      ]
+    }
+  ]
+}

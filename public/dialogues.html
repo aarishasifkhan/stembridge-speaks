@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1B4332" />
+    <title>STEMBridge Speaks — Dialogues</title>
+    <meta
+      name="description"
+      content="Read and listen to scripted two-speaker dialogues in German, English, Spanish, Mandarin, Russian, Arabic, and Hebrew — real-life scenarios with English translations and native-voice audio, completely free."
+    />
+    <link
+      rel="canonical"
+      href="https://stembridge-speaks.onrender.com/dialogues.html"
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta property="og:title" content="Dialogues — STEMBridge Speaks" />
+    <meta
+      property="og:description"
+      content="Listen to real two-speaker scripted conversations in 7 languages, with translations and native-voice audio — free."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://stembridge-speaks.onrender.com/dialogues.html"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "STEMBridge Speaks — Dialogues",
+        "url": "https://stembridge-speaks.onrender.com/dialogues.html",
+        "description": "Scripted two-speaker dialogues in German, English, Spanish, Mandarin, Russian, Arabic, and Hebrew, with English translations and native-voice audio.",
+        "applicationCategory": "EducationalApplication",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "isPartOf": {
+          "@type": "WebApplication",
+          "name": "STEMBridge Speaks",
+          "url": "https://stembridge-speaks.onrender.com/"
+        }
+      }
+    </script>
+
+    <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --gold: #e8a33d;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+        line-height: 1.55;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        color: var(--forest-dark);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+      }
+      .hidden {
+        display: none !important;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 6vw;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 19px;
+        color: var(--forest);
+        text-decoration: none;
+      }
+      nav {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        position: relative;
+      }
+      nav a:not(.btn)::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+        transition: width 0.2s ease;
+      }
+      nav a:not(.btn):hover::after {
+        width: 100%;
+      }
+      nav a.btn {
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition:
+          transform 0.15s ease,
+          background 0.15s ease;
+      }
+      nav a.btn:hover {
+        background: var(--forest-dark);
+        transform: translateY(-2px);
+      }
+      .icon-btn {
+        background: none;
+        border: none;
+        color: var(--ink);
+        font-size: 14px;
+        cursor: pointer;
+        font-family: "Work Sans", sans-serif;
+      }
+
+      main {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 40px 6vw 80px;
+      }
+
+      /* ---------- Controls (language + difficulty) ---------- */
+      .controls {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+        align-items: center;
+      }
+      #langSelect {
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1.5px solid rgba(27, 67, 50, 0.25);
+        background: var(--sage);
+        font-size: 14px;
+        font-family: "Work Sans", sans-serif;
+      }
+      .diff-pills {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .diff-pill {
+        border: 1.5px solid rgba(27, 67, 50, 0.25);
+        background: transparent;
+        color: var(--ink);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: "Work Sans", sans-serif;
+        transition:
+          background 0.15s ease,
+          color 0.15s ease,
+          transform 0.15s ease;
+      }
+      .diff-pill:hover {
+        transform: translateY(-1px);
+      }
+      .diff-pill.active {
+        background: var(--forest);
+        color: var(--cream);
+        border-color: var(--forest);
+      }
+      .diff-pill[data-diff="easy"].active {
+        background: #4c7a5b;
+        border-color: #4c7a5b;
+      }
+      .diff-pill[data-diff="medium"].active {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--forest-dark);
+      }
+      .diff-pill[data-diff="hard"].active {
+        background: var(--brick);
+        border-color: var(--brick);
+      }
+
+      /* ---------- Dialogue cards grid ---------- */
+      #cardGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+        margin-top: 28px;
+      }
+      .dialogue-card {
+        background: var(--sage);
+        border-radius: 14px;
+        padding: 20px;
+        cursor: pointer;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .dialogue-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(27, 67, 50, 0.12);
+      }
+      .dialogue-card .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .dialogue-card .icon {
+        font-size: 28px;
+        line-height: 1;
+      }
+      .diff-tag {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        padding: 3px 9px;
+        border-radius: 20px;
+        color: var(--cream);
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+      .diff-tag.easy {
+        background: #4c7a5b;
+      }
+      .diff-tag.medium {
+        background: var(--gold);
+        color: var(--forest-dark);
+      }
+      .diff-tag.hard {
+        background: var(--brick);
+      }
+      .dialogue-card h3 {
+        margin: 0;
+        font-size: 17px;
+      }
+      .dialogue-card .scenario {
+        font-size: 12px;
+        color: #55594a;
+        font-weight: 600;
+      }
+      .dialogue-card p {
+        margin: 0;
+        font-size: 13.5px;
+        color: #4a4f42;
+      }
+      #emptyState {
+        margin-top: 40px;
+        text-align: center;
+        color: #6b7062;
+        font-size: 14px;
+      }
+      #loadingMsg {
+        margin-top: 28px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #6b7062;
+        font-size: 14px;
+      }
+      #loadingMsg.hidden {
+        display: none;
+      }
+      .spinner {
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(27, 67, 50, 0.2);
+        border-top-color: var(--forest);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ---------- Dialogue viewer ---------- */
+      #view-dialogue .top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      #backBtn {
+        background: none;
+        border: none;
+        color: var(--forest);
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 0;
+        margin-bottom: 8px;
+      }
+      #backBtn:hover {
+        text-decoration: underline;
+      }
+      .dialogue-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .dialogue-header .icon {
+        font-size: 34px;
+      }
+      .dialogue-header p {
+        margin: 2px 0 0;
+        font-size: 13.5px;
+        color: #55594a;
+      }
+      .player-controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+      #playAllBtn {
+        background: var(--forest);
+        color: var(--cream);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition:
+          background 0.15s ease,
+          transform 0.15s ease;
+      }
+      #playAllBtn:hover {
+        background: var(--forest-dark);
+        transform: translateY(-1px);
+      }
+      #playAllBtn.playing {
+        background: var(--brick);
+      }
+      #speedSelect {
+        padding: 9px 12px;
+        border-radius: 8px;
+        border: 1.5px solid rgba(27, 67, 50, 0.25);
+        background: var(--sage);
+        font-size: 13px;
+        font-family: "Work Sans", sans-serif;
+      }
+      #transEyeBtn {
+        background: none;
+        border: 1.5px solid rgba(27, 67, 50, 0.25);
+        padding: 9px 14px;
+        border-radius: 8px;
+        font-size: 13px;
+        cursor: pointer;
+        font-family: "Work Sans", sans-serif;
+        color: var(--ink);
+      }
+      #transEyeBtn.off {
+        opacity: 0.55;
+      }
+
+      #transcript {
+        margin-top: 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .line-row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .line-row.speaker2 {
+        flex-direction: row-reverse;
+      }
+      .avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--cream);
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .speaker1 .avatar {
+        background: var(--forest);
+      }
+      .speaker2 .avatar {
+        background: var(--brick);
+      }
+      .line-bubble-wrap {
+        max-width: 76%;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .line-row.speaker2 .line-bubble-wrap {
+        align-items: flex-end;
+      }
+      .speaker-name {
+        font-size: 11.5px;
+        font-weight: 600;
+        color: #6b7062;
+        padding: 0 4px;
+      }
+      .line-bubble {
+        background: var(--sage);
+        border-radius: 14px;
+        border-bottom-left-radius: 4px;
+        padding: 12px 16px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: background 0.15s ease;
+        position: relative;
+      }
+      .line-row.speaker2 .line-bubble {
+        background: var(--forest-dark);
+        color: var(--cream);
+        border-bottom-left-radius: 14px;
+        border-bottom-right-radius: 4px;
+      }
+      .line-bubble[dir="rtl"] {
+        text-align: right;
+        font-size: 18px;
+        line-height: 1.8;
+      }
+      .line-bubble:hover {
+        filter: brightness(0.97);
+      }
+      .line-bubble.active {
+        outline: 2.5px solid var(--gold);
+        outline-offset: 2px;
+      }
+      .line-translation {
+        font-size: 12.5px;
+        color: #6b7062;
+        padding: 0 4px;
+      }
+      .line-row.speaker2 .line-translation {
+        text-align: right;
+      }
+      .line-play {
+        font-size: 12px;
+        opacity: 0.65;
+      }
+
+      .about-dialogues {
+        margin-top: 56px;
+        padding-top: 32px;
+        border-top: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      .about-dialogues h2 {
+        font-size: 20px;
+      }
+      .about-dialogues p {
+        font-size: 14.5px;
+        color: #4a4f42;
+      }
+
+      footer {
+        margin-top: 40px;
+        padding: 32px 6vw;
+        text-align: center;
+        font-size: 13px;
+        color: #6b7062;
+        border-top: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      footer a {
+        margin: 0 10px;
+        color: var(--forest-dark);
+      }
+
+      @media (max-width: 600px) {
+        header {
+          padding: 16px 5vw;
+        }
+        nav a:not(.btn) {
+          display: none;
+        }
+        main {
+          padding: 28px 5vw 60px;
+        }
+        .line-bubble-wrap {
+          max-width: 86%;
+        }
+      }
+    </style>
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/read-aloud.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">STEMBridge Speaks</a>
+      <nav>
+        <a href="/practice.html">Conversation Practice</a>
+        <a href="/learn.html">Learn Grammar</a>
+        <a href="/dictionary.html">Dictionary</a>
+        <a href="/about.html">About</a>
+        <a href="/practice.html" class="btn">Practice free</a>
+        <a
+          href="/settings.html"
+          class="icon-btn"
+          style="text-decoration: none; display: inline-block"
+          >⚙️ Settings</a
+        >
+        <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- ============ LIST VIEW ============ -->
+      <div id="view-list">
+        <h1 class="reveal">Dialogues</h1>
+        <p class="reveal">
+          Real two-speaker scripted conversations — read along, see the English
+          translation, and listen with a distinct native voice for each speaker.
+          A quick way to hear how the language actually sounds in everyday
+          situations.
+        </p>
+
+        <div class="controls reveal">
+          <select id="langSelect">
+            <option value="german">🇩🇪 German</option>
+            <option value="english">🇬🇧 English</option>
+            <option value="spanish">🇪🇸 Spanish</option>
+            <option value="mandarin">🇨🇳 Mandarin</option>
+            <option value="russian">🇷🇺 Russian</option>
+            <option value="arabic">🇸🇦 Arabic</option>
+            <option value="hebrew">🇮🇱 Hebrew</option>
+          </select>
+          <div class="diff-pills">
+            <button class="diff-pill active" data-diff="all">All</button>
+            <button class="diff-pill" data-diff="easy">Easy</button>
+            <button class="diff-pill" data-diff="medium">Medium</button>
+            <button class="diff-pill" data-diff="hard">Hard</button>
+          </div>
+        </div>
+
+        <p id="loadingMsg">
+          <span class="spinner"></span> Loading dialogues...
+        </p>
+        <div id="cardGrid"></div>
+        <p id="emptyState" class="hidden">
+          No dialogues match this filter yet.
+        </p>
+
+        <div class="about-dialogues reveal">
+          <h2>How this works</h2>
+          <p>
+            Every dialogue is a short, realistic exchange between two speakers.
+            Tap "Play dialogue" to hear it read aloud line by line in two
+            distinct voices, or tap any individual line to hear just that part.
+            Toggle translations on or off depending on how much of a challenge
+            you want.
+          </p>
+        </div>
+      </div>
+
+      <!-- ============ DIALOGUE VIEWER ============ -->
+      <div id="view-dialogue" class="hidden">
+        <button id="backBtn">← Back to all dialogues</button>
+        <div class="top-row">
+          <div class="dialogue-header">
+            <span class="icon" id="dgIcon">🎒</span>
+            <div>
+              <h1 id="dgTitle" style="margin: 0; font-size: 24px"></h1>
+              <p id="dgMeta"></p>
+            </div>
+          </div>
+        </div>
+        <p id="dgDescription" style="font-size: 14.5px; color: #4a4f42"></p>
+
+        <div class="player-controls">
+          <button id="playAllBtn">▶ Play dialogue</button>
+          <select id="speedSelect">
+            <option value="A2">Slower</option>
+            <option value="B1" selected>Normal</option>
+            <option value="C1">Faster</option>
+          </select>
+          <button id="transEyeBtn">👁 Hide translations</button>
+        </div>
+
+        <div id="transcript"></div>
+      </div>
+    </main>
+
+    <footer>
+      © 2026 STEMBridge Speaks
+      <div style="margin-top: 6px">
+        <a href="/learn.html">Learn Grammar</a>
+        <a href="/practice.html">Conversation Practice</a>
+        <a href="/dictionary.html">Dictionary</a>
+        <a href="/about.html">About</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+    </footer>
+
+    <script>
+      const langCodes = {
+        german: "de",
+        english: "en",
+        spanish: "es",
+        mandarin: "zh",
+        russian: "ru",
+        arabic: "ar",
+        hebrew: "he",
+      };
+      const rtlLanguages = ["arabic", "hebrew"];
+      const difficultyLevel = { easy: "A2", medium: "B1", hard: "C1" };
+
+      const langSelect = document.getElementById("langSelect");
+      const cardGrid = document.getElementById("cardGrid");
+      const loadingMsg = document.getElementById("loadingMsg");
+      const emptyState = document.getElementById("emptyState");
+      const viewList = document.getElementById("view-list");
+      const viewDialogue = document.getElementById("view-dialogue");
+      const backBtn = document.getElementById("backBtn");
+      const playAllBtn = document.getElementById("playAllBtn");
+      const speedSelect = document.getElementById("speedSelect");
+      const transEyeBtn = document.getElementById("transEyeBtn");
+      const transcript = document.getElementById("transcript");
+
+      let dialoguesCache = {}; // langKey -> array of dialogues
+      let currentDiff = "all";
+      let currentDialogue = null;
+      let translationsVisible = true;
+      let isPlayingAll = false;
+      let playToken = 0; // bumped to cancel an in-flight "play all" run
+
+      async function loadDialoguesFor(langKey) {
+        if (dialoguesCache[langKey]) return dialoguesCache[langKey];
+        const code = langCodes[langKey];
+        const res = await fetch(`/data/${code}-dialogues.json`);
+        if (!res.ok) throw new Error("Could not load dialogues.");
+        const data = await res.json();
+        dialoguesCache[langKey] = data.dialogues || [];
+        return dialoguesCache[langKey];
+      }
+
+      function renderCards(dialogues) {
+        cardGrid.innerHTML = "";
+        const filtered =
+          currentDiff === "all"
+            ? dialogues
+            : dialogues.filter((d) => d.difficulty === currentDiff);
+
+        emptyState.classList.toggle("hidden", filtered.length > 0);
+
+        filtered.forEach((d) => {
+          const card = document.createElement("div");
+          card.className = "dialogue-card";
+          card.innerHTML = `
+            <div class="card-top">
+              <span class="icon">${d.icon || "💬"}</span>
+              <span class="diff-tag ${d.difficulty}">${d.difficulty}</span>
+            </div>
+            <h3>${d.title}</h3>
+            <span class="scenario">${d.scenario || ""}</span>
+            <p>${d.description || ""}</p>
+          `;
+          card.addEventListener("click", () => openDialogue(d));
+          cardGrid.appendChild(card);
+        });
+      }
+
+      async function refreshList() {
+        loadingMsg.classList.remove("hidden");
+        cardGrid.innerHTML = "";
+        emptyState.classList.add("hidden");
+        try {
+          const dialogues = await loadDialoguesFor(langSelect.value);
+          renderCards(dialogues);
+        } catch (err) {
+          console.error(err);
+          emptyState.textContent =
+            "Couldn't load dialogues for this language right now.";
+          emptyState.classList.remove("hidden");
+        }
+        loadingMsg.classList.add("hidden");
+      }
+
+      langSelect.addEventListener("change", () => {
+        if (window.ReadAloud) window.ReadAloud.setLanguage(langSelect.value);
+        refreshList();
+      });
+
+      document.querySelectorAll(".diff-pill").forEach((pill) => {
+        pill.addEventListener("click", () => {
+          document
+            .querySelectorAll(".diff-pill")
+            .forEach((p) => p.classList.remove("active"));
+          pill.classList.add("active");
+          currentDiff = pill.dataset.diff;
+          renderCards(dialoguesCache[langSelect.value] || []);
+        });
+      });
+
+      function openDialogue(dialogue) {
+        stopPlayback();
+        currentDialogue = dialogue;
+        document.getElementById("dgIcon").textContent = dialogue.icon || "💬";
+        document.getElementById("dgTitle").textContent = dialogue.title;
+        document.getElementById("dgMeta").textContent =
+          `${dialogue.scenario || ""} · ${dialogue.difficulty}`;
+        document.getElementById("dgDescription").textContent =
+          dialogue.description || "";
+        speedSelect.value = difficultyLevel[dialogue.difficulty] || "B1";
+
+        renderTranscript(dialogue);
+
+        viewList.classList.add("hidden");
+        viewDialogue.classList.remove("hidden");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function renderTranscript(dialogue) {
+        transcript.innerHTML = "";
+        const isRTL = rtlLanguages.includes(langSelect.value);
+        dialogue.lines.forEach((line, i) => {
+          const row = document.createElement("div");
+          row.className = `line-row speaker${line.speaker}`;
+          row.dataset.index = i;
+
+          const name =
+            dialogue.speakers[line.speaker - 1] || `Speaker ${line.speaker}`;
+          const initials = name
+            .replace(/[^\p{L}\s]/gu, "")
+            .split(/\s+/)
+            .filter(Boolean)
+            .slice(0, 2)
+            .map((w) => w[0])
+            .join("")
+            .toUpperCase();
+
+          const showTranslation =
+            translationsVisible &&
+            line.translation &&
+            line.translation !== line.text;
+
+          row.innerHTML = `
+            <div class="avatar">${initials || "?"}</div>
+            <div class="line-bubble-wrap">
+              <span class="speaker-name">${name}</span>
+              <div class="line-bubble" dir="${isRTL ? "rtl" : "ltr"}">${line.text}</div>
+              <span class="line-translation" style="${showTranslation ? "" : "display:none"}">${line.translation || ""}</span>
+            </div>
+          `;
+
+          row.querySelector(".line-bubble").addEventListener("click", () => {
+            playLine(dialogue, i);
+          });
+
+          transcript.appendChild(row);
+        });
+      }
+
+      transEyeBtn.addEventListener("click", () => {
+        translationsVisible = !translationsVisible;
+        transEyeBtn.textContent = translationsVisible
+          ? "👁 Hide translations"
+          : "👁 Show translations";
+        transEyeBtn.classList.toggle("off", !translationsVisible);
+        if (currentDialogue) renderTranscript(currentDialogue);
+      });
+
+      backBtn.addEventListener("click", () => {
+        stopPlayback();
+        viewDialogue.classList.add("hidden");
+        viewList.classList.remove("hidden");
+      });
+
+      function highlightLine(index) {
+        transcript.querySelectorAll(".line-bubble.active").forEach((el) => {
+          el.classList.remove("active");
+        });
+        const row = transcript.querySelector(
+          `.line-row[data-index="${index}"]`,
+        );
+        if (row) {
+          row.querySelector(".line-bubble").classList.add("active");
+          row.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }
+
+      async function fetchAudio(text, speaker) {
+        const res = await fetch("/tts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text,
+            level: speedSelect.value,
+            language: langSelect.value,
+            speaker,
+          }),
+        });
+        const data = await res.json();
+        if (!data.audio) throw new Error("No audio returned.");
+        return data.audio;
+      }
+
+      function playAudioBase64(base64) {
+        return new Promise((resolve) => {
+          const audioEl = new Audio("data:audio/mp3;base64," + base64);
+          audioEl.onended = resolve;
+          audioEl.onerror = resolve;
+          audioEl.play().catch(() => resolve());
+        });
+      }
+
+      async function playLine(dialogue, index) {
+        const line = dialogue.lines[index];
+        highlightLine(index);
+        try {
+          const audio = await fetchAudio(line.text, line.speaker);
+          await playAudioBase64(audio);
+        } catch (err) {
+          console.error("Playback error:", err);
+        }
+      }
+
+      function stopPlayback() {
+        playToken++; // invalidates any in-flight playAll loop
+        isPlayingAll = false;
+        playAllBtn.textContent = "▶ Play dialogue";
+        playAllBtn.classList.remove("playing");
+      }
+
+      playAllBtn.addEventListener("click", async () => {
+        if (isPlayingAll) {
+          stopPlayback();
+          return;
+        }
+        if (!currentDialogue) return;
+        isPlayingAll = true;
+        const myToken = ++playToken;
+        playAllBtn.textContent = "■ Stop";
+        playAllBtn.classList.add("playing");
+
+        for (let i = 0; i < currentDialogue.lines.length; i++) {
+          if (playToken !== myToken) return; // stopped or dialogue changed
+          await playLine(currentDialogue, i);
+        }
+
+        if (playToken === myToken) {
+          isPlayingAll = false;
+          playAllBtn.textContent = "▶ Play dialogue";
+          playAllBtn.classList.remove("playing");
+        }
+      });
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        if (confirm("Log out?")) logout();
+      });
+
+      // Reveal-on-scroll for intro/about blocks
+      const revealEls = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      revealEls.forEach((el) => observer.observe(el));
+
+      (async () => {
+        const user = await requireAuth();
+        if (!user) return;
+        if (window.ReadAloud) window.ReadAloud.setLanguage(langSelect.value);
+        refreshList();
+      })();
+    </script>
+  </body>
+</html>

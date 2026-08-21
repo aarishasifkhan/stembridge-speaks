@@ -1,0 +1,127 @@
+{
+  "dialogues": [
+    {
+      "id": "easy-new-neighbors",
+      "title": "New Neighbors",
+      "difficulty": "easy",
+      "scenario": "Everyday Life",
+      "icon": "🏠",
+      "description": "Two neighbors meet for the first time.",
+      "speakers": ["Иван", "Ольга"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Здравствуйте! Меня зовут Иван, я ваш новый сосед.",
+          "translation": "Hello! My name is Ivan, I'm your new neighbor."
+        },
+        {
+          "speaker": 2,
+          "text": "Очень приятно! Меня зовут Ольга.",
+          "translation": "Nice to meet you! My name is Olga."
+        },
+        {
+          "speaker": 1,
+          "text": "Вы давно здесь живёте?",
+          "translation": "Have you lived here long?"
+        },
+        {
+          "speaker": 2,
+          "text": "Да, уже три года.",
+          "translation": "Yes, for three years already."
+        },
+        {
+          "speaker": 1,
+          "text": "А где здесь ближайший магазин?",
+          "translation": "Where's the nearest store around here?"
+        },
+        {
+          "speaker": 2,
+          "text": "Он находится за углом.",
+          "translation": "It's around the corner."
+        }
+      ]
+    },
+    {
+      "id": "medium-train-station",
+      "title": "At the Train Station",
+      "difficulty": "medium",
+      "scenario": "Travel",
+      "icon": "🚆",
+      "description": "A passenger buys a train ticket.",
+      "speakers": ["Кассир", "Мария"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Здравствуйте! Куда вы едете?",
+          "translation": "Hello! Where are you traveling to?"
+        },
+        {
+          "speaker": 2,
+          "text": "Мне нужен билет до Москвы, пожалуйста.",
+          "translation": "I need a ticket to Moscow, please."
+        },
+        {
+          "speaker": 1,
+          "text": "Туда и обратно или только в одну сторону?",
+          "translation": "Round trip or one way only?"
+        },
+        {
+          "speaker": 2,
+          "text": "Только туда, на завтра утром.",
+          "translation": "One way, for tomorrow morning."
+        },
+        {
+          "speaker": 1,
+          "text": "Есть поезд в восемь часов. Подойдёт?",
+          "translation": "There's a train at eight o'clock. Does that work?"
+        },
+        {
+          "speaker": 2,
+          "text": "Да, отлично, я его беру.",
+          "translation": "Yes, great, I'll take it."
+        }
+      ]
+    },
+    {
+      "id": "hard-business-meeting",
+      "title": "A Business Meeting",
+      "difficulty": "hard",
+      "scenario": "Work",
+      "icon": "💼",
+      "description": "A director checks in on a project's progress.",
+      "speakers": ["Директор", "Алексей"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Алексей, как продвигается новый проект?",
+          "translation": "Alexey, how is the new project progressing?"
+        },
+        {
+          "speaker": 2,
+          "text": "В целом хорошо, но у нас небольшая задержка с поставщиками.",
+          "translation": "Overall well, but we have a small delay with the suppliers."
+        },
+        {
+          "speaker": 1,
+          "text": "Это серьёзно повлияет на сроки?",
+          "translation": "Will this seriously affect the deadlines?"
+        },
+        {
+          "speaker": 2,
+          "text": "Не думаю, если мы ускорим следующий этап.",
+          "translation": "I don't think so, if we speed up the next stage."
+        },
+        {
+          "speaker": 1,
+          "text": "Хорошо, держите меня в курсе.",
+          "translation": "Good, keep me informed."
+        },
+        {
+          "speaker": 2,
+          "text": "Конечно, я пришлю отчёт к пятнице.",
+          "translation": "Of course, I'll send the report by Friday."
+        }
+      ]
+    }
+  ]
+}
