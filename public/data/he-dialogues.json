@@ -122,6 +122,118 @@
           "translation": "Ani menase leta'adef mesimot velishmor al rosh qar. — I try to prioritize tasks and stay calm."
         }
       ]
+    },
+    {
+      "id": "hard-job-interview-2",
+      "title": "ראיון עבודה",
+      "difficulty": "hard",
+      "scenario": "Work & Careers",
+      "icon": "💼",
+      "description": "A candidate discusses her career, challenges, and goals in a formal job interview.",
+      "speakers": ["מראיין", "נועה"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "תודה שהגעת היום. תוכלי לספר לי בקצרה על הרקע התעסוקתי שלך?",
+          "translation": "Thank you for coming today. Could you briefly tell me about your professional background?"
+        },
+        {
+          "speaker": 2,
+          "text": "בשמחה. למדתי הנדסת סביבה ובשלוש השנים האחרונות עבדתי על פרויקטים של אנרגיה מתחדשת.",
+          "translation": "Gladly. I studied environmental engineering and over the past three years worked on renewable energy projects."
+        },
+        {
+          "speaker": 1,
+          "text": "מה היה הפרויקט המאתגר ביותר שהתמודדת איתו?",
+          "translation": "What was the most challenging project you dealt with?"
+        },
+        {
+          "speaker": 2,
+          "text": "כנראה התקנת פאנלים סולאריים שהתעכבה בגלל בעיות ברישוי, ונאלצתי לנהל מחדש משא ומתן על לוחות הזמנים עם שלושה גורמים בו-זמנית.",
+          "translation": "Probably a solar panel installation that was delayed due to licensing issues, and I had to renegotiate the timelines with three parties simultaneously."
+        },
+        {
+          "speaker": 1,
+          "text": "איך הצלחת לשמור על תיאום הצוות תחת הלחץ הזה?",
+          "translation": "How did you manage to keep the team coordinated under that pressure?"
+        },
+        {
+          "speaker": 2,
+          "text": "קבעתי פגישות קצרות כל בוקר כדי שבעיות יעלו מוקדם, במקום להצטבר עד המועד האחרון.",
+          "translation": "I set up short meetings every morning so that problems would surface early, instead of piling up until the deadline."
+        },
+        {
+          "speaker": 1,
+          "text": "נשמע כמו גישה טובה. איפה את רואה את עצמך בעוד חמש שנים?",
+          "translation": "Sounds like a good approach. Where do you see yourself in five years?"
+        },
+        {
+          "speaker": 2,
+          "text": "באופן אידיאלי, מובילה צוות קטן אבל עדיין מעורבת מבחינה טכנית, ולא רק בניהול.",
+          "translation": "Ideally, leading a small team but still involved technically, not just in management."
+        },
+        {
+          "speaker": 1,
+          "text": "יש לך שאלות לפני שנסיים?",
+          "translation": "Do you have any questions before we finish?"
+        },
+        {
+          "speaker": 2,
+          "text": "כן, איך הצוות בדרך כלל מתמודד עם חילוקי דעות לגבי סדרי עדיפויות בפרויקט?",
+          "translation": "Yes, how does the team usually handle disagreements about project priorities?"
+        }
+      ]
+    },
+    {
+      "id": "hard-tech-debate",
+      "title": "ויכוח על טכנולוגיה וחברה",
+      "difficulty": "hard",
+      "scenario": "Current Events",
+      "icon": "🗣️",
+      "description": "Two friends debate the effects of social media, using persuasive language and discourse markers.",
+      "speakers": ["מיכל", "איתן"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "בכנות, אני חושבת שרשתות חברתיות הזיקו לתקשורת של בני נוער יותר משהועילו.",
+          "translation": "Honestly, I think social networks have harmed teenagers' communication more than they've helped."
+        },
+        {
+          "speaker": 2,
+          "text": "אני מבין את הנקודה שלך, אבל האם זה לא קצת לא הוגן להאשים את הפלטפורמות במשהו שתלוי בעצם באיך שאנשים משתמשים בהן?",
+          "translation": "I understand your point, but isn't it a bit unfair to blame the platforms for something that really depends on how people use them?"
+        },
+        {
+          "speaker": 1,
+          "text": "אולי, אבל האלגוריתמים מתוכננים בכוונה לגרום לאנשים להמשיך לגלול, בלי קשר אם זה טוב להם או לא.",
+          "translation": "Maybe, but the algorithms are deliberately designed to make people keep scrolling, regardless of whether it's good for them or not."
+        },
+        {
+          "speaker": 2,
+          "text": "נכון. אבל הייתי אומר שאותם כלים גם הקלו על אנשים לשמור על קשר במרחקים גדולים.",
+          "translation": "True. But I'd say the same tools have also made it easier for people to stay in touch over long distances."
+        },
+        {
+          "speaker": 1,
+          "text": "נכון, אבל 'לשמור על קשר' דרך לייקים ותגובות זה ממש לא כמו שיחה אמיתית.",
+          "translation": "True, but 'staying in touch' through likes and comments is really nothing like an actual conversation."
+        },
+        {
+          "speaker": 2,
+          "text": "גם נכון. אולי הבעיה האמיתית היא לא הטכנולוגיה עצמה, אלא שכמעט לא מלמדים אותנו להשתמש בה בתבונה.",
+          "translation": "Also true. Maybe the real problem isn't the technology itself, but that we're barely taught to use it wisely."
+        },
+        {
+          "speaker": 1,
+          "text": "עם זה אני מסכימה. אם בתי הספר היו מקדישים ולו קצת זמן לזה, משהו היה יכול להשתנות.",
+          "translation": "I agree with that. If schools devoted even a little time to it, something could change."
+        },
+        {
+          "speaker": 2,
+          "text": "בדיוק — זה פחות עניין של לאסור על הכלים, ויותר עניין של לבנות הרגלים טובים יותר סביב השימוש בהם.",
+          "translation": "Exactly — it's less about banning the tools, and more about building better habits around using them."
+        }
+      ]
     }
   ]
 }

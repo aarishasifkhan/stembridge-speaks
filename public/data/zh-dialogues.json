@@ -122,6 +122,118 @@
           "translation": "Tài hǎo le, nà wǒmen zǎoshang bā diǎn chūfā ba. — Great, let's set off at 8am then."
         }
       ]
+    },
+    {
+      "id": "hard-job-interview",
+      "title": "求职面试",
+      "difficulty": "hard",
+      "scenario": "Work & Careers",
+      "icon": "💼",
+      "description": "A candidate discusses her career, challenges, and goals in a formal job interview.",
+      "speakers": ["面试官", "陈静"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "谢谢您今天抽空过来。能简单介绍一下您的工作经历吗？",
+          "translation": "Xièxiè nín jīntiān chōu kòng guòlái. Néng jiǎndān jièshào yīxià nín de gōngzuò jīnglì ma? — Thank you for taking the time to come in today. Could you briefly introduce your work experience?"
+        },
+        {
+          "speaker": 2,
+          "text": "当然可以。我学的是市场营销，毕业后一直在一家科技公司负责产品推广。",
+          "translation": "Dāngrán kěyǐ. Wǒ xué de shì shìchǎng yíngxiāo, bìyè hòu yīzhí zài yī jiā kējì gōngsī fùzé chǎnpǐn tuīguǎng. — Of course. I studied marketing, and after graduating I've been in charge of product promotion at a tech company."
+        },
+        {
+          "speaker": 1,
+          "text": "您觉得工作中遇到的最大挑战是什么？",
+          "translation": "Nín juéde gōngzuò zhōng yù dào de zuìdà tiǎozhàn shì shénme? — What do you think has been the biggest challenge you've encountered at work?"
+        },
+        {
+          "speaker": 2,
+          "text": "应该是去年的一次产品发布，因为预算突然被削减，我不得不重新协调整个团队的计划。",
+          "translation": "Yīnggāi shì qùnián de yī cì chǎnpǐn fābù, yīnwèi yùsuàn tūrán bèi xuējiǎn, wǒ bùdébù chóngxīn xiétiáo zhěnggè tuánduì de jìhuà. — It was probably a product launch last year — because the budget was suddenly cut, I had to re-coordinate the whole team's plan."
+        },
+        {
+          "speaker": 1,
+          "text": "您是怎么在压力下让团队保持一致的？",
+          "translation": "Nín shì zěnme zài yālì xià ràng tuánduì bǎochí yīzhì de? — How did you keep the team aligned under that pressure?"
+        },
+        {
+          "speaker": 2,
+          "text": "我每天早上都会开一个简短的会议，这样问题可以及时发现，而不是拖到最后。",
+          "translation": "Wǒ měitiān zǎoshang dōu huì kāi yīgè jiǎnduǎn de huìyì, zhèyàng wèntí kěyǐ jíshí fāxiàn, ér bùshì tuō dào zuìhòu. — I held a short meeting every morning so that problems could be discovered in time, instead of being delayed until the end."
+        },
+        {
+          "speaker": 1,
+          "text": "听起来是个不错的方法。您对未来五年有什么打算？",
+          "translation": "Tīng qǐlái shì gè bùcuò de fāngfǎ. Nín duì wèilái wǔ nián yǒu shénme dǎsuàn? — That sounds like a good approach. What are your plans for the next five years?"
+        },
+        {
+          "speaker": 2,
+          "text": "理想的话，我希望能带一个小团队，同时还能继续参与具体的项目工作，而不只是做管理。",
+          "translation": "Lǐxiǎng dehuà, wǒ xīwàng néng dài yīgè xiǎo tuánduì, tóngshí hái néng jìxù cānyù jùtǐ de xiàngmù gōngzuò, ér bùzhǐ shì zuò guǎnlǐ. — Ideally, I'd like to lead a small team while still being involved in hands-on project work, not just management."
+        },
+        {
+          "speaker": 1,
+          "text": "您还有什么问题想问我们吗？",
+          "translation": "Nín hái yǒu shénme wèntí xiǎng wèn wǒmen ma? — Do you have any questions you'd like to ask us?"
+        },
+        {
+          "speaker": 2,
+          "text": "有,团队通常是怎么处理项目优先级上的分歧的？",
+          "translation": "Yǒu, tuánduì tōngcháng shì zěnme chǔlǐ xiàngmù yōuxiānjí shàng de fēnqí de? — Yes, how does the team usually handle disagreements about project priorities?"
+        }
+      ]
+    },
+    {
+      "id": "hard-tech-debate",
+      "title": "关于科技与社会的辩论",
+      "difficulty": "hard",
+      "scenario": "Current Events",
+      "icon": "🗣️",
+      "description": "Two friends debate the effects of social media, using persuasive language and discourse markers.",
+      "speakers": ["王芳", "李强"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "说实话，我觉得社交媒体对青少年之间的交流弊大于利。",
+          "translation": "Shuō shíhuà, wǒ juéde shèjiāo méitǐ duì qīngshàonián zhījiān de jiāoliú bì dàyú lì. — Honestly, I think social media does more harm than good for communication among teenagers."
+        },
+        {
+          "speaker": 2,
+          "text": "我理解你的想法，但把责任都推给平台，是不是有点不公平？毕竟关键在于人们怎么使用它。",
+          "translation": "Wǒ lǐjiě nǐ de xiǎngfǎ, dàn bǎ zérèn dōu tuī gěi píngtái, shì bùshì yǒudiǎn bù gōngpíng? Bìjìng guānjiàn zàiyú rénmen zěnme shǐyòng tā. — I understand your point, but isn't it a bit unfair to put all the blame on the platforms? After all, it depends on how people use them."
+        },
+        {
+          "speaker": 1,
+          "text": "也许吧，但算法本来就是故意设计成让人不停刷下去的，不管这对他们好不好。",
+          "translation": "Yěxǔ ba, dàn suànfǎ běnlái jiùshì gùyì shèjì chéng ràng rén bùtíng shuā xiàqù de, bùguǎn zhè duì tāmen hǎo bù hǎo. — Maybe, but the algorithms are deliberately designed to keep people scrolling endlessly, regardless of whether it's good for them."
+        },
+        {
+          "speaker": 2,
+          "text": "这倒是真的。不过我觉得同样是这些工具，也让人们更容易和远方的朋友保持联系。",
+          "translation": "Zhè dào shì zhēn de. Bùguò wǒ juéde tóngyàng shì zhèxiē gōngjù, yě ràng rénmen gèng róngyì hé yuǎnfāng de péngyǒu bǎochí liánxì. — That's true. But I think the same tools also make it easier for people to stay in touch with friends far away."
+        },
+        {
+          "speaker": 1,
+          "text": "话是没错，可是靠点赞和评论'保持联系'，跟真正的交流完全不是一回事。",
+          "translation": "Huà shì méi cuò, kěshì kào diǎnzàn hé pínglùn 'bǎochí liánxì', gēn zhēnzhèng de jiāoliú wánquán bùshì yī huí shì. — That's not wrong, but 'staying in touch' through likes and comments is completely different from real communication."
+        },
+        {
+          "speaker": 2,
+          "text": "有道理。也许问题不在技术本身，而在于我们几乎没人教怎么合理地使用它。",
+          "translation": "Yǒu dàolǐ. Yěxǔ wèntí bù zài jìshù běnshēn, ér zàiyú wǒmen jīhū méi rén jiào zěnme hélǐ de shǐyòng tā. — Good point. Maybe the problem isn't the technology itself, but that almost no one teaches us how to use it wisely."
+        },
+        {
+          "speaker": 1,
+          "text": "这一点我同意。要是学校能花一点时间教这个，情况可能会不一样。",
+          "translation": "Zhè yīdiǎn wǒ tóngyì. Yàoshi xuéxiào néng huā yīdiǎn shíjiān jiào zhège, qíngkuàng kěnéng huì bù yīyàng. — I agree with that. If schools spent a little time teaching this, things might be different."
+        },
+        {
+          "speaker": 2,
+          "text": "没错——重点不是禁止这些工具，而是帮助大家养成更好的使用习惯。",
+          "translation": "Méi cuò — zhòngdiǎn bùshì jìnzhǐ zhèxiē gōngjù, ér shì bāngzhù dàjiā yǎngchéng gèng hǎo de shǐyòng xíguàn. — Exactly — the point isn't to ban these tools, but to help everyone build better habits around using them."
+        }
+      ]
     }
   ]
 }

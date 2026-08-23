@@ -122,6 +122,118 @@
           "translation": "I try to understand their perspective first, then find common ground before proposing a solution."
         }
       ]
+    },
+    {
+      "id": "hard-job-interview-2",
+      "title": "The Job Interview",
+      "difficulty": "hard",
+      "scenario": "Work & Careers",
+      "icon": "💼",
+      "description": "A candidate discusses her career, challenges, and goals in a formal job interview.",
+      "speakers": ["Interviewer", "Ms. Reyes"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Thanks for coming in today. Could you walk me through your background?",
+          "translation": "Thanks for coming in today. Could you walk me through your background?"
+        },
+        {
+          "speaker": 2,
+          "text": "Of course. I studied environmental engineering and spent the last three years working on renewable energy projects.",
+          "translation": "Of course. I studied environmental engineering and spent the last three years working on renewable energy projects."
+        },
+        {
+          "speaker": 1,
+          "text": "What would you say was the most challenging project you've handled?",
+          "translation": "What would you say was the most challenging project you've handled?"
+        },
+        {
+          "speaker": 2,
+          "text": "Probably a solar installation that fell behind schedule due to permitting issues — I had to renegotiate timelines with three different stakeholders at once.",
+          "translation": "Probably a solar installation that fell behind schedule due to permitting issues — I had to renegotiate timelines with three different stakeholders at once."
+        },
+        {
+          "speaker": 1,
+          "text": "How did you keep the team aligned under that kind of pressure?",
+          "translation": "How did you keep the team aligned under that kind of pressure?"
+        },
+        {
+          "speaker": 2,
+          "text": "I set up short daily check-ins so problems surfaced early instead of piling up until the deadline.",
+          "translation": "I set up short daily check-ins so problems surfaced early instead of piling up until the deadline."
+        },
+        {
+          "speaker": 1,
+          "text": "That's a solid approach. Where do you see yourself professionally in five years?",
+          "translation": "That's a solid approach. Where do you see yourself professionally in five years?"
+        },
+        {
+          "speaker": 2,
+          "text": "Ideally leading a small team, still hands-on with the technical side rather than purely managerial.",
+          "translation": "Ideally leading a small team, still hands-on with the technical side rather than purely managerial."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you have any questions for us before we wrap up?",
+          "translation": "Do you have any questions for us before we wrap up?"
+        },
+        {
+          "speaker": 2,
+          "text": "Yes — how does the team typically handle disagreements about project priorities?",
+          "translation": "Yes — how does the team typically handle disagreements about project priorities?"
+        }
+      ]
+    },
+    {
+      "id": "hard-tech-debate",
+      "title": "A Debate About Technology and Society",
+      "difficulty": "hard",
+      "scenario": "Current Events",
+      "icon": "🗣️",
+      "description": "Two friends debate the effects of social media, using persuasive language and discourse markers.",
+      "speakers": ["Naomi", "Chris"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Honestly, I think social media has done more harm than good for how teenagers communicate.",
+          "translation": "Honestly, I think social media has done more harm than good for how teenagers communicate."
+        },
+        {
+          "speaker": 2,
+          "text": "I get where you're coming from, but isn't it a bit unfair to blame the platforms for something that's really about how people use them?",
+          "translation": "I get where you're coming from, but isn't it a bit unfair to blame the platforms for something that's really about how people use them?"
+        },
+        {
+          "speaker": 1,
+          "text": "Maybe, but the algorithms are deliberately designed to keep people scrolling, regardless of whether it's good for them.",
+          "translation": "Maybe, but the algorithms are deliberately designed to keep people scrolling, regardless of whether it's good for them."
+        },
+        {
+          "speaker": 2,
+          "text": "That's fair. Still, I'd argue the same tools have made it easier for people to stay in touch across huge distances.",
+          "translation": "That's fair. Still, I'd argue the same tools have made it easier for people to stay in touch across huge distances."
+        },
+        {
+          "speaker": 1,
+          "text": "Sure, but staying 'in touch' through likes and comments isn't the same as an actual conversation.",
+          "translation": "Sure, but staying 'in touch' through likes and comments isn't the same as an actual conversation."
+        },
+        {
+          "speaker": 2,
+          "text": "True. Maybe the real issue isn't the technology itself, but how little we teach people to use it thoughtfully.",
+          "translation": "True. Maybe the real issue isn't the technology itself, but how little we teach people to use it thoughtfully."
+        },
+        {
+          "speaker": 1,
+          "text": "That I can agree with. If schools spent even a little time on that, it might change things.",
+          "translation": "That I can agree with. If schools spent even a little time on that, it might change things."
+        },
+        {
+          "speaker": 2,
+          "text": "Exactly — it's less about banning the tools and more about building better habits around them.",
+          "translation": "Exactly — it's less about banning the tools and more about building better habits around them."
+        }
+      ]
     }
   ]
 }

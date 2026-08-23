@@ -122,6 +122,118 @@
           "translation": "That sounds like a good compromise!"
         }
       ]
+    },
+    {
+      "id": "hard-job-interview",
+      "title": "Das Vorstellungsgespräch",
+      "difficulty": "hard",
+      "scenario": "Work & Careers",
+      "icon": "💼",
+      "description": "A candidate discusses her career, challenges, and goals in a formal job interview.",
+      "speakers": ["Personalchef", "Frau Berger"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Vielen Dank, dass Sie heute gekommen sind. Könnten Sie mir kurz Ihren beruflichen Werdegang schildern?",
+          "translation": "Thank you for coming in today. Could you briefly describe your professional background?"
+        },
+        {
+          "speaker": 2,
+          "text": "Gerne. Ich habe Umwelttechnik studiert und die letzten drei Jahre an Projekten im Bereich erneuerbare Energien gearbeitet.",
+          "translation": "Of course. I studied environmental engineering and spent the last three years working on renewable energy projects."
+        },
+        {
+          "speaker": 1,
+          "text": "Was würden Sie als die größte Herausforderung in dieser Zeit bezeichnen?",
+          "translation": "What would you consider the biggest challenge during that time?"
+        },
+        {
+          "speaker": 2,
+          "text": "Vermutlich ein Solarprojekt, das sich wegen Genehmigungsproblemen verzögert hat — ich musste die Zeitpläne gleichzeitig mit drei verschiedenen Beteiligten neu verhandeln.",
+          "translation": "Probably a solar project that was delayed due to permitting issues — I had to renegotiate the timelines with three different stakeholders at once."
+        },
+        {
+          "speaker": 1,
+          "text": "Wie haben Sie das Team unter diesem Druck zusammengehalten?",
+          "translation": "How did you keep the team together under that pressure?"
+        },
+        {
+          "speaker": 2,
+          "text": "Ich habe kurze tägliche Besprechungen eingeführt, damit Probleme früh auffallen, statt sich bis zur Deadline anzuhäufen.",
+          "translation": "I introduced short daily meetings so problems would surface early instead of piling up until the deadline."
+        },
+        {
+          "speaker": 1,
+          "text": "Das klingt nach einem soliden Ansatz. Wo sehen Sie sich beruflich in fünf Jahren?",
+          "translation": "That sounds like a solid approach. Where do you see yourself professionally in five years?"
+        },
+        {
+          "speaker": 2,
+          "text": "Idealerweise würde ich ein kleines Team leiten, aber weiterhin technisch involviert bleiben, statt rein administrativ zu arbeiten.",
+          "translation": "Ideally, I would lead a small team while remaining technically involved, rather than working purely administratively."
+        },
+        {
+          "speaker": 1,
+          "text": "Haben Sie noch Fragen, bevor wir zum Ende kommen?",
+          "translation": "Do you have any questions before we wrap up?"
+        },
+        {
+          "speaker": 2,
+          "text": "Ja — wie geht das Team normalerweise mit Meinungsverschiedenheiten bei Projektprioritäten um?",
+          "translation": "Yes — how does the team usually handle disagreements about project priorities?"
+        }
+      ]
+    },
+    {
+      "id": "hard-tech-debate",
+      "title": "Debatte über Technologie und Gesellschaft",
+      "difficulty": "hard",
+      "scenario": "Current Events",
+      "icon": "🗣️",
+      "description": "Two friends debate the effects of social media, using subjunctive mood and persuasive language.",
+      "speakers": ["Lena", "Jonas"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Ehrlich gesagt glaube ich, dass soziale Medien der Kommunikation unter Jugendlichen mehr geschadet als genützt haben.",
+          "translation": "Honestly, I think social media has done more harm than good for communication among teenagers."
+        },
+        {
+          "speaker": 2,
+          "text": "Ich verstehe deinen Punkt, aber ist es nicht etwas unfair, den Plattformen die Schuld zu geben für etwas, das eigentlich davon abhängt, wie Menschen sie nutzen?",
+          "translation": "I understand your point, but isn't it a bit unfair to blame the platforms for something that really depends on how people use them?"
+        },
+        {
+          "speaker": 1,
+          "text": "Vielleicht, aber die Algorithmen sind bewusst so gestaltet, dass Menschen weiter scrollen, egal ob es ihnen guttut oder nicht.",
+          "translation": "Maybe, but the algorithms are deliberately designed to keep people scrolling, regardless of whether it's good for them."
+        },
+        {
+          "speaker": 2,
+          "text": "Das stimmt. Trotzdem würde ich sagen, dass dieselben Werkzeuge es einfacher gemacht haben, über große Entfernungen in Kontakt zu bleiben.",
+          "translation": "That's true. Still, I'd say the same tools have made it easier to stay in touch across large distances."
+        },
+        {
+          "speaker": 1,
+          "text": "Klar, aber 'in Kontakt bleiben' durch Likes und Kommentare ist nicht dasselbe wie ein echtes Gespräch.",
+          "translation": "Sure, but staying 'in touch' through likes and comments isn't the same as an actual conversation."
+        },
+        {
+          "speaker": 2,
+          "text": "Stimmt. Vielleicht liegt das eigentliche Problem nicht in der Technologie selbst, sondern darin, dass wir kaum lernen, sie bewusst zu nutzen.",
+          "translation": "True. Maybe the real problem isn't the technology itself, but that we barely learn to use it thoughtfully."
+        },
+        {
+          "speaker": 1,
+          "text": "Dem kann ich zustimmen. Wenn Schulen auch nur ein wenig Zeit dafür einplanen würden, könnte sich einiges ändern.",
+          "translation": "I can agree with that. If schools set aside even a little time for that, quite a bit could change."
+        },
+        {
+          "speaker": 2,
+          "text": "Genau — es geht weniger darum, die Werkzeuge zu verbieten, sondern bessere Gewohnheiten im Umgang damit aufzubauen.",
+          "translation": "Exactly — it's less about banning the tools and more about building better habits around using them."
+        }
+      ]
     }
   ]
 }

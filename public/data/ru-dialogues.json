@@ -122,6 +122,118 @@
           "translation": "Of course, I'll send the report by Friday."
         }
       ]
+    },
+    {
+      "id": "hard-job-interview",
+      "title": "Собеседование на работу",
+      "difficulty": "hard",
+      "scenario": "Work & Careers",
+      "icon": "💼",
+      "description": "A candidate discusses her career, challenges, and goals in a formal job interview.",
+      "speakers": ["Рекрутёр", "Анна"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Спасибо, что пришли сегодня. Расскажите, пожалуйста, коротко о своём опыте работы.",
+          "translation": "Thank you for coming in today. Could you briefly tell me about your work experience?"
+        },
+        {
+          "speaker": 2,
+          "text": "Конечно. Я училась на инженера-эколога и последние три года работала над проектами в области возобновляемой энергии.",
+          "translation": "Of course. I studied environmental engineering and have spent the last three years working on renewable energy projects."
+        },
+        {
+          "speaker": 1,
+          "text": "Какой проект оказался для вас самым сложным?",
+          "translation": "Which project turned out to be the most difficult for you?"
+        },
+        {
+          "speaker": 2,
+          "text": "Наверное, установка солнечных панелей, которая задержалась из-за проблем с разрешениями — пришлось одновременно пересматривать сроки с тремя разными сторонами.",
+          "translation": "Probably a solar panel installation that fell behind schedule due to permitting issues — I had to renegotiate the timelines with three different parties at once."
+        },
+        {
+          "speaker": 1,
+          "text": "Как вам удавалось держать команду в тонусе при таком давлении?",
+          "translation": "How did you manage to keep the team on track under that kind of pressure?"
+        },
+        {
+          "speaker": 2,
+          "text": "Я ввела короткие ежедневные встречи, чтобы проблемы всплывали сразу, а не накапливались до самого дедлайна.",
+          "translation": "I introduced short daily meetings so problems would surface right away instead of piling up until the deadline."
+        },
+        {
+          "speaker": 1,
+          "text": "Звучит как надёжный подход. Кем вы видите себя через пять лет?",
+          "translation": "That sounds like a reliable approach. Where do you see yourself in five years?"
+        },
+        {
+          "speaker": 2,
+          "text": "В идеале — руководителем небольшой команды, но при этом всё ещё вовлечённой в техническую часть, а не только в управление.",
+          "translation": "Ideally — leading a small team, but still involved in the technical side rather than only in management."
+        },
+        {
+          "speaker": 1,
+          "text": "У вас есть вопросы, прежде чем мы закончим?",
+          "translation": "Do you have any questions before we finish?"
+        },
+        {
+          "speaker": 2,
+          "text": "Да — как в команде обычно решают разногласия по поводу приоритетов проекта?",
+          "translation": "Yes — how does the team usually resolve disagreements about project priorities?"
+        }
+      ]
+    },
+    {
+      "id": "hard-tech-debate",
+      "title": "Дебаты о технологиях и обществе",
+      "difficulty": "hard",
+      "scenario": "Current Events",
+      "icon": "🗣️",
+      "description": "Two friends debate the effects of social media, using persuasive language and discourse markers.",
+      "speakers": ["Марина", "Олег"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "Если честно, я считаю, что соцсети принесли общению подростков больше вреда, чем пользы.",
+          "translation": "Honestly, I think social media has done more harm than good for teenagers' communication."
+        },
+        {
+          "speaker": 2,
+          "text": "Я понимаю твою мысль, но разве не немного нечестно винить платформы в том, что на самом деле зависит от того, как люди ими пользуются?",
+          "translation": "I understand your point, but isn't it a bit unfair to blame the platforms for something that really depends on how people use them?"
+        },
+        {
+          "speaker": 1,
+          "text": "Может быть, но алгоритмы специально созданы так, чтобы люди листали дальше, независимо от того, полезно им это или нет.",
+          "translation": "Maybe, but the algorithms are specifically designed to keep people scrolling, regardless of whether it's good for them."
+        },
+        {
+          "speaker": 2,
+          "text": "Согласен. Но я бы сказал, что те же инструменты помогли людям легче оставаться на связи на больших расстояниях.",
+          "translation": "Agreed. But I'd say the same tools have helped people stay in touch more easily over long distances."
+        },
+        {
+          "speaker": 1,
+          "text": "Верно, но оставаться 'на связи' через лайки и комментарии — это совсем не то же самое, что настоящий разговор.",
+          "translation": "True, but staying 'in touch' through likes and comments is not at all the same as a real conversation."
+        },
+        {
+          "speaker": 2,
+          "text": "Тоже верно. Возможно, дело не в самой технологии, а в том, что нас почти не учат пользоваться ею осознанно.",
+          "translation": "Also true. Maybe it's not about the technology itself, but that we're barely taught to use it mindfully."
+        },
+        {
+          "speaker": 1,
+          "text": "С этим я согласна. Если бы школы уделяли этому хоть немного времени, многое могло бы измениться.",
+          "translation": "I agree with that. If schools devoted even a little time to it, a lot could change."
+        },
+        {
+          "speaker": 2,
+          "text": "Именно — дело не столько в запрете этих инструментов, сколько в формировании более здоровых привычек их использования.",
+          "translation": "Exactly — it's less about banning these tools and more about forming healthier habits around using them."
+        }
+      ]
     }
   ]
 }

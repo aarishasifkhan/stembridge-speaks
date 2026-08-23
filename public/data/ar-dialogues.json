@@ -122,6 +122,118 @@
           "translation": "Shukran lak, sanukhbirukum bimujarradi an naʻrif. — Thank you, we'll let you know as soon as we find out."
         }
       ]
+    },
+    {
+      "id": "hard-job-interview",
+      "title": "مقابلة العمل",
+      "difficulty": "hard",
+      "scenario": "Work & Careers",
+      "icon": "💼",
+      "description": "A candidate discusses her career, challenges, and goals in a formal job interview.",
+      "speakers": ["المسؤول عن التوظيف", "ليلى"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "شكرًا لحضورك اليوم. هل يمكنك أن تحدثيني بإيجاز عن مسيرتك المهنية؟",
+          "translation": "Shukran li-huḍūriki al-yawm. Hal yumkinuki an tuḥaddithīnī bi-ījāz ʿan masīratiki al-mihaniyya? — Thank you for coming today. Could you briefly tell me about your professional background?"
+        },
+        {
+          "speaker": 2,
+          "text": "بالتأكيد. درست الهندسة البيئية وعملت خلال السنوات الثلاث الماضية في مشاريع الطاقة المتجددة.",
+          "translation": "Bi-t-taʾkīd. Darastu al-handasa al-bīʾiyya wa ʿamiltu khilāla as-sanawāt ath-thalāth al-māḍiya fī mashārīʿ aṭ-ṭāqa al-mutajaddida. — Certainly. I studied environmental engineering and worked over the past three years on renewable energy projects."
+        },
+        {
+          "speaker": 1,
+          "text": "ما هو أصعب مشروع تعاملتِ معه؟",
+          "translation": "Mā huwa aṣʿab mashrūʿ taʿāmalti maʿah? — What was the most difficult project you dealt with?"
+        },
+        {
+          "speaker": 2,
+          "text": "على الأرجح تركيب ألواح شمسية تأخر بسبب مشاكل في التراخيص، فاضطررت لإعادة التفاوض على الجدول الزمني مع ثلاث جهات في وقت واحد.",
+          "translation": "ʿAlā al-arjaḥ tarkīb alwāḥ shamsiyya taʾakhkhara bisabab mashākil fī at-tarākhīṣ, fa-iḍṭarartu li-iʿādat at-tafāwuḍ ʿalā al-jadwal az-zamanī maʿa thalāth jihāt fī waqt wāḥid. — Most likely a solar panel installation that was delayed due to permitting issues, so I had to renegotiate the timeline with three parties at once."
+        },
+        {
+          "speaker": 1,
+          "text": "كيف حافظتِ على تناغم الفريق تحت هذا الضغط؟",
+          "translation": "Kayfa ḥāfaẓti ʿalā tanāghum al-farīq taḥta hādhā aḍ-ḍaghṭ? — How did you maintain the team's alignment under that pressure?"
+        },
+        {
+          "speaker": 2,
+          "text": "وضعت اجتماعات قصيرة يومية حتى تظهر المشاكل مبكرًا بدلًا من أن تتراكم حتى الموعد النهائي.",
+          "translation": "Waḍaʿtu ijtimāʿāt qaṣīra yawmiyya ḥattā taẓhar al-mashākil mubakkiran badalan min an tatarākam ḥattā al-mawʿid an-nihāʾī. — I set up short daily meetings so problems would surface early instead of piling up until the deadline."
+        },
+        {
+          "speaker": 1,
+          "text": "يبدو هذا نهجًا سليمًا. أين ترين نفسك بعد خمس سنوات؟",
+          "translation": "Yabdū hādhā nahjan salīman. Ayna tarayna nafsaki baʿda khams sanawāt? — That sounds like a sound approach. Where do you see yourself in five years?"
+        },
+        {
+          "speaker": 2,
+          "text": "في الوضع المثالي، أقود فريقًا صغيرًا مع بقائي منخرطة تقنيًا، بدلًا من الاقتصار على الجانب الإداري.",
+          "translation": "Fī al-waḍʿ al-mithālī, aqūdu farīqan ṣaghīran maʿa baqāʾī munkhariṭa taqniyyan, badalan min al-iqtiṣār ʿalā al-jānib al-idārī. — Ideally, I'd lead a small team while remaining technically involved, rather than being limited to the administrative side."
+        },
+        {
+          "speaker": 1,
+          "text": "هل لديكِ أي أسئلة قبل أن ننهي المقابلة؟",
+          "translation": "Hal ladayki ayy asʾila qabla an nunhī al-muqābala? — Do you have any questions before we finish the interview?"
+        },
+        {
+          "speaker": 2,
+          "text": "نعم، كيف يتعامل الفريق عادة مع الخلافات حول أولويات المشروع؟",
+          "translation": "Naʿam, kayfa yataʿāmal al-farīq ʿādatan maʿa al-khilāfāt ḥawla awlawiyyāt al-mashrūʿ? — Yes, how does the team usually handle disagreements about project priorities?"
+        }
+      ]
+    },
+    {
+      "id": "hard-tech-debate",
+      "title": "نقاش حول التكنولوجيا والمجتمع",
+      "difficulty": "hard",
+      "scenario": "Current Events",
+      "icon": "🗣️",
+      "description": "Two friends debate the effects of social media, using persuasive language and discourse markers.",
+      "speakers": ["نور", "كريم"],
+      "lines": [
+        {
+          "speaker": 1,
+          "text": "بصراحة، أعتقد أن وسائل التواصل الاجتماعي أضرّت بتواصل المراهقين أكثر مما أفادته.",
+          "translation": "Bi-ṣarāḥa, aʿtaqid anna wasāʾil at-tawāṣul al-ijtimāʿī aḍarrat bi-tawāṣul al-murāhiqīn akthar mimmā afādathu. — Honestly, I think social media has harmed teenagers' communication more than it has helped it."
+        },
+        {
+          "speaker": 2,
+          "text": "أفهم وجهة نظرك، لكن أليس من الظلم أن نُحمّل المنصات المسؤولية عن أمر يعتمد فعليًا على كيفية استخدام الناس لها؟",
+          "translation": "Afham wijhat naẓarik, lākin alaysa min aẓ-ẓulm an nuḥammil al-manaṣṣāt al-masʾūliyya ʿan amr yaʿtamid fiʿliyyan ʿalā kayfiyyat istikhdām an-nās lahā? — I understand your point, but isn't it unfair to make the platforms responsible for something that really depends on how people use them?"
+        },
+        {
+          "speaker": 1,
+          "text": "ربما، لكن الخوارزميات مصمَّمة عمدًا لتبقي الناس في التمرير المستمر، بغض النظر عمّا إذا كان ذلك مفيدًا لهم أم لا.",
+          "translation": "Rubbamā, lākin al-khawārizmiyyāt muṣammama ʿamdan li-tubqī an-nās fī at-tamrīr al-mustamirr, bighaḍḍ an-naẓar ʿammā idhā kāna dhālika mufīdan lahum am lā. — Maybe, but the algorithms are deliberately designed to keep people scrolling continuously, regardless of whether it's good for them or not."
+        },
+        {
+          "speaker": 2,
+          "text": "هذا صحيح. لكنني أرى أن الأدوات نفسها سهّلت على الناس البقاء على تواصل عبر مسافات بعيدة.",
+          "translation": "Hādhā ṣaḥīḥ. Lākinnanī arā anna al-adawāt nafsahā sahhalat ʿalā an-nās al-baqāʾ ʿalā tawāṣul ʿabra masāfāt baʿīda. — That's true. But I think the same tools have made it easier for people to stay in touch across long distances."
+        },
+        {
+          "speaker": 1,
+          "text": "صحيح، لكن 'البقاء على تواصل' عبر الإعجابات والتعليقات ليس مثل المحادثة الحقيقية على الإطلاق.",
+          "translation": "Ṣaḥīḥ, lākin 'al-baqāʾ ʿalā tawāṣul' ʿabra al-iʿjābāt wa-t-taʿlīqāt laysa mithla al-muḥādatha al-ḥaqīqiyya ʿalā al-iṭlāq. — True, but 'staying in touch' through likes and comments is nothing like a real conversation."
+        },
+        {
+          "speaker": 2,
+          "text": "صحيح أيضًا. ربما لا تكمن المشكلة في التقنية نفسها، بل في أننا بالكاد نُعلَّم كيفية استخدامها بوعي.",
+          "translation": "Ṣaḥīḥ ayḍan. Rubbamā lā takmun al-mushkila fī at-taqniyya nafsihā, bal fī annanā bi-l-kād nuʿallam kayfiyyat istikhdāmihā biwaʿī. — Also true. Maybe the problem isn't the technology itself, but that we're barely taught how to use it mindfully."
+        },
+        {
+          "speaker": 1,
+          "text": "أتفق معك في هذا. لو خصّصت المدارس ولو القليل من الوقت لذلك، لتغيّر الكثير.",
+          "translation": "Attafiq maʿak fī hādhā. Law khaṣṣaṣat al-madāris wa-law al-qalīl min al-waqt lidhālik, la-taghayyar al-kathīr. — I agree with you on that. If schools set aside even a little time for it, a lot could change."
+        },
+        {
+          "speaker": 2,
+          "text": "بالضبط — الأمر لا يتعلق كثيرًا بمنع هذه الأدوات، بل ببناء عادات أفضل في استخدامها.",
+          "translation": "Bi-ḍ-ḍabṭ — al-amr lā yataʿallaq kathīran bi-manʿ hādhihi al-adawāt, bal bi-bināʾ ʿādāt afḍal fī istikhdāmihā. — Exactly — it's less about banning these tools and more about building better habits in using them."
+        }
+      ]
     }
   ]
 }

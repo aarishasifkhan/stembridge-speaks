@@ -520,7 +520,7 @@
         color: #4a4f42;
         margin: 0 0 20px;
       }
-      .onboard-group {
+      .onboard-step {
         margin-bottom: 18px;
       }
       .onboard-label {
@@ -556,10 +556,74 @@
         color: var(--cream);
         border-color: var(--forest-dark);
         font-weight: 600;
+        animation: onboardChipPop 0.25s ease;
       }
-      #onboardStartBtn {
-        width: 100%;
-        margin-top: 6px;
+      .onboard-chip:focus-visible {
+        outline: 2px solid var(--forest);
+        outline-offset: 2px;
+      }
+      .onboard-progress {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 18px;
+      }
+      .onboard-dot {
+        flex: 1;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(27, 67, 50, 0.15);
+        transition: background 0.3s ease;
+      }
+      .onboard-dot.active,
+      .onboard-dot.done {
+        background: var(--forest);
+      }
+      .onboard-step {
+        animation: onboardStepIn 0.35s ease;
+      }
+      .btn-text {
+        background: none;
+        border: none;
+        color: var(--forest-dark);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 6px 4px;
+        margin-top: 4px;
+      }
+      .btn-text:hover {
+        text-decoration: underline;
+      }
+      .btn-text:focus-visible {
+        outline: 2px solid var(--forest);
+        outline-offset: 2px;
+      }
+      @keyframes onboardChipPop {
+        0% {
+          transform: scale(1);
+        }
+        45% {
+          transform: scale(1.07);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @keyframes onboardStepIn {
+        from {
+          opacity: 0;
+          transform: translateX(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .onboard-chip.selected,
+        .onboard-step {
+          animation: none !important;
+        }
       }
 
       .scenario-suggestion {
@@ -840,27 +904,62 @@
       </footer>
     </div>
 
-    <div id="onboardOverlay" class="onboard-overlay hidden">
+    <div
+      id="onboardOverlay"
+      class="onboard-overlay hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="onboardTitle"
+    >
       <div class="onboard-card">
-        <h2>👋 Welcome to STEMBridge Speaks</h2>
-        <p>
-          Pick a language, your level, and a scenario to start with — you can
-          always change these later.
+        <div
+          class="onboard-progress"
+          id="onboardProgress"
+          role="progressbar"
+          aria-valuemin="1"
+          aria-valuemax="3"
+          aria-valuenow="1"
+          aria-label="Setup progress"
+        >
+          <span class="onboard-dot" data-step="1"></span>
+          <span class="onboard-dot" data-step="2"></span>
+          <span class="onboard-dot" data-step="3"></span>
+        </div>
+        <h2 id="onboardTitle">👋 Welcome to STEMBridge Speaks</h2>
+        <p id="onboardStepDesc" aria-live="polite">
+          Step 1 of 3 — Pick the language you want to practice.
         </p>
-        <div class="onboard-group">
+
+        <div class="onboard-step" data-step="1" id="onboardStep1">
           <div class="onboard-label">Language</div>
-          <div class="onboard-options" id="onboardLangOptions"></div>
+          <div
+            class="onboard-options"
+            id="onboardLangOptions"
+            role="radiogroup"
+            aria-label="Language"
+          ></div>
         </div>
-        <div class="onboard-group">
+        <div class="onboard-step" data-step="2" id="onboardStep2" hidden>
           <div class="onboard-label">Your level</div>
-          <div class="onboard-options" id="onboardLevelOptions"></div>
+          <div
+            class="onboard-options"
+            id="onboardLevelOptions"
+            role="radiogroup"
+            aria-label="Your level"
+          ></div>
         </div>
-        <div class="onboard-group">
+        <div class="onboard-step" data-step="3" id="onboardStep3" hidden>
           <div class="onboard-label">Scenario</div>
-          <div class="onboard-options" id="onboardScenarioOptions"></div>
+          <div
+            class="onboard-options"
+            id="onboardScenarioOptions"
+            role="radiogroup"
+            aria-label="Scenario"
+          ></div>
         </div>
-        <button class="btn btn-gold" id="onboardStartBtn">
-          Start practicing →
+
+        <button class="btn-text" id="onboardBackBtn" type="button" hidden>
+          ← Back
         </button>
       </div>
     </div>
@@ -1453,38 +1552,169 @@
       });
 
       // ---------- Guided onboarding ----------
+      // Duolingo/Busuu-style setup: one question at a time (language, then
+      // level, then scenario) with a short animated transition between
+      // steps, instead of showing every choice at once. Selecting a chip
+      // auto-advances to the next question. This only needs to run once per
+      // account — the header selects already let the user change language,
+      // scenario, and level any time afterward, so once setup is complete
+      // the guided-setup button is removed rather than left as a redundant
+      // way to reach settings that are already reachable.
 
-      function selectOptionsFromSelect(selectEl, containerId) {
-        const container = document.getElementById(containerId);
+      const ONBOARD_STEPS = [
+        {
+          key: "language",
+          select: languageSelect,
+          containerId: "onboardLangOptions",
+          stepId: "onboardStep1",
+          label: "language you want to practice",
+        },
+        {
+          key: "level",
+          select: levelSelect,
+          containerId: "onboardLevelOptions",
+          stepId: "onboardStep2",
+          label: "current level",
+        },
+        {
+          key: "scenario",
+          select: scenarioSelect,
+          containerId: "onboardScenarioOptions",
+          stepId: "onboardStep3",
+          label: "scenario to start with",
+        },
+      ];
+      let onboardStepIndex = 0;
+      const onboardChoices = {};
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      function onboardStorageKey() {
+        return currentUser ? `stembridge_onboarded_${currentUser.id}` : null;
+      }
+
+      function hasCompletedOnboarding() {
+        const key = onboardStorageKey();
+        return !!key && localStorage.getItem(key) === "1";
+      }
+
+      function removeGuidedSetupBtn() {
+        const btn = document.getElementById("guidedSetupBtn");
+        if (btn) btn.remove();
+      }
+
+      function markOnboardingComplete() {
+        const key = onboardStorageKey();
+        if (key) localStorage.setItem(key, "1");
+        removeGuidedSetupBtn();
+      }
+
+      function buildChipGroup(step) {
+        const container = document.getElementById(step.containerId);
         container.innerHTML = "";
-        Array.from(selectEl.options).forEach((opt) => {
+        Array.from(step.select.options).forEach((opt) => {
           const chip = document.createElement("button");
           chip.type = "button";
-          chip.className =
-            "onboard-chip" + (opt.value === selectEl.value ? " selected" : "");
+          chip.className = "onboard-chip";
           chip.textContent = opt.textContent;
           chip.dataset.value = opt.value;
-          chip.addEventListener("click", () => {
-            container
-              .querySelectorAll(".onboard-chip")
-              .forEach((c) => c.classList.remove("selected"));
-            chip.classList.add("selected");
-          });
+          chip.setAttribute("role", "radio");
+          const isSelected = opt.value === step.select.value;
+          chip.setAttribute("aria-checked", isSelected ? "true" : "false");
+          if (isSelected) chip.classList.add("selected");
+          chip.addEventListener("click", () => selectOnboardChoice(step, chip));
           container.appendChild(chip);
         });
       }
 
-      function getSelectedChipValue(containerId) {
-        const selected = document.querySelector(
-          `#${containerId} .onboard-chip.selected`,
+      function selectOnboardChoice(step, chip) {
+        const container = document.getElementById(step.containerId);
+        container.querySelectorAll(".onboard-chip").forEach((c) => {
+          c.classList.remove("selected");
+          c.setAttribute("aria-checked", "false");
+        });
+        chip.classList.add("selected");
+        chip.setAttribute("aria-checked", "true");
+        onboardChoices[step.key] = chip.dataset.value;
+
+        // Brief pause so the highlighted choice is visible before the next
+        // question slides in, instead of jumping instantly.
+        window.setTimeout(
+          () => advanceOnboarding(),
+          prefersReducedMotion ? 100 : 420,
         );
-        return selected ? selected.dataset.value : null;
+      }
+
+      function updateOnboardProgress() {
+        document
+          .querySelectorAll("#onboardProgress .onboard-dot")
+          .forEach((dot, i) => {
+            dot.classList.toggle("done", i < onboardStepIndex);
+            dot.classList.toggle("active", i === onboardStepIndex);
+          });
+        document
+          .getElementById("onboardProgress")
+          .setAttribute("aria-valuenow", String(onboardStepIndex + 1));
+        const step = ONBOARD_STEPS[onboardStepIndex];
+        document.getElementById("onboardStepDesc").textContent =
+          `Step ${onboardStepIndex + 1} of ${ONBOARD_STEPS.length} — Pick your ${step.label}.`;
+        document.getElementById("onboardBackBtn").hidden =
+          onboardStepIndex === 0;
+      }
+
+      function showOnboardStep(index) {
+        ONBOARD_STEPS.forEach((step, i) => {
+          const el = document.getElementById(step.stepId);
+          if (i === index) {
+            el.hidden = false;
+            if (!prefersReducedMotion) {
+              el.style.animation = "none";
+              void el.offsetWidth; // restart the entrance animation
+              el.style.animation = "";
+            }
+          } else {
+            el.hidden = true;
+          }
+        });
+        updateOnboardProgress();
+        const container = document.getElementById(
+          ONBOARD_STEPS[index].containerId,
+        );
+        const firstChip = container.querySelector(".onboard-chip");
+        if (firstChip) firstChip.focus();
+      }
+
+      function advanceOnboarding() {
+        if (onboardStepIndex < ONBOARD_STEPS.length - 1) {
+          onboardStepIndex += 1;
+          showOnboardStep(onboardStepIndex);
+        } else {
+          finishOnboarding();
+        }
+      }
+
+      function goBackOnboarding() {
+        if (onboardStepIndex === 0) return;
+        onboardStepIndex -= 1;
+        showOnboardStep(onboardStepIndex);
+      }
+
+      function finishOnboarding() {
+        if (onboardChoices.language)
+          languageSelect.value = onboardChoices.language;
+        if (onboardChoices.level) levelSelect.value = onboardChoices.level;
+        if (onboardChoices.scenario)
+          scenarioSelect.value = onboardChoices.scenario;
+        markOnboardingComplete();
+        closeOnboarding();
+        createNewChat();
       }
 
       function openOnboarding() {
-        selectOptionsFromSelect(languageSelect, "onboardLangOptions");
-        selectOptionsFromSelect(levelSelect, "onboardLevelOptions");
-        selectOptionsFromSelect(scenarioSelect, "onboardScenarioOptions");
+        onboardStepIndex = 0;
+        ONBOARD_STEPS.forEach((step) => buildChipGroup(step));
+        showOnboardStep(0);
         document.getElementById("onboardOverlay").classList.remove("hidden");
       }
 
@@ -1492,9 +1722,10 @@
         document.getElementById("onboardOverlay").classList.add("hidden");
       }
 
-      document
-        .getElementById("guidedSetupBtn")
-        .addEventListener("click", openOnboarding);
+      const guidedSetupBtnEl = document.getElementById("guidedSetupBtn");
+      if (guidedSetupBtnEl) {
+        guidedSetupBtnEl.addEventListener("click", openOnboarding);
+      }
 
       document
         .getElementById("onboardOverlay")
@@ -1503,17 +1734,16 @@
         });
 
       document
-        .getElementById("onboardStartBtn")
-        .addEventListener("click", () => {
-          const lang = getSelectedChipValue("onboardLangOptions");
-          const level = getSelectedChipValue("onboardLevelOptions");
-          const scenario = getSelectedChipValue("onboardScenarioOptions");
-          if (lang) languageSelect.value = lang;
-          if (level) levelSelect.value = level;
-          if (scenario) scenarioSelect.value = scenario;
+        .getElementById("onboardBackBtn")
+        .addEventListener("click", goBackOnboarding);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape") return;
+        const overlay = document.getElementById("onboardOverlay");
+        if (overlay && !overlay.classList.contains("hidden")) {
           closeOnboarding();
-          createNewChat();
-        });
+        }
+      });
 
       // ---------- Scenario-completion suggestions ----------
       // The backend appends "ScenarioComplete: yes" as the final line of a
@@ -1571,8 +1801,14 @@
       (async () => {
         currentUser = await requireAuth();
         if (!currentUser) return;
+        if (hasCompletedOnboarding()) {
+          // Already configured for this account — language, level, and
+          // scenario are all changeable from the header selects, so the
+          // guided setup entry point is redundant here.
+          removeGuidedSetupBtn();
+        }
         const chatCount = await loadChatList();
-        if (chatCount === 0) openOnboarding();
+        if (chatCount === 0 && !hasCompletedOnboarding()) openOnboarding();
       })();
     </script>
   </body>
