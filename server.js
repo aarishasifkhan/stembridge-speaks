@@ -75,6 +75,46 @@ const levelGuidance = {
   C2: "The user is near-native (CEFR C2). Speak completely naturally, exactly as you would with a native speaker, full idiom and colloquialism included. Corrections should focus on subtle style and native-level fluency, not basic errors.",
 };
 
+function buildInterviewSystemInstruction(
+  mode,
+  languageKey,
+  levelKey,
+  jobField,
+) {
+  const field =
+    jobField && jobField.trim() ? jobField.trim() : "a general professional";
+
+  if (mode === "star") {
+    return `You are an experienced, warm but professional hiring manager conducting a behavioral job interview in English for a "${field}" position.
+
+Rules:
+- Ask ONE interview question at a time, in natural professional English — the kind a real interviewer would ask (behavioral/situational questions especially: "Tell me about a time when...", "Describe a situation where...").
+- Keep your question itself to 1-2 sentences.
+- After the candidate answers, evaluate their response using the STAR method (Situation, Task, Action, Result). Under a line that says exactly "Feedback:", give 2-3 sentences noting what they covered well and what's missing (e.g. "You described the Situation and Action clearly, but didn't mention the Result — always close with the outcome.").
+- After the feedback, naturally transition to your next question in the same reply.
+- Stay encouraging and constructive, never harsh — this is practice, not a real rejection.
+- Do not repeat a question you've already asked in this session.`;
+  }
+
+  const language = languages[languageKey] || languages.german;
+  const levelText = levelGuidance[levelKey] || levelGuidance.B1;
+  const translationRule =
+    languageKey !== "english"
+      ? `\n- Immediately after your interview question, on a new line, add "Translation:" followed by a natural English translation of your question. This always comes BEFORE any Correction line.`
+      : "";
+
+  return `You are a professional interviewer conducting a job interview in ${language.name} for a "${field}" position. The candidate is a ${language.name} learner practicing for a real interview conducted in this language.
+
+${levelText}
+
+Rules:
+- Ask ONE interview question at a time, in natural professional ${language.name} — the kind a real interviewer would ask.
+- Keep your question to 1-2 sentences.${translationRule}
+- If the candidate made a grammar or vocabulary mistake in their answer, gently note it after your question (and after the translation, if present), under a line that says "Correction:". Keep this to 1-2 sentences. If there's no mistake, skip this line.
+- Stay warm and professional, never harsh.
+- Do not repeat a question you've already asked in this session.`;
+}
+
 const edgeVoices = {
   german: "de-DE-KatjaNeural",
   english: "en-US-AriaNeural",
@@ -515,6 +555,89 @@ app.post("/chat/start", requireAuth, async (req, res) => {
     res
       .status(500)
       .json({ error: "Something went wrong starting the conversation." });
+  }
+});
+
+app.post("/api/interview/start", requireAuth, async (req, res) => {
+  try {
+    const { mode, language, level, jobField } = req.body;
+    const model = genAI.getGenerativeModel({
+      model: "gemini-flash-latest",
+      systemInstruction: buildInterviewSystemInstruction(
+        mode,
+        language,
+        level,
+        jobField,
+      ),
+    });
+    const result = await model.generateContent(
+      "Start the interview with a brief, warm greeting and your first question. Do not wait for the candidate to speak first.",
+    );
+    res.json({ reply: result.response.text() });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not start the interview." });
+  }
+});
+
+app.post("/api/interview/message", requireAuth, async (req, res) => {
+  try {
+    const { mode, language, level, jobField, message, history } = req.body;
+    const model = genAI.getGenerativeModel({
+      model: "gemini-flash-latest",
+      systemInstruction: buildInterviewSystemInstruction(
+        mode,
+        language,
+        level,
+        jobField,
+      ),
+    });
+    const geminiHistory = (history || []).map((m) => ({
+      role: m.role,
+      parts: [{ text: m.text }],
+    }));
+    const chat = model.startChat({ history: geminiHistory });
+    const result = await chat.sendMessage(message);
+    res.json({ reply: result.response.text() });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+app.post("/api/interview/audio", requireAuth, async (req, res) => {
+  try {
+    const { mode, language, level, jobField, audio } = req.body;
+    const model = genAI.getGenerativeModel({
+      model: "gemini-flash-latest",
+      systemInstruction:
+        buildInterviewSystemInstruction(mode, language, level, jobField) +
+        `
+
+You will receive an audio clip of the candidate's spoken answer. Respond with ONLY a JSON object, no other text, in this exact format:
+{
+  "transcription": "the exact words the candidate said, in their original language, not translated",
+  "reply": "your response, following all the rules above"
+}`,
+    });
+    const result = await model.generateContent([
+      { inlineData: { mimeType: "audio/webm", data: audio } },
+      {
+        text: "Listen to this audio and respond according to your instructions.",
+      },
+    ]);
+    const cleaned = result.response
+      .text()
+      .replace(/```json|```/g, "")
+      .trim();
+    res.json(JSON.parse(cleaned));
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Something went wrong processing audio.",
+      transcription: "(error)",
+      reply: "Sorry, something went wrong.",
+    });
   }
 });
 

@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1B4332" />
+    <title>STEMBridge Speaks — Interview Rehearsal</title>
+    <meta
+      name="description"
+      content="Practice job interviews in German, Spanish, Mandarin, Russian, or Hebrew, or rehearse English behavioral interviews with STAR-method feedback — free."
+    />
+    <link
+      rel="canonical"
+      href="https://stembridge-speaks.onrender.com/interview.html"
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --gold: #e8a33d;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+        line-height: 1.5;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        color: var(--forest-dark);
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 6vw;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 19px;
+        color: var(--forest);
+        text-decoration: none;
+      }
+      nav {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+      }
+      .icon-btn {
+        font-size: 13px;
+        padding: 7px 12px;
+        border-radius: 7px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: transparent;
+        color: var(--forest-dark);
+        cursor: pointer;
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 40px 6vw 80px;
+      }
+
+      .mode-tabs {
+        display: flex;
+        gap: 8px;
+        margin-top: 24px;
+      }
+      .mode-tab {
+        flex: 1;
+        padding: 16px;
+        border-radius: 12px;
+        border: 2px solid var(--sage);
+        background: var(--sage);
+        cursor: pointer;
+        text-align: left;
+      }
+      .mode-tab.active {
+        border-color: var(--forest);
+        background: white;
+      }
+      .mode-tab h3 {
+        font-size: 15px;
+        margin: 0 0 4px;
+      }
+      .mode-tab p {
+        font-size: 12.5px;
+        color: #55594a;
+        margin: 0;
+      }
+
+      .setup-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 20px;
+      }
+      .setup-field.full {
+        grid-column: span 2;
+      }
+      .setup-field label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--brick);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: block;
+        margin-bottom: 6px;
+      }
+      select,
+      input[type="text"] {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1.5px solid rgba(27, 67, 50, 0.2);
+        background: var(--sage);
+        font-size: 14px;
+        font-family: "Work Sans", sans-serif;
+      }
+
+      .start-btn {
+        width: 100%;
+        margin-top: 22px;
+        padding: 14px;
+        border-radius: 10px;
+        border: none;
+        background: var(--gold);
+        color: var(--forest-dark);
+        font-weight: 700;
+        font-size: 15.5px;
+        cursor: pointer;
+      }
+      .start-btn:hover {
+        background: #d6922e;
+      }
+
+      .tips-toggle {
+        text-align: center;
+        margin-top: 18px;
+      }
+      .tips-toggle button {
+        background: none;
+        border: none;
+        color: var(--forest-dark);
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 13px;
+      }
+      .tips-box {
+        background: var(--sage);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 14px;
+        display: none;
+      }
+      .tips-box.show {
+        display: block;
+      }
+      .tips-box h4 {
+        margin: 0 0 8px;
+        font-size: 14.5px;
+      }
+      .tips-box ul {
+        margin: 0 0 14px;
+        padding-left: 20px;
+        font-size: 13.5px;
+        color: #3a3f32;
+      }
+      .tips-box ul:last-child {
+        margin-bottom: 0;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      #chatArea {
+        max-height: 55vh;
+        overflow-y: auto;
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 4px;
+      }
+      .msg-row {
+        display: flex;
+        width: 100%;
+      }
+      .msg-row.user {
+        justify-content: flex-end;
+      }
+      .msg-row.tutor {
+        justify-content: flex-start;
+      }
+      .bubble {
+        max-width: 82%;
+        padding: 12px 16px;
+        border-radius: 14px;
+        font-size: 14.5px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+      .bubble.user {
+        background: var(--sage);
+        border-bottom-right-radius: 4px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13.5px;
+      }
+      .bubble.tutor {
+        background: var(--forest-dark);
+        color: var(--cream);
+        border-bottom-left-radius: 4px;
+      }
+      .bubble[dir="rtl"] {
+        text-align: right;
+        font-size: 17px;
+        line-height: 1.8;
+      }
+      .translation {
+        margin-top: 8px;
+        font-size: 12px;
+        color: var(--gold);
+        font-style: italic;
+      }
+      .feedback {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 12.5px;
+        font-style: italic;
+        opacity: 0.9;
+      }
+      .bubble.system {
+        background: transparent;
+        color: #6b7062;
+        font-family: "Work Sans", sans-serif;
+        font-size: 13px;
+        text-align: center;
+        max-width: 100%;
+      }
+      .read-btn {
+        background: none;
+        border: none;
+        color: var(--gold);
+        cursor: pointer;
+        font-size: 13px;
+        margin-top: 8px;
+        opacity: 0.8;
+      }
+      .read-btn:hover {
+        opacity: 1;
+      }
+
+      #inputBar {
+        display: flex;
+        gap: 8px;
+        margin-top: 14px;
+      }
+      #textInput {
+        flex: 1;
+        padding: 12px 16px;
+        border-radius: 24px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: var(--sage);
+        font-size: 14.5px;
+      }
+      #micBtn,
+      #sendBtn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+      }
+      #micBtn {
+        background: var(--forest);
+        color: var(--cream);
+      }
+      #micBtn.recording {
+        background: var(--brick);
+      }
+      #sendBtn {
+        background: var(--gold);
+        color: var(--forest-dark);
+      }
+      #endBtn {
+        display: block;
+        margin: 14px auto 0;
+        background: transparent;
+        border: 1.5px solid var(--brick);
+        color: var(--brick);
+        padding: 8px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      footer {
+        margin-top: 40px;
+        padding: 32px 6vw;
+        text-align: center;
+        font-size: 13px;
+        color: #6b7062;
+        border-top: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      footer a {
+        margin: 0 10px;
+        color: var(--forest-dark);
+      }
+
+      @media (max-width: 600px) {
+        header {
+          padding: 16px 5vw;
+        }
+        nav a:not(.icon-btn) {
+          display: none;
+        }
+        main {
+          padding: 28px 5vw 60px;
+        }
+        .mode-tabs {
+          flex-direction: column;
+        }
+        .setup-grid {
+          grid-template-columns: 1fr;
+        }
+        .setup-field {
+          grid-column: span 1 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">STEMBridge Speaks</a>
+      <nav>
+        <a href="/practice.html">Practice</a>
+        <a href="/speaking-quiz.html">Speaking Quiz</a>
+        <a href="/settings.html" class="icon-btn">⚙️ Settings</a>
+        <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
+      </nav>
+    </header>
+
+    <main>
+      <div id="view-setup">
+        <h1>Interview Rehearsal</h1>
+        <p>
+          Practice a real interview before the real thing — in a foreign
+          language, or as English behavioral coaching with STAR-method feedback.
+        </p>
+
+        <div class="mode-tabs">
+          <button class="mode-tab active" id="tabLanguage">
+            <h3>🌍 Foreign-Language Interview</h3>
+            <p>
+              Practice interviewing in German, Spanish, Mandarin, Russian, or
+              Hebrew.
+            </p>
+          </button>
+          <button class="mode-tab" id="tabStar">
+            <h3>⭐ STAR Method Coaching</h3>
+            <p>
+              English behavioral interview practice with structured feedback.
+            </p>
+          </button>
+        </div>
+
+        <div class="setup-grid" id="languageFields">
+          <div class="setup-field">
+            <label for="langSelect">Language</label>
+            <select id="langSelect">
+              <option value="german">🇩🇪 German</option>
+              <option value="spanish">🇪🇸 Spanish</option>
+              <option value="mandarin">🇨🇳 Mandarin</option>
+              <option value="russian">🇷🇺 Russian</option>
+              <option value="hebrew">🇮🇱 Hebrew</option>
+            </select>
+          </div>
+          <div class="setup-field">
+            <label for="levelSelect">Your Level</label>
+            <select id="levelSelect">
+              <option value="A1">A1 · Beginner</option>
+              <option value="A2">A2 · Elementary</option>
+              <option value="B1" selected>B1 · Intermediate</option>
+              <option value="B2">B2 · Upper-Int.</option>
+              <option value="C1">C1 · Advanced</option>
+              <option value="C2">C2 · Native-level</option>
+            </select>
+          </div>
+          <div class="setup-field full">
+            <label for="jobFieldInput">Job / Role (optional)</label>
+            <input
+              type="text"
+              id="jobFieldInput"
+              placeholder="e.g. Software Engineer, Marketing Assistant, Waiter"
+            />
+          </div>
+        </div>
+
+        <button class="start-btn" id="startBtn">Start Mock Interview →</button>
+
+        <div class="tips-toggle">
+          <button id="tipsToggleBtn">What is the STAR method?</button>
+        </div>
+        <div class="tips-box" id="tipsBox">
+          <h4>The STAR Method</h4>
+          <ul>
+            <li>
+              <strong>Situation</strong> — set the context: what was going on?
+            </li>
+            <li><strong>Task</strong> — what were you responsible for?</li>
+            <li><strong>Action</strong> — what did you specifically do?</li>
+            <li>
+              <strong>Result</strong> — what happened, ideally with a measurable
+              outcome?
+            </li>
+          </ul>
+          <h4>Common behavioral questions</h4>
+          <ul>
+            <li>"Tell me about a time you dealt with a difficult coworker."</li>
+            <li>
+              "Describe a situation where you had to meet a tight deadline."
+            </li>
+            <li>
+              "Give an example of a mistake you made and how you handled it."
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="view-interview" class="hidden">
+        <h1 id="interviewHeading">Mock Interview</h1>
+        <div id="chatArea"><div id="chatInner"></div></div>
+        <div id="inputBar">
+          <button id="micBtn" title="Speak">🎤</button>
+          <input type="text" id="textInput" placeholder="Type your answer..." />
+          <button id="sendBtn" title="Send">➤</button>
+        </div>
+        <button id="endBtn">End Interview</button>
+      </div>
+    </main>
+
+    <footer>
+      © 2026 STEMBridge Speaks
+      <div style="margin-top: 12px">
+        <a href="/practice.html">Conversation Practice</a>
+        <a href="/learn.html">Learn Grammar</a>
+        <a href="/assessments.html">Assessment Prep</a>
+        <a href="/about.html">About</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+    </footer>
+
+    <script src="/js/auth.js"></script>
+    <script>
+      let currentMode = "language";
+      let history = [];
+      let isRecording = false,
+        mediaRecorder,
+        audioChunks = [];
+      const rtlLanguages = ["hebrew"];
+
+      const tabLanguage = document.getElementById("tabLanguage");
+      const tabStar = document.getElementById("tabStar");
+      const languageFields = document.getElementById("languageFields");
+
+      tabLanguage.addEventListener("click", () => {
+        currentMode = "language";
+        tabLanguage.classList.add("active");
+        tabStar.classList.remove("active");
+        languageFields.style.display = "grid";
+      });
+      tabStar.addEventListener("click", () => {
+        currentMode = "star";
+        tabStar.classList.add("active");
+        tabLanguage.classList.remove("active");
+        languageFields.style.display = "none";
+      });
+
+      document.getElementById("tipsToggleBtn").addEventListener("click", () => {
+        document.getElementById("tipsBox").classList.toggle("show");
+      });
+
+      function getConfig() {
+        return {
+          mode: currentMode,
+          language:
+            currentMode === "star"
+              ? "english"
+              : document.getElementById("langSelect").value,
+          level: document.getElementById("levelSelect").value,
+          jobField: document.getElementById("jobFieldInput").value.trim(),
+        };
+      }
+
+      function chatInner() {
+        return document.getElementById("chatInner");
+      }
+      function scrollBottom() {
+        const a = document.getElementById("chatArea");
+        a.scrollTop = a.scrollHeight;
+      }
+
+      function addUserBubble(text, lang) {
+        const isRTL = rtlLanguages.includes(lang);
+        const row = document.createElement("div");
+        row.className = "msg-row user";
+        row.innerHTML = `<div class="bubble user" dir="${isRTL ? "rtl" : "ltr"}"></div>`;
+        row.querySelector(".bubble").textContent = text;
+        chatInner().appendChild(row);
+        scrollBottom();
+      }
+
+      function addSystemBubble(text) {
+        const row = document.createElement("div");
+        row.className = "msg-row tutor";
+        row.innerHTML = `<div class="bubble system">${text}</div>`;
+        chatInner().appendChild(row);
+        scrollBottom();
+      }
+
+      function addTutorBubble(fullText, lang, autoSpeak) {
+        const isRTL = rtlLanguages.includes(lang);
+        const [beforeSecondary, secondary] = fullText.split(
+          /\n?(?:Feedback|Correction):/i,
+        );
+        const label = fullText.match(/\n?(Feedback|Correction):/i);
+        const [main, translation] = beforeSecondary.split(/\n?Translation:/i);
+
+        const row = document.createElement("div");
+        row.className = "msg-row tutor";
+        const bubble = document.createElement("div");
+        bubble.className = "bubble tutor";
+        bubble.setAttribute("dir", isRTL ? "rtl" : "ltr");
+
+        const mainSpan = document.createElement("div");
+        mainSpan.textContent = main.trim();
+        bubble.appendChild(mainSpan);
+
+        if (translation && translation.trim()) {
+          const t = document.createElement("div");
+          t.className = "translation";
+          t.setAttribute("dir", "ltr");
+          t.textContent = "🌐 " + translation.trim();
+          bubble.appendChild(t);
+        }
+        if (secondary && secondary.trim() && label) {
+          const f = document.createElement("div");
+          f.className = "feedback";
+          f.textContent = label[1] + ": " + secondary.trim();
+          bubble.appendChild(f);
+        }
+
+        const readBtn = document.createElement("button");
+        readBtn.className = "read-btn";
+        readBtn.textContent = "🔊 Read aloud";
+        readBtn.addEventListener("click", () =>
+          speak(mainSpan.textContent, lang),
+        );
+        bubble.appendChild(readBtn);
+
+        row.appendChild(bubble);
+        chatInner().appendChild(row);
+        scrollBottom();
+
+        if (autoSpeak) speak(mainSpan.textContent, lang);
+        return mainSpan.textContent;
+      }
+
+      async function speak(text, lang) {
+        try {
+          const res = await fetch("/tts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              text,
+              level: document.getElementById("levelSelect").value,
+              language: lang,
+            }),
+          });
+          const data = await res.json();
+          if (data.audio)
+            new Audio("data:audio/mp3;base64," + data.audio)
+              .play()
+              .catch(() => {});
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      document
+        .getElementById("startBtn")
+        .addEventListener("click", async () => {
+          const cfg = getConfig();
+          history = [];
+          document.getElementById("view-setup").classList.add("hidden");
+          document.getElementById("view-interview").classList.remove("hidden");
+          document.getElementById("interviewHeading").textContent =
+            cfg.mode === "star"
+              ? "STAR Method Mock Interview"
+              : `Mock Interview — ${document.getElementById("langSelect").selectedOptions[0].text}`;
+          chatInner().innerHTML = "";
+          addSystemBubble("Connecting to your interviewer...");
+          try {
+            const res = await fetch("/api/interview/start", {
+              method: "POST",
+              headers: { ...authHeaders(), "Content-Type": "application/json" },
+              body: JSON.stringify(cfg),
+            });
+            const data = await res.json();
+            chatInner().lastChild.remove();
+            const spoken = addTutorBubble(data.reply, cfg.language, true);
+            history.push({ role: "model", text: data.reply });
+          } catch (err) {
+            chatInner().lastChild.remove();
+            addSystemBubble("Couldn't start the interview. Please try again.");
+          }
+        });
+
+      async function sendAnswer(text) {
+        const cfg = getConfig();
+        addUserBubble(text, cfg.language);
+        history.push({ role: "user", text });
+        addSystemBubble("Thinking...");
+        try {
+          const res = await fetch("/api/interview/message", {
+            method: "POST",
+            headers: { ...authHeaders(), "Content-Type": "application/json" },
+            body: JSON.stringify({
+              ...cfg,
+              message: text,
+              history: history.slice(0, -1),
+            }),
+          });
+          const data = await res.json();
+          chatInner().lastChild.remove();
+          addTutorBubble(data.reply, cfg.language, true);
+          history.push({ role: "model", text: data.reply });
+        } catch (err) {
+          chatInner().lastChild.remove();
+          addSystemBubble("Something went wrong. Try again.");
+        }
+      }
+
+      document.getElementById("sendBtn").addEventListener("click", () => {
+        const input = document.getElementById("textInput");
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = "";
+        sendAnswer(text);
+      });
+      document.getElementById("textInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("sendBtn").click();
+      });
+
+      document.getElementById("micBtn").addEventListener("click", async () => {
+        const micBtn = document.getElementById("micBtn");
+        if (!isRecording) {
+          let stream;
+          try {
+            stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          } catch {
+            addSystemBubble("Microphone access needed to speak your answer.");
+            return;
+          }
+          mediaRecorder = new MediaRecorder(stream);
+          audioChunks = [];
+          mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+          mediaRecorder.start();
+          isRecording = true;
+          micBtn.classList.add("recording");
+        } else {
+          mediaRecorder.stop();
+          isRecording = false;
+          micBtn.classList.remove("recording");
+          mediaRecorder.onstop = async () => {
+            const cfg = getConfig();
+            const blob = new Blob(audioChunks, { type: "audio/webm" });
+            addSystemBubble("Processing your answer...");
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = async () => {
+              const base64Audio = reader.result.split(",")[1];
+              try {
+                const res = await fetch("/api/interview/audio", {
+                  method: "POST",
+                  headers: {
+                    ...authHeaders(),
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ ...cfg, audio: base64Audio }),
+                });
+                const data = await res.json();
+                chatInner().lastChild.remove();
+                addUserBubble(data.transcription, cfg.language);
+                history.push({ role: "user", text: data.transcription });
+                addTutorBubble(data.reply, cfg.language, true);
+                history.push({ role: "model", text: data.reply });
+              } catch (err) {
+                chatInner().lastChild.remove();
+                addSystemBubble("Something went wrong. Try again.");
+              }
+            };
+          };
+        }
+      });
+
+      document.getElementById("endBtn").addEventListener("click", () => {
+        if (!confirm("End this interview session?")) return;
+        document.getElementById("view-interview").classList.add("hidden");
+        document.getElementById("view-setup").classList.remove("hidden");
+      });
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        if (confirm("Log out?")) logout();
+      });
+
+      (async () => {
+        const user = await requireAuth();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1B4332" />
+    <title>STEMBridge Speaks — Speaking Quiz</title>
+    <meta
+      name="description"
+      content="Practice pronunciation with instant word-by-word feedback, pulled straight from your own lessons and dialogues — in German, English, Spanish, Mandarin, Russian, Arabic, and Hebrew."
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --gold: #e8a33d;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+        --green-ok: #4a7c4e;
+        --red-bad: #b04a3a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+        line-height: 1.55;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        color: var(--forest-dark);
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 6vw;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 19px;
+        color: var(--forest);
+        text-decoration: none;
+      }
+      nav {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+      }
+      nav a.btn {
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 600;
+      }
+      .icon-btn {
+        font-size: 13px;
+        padding: 7px 12px;
+        border-radius: 7px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: transparent;
+        color: var(--forest-dark);
+        cursor: pointer;
+        font-weight: 500;
+      }
+      main {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 40px 6vw 80px;
+      }
+      p.lead {
+        color: #4a4f42;
+        font-size: 14.5px;
+      }
+
+      /* Setup screen */
+      .lang-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+        margin: 24px 0;
+      }
+      .lang-pick {
+        background: var(--sage);
+        border: 2px solid transparent;
+        border-radius: 12px;
+        padding: 16px;
+        cursor: pointer;
+        text-align: center;
+        transition:
+          transform 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .lang-pick:hover {
+        transform: translateY(-2px);
+      }
+      .lang-pick.selected {
+        border-color: var(--forest);
+        background: #eef3ec;
+      }
+      .lang-pick .flag {
+        font-size: 24px;
+        display: block;
+        margin-bottom: 6px;
+      }
+      .lang-pick .name {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      #startBtn {
+        width: 100%;
+        margin-top: 8px;
+        padding: 14px;
+        background: var(--gold);
+        color: var(--forest-dark);
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      #startBtn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Quiz screen */
+      #quizScreen.hidden,
+      #setupScreen.hidden {
+        display: none;
+      }
+      .session-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--brick);
+        margin-bottom: 18px;
+      }
+      .prompt-card {
+        background: var(--sage);
+        border-radius: 16px;
+        padding: 28px 24px;
+        text-align: center;
+      }
+      .prompt-source {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--brick);
+        margin-bottom: 10px;
+      }
+      .prompt-text {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--forest-dark);
+        margin-bottom: 8px;
+      }
+      .prompt-text[dir="rtl"] {
+        font-size: 28px;
+        line-height: 1.7;
+      }
+      .prompt-translation {
+        font-size: 13.5px;
+        color: #55594a;
+        font-style: italic;
+      }
+      .hear-btn {
+        margin-top: 16px;
+        background: var(--forest);
+        color: var(--cream);
+        border: none;
+        border-radius: 20px;
+        padding: 9px 18px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .hear-btn:disabled {
+        opacity: 0.6;
+      }
+
+      .record-area {
+        text-align: center;
+        margin: 28px 0;
+      }
+      #recordBtn {
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        border: none;
+        background: var(--gold);
+        color: var(--forest-dark);
+        font-size: 30px;
+        cursor: pointer;
+        box-shadow: 0 6px 18px rgba(232, 163, 61, 0.4);
+        transition: transform 0.15s ease;
+      }
+      #recordBtn:hover {
+        transform: scale(1.05);
+      }
+      #recordBtn.recording {
+        background: var(--brick);
+        color: var(--cream);
+        animation: pulse 1.2s infinite;
+      }
+      #recordBtn:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(140, 74, 58, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 0 12px rgba(140, 74, 58, 0);
+        }
+      }
+      .record-hint {
+        font-size: 12.5px;
+        color: #6b7062;
+        margin-top: 10px;
+      }
+
+      /* Results */
+      #resultBox {
+        margin-top: 4px;
+      }
+      #resultBox.hidden {
+        display: none;
+      }
+      .score-ring {
+        text-align: center;
+        margin-bottom: 18px;
+      }
+      .score-number {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 44px;
+      }
+      .score-number.good {
+        color: var(--green-ok);
+      }
+      .score-number.mid {
+        color: var(--gold);
+      }
+      .score-number.bad {
+        color: var(--red-bad);
+      }
+      .score-msg {
+        font-size: 14px;
+        margin-top: 4px;
+      }
+      .word-diff {
+        background: var(--cream);
+        border-radius: 12px;
+        padding: 16px 18px;
+        font-size: 19px;
+        line-height: 1.8;
+        text-align: center;
+        border: 1px solid rgba(27, 67, 50, 0.12);
+      }
+      .word-diff[dir="rtl"] {
+        font-size: 22px;
+      }
+      .word-diff .w {
+        padding: 1px 3px;
+        border-radius: 4px;
+      }
+      .word-diff .w.correct {
+        color: var(--green-ok);
+      }
+      .word-diff .w.wrong {
+        color: var(--red-bad);
+        text-decoration: underline wavy var(--red-bad);
+      }
+      .heard-line {
+        margin-top: 10px;
+        font-size: 12.5px;
+        color: #6b7062;
+        text-align: center;
+        font-style: italic;
+      }
+      .result-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .result-actions button {
+        flex: 1;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      #retryBtn {
+        background: var(--sage);
+        color: var(--forest-dark);
+      }
+      #nextBtn {
+        background: var(--forest);
+        color: var(--cream);
+      }
+      #nextBtn:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      .loading-msg {
+        text-align: center;
+        color: #6b7062;
+        font-size: 13px;
+        margin-top: 14px;
+      }
+      .loading-msg.hidden {
+        display: none;
+      }
+
+      @media (max-width: 500px) {
+        .prompt-text {
+          font-size: 20px;
+        }
+        .prompt-text[dir="rtl"] {
+          font-size: 24px;
+        }
+      }
+    </style>
+    <script src="/js/auth.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">STEMBridge Speaks</a>
+      <nav>
+        <a href="/practice.html">Conversation Practice</a>
+        <a href="/learn.html">Learn Grammar</a>
+        <a href="/dictionary.html">Dictionary</a>
+        <a href="/practice.html" class="btn">Practice free</a>
+        <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
+      </nav>
+    </header>
+
+    <main>
+      <h1>🎤 Speaking Quiz</h1>
+      <p class="lead">
+        Say the phrase out loud and get instant word-by-word feedback — every
+        prompt is pulled straight from your own lessons and dialogues, not a
+        generic phrasebook.
+      </p>
+
+      <div id="setupScreen">
+        <div class="lang-grid" id="langGrid"></div>
+        <button id="startBtn" disabled>Pick a language to start →</button>
+      </div>
+
+      <div id="quizScreen" class="hidden">
+        <div class="session-bar">
+          <span id="sessionProgress">Phrase 1</span>
+          <span id="sessionAvg">Avg: —</span>
+        </div>
+
+        <div class="prompt-card">
+          <div class="prompt-source" id="promptSource">From your lessons</div>
+          <div class="prompt-text" id="promptText"></div>
+          <div class="prompt-translation" id="promptTranslation"></div>
+          <button class="hear-btn" id="hearBtn">🔊 Hear it first</button>
+        </div>
+
+        <div class="record-area">
+          <button id="recordBtn">🎙️</button>
+          <div class="record-hint" id="recordHint">
+            Tap to record, tap again to stop
+          </div>
+        </div>
+
+        <p class="loading-msg hidden" id="loadingMsg">
+          Checking your pronunciation...
+        </p>
+
+        <div id="resultBox" class="hidden">
+          <div class="score-ring">
+            <div class="score-number" id="scoreNumber">0%</div>
+            <div class="score-msg" id="scoreMsg"></div>
+          </div>
+          <div class="word-diff" id="wordDiff"></div>
+          <div class="heard-line" id="heardLine"></div>
+          <div class="result-actions">
+            <button id="retryBtn">🔁 Try Again</button>
+            <button id="nextBtn">Next Phrase →</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer
+      style="
+        margin-top: 40px;
+        padding: 32px 6vw;
+        text-align: center;
+        font-size: 13px;
+        color: #6b7062;
+        border-top: 1px solid rgba(27, 67, 50, 0.1);
+      "
+    >
+      © 2026 STEMBridge Speaks
+      <div style="margin-top: 6px">
+        <a href="/learn.html" style="margin: 0 10px; color: var(--forest-dark)"
+          >Learn Grammar</a
+        >
+        <a
+          href="/practice.html"
+          style="margin: 0 10px; color: var(--forest-dark)"
+          >Conversation Practice</a
+        >
+        <a
+          href="/dictionary.html"
+          style="margin: 0 10px; color: var(--forest-dark)"
+          >Dictionary</a
+        >
+      </div>
+    </footer>
+
+    <script>
+      let currentUser = null;
+
+      const LANGUAGES = {
+        german: { name: "German", flag: "🇩🇪", code: "de" },
+        english: { name: "English", flag: "🇬🇧", code: "en" },
+        spanish: { name: "Spanish", flag: "🇪🇸", code: "es" },
+        mandarin: { name: "Mandarin", flag: "🇨🇳", code: "zh" },
+        russian: { name: "Russian", flag: "🇷🇺", code: "ru" },
+        arabic: { name: "Arabic", flag: "🇸🇦", code: "ar" },
+        hebrew: { name: "Hebrew", flag: "🇮🇱", code: "he" },
+      };
+      const RTL_LANGS = ["arabic", "hebrew"];
+      const SESSION_LENGTH = 10;
+
+      let currentLang = null;
+      let phrasePool = [];
+      let sessionPhrases = [];
+      let sessionIndex = 0;
+      let sessionScores = [];
+      let mediaRecorder = null;
+      let audioChunks = [];
+      let isRecording = false;
+      let currentAudio = null;
+
+      const langGrid = document.getElementById("langGrid");
+      const startBtn = document.getElementById("startBtn");
+      const setupScreen = document.getElementById("setupScreen");
+      const quizScreen = document.getElementById("quizScreen");
+
+      function renderLangGrid() {
+        langGrid.innerHTML = "";
+        Object.entries(LANGUAGES).forEach(([key, lang]) => {
+          const btn = document.createElement("button");
+          btn.className = "lang-pick";
+          btn.innerHTML = `<span class="flag">${lang.flag}</span><span class="name">${lang.name}</span>`;
+          btn.addEventListener("click", () => {
+            document
+              .querySelectorAll(".lang-pick")
+              .forEach((b) => b.classList.remove("selected"));
+            btn.classList.add("selected");
+            currentLang = key;
+            startBtn.disabled = false;
+            startBtn.textContent = `Start practicing ${lang.name} →`;
+          });
+          langGrid.appendChild(btn);
+        });
+      }
+      renderLangGrid();
+
+      // ---------- Build the phrase pool from existing course + dialogue data ----------
+
+      async function buildPhrasePool(langKey) {
+        const code = LANGUAGES[langKey].code;
+        const pool = [];
+
+        try {
+          const res = await fetch(`/data/${code}-course.json`);
+          if (res.ok) {
+            const data = await res.json();
+            (data.units || []).forEach((unit) => {
+              (unit.teaching || []).forEach((chunk) => {
+                if (chunk.ex && chunk.ex.trim()) {
+                  pool.push({
+                    text: chunk.ex.trim(),
+                    translation: (chunk.exTranslation || "").trim(),
+                    source: "From your lessons",
+                  });
+                }
+              });
+            });
+          }
+        } catch (err) {
+          console.error("Could not load course data:", err);
+        }
+
+        try {
+          const res = await fetch(`/data/${code}-dialogues.json`);
+          if (res.ok) {
+            const data = await res.json();
+            (data.dialogues || []).forEach((dlg) => {
+              (dlg.lines || []).forEach((line) => {
+                if (line.text && line.text.trim()) {
+                  pool.push({
+                    text: line.text.trim(),
+                    translation: (line.translation || "").trim(),
+                    source: `From "${dlg.title}"`,
+                  });
+                }
+              });
+            });
+          }
+        } catch (err) {
+          console.error("Could not load dialogue data:", err);
+        }
+
+        return pool;
+      }
+
+      function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      startBtn.addEventListener("click", async () => {
+        if (!currentLang) return;
+        startBtn.disabled = true;
+        startBtn.textContent = "Loading phrases...";
+        phrasePool = await buildPhrasePool(currentLang);
+        if (phrasePool.length === 0) {
+          alert(
+            "Couldn't find any phrases for this language yet — try another one.",
+          );
+          startBtn.disabled = false;
+          startBtn.textContent = "Pick a language to start →";
+          return;
+        }
+        sessionPhrases = shuffle(phrasePool).slice(
+          0,
+          Math.min(SESSION_LENGTH, phrasePool.length),
+        );
+        sessionIndex = 0;
+        sessionScores = [];
+        setupScreen.classList.add("hidden");
+        quizScreen.classList.remove("hidden");
+        showPhrase();
+      });
+
+      // ---------- Quiz flow ----------
+
+      const promptSource = document.getElementById("promptSource");
+      const promptText = document.getElementById("promptText");
+      const promptTranslation = document.getElementById("promptTranslation");
+      const hearBtn = document.getElementById("hearBtn");
+      const recordBtn = document.getElementById("recordBtn");
+      const recordHint = document.getElementById("recordHint");
+      const loadingMsg = document.getElementById("loadingMsg");
+      const resultBox = document.getElementById("resultBox");
+      const scoreNumber = document.getElementById("scoreNumber");
+      const scoreMsg = document.getElementById("scoreMsg");
+      const wordDiff = document.getElementById("wordDiff");
+      const heardLine = document.getElementById("heardLine");
+      const retryBtn = document.getElementById("retryBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const sessionProgress = document.getElementById("sessionProgress");
+      const sessionAvg = document.getElementById("sessionAvg");
+
+      function isRTL() {
+        return RTL_LANGS.includes(currentLang);
+      }
+
+      function showPhrase() {
+        const phrase = sessionPhrases[sessionIndex];
+        promptSource.textContent = phrase.source;
+        promptText.textContent = phrase.text;
+        promptText.setAttribute("dir", isRTL() ? "rtl" : "ltr");
+        promptTranslation.textContent = phrase.translation;
+        sessionProgress.textContent = `Phrase ${sessionIndex + 1} of ${sessionPhrases.length}`;
+        updateAvg();
+        resultBox.classList.add("hidden");
+        recordBtn.disabled = false;
+        recordBtn.textContent = "🎙️";
+        recordHint.textContent = "Tap to record, tap again to stop";
+        nextBtn.disabled = sessionIndex >= sessionPhrases.length - 1;
+      }
+
+      function updateAvg() {
+        if (sessionScores.length === 0) {
+          sessionAvg.textContent = "Avg: —";
+          return;
+        }
+        const avg = Math.round(
+          sessionScores.reduce((a, b) => a + b, 0) / sessionScores.length,
+        );
+        sessionAvg.textContent = `Avg: ${avg}%`;
+      }
+
+      hearBtn.addEventListener("click", async () => {
+        const phrase = sessionPhrases[sessionIndex];
+        hearBtn.disabled = true;
+        hearBtn.textContent = "🔊 Playing...";
+        try {
+          if (currentAudio) currentAudio.pause();
+          const res = await fetch("/tts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              text: phrase.text,
+              language: currentLang,
+              level: "B1",
+            }),
+          });
+          const data = await res.json();
+          if (data.audio) {
+            currentAudio = new Audio("data:audio/mp3;base64," + data.audio);
+            currentAudio.onended = () => {
+              hearBtn.disabled = false;
+              hearBtn.textContent = "🔊 Hear it first";
+            };
+            currentAudio.play();
+          } else {
+            hearBtn.disabled = false;
+            hearBtn.textContent = "🔊 Hear it first";
+          }
+        } catch (err) {
+          console.error("Playback failed:", err);
+          hearBtn.disabled = false;
+          hearBtn.textContent = "🔊 Hear it first";
+        }
+      });
+
+      recordBtn.addEventListener("click", async () => {
+        if (!isRecording) {
+          let stream;
+          try {
+            stream = await navigator.mediaDevices.getUserMedia({
+              audio: true,
+            });
+          } catch (err) {
+            alert(
+              "Microphone access is needed for the speaking quiz. Please allow microphone permission and try again.",
+            );
+            return;
+          }
+          mediaRecorder = new MediaRecorder(stream);
+          audioChunks = [];
+          mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+          mediaRecorder.start();
+          isRecording = true;
+          recordBtn.classList.add("recording");
+          recordBtn.textContent = "⏹️";
+          recordHint.textContent = "Recording... tap to stop";
+        } else {
+          mediaRecorder.stop();
+          isRecording = false;
+          recordBtn.classList.remove("recording");
+          recordBtn.disabled = true;
+          recordHint.textContent = "Processing...";
+
+          mediaRecorder.onstop = async () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+            const reader = new FileReader();
+            reader.readAsDataURL(audioBlob);
+            reader.onloadend = async () => {
+              const base64Audio = reader.result.split(",")[1];
+              await checkPronunciation(base64Audio);
+            };
+          };
+        }
+      });
+
+      async function checkPronunciation(base64Audio) {
+        loadingMsg.classList.remove("hidden");
+        resultBox.classList.add("hidden");
+        const phrase = sessionPhrases[sessionIndex];
+        try {
+          const res = await fetch("/api/speaking-check", {
+            method: "POST",
+            headers: { ...authHeaders(), "Content-Type": "application/json" },
+            body: JSON.stringify({
+              audio: base64Audio,
+              targetText: phrase.text,
+              language: currentLang,
+            }),
+          });
+          const data = await res.json();
+          loadingMsg.classList.add("hidden");
+          recordBtn.disabled = false;
+          recordBtn.textContent = "🎙️";
+          recordHint.textContent = "Tap to record, tap again to stop";
+
+          if (!res.ok) {
+            recordHint.textContent = data.error || "Something went wrong.";
+            return;
+          }
+          showResult(data);
+        } catch (err) {
+          console.error("Speaking check failed:", err);
+          loadingMsg.classList.add("hidden");
+          recordBtn.disabled = false;
+          recordBtn.textContent = "🎙️";
+          recordHint.textContent = "Couldn't reach the server — try again.";
+        }
+      }
+
+      function showResult(data) {
+        const accuracy = data.accuracy;
+        sessionScores.push(accuracy);
+        updateAvg();
+
+        scoreNumber.textContent = accuracy + "%";
+        scoreNumber.className =
+          "score-number " +
+          (accuracy >= 85 ? "good" : accuracy >= 60 ? "mid" : "bad");
+        scoreMsg.textContent =
+          accuracy >= 85
+            ? "🎉 Excellent pronunciation!"
+            : accuracy >= 60
+              ? "👍 Good attempt — a couple of words to polish."
+              : "🔄 Let's try that one again, listen closely first.";
+
+        wordDiff.setAttribute("dir", isRTL() ? "rtl" : "ltr");
+        wordDiff.innerHTML = data.wordResults
+          .map(
+            (w) =>
+              `<span class="w ${w.correct ? "correct" : "wrong"}">${w.word}</span>`,
+          )
+          .join(" ");
+
+        heardLine.textContent = data.transcription
+          ? `We heard: "${data.transcription}"`
+          : "We couldn't hear anything clearly — try again a bit closer to the mic.";
+
+        resultBox.classList.remove("hidden");
+      }
+
+      retryBtn.addEventListener("click", () => {
+        resultBox.classList.add("hidden");
+        recordBtn.disabled = false;
+      });
+
+      nextBtn.addEventListener("click", () => {
+        if (sessionIndex >= sessionPhrases.length - 1) return;
+        sessionIndex++;
+        showPhrase();
+      });
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        if (confirm("Log out?")) logout();
+      });
+
+      (async () => {
+        currentUser = await requireAuth();
+        if (!currentUser) return;
+      })();
+    </script>
+  </body>
+</html>
