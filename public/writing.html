@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1B4332" />
+    <title>STEMBridge Speaks — Writing Practice</title>
+    <meta
+      name="description"
+      content="Practice writing in German, English, Spanish, Mandarin, Russian, or Hebrew with guided prompts or free-form writing, and get a full essay-style review with corrections and feedback."
+    />
+    <link
+      rel="canonical"
+      href="https://stembridge-speaks.onrender.com/writing.html"
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --gold: #e8a33d;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+        line-height: 1.5;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        color: var(--forest-dark);
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 6vw;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 19px;
+        color: var(--forest);
+        text-decoration: none;
+      }
+      nav {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+      }
+      .icon-btn {
+        font-size: 13px;
+        padding: 7px 12px;
+        border-radius: 7px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: transparent;
+        color: var(--forest-dark);
+        cursor: pointer;
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 40px 6vw 80px;
+      }
+
+      .setup-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 20px;
+      }
+      .setup-field.full {
+        grid-column: span 2;
+      }
+      .setup-field label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--brick);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: block;
+        margin-bottom: 6px;
+      }
+      select {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1.5px solid rgba(27, 67, 50, 0.2);
+        background: var(--sage);
+        font-size: 14px;
+        font-family: "Work Sans", sans-serif;
+      }
+
+      .mode-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 6px;
+      }
+      .mode-btn {
+        flex: 1;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1.5px solid rgba(27, 67, 50, 0.2);
+        background: var(--sage);
+        cursor: pointer;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--forest-dark);
+      }
+      .mode-btn.active {
+        background: var(--forest);
+        color: var(--cream);
+        border-color: var(--forest);
+      }
+
+      .prompt-box {
+        background: var(--forest-dark);
+        color: var(--cream);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 18px;
+        font-size: 15px;
+        display: none;
+      }
+      .prompt-box.show {
+        display: block;
+      }
+      .prompt-box .label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        opacity: 0.7;
+        margin-bottom: 6px;
+        display: block;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 220px;
+        margin-top: 18px;
+        padding: 16px;
+        border-radius: 12px;
+        border: 1.5px solid rgba(27, 67, 50, 0.2);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 14.5px;
+        resize: vertical;
+        background: white;
+      }
+      textarea[dir="rtl"] {
+        text-align: right;
+        font-family: "Work Sans", sans-serif;
+        font-size: 17px;
+      }
+      .word-count {
+        text-align: right;
+        font-size: 12px;
+        color: #6b7062;
+        margin-top: 4px;
+      }
+
+      .submit-btn {
+        width: 100%;
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 10px;
+        border: none;
+        background: var(--gold);
+        color: var(--forest-dark);
+        font-weight: 700;
+        font-size: 15.5px;
+        cursor: pointer;
+      }
+      .submit-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .review-card {
+        background: white;
+        border-radius: 14px;
+        padding: 24px;
+        margin-top: 24px;
+        box-shadow: 0 6px 20px rgba(18, 48, 31, 0.08);
+      }
+      .review-card h2 {
+        font-size: 18px;
+        margin: 0 0 14px;
+      }
+      .corrected-text {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 14.5px;
+        line-height: 1.7;
+        white-space: pre-wrap;
+        background: var(--sage);
+        padding: 16px;
+        border-radius: 10px;
+      }
+      .corrected-text[dir="rtl"] {
+        font-family: "Work Sans", sans-serif;
+        font-size: 17px;
+        text-align: right;
+      }
+
+      .note-item {
+        background: var(--sage);
+        border-radius: 10px;
+        padding: 14px 16px;
+        margin-top: 10px;
+      }
+      .note-item .orig {
+        text-decoration: line-through;
+        color: var(--brick);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13.5px;
+      }
+      .note-item .fixed {
+        color: #2d5a30;
+        font-weight: 600;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13.5px;
+      }
+      .note-item .expl {
+        font-size: 13px;
+        color: #55594a;
+        margin-top: 6px;
+      }
+
+      .assessment-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 16px;
+      }
+      .assess-item {
+        background: var(--sage);
+        border-radius: 10px;
+        padding: 14px 16px;
+      }
+      .assess-item .label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: var(--brick);
+        margin-bottom: 4px;
+        display: block;
+      }
+      .assess-item p {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .word-badge {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        color: #6b7062;
+        margin-top: 8px;
+      }
+      .again-btn {
+        width: 100%;
+        margin-top: 20px;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1.5px solid var(--forest);
+        background: transparent;
+        color: var(--forest-dark);
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      footer {
+        margin-top: 40px;
+        padding: 32px 6vw;
+        text-align: center;
+        font-size: 13px;
+        color: #6b7062;
+        border-top: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      footer a {
+        margin: 0 10px;
+        color: var(--forest-dark);
+      }
+
+      @media (max-width: 600px) {
+        header {
+          padding: 16px 5vw;
+        }
+        nav a:not(.icon-btn) {
+          display: none;
+        }
+        main {
+          padding: 28px 5vw 60px;
+        }
+        .setup-grid {
+          grid-template-columns: 1fr;
+        }
+        .setup-field.full {
+          grid-column: span 1;
+        }
+      }
+    </style>
+    <script src="/js/read-aloud.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">STEMBridge Speaks</a>
+      <nav>
+        <a href="/practice.html">Practice</a>
+        <a href="/settings.html" class="icon-btn">⚙️ Settings</a>
+        <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
+      </nav>
+    </header>
+
+    <main>
+      <div id="view-setup">
+        <h1>Writing Practice</h1>
+        <p>
+          Pick a guided prompt or write freely, then get a full review —
+          corrections plus feedback on structure, vocabulary, and tone.
+        </p>
+
+        <div class="setup-grid">
+          <div class="setup-field">
+            <label for="langSelect">Language</label>
+            <select id="langSelect">
+              <option value="german">🇩🇪 German</option>
+              <option value="english">🇬🇧 English</option>
+              <option value="spanish">🇪🇸 Spanish</option>
+              <option value="mandarin">🇨🇳 Mandarin</option>
+              <option value="russian">🇷🇺 Russian</option>
+              <option value="hebrew">🇮🇱 Hebrew</option>
+            </select>
+          </div>
+          <div class="setup-field">
+            <label for="levelSelect">Level</label>
+            <select id="levelSelect">
+              <option value="A1">A1 · Beginner</option>
+              <option value="A2">A2 · Elementary</option>
+              <option value="B1" selected>B1 · Intermediate</option>
+              <option value="B2">B2 · Upper-Int.</option>
+              <option value="C1">C1 · Advanced</option>
+              <option value="C2">C2 · Native-level</option>
+            </select>
+          </div>
+          <div class="setup-field full">
+            <label>Mode</label>
+            <div class="mode-row">
+              <button class="mode-btn active" data-mode="guided">
+                📝 Guided Prompt
+              </button>
+              <button class="mode-btn" data-mode="freeform">
+                ✏️ Free-form
+              </button>
+            </div>
+          </div>
+          <div class="setup-field full" id="topicField">
+            <label for="topicSelect">Topic</label>
+            <select id="topicSelect">
+              <option value="restaurant">A memorable meal</option>
+              <option value="travel">A trip you'd like to take</option>
+              <option value="daily_routine">Your daily routine</option>
+              <option value="opinion">Social media: good or harm?</option>
+              <option value="hobby">A hobby you enjoy</option>
+              <option value="work_study">Your job or studies</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="prompt-box" id="promptBox">
+          <span class="label">Your Prompt</span>
+          <span id="promptText"></span>
+        </div>
+
+        <textarea id="writingInput" placeholder="Start writing..."></textarea>
+        <div class="word-count" id="wordCount">0 words</div>
+
+        <button class="submit-btn" id="submitBtn">Get Feedback →</button>
+      </div>
+
+      <div id="view-review" class="hidden">
+        <div class="review-card">
+          <h2>✅ Corrected Version</h2>
+          <div class="corrected-text" id="correctedText"></div>
+          <div class="word-badge" id="wordBadge"></div>
+        </div>
+
+        <div class="review-card" id="notesCard">
+          <h2>🔍 What Was Corrected</h2>
+          <div id="notesList"></div>
+        </div>
+
+        <div class="review-card">
+          <h2>📋 Overall Feedback</h2>
+          <div class="assessment-grid">
+            <div class="assess-item">
+              <span class="label">Structure</span>
+              <p id="fbStructure"></p>
+            </div>
+            <div class="assess-item">
+              <span class="label">Vocabulary</span>
+              <p id="fbVocabulary"></p>
+            </div>
+            <div class="assess-item">
+              <span class="label">Register / Tone</span>
+              <p id="fbRegister"></p>
+            </div>
+            <div class="assess-item">
+              <span class="label">Strengths</span>
+              <p id="fbStrengths"></p>
+            </div>
+            <div class="assess-item">
+              <span class="label">Next Steps</span>
+              <p id="fbNextSteps"></p>
+            </div>
+          </div>
+        </div>
+
+        <button class="again-btn" id="againBtn">Write Another Piece</button>
+      </div>
+    </main>
+
+    <footer>
+      © 2026 STEMBridge Speaks
+      <div style="margin-top: 12px">
+        <a href="/practice.html">Conversation Practice</a>
+        <a href="/learn.html">Learn Grammar</a>
+        <a href="/interview.html">Interview Prep</a>
+        <a href="/about.html">About</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+    </footer>
+
+    <script src="/js/auth.js"></script>
+    <script>
+      const rtlLanguages = ["hebrew"];
+      let currentMode = "guided";
+
+      const topicPrompts = {
+        restaurant:
+          "Write about a memorable meal you had — where, what you ate, and why it stood out.",
+        travel:
+          "Describe a trip you'd like to take, and explain why that destination interests you.",
+        daily_routine:
+          "Describe your typical daily routine, from morning to evening.",
+        opinion:
+          "Do you think social media does more good than harm? Explain your view with reasons.",
+        hobby:
+          "Write about a hobby or activity you enjoy, and how you got into it.",
+        work_study:
+          "Describe your job or studies, and what you find most challenging about it.",
+      };
+
+      const langSelect = document.getElementById("langSelect");
+      const writingInput = document.getElementById("writingInput");
+      const topicField = document.getElementById("topicField");
+      const promptBox = document.getElementById("promptBox");
+      const promptText = document.getElementById("promptText");
+      const topicSelect = document.getElementById("topicSelect");
+
+      function applyRTL() {
+        const isRTL = rtlLanguages.includes(langSelect.value);
+        writingInput.setAttribute("dir", isRTL ? "rtl" : "ltr");
+      }
+      langSelect.addEventListener("change", applyRTL);
+      applyRTL();
+
+      document.querySelectorAll(".mode-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".mode-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentMode = btn.dataset.mode;
+          if (currentMode === "guided") {
+            topicField.style.display = "block";
+            updatePrompt();
+          } else {
+            topicField.style.display = "none";
+            promptBox.classList.remove("show");
+          }
+        });
+      });
+
+      function updatePrompt() {
+        promptText.textContent = topicPrompts[topicSelect.value];
+        promptBox.classList.add("show");
+      }
+      topicSelect.addEventListener("change", updatePrompt);
+      updatePrompt();
+
+      writingInput.addEventListener("input", () => {
+        const words = writingInput.value
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean).length;
+        document.getElementById("wordCount").textContent =
+          `${words} word${words === 1 ? "" : "s"}`;
+      });
+
+      document
+        .getElementById("submitBtn")
+        .addEventListener("click", async () => {
+          const text = writingInput.value.trim();
+          if (!text) {
+            alert("Write something first!");
+            return;
+          }
+
+          const btn = document.getElementById("submitBtn");
+          btn.disabled = true;
+          btn.textContent = "Reviewing...";
+
+          try {
+            const res = await fetch("/api/writing/review", {
+              method: "POST",
+              headers: { ...authHeaders(), "Content-Type": "application/json" },
+              body: JSON.stringify({
+                text,
+                language: langSelect.value,
+                level: document.getElementById("levelSelect").value,
+              }),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+              alert(data.error || "Something went wrong.");
+              btn.disabled = false;
+              btn.textContent = "Get Feedback →";
+              return;
+            }
+            renderReview(data);
+          } catch (err) {
+            alert("Could not reach the server. Try again.");
+            btn.disabled = false;
+            btn.textContent = "Get Feedback →";
+          }
+        });
+
+      function renderReview(data) {
+        const isRTL = rtlLanguages.includes(langSelect.value);
+        document.getElementById("view-setup").classList.add("hidden");
+        document.getElementById("view-review").classList.remove("hidden");
+
+        const correctedEl = document.getElementById("correctedText");
+        correctedEl.textContent = data.correctedText;
+        correctedEl.setAttribute("dir", isRTL ? "rtl" : "ltr");
+        document.getElementById("wordBadge").textContent =
+          `${data.wordCount || 0} words submitted`;
+
+        const notesCard = document.getElementById("notesCard");
+        const notesList = document.getElementById("notesList");
+        notesList.innerHTML = "";
+        if (!data.inlineNotes || data.inlineNotes.length === 0) {
+          notesCard.style.display = "none";
+        } else {
+          notesCard.style.display = "block";
+          data.inlineNotes.forEach((note) => {
+            const div = document.createElement("div");
+            div.className = "note-item";
+            div.innerHTML = `<span class="orig">${note.original}</span> → <span class="fixed">${note.corrected}</span><div class="expl">${note.explanation}</div>`;
+            notesList.appendChild(div);
+          });
+        }
+
+        const fb = data.overallFeedback || {};
+        document.getElementById("fbStructure").textContent =
+          fb.structure || "—";
+        document.getElementById("fbVocabulary").textContent =
+          fb.vocabulary || "—";
+        document.getElementById("fbRegister").textContent = fb.register || "—";
+        document.getElementById("fbStrengths").textContent =
+          fb.strengths || "—";
+        document.getElementById("fbNextSteps").textContent =
+          fb.nextSteps || "—";
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      document.getElementById("againBtn").addEventListener("click", () => {
+        document.getElementById("view-review").classList.add("hidden");
+        document.getElementById("view-setup").classList.remove("hidden");
+        writingInput.value = "";
+        document.getElementById("wordCount").textContent = "0 words";
+        document.getElementById("submitBtn").disabled = false;
+        document.getElementById("submitBtn").textContent = "Get Feedback →";
+      });
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        if (confirm("Log out?")) logout();
+      });
+
+      (async () => {
+        const user = await requireAuth();
+      })();
+    </script>
+  </body>
+</html>

@@ -11,6 +11,48 @@ const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const writingTopics = {
+  restaurant:
+    "Write about a memorable meal you had — where, what you ate, and why it stood out.",
+  travel:
+    "Describe a trip you'd like to take, and explain why that destination interests you.",
+  daily_routine:
+    "Describe your typical daily routine, from morning to evening.",
+  opinion:
+    "Do you think social media does more good than harm? Explain your view with reasons.",
+  hobby: "Write about a hobby or activity you enjoy, and how you got into it.",
+  work_study:
+    "Describe your job or studies, and what you find most challenging about it.",
+};
+
+function buildWritingReviewInstruction(languageKey, levelKey) {
+  const language = languages[languageKey] || languages.german;
+  const levelText = levelGuidance[levelKey] || levelGuidance.B1;
+
+  return `You are an experienced, encouraging ${language.name} writing teacher reviewing a learner's written submission.
+
+${levelText}
+
+The learner has submitted a piece of writing in ${language.name}. Review it and respond with ONLY a JSON object, no other text, in this exact format:
+
+{
+  "correctedText": "the FULL text, lightly corrected — fix grammar/spelling errors but preserve the learner's own voice and structure as much as possible",
+  "inlineNotes": [
+    { "original": "the exact original phrase with the mistake", "corrected": "the corrected version", "explanation": "a short, plain-language explanation of the mistake" }
+  ],
+  "overallFeedback": {
+    "structure": "1-2 sentences on how well-organized the writing is (intro/body/conclusion, paragraph flow, logical order)",
+    "vocabulary": "1-2 sentences on vocabulary range and word choice — repetitive, appropriate, impressive word use, etc.",
+    "register": "1-2 sentences on whether the tone/formality matches what the piece seems to be going for",
+    "strengths": "1-2 sentences on what the learner did well — always find something genuine",
+    "nextSteps": "1-2 concrete, specific things to focus on improving next time"
+  },
+  "wordCount": <integer, the word count of the original submission>
+}
+
+Only include entries in "inlineNotes" for genuine errors — do not invent corrections for stylistic preferences that aren't actually wrong. If the submission has no errors at all, "inlineNotes" can be an empty array, but still give full "overallFeedback".`;
+}
+
 function generateId() {
   return crypto.randomBytes(12).toString("hex");
 }
@@ -638,6 +680,33 @@ You will receive an audio clip of the candidate's spoken answer. Respond with ON
       transcription: "(error)",
       reply: "Sorry, something went wrong.",
     });
+  }
+});
+
+app.post("/api/writing/review", requireAuth, async (req, res) => {
+  try {
+    const { text, language, level } = req.body;
+    if (!text || !text.trim())
+      return res.status(400).json({ error: "Please write something first." });
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-flash-latest",
+      systemInstruction: buildWritingReviewInstruction(language, level),
+    });
+    const result = await model.generateContent(text);
+    const cleaned = result.response
+      .text()
+      .replace(/```json|```/g, "")
+      .trim();
+    const parsed = JSON.parse(cleaned);
+    res.json(parsed);
+  } catch (err) {
+    console.error(err);
+    res
+      .status(500)
+      .json({
+        error: "Could not review your writing right now. Please try again.",
+      });
   }
 });
 
