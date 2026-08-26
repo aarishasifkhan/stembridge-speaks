@@ -1,4 +1,68 @@
+# stembridge-speaks.onrender.com
+# Default: allow all crawlers; keep backend/API routes out of the crawl.
 User-agent: *
+Allow: /
+Disallow: /api/
+
+# ---------------------------------------------------------------
+# AI ANSWER / SEARCH BOTS — fetch pages live to cite you in an answer.
+# Allowing these is what gets you cited in ChatGPT, Claude, Perplexity,
+# and Google AI Overviews. This is the GEO/AEO win.
+# ---------------------------------------------------------------
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# ---------------------------------------------------------------
+# AI TRAINING CRAWLERS — bulk-scrape to train the underlying model.
+# Doesn't affect whether you're cited today, but shapes future model
+# knowledge of your site. Allowed here; flip any line to "Disallow: /"
+# if you'd rather opt that company's training out while staying
+# visible in the answer bots above.
+# ---------------------------------------------------------------
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# xAI/Grok has no confirmed, consistently-used crawler UA as of 2026 —
+# included defensively, but expect no measurable effect yet.
+User-agent: GrokBot
 Allow: /
 
 Sitemap: https://stembridge-speaks.onrender.com/sitemap.xml

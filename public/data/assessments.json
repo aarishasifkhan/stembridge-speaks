@@ -525,6 +525,217 @@
       ],
       "writingPrompt": "Напишите короткое официальное письмо в университет с просьбой о переносе экзамена. (Write a short formal letter to a university requesting to reschedule an exam.)",
       "speakingPrompt": "Расскажите о городе, в котором вы живёте: что вам в нём нравится и что бы вы хотели изменить. (Talk about the city you live in: what you like about it, and what you would want to change.)"
+    },
+    {
+      "id": "alpt",
+      "language": "Arabic",
+      "flag": "🇸🇦",
+      "name": "ALPT",
+      "fullName": "Arabic Language Proficiency Test",
+      "body": "Arabic Language Institute, King Saud University (ALI-KSU)",
+      "overview": "ALPT is an adaptive, computer-based test of Modern Standard Arabic (MSA) accepted by universities, government agencies, and employers across the Middle East and internationally. It maps results to CEFR levels (A1–C2) across five skills — Listening, Reading, Structure, Writing, and Speaking — with a dedicated Structure section that tests grammar (case endings, verb conjugation) in isolation, separate from reading comprehension.",
+      "sections": [
+        {
+          "name": "الاستماع (Listening)",
+          "duration": "~30 minutes",
+          "tips": [
+            "ALPT listening passages use Modern Standard Arabic, not a specific spoken dialect — train your ear on MSA news broadcasts and educational audio, not just conversational content.",
+            "Numbers, dates, and named places are common detail-check points, just as on other proficiency exams — practice transcribing them quickly as you listen.",
+            "MSA pronunciation is more deliberate than colloquial speech — use that to your advantage by listening for sentence-final case vowels, which often carry grammatical meaning."
+          ]
+        },
+        {
+          "name": "القراءة والبنية (Reading & Structure)",
+          "duration": "~50 minutes",
+          "tips": [
+            "This section blends reading comprehension with isolated grammar (Structure) questions — review case endings (-u/-a/-i) and verb conjugation patterns separately from passage practice, not just in context.",
+            "Skim each passage once for the general topic before answering detail questions — don't try to translate every word on a first pass.",
+            "Sun and moon letters change how ال (\"the\") is pronounced but never how it's spelled — recognize the pattern on sight rather than re-deriving it each time."
+          ]
+        },
+        {
+          "name": "الكتابة (Writing)",
+          "duration": "~30 minutes",
+          "tips": [
+            "Prompts typically ask for a short descriptive or opinion paragraph — practice linking ideas with connectors like ثم (then) and لكن (but) instead of long run-on sentences.",
+            "Case endings and noun/adjective agreement (gender, number, definiteness) are graded more strictly in writing than they're tolerated in speech — review these before the exam.",
+            "Arabic's root-and-pattern system means many related words share a 3-letter root — using root-family vocabulary deliberately can strengthen your response."
+          ]
+        },
+        {
+          "name": "المحادثة (Speaking)",
+          "duration": "~15–20 minutes",
+          "tips": [
+            "The speaking section is a live or recorded interview — practice fielding follow-up questions you haven't prepared for, not just delivering a rehearsed monologue.",
+            "Examiners tolerate minor case-ending slips in speech far more than in writing — prioritize fluency and getting your message across over perfect accuracy.",
+            "Practice saying numbers and dates out loud — Arabic numeral-noun gender agreement is a common stumble point even at intermediate levels."
+          ]
+        }
+      ],
+      "practice": [
+        {
+          "section": "Structure",
+          "type": "mc",
+          "q": "اختر الكلمة الصحيحة: \"الطالبُ ___ الكتابَ.\" (The student ___ the book — choose the correct past-tense verb for \"read\")",
+          "options": ["قرأَ", "قرأتُ", "قرأتَ"],
+          "answer": "قرأَ",
+          "explanation": "قرأَ is the third-person masculine singular past tense (\"he read\"), matching الطالب (the student), which is masculine."
+        },
+        {
+          "section": "Structure",
+          "type": "fill",
+          "q": "Complete with the correct definite article: \"___ بيت\" (the house) — attach ال directly to the front of بيت with no space.",
+          "answer": "البيت",
+          "explanation": "Arabic has one definite article, ال (al-), prefixed directly onto the noun — البيت means \"the house.\""
+        },
+        {
+          "section": "Vocabulary",
+          "type": "mc",
+          "q": "Which word means \"book\" in Arabic?",
+          "options": ["كتاب", "بيت", "قلم"],
+          "answer": "كتاب",
+          "explanation": "كتاب (kitāb) means \"book.\" بيت means \"house\" and قلم means \"pen.\""
+        },
+        {
+          "section": "Reading",
+          "type": "mc",
+          "q": "In ALPT Reading passages, identifying a noun's grammatical role (subject vs. object) mainly relies on:",
+          "options": ["word order alone", "case endings and context"],
+          "answer": "case endings and context",
+          "explanation": "Formal Arabic marks grammatical role with short vowel case endings (-u subject, -a object, -i after prepositions/in iḍāfa), so relying on word order alone can mislead you."
+        },
+        {
+          "section": "Listening",
+          "type": "mc",
+          "q": "ALPT Listening recordings are primarily delivered in:",
+          "options": [
+            "Modern Standard Arabic (MSA)",
+            "a single regional spoken dialect only"
+          ],
+          "answer": "Modern Standard Arabic (MSA)",
+          "explanation": "Like most official Arabic proficiency exams, ALPT tests Modern Standard Arabic — the shared formal register used in media, education, and official contexts — rather than one country's spoken dialect."
+        },
+        {
+          "section": "Speaking",
+          "type": "mc",
+          "q": "In the ALPT Speaking section, examiners primarily evaluate:",
+          "options": [
+            "memorized recitation of set phrases",
+            "the ability to communicate spontaneously across topics"
+          ],
+          "answer": "the ability to communicate spontaneously across topics",
+          "explanation": "As with most CEFR-aligned oral assessments, ALPT Speaking rewards spontaneous, functional communication over a memorized script."
+        }
+      ],
+      "writingPrompt": "اكتب فقرة قصيرة تصف فيها يومًا عاديًا في حياتك. (Write a short paragraph describing a typical day in your life.)",
+      "speakingPrompt": "تحدّث عن مدينتك: ما الذي يعجبك فيها، وما الذي تودّ تغييره؟ (Talk about your city: what you like about it, and what you'd want to change.)"
+    },
+    {
+      "id": "yael",
+      "language": "Hebrew",
+      "flag": "🇮🇱",
+      "name": "YAEL",
+      "fullName": "Hebrew Proficiency Test (בחינת יע\"ל)",
+      "body": "National Institute for Testing & Evaluation (NITE), Israel",
+      "overview": "YAEL (יע\"ל) is Israel's national Hebrew proficiency exam for non-native speakers, most often required for admission to Israeli universities in place of, or alongside, the Psychometric Entrance Test. It has three multiple-choice sections — sentence completion, restatement, and reading comprehension — plus a written essay, scored on a 50–150 scale rather than the CEFR bands used elsewhere on this page: 120–150 signals readiness for Hebrew-medium academic study, 100–119 suggests some preparatory coursework is needed, and below 100 calls for intensive Hebrew study first. YAEL itself has no formal speaking component — the speaking task below is supplementary practice.",
+      "sections": [
+        {
+          "name": "השלמת משפט (Sentence Completion)",
+          "duration": "~20 minutes",
+          "tips": [
+            "This section tests grammar and vocabulary in context — verb-form (binyan) choice and preposition selection are the most heavily tested areas.",
+            "Hebrew present tense is a participle (beinoni) that agrees in gender and number, not a true person-conjugation — check subject-verb agreement first, before worrying about tense.",
+            "Read the whole sentence before choosing an answer — Hebrew word order is flexible enough that the correct completion sometimes only becomes clear from what follows the blank."
+          ]
+        },
+        {
+          "name": "ניסוח מחדש (Restatement)",
+          "duration": "~20 minutes",
+          "tips": [
+            "You're choosing the option that preserves the original sentence's meaning, not the one that sounds nicest — watch for restatements that quietly flip cause/effect or negation.",
+            "Smichut (construct-state noun pairs, e.g. \"book of the student\") is a common source of restatement traps — practice recognizing the same idea in both its compact and expanded forms.",
+            "Modern Hebrew text is normally printed without nikkud (vowel marks) — practice reading unvocalized Hebrew so an ambiguous root doesn't slow you down mid-exam."
+          ]
+        },
+        {
+          "name": "הבנת הנקרא (Reading Comprehension)",
+          "duration": "~20 minutes",
+          "tips": [
+            "Skim the passage for its overall argument first — many questions test the writer's stance or main idea, not just isolated details.",
+            "Hebrew's root-and-pattern (binyanim) system means an unfamiliar word can often be partly decoded from a root you already know — don't skip a word just because you haven't seen that exact form before.",
+            "You'll typically see each passage once with no separate review pass built into the timing — practice reading Hebrew at exam pace, not just for comprehension."
+          ]
+        },
+        {
+          "name": "החיבור (Essay Writing)",
+          "duration": "~15 minutes",
+          "tips": [
+            "The essay is graded on organization and grammatical accuracy, not length — a shorter, well-structured response scores better than a long, disorganized one.",
+            "Hebrew has no present-tense verb \"to be\" — don't force an English-style linking verb into your sentences; placing the two words next to each other is correct and expected.",
+            "Check gender agreement across the whole sentence (noun, adjective, and verb form) — mismatched gender is one of the most common point deductions."
+          ]
+        }
+      ],
+      "practice": [
+        {
+          "section": "Grammar",
+          "type": "mc",
+          "q": "בחרו את המילה הנכונה: \"אני ___ לבית הספר כל יום.\" (I ___ to school every day — choose \"go/walk\")",
+          "options": ["הולך", "הלכתי", "אלך"],
+          "answer": "הולך",
+          "explanation": "הולך is the present-tense (beinoni) form for a masculine singular subject, matching the habitual \"every day\" context — הלכתי is past tense and אלך is future tense."
+        },
+        {
+          "section": "Grammar",
+          "type": "fill",
+          "q": "Complete with the correct definite article: \"___ ספר\" (the book) — attach ה directly to the front of ספר with no space.",
+          "answer": "הספר",
+          "explanation": "Hebrew's definite article is just the letter ה attached directly to the front of the noun — הספר means \"the book.\""
+        },
+        {
+          "section": "Vocabulary",
+          "type": "mc",
+          "q": "Which word means \"house\" in Hebrew?",
+          "options": ["בית", "ספר", "עיר"],
+          "answer": "בית",
+          "explanation": "בית (bayit) means \"house.\" ספר means \"book\" and עיר means \"city.\""
+        },
+        {
+          "section": "Reading",
+          "type": "mc",
+          "q": "Since modern Hebrew is normally printed without nikkud (vowel marks), correctly reading an ambiguous word in a YAEL passage mainly depends on:",
+          "options": [
+            "memorizing every possible vowel pattern in advance",
+            "context and recognizing the word's root"
+          ],
+          "answer": "context and recognizing the word's root",
+          "explanation": "Proficient readers infer vowels from context and familiarity with a word's 3-letter root — exactly the skill the Reading Comprehension section is testing."
+        },
+        {
+          "section": "Restatement",
+          "type": "mc",
+          "q": "A Restatement question is most likely testing your ability to recognize:",
+          "options": [
+            "a sentence that preserves the original meaning through different structure",
+            "spelling accuracy only"
+          ],
+          "answer": "a sentence that preserves the original meaning through different structure",
+          "explanation": "Restatement questions check whether you can spot when a reworded sentence keeps the same meaning as the original — including trickier cases like flipped negation or cause/effect."
+        },
+        {
+          "section": "Writing",
+          "type": "mc",
+          "q": "To say \"the book is new\" in Hebrew, you should:",
+          "options": [
+            "place הספר and חדש next to each other with no linking verb",
+            "insert a Hebrew equivalent of \"is\" between them"
+          ],
+          "answer": "place הספר and חדש next to each other with no linking verb",
+          "explanation": "Hebrew present-tense sentences typically omit any equivalent of \"is/are\" — the two words are simply placed next to each other."
+        }
+      ],
+      "writingPrompt": "כתבו פסקה קצרה המתארת יום רגיל בחייכם. (Write a short paragraph describing a typical day in your life.)",
+      "speakingPrompt": "ספרו על העיר שלכם: מה אתם אוהבים בה, ומה הייתם רוצים לשנות? (Talk about your city: what you like about it, and what you'd want to change.)"
     }
   ]
 }
