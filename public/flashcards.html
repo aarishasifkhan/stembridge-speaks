@@ -102,11 +102,37 @@
         padding: 40px 6vw 80px;
       }
 
+      .source-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 24px;
+      }
+      .source-btn {
+        flex: 1;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1.5px solid rgba(27, 67, 50, 0.2);
+        background: var(--sage);
+        color: var(--forest-dark);
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 14px;
+        font-family: "Work Sans", sans-serif;
+      }
+      .source-btn.active {
+        background: var(--forest);
+        color: var(--cream);
+        border-color: var(--forest);
+      }
+
       .setup-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 14px;
-        margin-top: 24px;
+        margin-top: 16px;
+      }
+      .setup-grid.hidden {
+        display: none;
       }
       .setup-field {
         grid-column: span 1;
@@ -389,7 +415,7 @@
         }
       }
     </style>
-        <script src="/js/read-aloud.js"></script>
+    <script src="/js/read-aloud.js"></script>
   </head>
   <body>
     <header>
@@ -416,7 +442,16 @@
           language and difficulty, and we'll shuffle a deck for you.
         </p>
 
-        <div class="setup-grid">
+        <div class="source-row">
+          <button class="source-btn active" data-source="grammar">
+            🎓 Grammar Lessons
+          </button>
+          <button class="source-btn" data-source="assessment">
+            📝 Assessment Prep
+          </button>
+        </div>
+
+        <div class="setup-grid" id="grammarFields">
           <div class="setup-field">
             <label for="langSelect">Language</label>
             <select id="langSelect">
@@ -441,6 +476,15 @@
               <button class="diff-btn" data-diff="medium">🟡 Medium</button>
               <button class="diff-btn" data-diff="hard">🔴 Hard</button>
             </div>
+          </div>
+        </div>
+
+        <div class="setup-grid hidden" id="assessmentFields">
+          <div class="setup-field full">
+            <label for="examSelect">Exam</label>
+            <select id="examSelect">
+              <option value="">Loading exams...</option>
+            </select>
           </div>
         </div>
 
