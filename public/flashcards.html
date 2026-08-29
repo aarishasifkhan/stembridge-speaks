@@ -319,6 +319,13 @@
         opacity: 0.6;
         margin-top: 16px;
       }
+      .mc-options {
+        margin-top: 14px;
+        font-size: 14px;
+        font-family: "Work Sans", sans-serif;
+        line-height: 1.7;
+        opacity: 0.85;
+      }
 
       .rate-row {
         display: flex;
@@ -438,8 +445,9 @@
       <div id="view-setup">
         <h1>Flashcards</h1>
         <p>
-          Quick review sessions built directly from our grammar lessons. Pick a
-          language and difficulty, and we'll shuffle a deck for you.
+          Quick review sessions built from our grammar lessons or our assessment
+          prep content. Pick a source, then a language or exam, and we'll
+          shuffle a deck for you.
         </p>
 
         <div class="source-row">
@@ -569,10 +577,55 @@
       let deckIndex = 0;
       let score = 0;
       let selectedDifficulty = "easy";
+      let currentSource = "grammar";
+      let examsData = [];
 
       const langSelect = document.getElementById("langSelect");
       const lessonSelect = document.getElementById("lessonSelect");
+      const examSelect = document.getElementById("examSelect");
       const startBtn = document.getElementById("startBtn");
+
+      function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      document.querySelectorAll(".source-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".source-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentSource = btn.dataset.source;
+          document
+            .getElementById("grammarFields")
+            .classList.toggle("hidden", currentSource !== "grammar");
+          document
+            .getElementById("assessmentFields")
+            .classList.toggle("hidden", currentSource !== "assessment");
+
+          if (currentSource === "assessment" && examsData.length === 0) {
+            loadExams();
+          } else {
+            updateDeckPreview();
+          }
+        });
+      });
+
+      async function loadExams() {
+        const res = await fetch("/data/assessments.json");
+        const data = await res.json();
+        examsData = data.exams;
+        examSelect.innerHTML =
+          `<option value="all">All exams</option>` +
+          examsData
+            .map((e) => `<option value="${e.id}">${e.flag} ${e.name}</option>`)
+            .join("");
+        updateDeckPreview();
+      }
+
+      examSelect.addEventListener("change", updateDeckPreview);
 
       document.querySelectorAll(".diff-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -609,6 +662,44 @@
       lessonSelect.addEventListener("change", updateDeckPreview);
 
       function buildDeck() {
+        return currentSource === "assessment"
+          ? buildAssessmentDeck()
+          : buildGrammarDeck();
+      }
+
+      function buildAssessmentDeck() {
+        const examFilter = examSelect.value;
+        const relevantExams = examsData.filter((e) =>
+          examFilter === "all" ? true : e.id === examFilter,
+        );
+
+        let cards = [];
+        relevantExams.forEach((exam) => {
+          const isRTL =
+            exam.language === "Hebrew" || exam.language === "Arabic";
+          exam.practice.forEach((q) => {
+            cards.push({
+              type: "assessment",
+              qType: q.type,
+              options: q.type === "mc" ? q.options : null,
+              front: q.q,
+              back: q.answer,
+              sub: q.explanation,
+              lesson: `${exam.flag} ${exam.name} · ${q.section}`,
+              rtl: isRTL,
+            });
+          });
+        });
+
+        // Shuffle
+        for (let i = cards.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [cards[i], cards[j]] = [cards[j], cards[i]];
+        }
+        return cards;
+      }
+
+      function buildGrammarDeck() {
         const lessonFilter = lessonSelect.value;
         const relevantUnits = courseUnits.filter((u, i) => {
           if (lessonFilter !== "all") return u.id === lessonFilter;
@@ -661,7 +752,8 @@
       }
 
       function updateDeckPreview() {
-        if (!courseUnits.length) return;
+        if (currentSource === "grammar" && !courseUnits.length) return;
+        if (currentSource === "assessment" && !examsData.length) return;
         const preview = buildDeck();
         const note = document.getElementById("deckSizeNote");
         note.textContent =
@@ -684,14 +776,28 @@
 
       function showCard() {
         const card = deck[deckIndex];
-        const isRTL = rtlLanguages.includes(langSelect.value);
+        const isRTL =
+          card.type === "assessment"
+            ? !!card.rtl
+            : rtlLanguages.includes(langSelect.value);
         const flashcardEl = document.getElementById("flashcard");
         flashcardEl.classList.remove("flipped");
 
         document.getElementById("cardFrontTag").textContent =
-          card.type === "quiz" ? "Question" : "Example";
+          card.type === "assessment"
+            ? "Practice Question"
+            : card.type === "quiz"
+              ? "Question"
+              : "Example";
         const frontText = document.getElementById("cardFrontText");
-        frontText.textContent = card.front;
+        if (card.options && card.options.length) {
+          const letters = ["A", "B", "C", "D", "E"];
+          frontText.innerHTML = `${escapeHtml(card.front)}<div class="mc-options">${card.options
+            .map((o, i) => `${letters[i]}) ${escapeHtml(o)}`)
+            .join("<br>")}</div>`;
+        } else {
+          frontText.textContent = card.front;
+        }
         frontText.setAttribute("dir", isRTL ? "rtl" : "ltr");
 
         const backText = document.getElementById("cardBackText");

@@ -683,6 +683,79 @@ You will receive an audio clip of the candidate's spoken answer. Respond with ON
   }
 });
 
+app.post("/api/speaking-check", requireAuth, async (req, res) => {
+  try {
+    const { audio, targetText, language } = req.body;
+    if (!audio) {
+      return res.status(400).json({ error: "No audio was received." });
+    }
+    if (!targetText || !targetText.trim()) {
+      return res.status(400).json({ error: "Missing target phrase." });
+    }
+
+    const languageName = (languages[language] || languages.german).name;
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-flash-latest",
+      systemInstruction: `You are a pronunciation coach for ${languageName} language learners.
+
+You will receive an audio clip of a learner attempting to say this exact phrase out loud:
+"${targetText}"
+
+Listen carefully and:
+1. Transcribe exactly what the learner actually said, in ${languageName}, using their original words as spoken (not a "corrected" version). If nothing intelligible was said, use an empty string.
+2. Split the TARGET phrase above into its individual words, preserving original order, script, and diacritics. For each word, decide whether the learner pronounced that word correctly — allow for minor, natural accent variation, but mark a word incorrect if it was mispronounced enough to change how it sounds, skipped, or replaced with a different word.
+3. Compute an overall accuracy percentage (0-100) for the attempt as a whole — weigh correct words, but also completeness, word order, and fluency, not just a raw word-match ratio.
+
+Respond with ONLY a JSON object, no other text and no markdown formatting, in this exact format:
+{
+  "transcription": "what the learner actually said",
+  "accuracy": 82,
+  "wordResults": [
+    { "word": "each word from the target phrase, in order", "correct": true }
+  ]
+}
+
+The "wordResults" array must have exactly one entry per word in the target phrase, in the same order, using each word's exact original text.`,
+    });
+
+    const result = await model.generateContent([
+      { inlineData: { mimeType: "audio/webm", data: audio } },
+      {
+        text: "Listen to this audio and evaluate the learner's pronunciation according to your instructions.",
+      },
+    ]);
+
+    const cleaned = result.response
+      .text()
+      .replace(/```json|```/g, "")
+      .trim();
+    const parsed = JSON.parse(cleaned);
+
+    const accuracy = Math.max(
+      0,
+      Math.min(100, Math.round(Number(parsed.accuracy) || 0)),
+    );
+    const wordResults = Array.isArray(parsed.wordResults)
+      ? parsed.wordResults.map((w) => ({
+          word: String((w && w.word) || ""),
+          correct: !!(w && w.correct),
+        }))
+      : [];
+
+    res.json({
+      transcription: (parsed.transcription || "").trim(),
+      accuracy,
+      wordResults,
+    });
+  } catch (err) {
+    console.error("Speaking check error:", err);
+    res.status(500).json({
+      error: "Could not check your pronunciation right now. Please try again.",
+    });
+  }
+});
+
 app.post("/api/writing/review", requireAuth, async (req, res) => {
   try {
     const { text, language, level } = req.body;
@@ -702,11 +775,9 @@ app.post("/api/writing/review", requireAuth, async (req, res) => {
     res.json(parsed);
   } catch (err) {
     console.error(err);
-    res
-      .status(500)
-      .json({
-        error: "Could not review your writing right now. Please try again.",
-      });
+    res.status(500).json({
+      error: "Could not review your writing right now. Please try again.",
+    });
   }
 });
 
