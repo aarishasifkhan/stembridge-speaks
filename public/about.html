@@ -7,13 +7,242 @@
     <meta name="google" content="notranslate" />
     <meta
       name="description"
-      content="Why STEMBridge Speaks exists, who built it, and what it's trying to fix in language learning."
+      content="Why STEMBridge Speaks exists, who built it, how the corrections actually work, and what's still rough around the edges."
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Work Sans", sans-serif;
+        background: var(--cream);
+        color: var(--ink);
+        margin: 0;
+      }
+      body.nav-lock {
+        overflow: hidden;
+      }
+
+      /* ---------- Header / Nav ---------- */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 6vw;
+        position: sticky;
+        top: 0;
+        background: var(--cream);
+        z-index: 200;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--forest);
+        text-decoration: none;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 2px;
+      }
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+      nav a:not(.btn) {
+        padding: 8px 10px;
+      }
+      nav a.btn {
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-weight: 600;
+        margin-left: 8px;
+      }
+
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        flex-shrink: 0;
+        z-index: 210;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: var(--forest-dark);
+        transition:
+          transform 0.25s ease,
+          opacity 0.25s ease;
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .nav-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 48, 31, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 190;
+      }
+      .nav-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      @media (max-width: 1240px) and (min-width: 1051px) {
+        nav a:not(.btn) {
+          padding: 8px 7px;
+          font-size: 13.5px;
+        }
+      }
+
+      @media (max-width: 1050px) {
+        .nav-toggle {
+          display: flex;
+        }
+        nav {
+          position: fixed;
+          top: 0;
+          right: 0;
+          height: 100vh;
+          width: min(320px, 82vw);
+          background: var(--forest-dark);
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding: 96px 28px 32px;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          box-shadow: -12px 0 32px rgba(18, 48, 31, 0.28);
+          overflow-y: auto;
+        }
+        nav.open {
+          transform: translateX(0);
+        }
+        nav a:not(.btn) {
+          color: var(--cream);
+          font-size: 16.5px;
+          padding: 14px 2px;
+          border-bottom: 1px solid rgba(251, 247, 238, 0.1);
+        }
+        nav a.btn {
+          margin: 20px 0 0;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header {
+          padding: 16px 5vw;
+        }
+        .logo {
+          font-size: 18px;
+        }
+        nav {
+          width: 88vw;
+          padding: 88px 24px 28px;
+        }
+      }
+
+      /* ---------- Article ---------- */
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 56px 6vw 80px;
+      }
+      h1 {
+        font-family: "Fraunces", serif;
+        color: var(--forest-dark);
+        font-size: 32px;
+        margin: 0 0 28px;
+      }
+      h2 {
+        font-family: "Fraunces", serif;
+        color: var(--forest-dark);
+        font-size: 22px;
+        margin: 44px 0 14px;
+      }
+      p {
+        line-height: 1.7;
+        font-size: 16px;
+        color: #3a3f32;
+      }
+      ul.about-list {
+        margin: 0 0 20px;
+        padding-left: 20px;
+        color: #3a3f32;
+        line-height: 1.7;
+        font-size: 16px;
+      }
+      ul.about-list li {
+        margin-bottom: 6px;
+      }
+      .callout {
+        background: var(--sage);
+        border-radius: 10px;
+        padding: 18px 20px;
+        margin: 32px 0;
+        font-size: 15px;
+        color: #2c3226;
+      }
+      .callout strong {
+        color: var(--forest-dark);
+      }
+
+      @media (max-width: 480px) {
+        main {
+          padding: 40px 6vw 64px;
+        }
+        h1 {
+          font-size: 27px;
+        }
+        h2 {
+          font-size: 19px;
+        }
+      }
+
       footer {
         margin-top: 40px;
         padding: 32px 6vw;
@@ -34,68 +263,6 @@
         text-decoration: underline;
         color: var(--forest-dark);
       }
-      :root {
-        --forest: #1b4332;
-        --forest-dark: #12301f;
-        --cream: #fbf7ee;
-        --ink: #22281e;
-      }
-      body {
-        font-family: "Work Sans", sans-serif;
-        background: var(--cream);
-        color: var(--ink);
-        margin: 0;
-      }
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 24px 6vw;
-        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .logo {
-        font-family: "Fraunces", serif;
-        font-weight: 700;
-        font-size: 20px;
-        color: var(--forest);
-        text-decoration: none;
-      }
-      nav {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-        flex-wrap: wrap;
-      }
-      nav a {
-        color: var(--ink);
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 14px;
-      }
-      nav a.btn {
-        background: var(--forest);
-        color: var(--cream) !important;
-        padding: 8px 16px;
-        border-radius: 6px;
-        font-weight: 600;
-      }
-      main {
-        max-width: 680px;
-        margin: 0 auto;
-        padding: 56px 6vw 80px;
-      }
-      h1 {
-        font-family: "Fraunces", serif;
-        color: var(--forest-dark);
-        font-size: 32px;
-      }
-      p {
-        line-height: 1.7;
-        font-size: 16px;
-        color: #3a3f32;
-      }
     </style>
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -107,7 +274,18 @@
   <body>
     <header>
       <a href="/" class="logo">STEMBridge Speaks</a>
-      <nav>
+
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="siteNav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="siteNav">
         <a href="/">Home</a>
         <a href="/about.html">About</a>
         <a href="/learn.html">Learn Grammar</a>
@@ -122,6 +300,8 @@
         <a href="/practice.html" class="btn">Start practicing</a>
       </nav>
     </header>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+
     <main>
       <h1>About STEMBridge Speaks</h1>
       <p>
@@ -146,6 +326,66 @@
         feedback from real users has directly shaped what's been fixed and
         added.
       </p>
+
+      <h2>How the correction actually works</h2>
+      <p>
+        When you speak, your audio gets transcribed, and the tutor reads it the
+        way a person would — not against a rigid answer key. If what you said
+        was understandable but a little off (wrong case ending, an odd word
+        order, too formal for the scene), it keeps the conversation moving and
+        drops in a short correction underneath, rather than stopping to grade
+        you. That distinction mattered a lot to me: most grammar tools treat
+        every sentence as pass or fail, and that's not how anyone actually
+        learns to talk to people.
+      </p>
+      <p>
+        Each scenario is pinned to a CEFR level from A1 to C2, so the same
+        "ordering coffee" scene plays out differently depending on where you are
+        — A1 gets short, simple sentences and more patience; C2 gets idioms,
+        faster pacing, and corrections on style rather than just grammar.
+      </p>
+
+      <h2>Why it's free, and what that actually costs</h2>
+      <p>
+        STEMBridge Speaks runs on Render, and every conversation you have goes
+        through a paid AI model behind the scenes — so "free" here means I'm
+        covering the API and hosting bills myself, not that the underlying
+        service is free to run. There's no ad network and no data-selling plan
+        bolted on to make up the difference; I'd rather keep the scope small and
+        sustainable than take on funding that changes what this is for. If usage
+        grows to where that stops being realistic, I'll be upfront about it on
+        the blog before anything changes.
+      </p>
+
+      <h2>What's still rough</h2>
+      <p>
+        In the interest of not overselling this: Hebrew's scenario library is
+        noticeably smaller than German's or Spanish's right now, because I built
+        it later and I'm not a native speaker, so I've been slower and more
+        careful with it. Microphone capture is also inconsistent on some older
+        Android browsers — if speech input doesn't pick up cleanly, typing your
+        answer works exactly the same and gets the same correction. And every so
+        often the tutor will over-correct something that was actually fine,
+        usually with very informal or regional phrasing it hasn't seen much of.
+        If that happens to you, the contact page is a real inbox I read.
+      </p>
+
+      <h2>What's next</h2>
+      <ul class="about-list">
+        <li>
+          Expanding the Hebrew and Arabic scenario sets to match the others
+        </li>
+        <li>A proper offline mode for flashcards, for spotty connections</li>
+        <li>French and Japanese, once the current six feel solid</li>
+      </ul>
+
+      <div class="callout">
+        <strong>None of this is set in stone.</strong> The roadmap above is
+        genuinely shaped by what people ask for — if a language or feature isn't
+        listed and you want it, that's useful information for me, not an
+        inconvenience.
+      </div>
+
       <p>
         If you're using it and something's broken, confusing, or missing — I'd
         genuinely like to hear about it. See the
@@ -161,5 +401,38 @@
         <a href="/contact.html">Contact</a>
       </div>
     </footer>
+
+    <script>
+      const navToggle = document.getElementById("navToggle");
+      const siteNav = document.getElementById("siteNav");
+      const navBackdrop = document.getElementById("navBackdrop");
+
+      function openNav() {
+        siteNav.classList.add("open");
+        navBackdrop.classList.add("open");
+        navToggle.setAttribute("aria-expanded", "true");
+        document.body.classList.add("nav-lock");
+      }
+      function closeNav() {
+        siteNav.classList.remove("open");
+        navBackdrop.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("nav-lock");
+      }
+
+      navToggle.addEventListener("click", () => {
+        siteNav.classList.contains("open") ? closeNav() : openNav();
+      });
+      navBackdrop.addEventListener("click", closeNav);
+      siteNav
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", closeNav));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeNav();
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1050) closeNav();
+      });
+    </script>
   </body>
 </html>

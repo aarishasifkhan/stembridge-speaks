@@ -11,13 +11,322 @@
     <meta name="google" content="notranslate" />
     <meta
       name="description"
-      content="Get in touch with the STEMBridge Speaks team."
+      content="Found a bug, have a suggestion, or want to request a language? Here's how to reach the person who actually builds STEMBridge Speaks."
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Work Sans", sans-serif;
+        background: var(--cream);
+        color: var(--ink);
+        margin: 0;
+      }
+      body.nav-lock {
+        overflow: hidden;
+      }
+
+      /* ---------- Header / Nav ---------- */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 6vw;
+        position: sticky;
+        top: 0;
+        background: var(--cream);
+        z-index: 200;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--forest);
+        text-decoration: none;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 2px;
+      }
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+      nav a:not(.btn) {
+        padding: 8px 10px;
+      }
+      nav a.btn {
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-weight: 600;
+        margin-left: 8px;
+      }
+
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        flex-shrink: 0;
+        z-index: 210;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: var(--forest-dark);
+        transition:
+          transform 0.25s ease,
+          opacity 0.25s ease;
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .nav-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 48, 31, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 190;
+      }
+      .nav-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      @media (max-width: 1240px) and (min-width: 1051px) {
+        nav a:not(.btn) {
+          padding: 8px 7px;
+          font-size: 13.5px;
+        }
+      }
+
+      @media (max-width: 1050px) {
+        .nav-toggle {
+          display: flex;
+        }
+        nav {
+          position: fixed;
+          top: 0;
+          right: 0;
+          height: 100vh;
+          width: min(320px, 82vw);
+          background: var(--forest-dark);
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding: 96px 28px 32px;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          box-shadow: -12px 0 32px rgba(18, 48, 31, 0.28);
+          overflow-y: auto;
+        }
+        nav.open {
+          transform: translateX(0);
+        }
+        nav a:not(.btn) {
+          color: var(--cream);
+          font-size: 16.5px;
+          padding: 14px 2px;
+          border-bottom: 1px solid rgba(251, 247, 238, 0.1);
+        }
+        nav a.btn {
+          margin: 20px 0 0;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header {
+          padding: 16px 5vw;
+        }
+        .logo {
+          font-size: 18px;
+        }
+        nav {
+          width: 88vw;
+          padding: 88px 24px 28px;
+        }
+      }
+
+      /* ---------- Content ---------- */
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 56px 6vw 80px;
+      }
+      h1 {
+        font-family: "Fraunces", serif;
+        color: var(--forest-dark);
+        font-size: 30px;
+        margin: 0 0 16px;
+      }
+      h2 {
+        font-family: "Fraunces", serif;
+        color: var(--forest-dark);
+        font-size: 19px;
+        margin: 36px 0 12px;
+      }
+      p {
+        line-height: 1.7;
+        font-size: 16px;
+        color: #3a3f32;
+      }
+
+      .card {
+        background: var(--sage);
+        border-radius: 12px;
+        padding: 24px;
+        margin-top: 24px;
+      }
+      .card p {
+        margin: 0;
+      }
+      .card a {
+        color: var(--forest-dark);
+        font-weight: 600;
+      }
+
+      form.contact-form {
+        margin-top: 24px;
+        display: grid;
+        gap: 16px;
+      }
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+      .field label {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--forest-dark);
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        font-family: inherit;
+        font-size: 15px;
+        padding: 12px 14px;
+        border: 1.5px solid rgba(27, 67, 50, 0.2);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        outline: none;
+        border-color: var(--forest);
+      }
+      .field textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      /* honeypot — hidden from real people, visible to bots that fill every field */
+      .hp-field {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+
+      .submit-btn {
+        justify-self: start;
+        background: var(--forest);
+        color: var(--cream);
+        border: none;
+        padding: 13px 26px;
+        border-radius: 8px;
+        font-family: inherit;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition:
+          background 0.15s ease,
+          transform 0.15s ease;
+      }
+      .submit-btn:hover {
+        background: var(--forest-dark);
+        transform: translateY(-1px);
+      }
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: default;
+        transform: none;
+      }
+
+      .form-status {
+        font-size: 14.5px;
+        padding: 12px 14px;
+        border-radius: 8px;
+        display: none;
+      }
+      .form-status.visible {
+        display: block;
+      }
+      .form-status.success {
+        background: #e3f0e6;
+        color: var(--forest-dark);
+      }
+      .form-status.error {
+        background: #f6e3df;
+        color: var(--brick);
+      }
+
+      @media (max-width: 480px) {
+        main {
+          padding: 40px 6vw 64px;
+        }
+        h1 {
+          font-size: 25px;
+        }
+        .submit-btn {
+          width: 100%;
+        }
+      }
+
       footer {
         margin-top: 40px;
         padding: 32px 6vw;
@@ -38,84 +347,24 @@
         text-decoration: underline;
         color: var(--forest-dark);
       }
-      :root {
-        --forest: #1b4332;
-        --forest-dark: #12301f;
-        --cream: #fbf7ee;
-        --ink: #22281e;
-      }
-      body {
-        font-family: "Work Sans", sans-serif;
-        background: var(--cream);
-        color: var(--ink);
-        margin: 0;
-      }
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 24px 6vw;
-        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .logo {
-        font-family: "Fraunces", serif;
-        font-weight: 700;
-        font-size: 20px;
-        color: var(--forest);
-        text-decoration: none;
-      }
-      nav {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-        flex-wrap: wrap;
-      }
-      nav a {
-        color: var(--ink);
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 14px;
-      }
-      nav a.btn {
-        background: var(--forest);
-        color: var(--cream) !important;
-        padding: 8px 16px;
-        border-radius: 6px;
-        font-weight: 600;
-      }
-      main {
-        max-width: 680px;
-        margin: 0 auto;
-        padding: 56px 6vw 80px;
-      }
-      h1 {
-        font-family: "Fraunces", serif;
-        color: var(--forest-dark);
-        font-size: 30px;
-      }
-      p {
-        line-height: 1.7;
-        font-size: 16px;
-      }
-      .card {
-        background: var(--sage);
-        border-radius: 12px;
-        padding: 24px;
-        margin-top: 24px;
-      }
-      .card a {
-        color: var(--forest-dark);
-        font-weight: 600;
-      }
     </style>
     <script src="/js/read-aloud.js"></script>
   </head>
   <body>
     <header>
       <a href="/" class="logo">STEMBridge Speaks</a>
-      <nav>
+
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="siteNav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="siteNav">
         <a href="/">Home</a>
         <a href="/about.html">About</a>
         <a href="/learn.html">Learn Grammar</a>
@@ -130,18 +379,86 @@
         <a href="/practice.html" class="btn">Start practicing</a>
       </nav>
     </header>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+
     <main>
       <h1>Get in touch</h1>
       <p>
         Found a bug, have a suggestion, or want to share feedback about your
-        experience learning with STEMBridge Speaks? I read every message.
+        experience learning with STEMBridge Speaks? I read every message myself
+        — there's no support team sorting through a queue, just me and an inbox.
       </p>
+
+      <h2>Send a message</h2>
+      <form
+        class="contact-form"
+        id="contactForm"
+        action="https://formspree.io/f/mnpqjdke"
+        method="POST"
+      >
+        <!-- honeypot field: real visitors never see or fill this in -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="companyWebsite">Leave this field empty</label>
+          <input
+            type="text"
+            id="companyWebsite"
+            name="companyWebsite"
+            tabindex="-1"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="field">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            autocomplete="name"
+          />
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            autocomplete="email"
+          />
+        </div>
+
+        <div class="field">
+          <label for="topic">What's this about?</label>
+          <select id="topic" name="topic">
+            <option value="Bug report">Bug report</option>
+            <option value="Feature or language request">
+              Feature or language request
+            </option>
+            <option value="General feedback">General feedback</option>
+            <option value="Something else">Something else</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+
+        <button class="submit-btn" type="submit">Send message</button>
+
+        <div class="form-status" id="formStatus" role="status"></div>
+      </form>
+
       <div class="card">
         <p>
-          📧 Email:
+          Prefer email directly? Write to
           <a href="mailto:thestembridgechannel@gmail.com"
             >thestembridgechannel@gmail.com</a
-          >
+          >. Either way reaches the same inbox — I usually reply within a couple
+          of days.
         </p>
       </div>
     </main>
@@ -154,5 +471,87 @@
         <a href="/contact.html">Contact</a>
       </div>
     </footer>
+
+    <script>
+      // ---------- Nav toggle (hamburger) ----------
+      const navToggle = document.getElementById("navToggle");
+      const siteNav = document.getElementById("siteNav");
+      const navBackdrop = document.getElementById("navBackdrop");
+
+      function openNav() {
+        siteNav.classList.add("open");
+        navBackdrop.classList.add("open");
+        navToggle.setAttribute("aria-expanded", "true");
+        document.body.classList.add("nav-lock");
+      }
+      function closeNav() {
+        siteNav.classList.remove("open");
+        navBackdrop.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("nav-lock");
+      }
+
+      navToggle.addEventListener("click", () => {
+        siteNav.classList.contains("open") ? closeNav() : openNav();
+      });
+      navBackdrop.addEventListener("click", closeNav);
+      siteNav
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", closeNav));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeNav();
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1050) closeNav();
+      });
+
+      // ---------- Contact form (AJAX submit to Formspree) ----------
+      const form = document.getElementById("contactForm");
+      const statusBox = document.getElementById("formStatus");
+      const submitBtn = form.querySelector(".submit-btn");
+
+      function showStatus(message, kind) {
+        statusBox.textContent = message;
+        statusBox.className = "form-status visible " + kind;
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // honeypot check — if a bot filled this hidden field, silently drop it
+        if (form.companyWebsite.value) {
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending…";
+
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { Accept: "application/json" },
+          });
+
+          if (response.ok) {
+            form.reset();
+            showStatus("Sent — thanks, I'll get back to you soon.", "success");
+          } else {
+            showStatus(
+              "That didn't go through. Try again, or email thestembridgechannel@gmail.com directly.",
+              "error",
+            );
+          }
+        } catch (err) {
+          showStatus(
+            "That didn't go through — check your connection, or email thestembridgechannel@gmail.com directly.",
+            "error",
+          );
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Send message";
+        }
+      });
+    </script>
   </body>
 </html>

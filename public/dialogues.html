@@ -104,13 +104,14 @@
         display: none !important;
       }
 
+      /* ---------- HEADER / NAV ---------- */
       header {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 20px 6vw;
         border-bottom: 1px solid rgba(27, 67, 50, 0.1);
-        flex-wrap: wrap;
         gap: 10px;
       }
       .logo {
@@ -119,19 +120,22 @@
         font-size: 19px;
         color: var(--forest);
         text-decoration: none;
+        flex-shrink: 0;
       }
       nav {
         display: flex;
-        gap: 20px;
+        gap: 18px;
         align-items: center;
         flex-wrap: wrap;
+        justify-content: flex-end;
       }
       nav a {
         color: var(--ink);
         text-decoration: none;
         font-weight: 500;
-        font-size: 14px;
+        font-size: 13.5px;
         position: relative;
+        white-space: nowrap;
       }
       nav a:not(.btn)::after {
         content: "";
@@ -167,6 +171,22 @@
         font-size: 14px;
         cursor: pointer;
         font-family: "Work Sans", sans-serif;
+        white-space: nowrap;
+      }
+
+      /* Hamburger button: hidden on wide desktop, shown once the nav can't fit comfortably */
+      .hamburger-btn {
+        display: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: transparent;
+        color: var(--forest-dark);
+        font-size: 19px;
+        line-height: 1;
+        cursor: pointer;
+        flex-shrink: 0;
       }
 
       main {
@@ -251,6 +271,7 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+        min-width: 0;
       }
       .dialogue-card:hover {
         transform: translateY(-3px);
@@ -290,6 +311,7 @@
       .dialogue-card h3 {
         margin: 0;
         font-size: 17px;
+        word-wrap: break-word;
       }
       .dialogue-card .scenario {
         font-size: 12px;
@@ -357,9 +379,14 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        min-width: 0;
       }
       .dialogue-header .icon {
         font-size: 34px;
+        flex-shrink: 0;
+      }
+      .dialogue-header h1 {
+        word-wrap: break-word;
       }
       .dialogue-header p {
         margin: 2px 0 0;
@@ -457,6 +484,7 @@
         display: flex;
         flex-direction: column;
         gap: 4px;
+        min-width: 0;
       }
       .line-row.speaker2 .line-bubble-wrap {
         align-items: flex-end;
@@ -476,6 +504,8 @@
         cursor: pointer;
         transition: background 0.15s ease;
         position: relative;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
       }
       .line-row.speaker2 .line-bubble {
         background: var(--forest-dark);
@@ -533,19 +563,164 @@
         margin: 0 10px;
         color: var(--forest-dark);
       }
+      footer div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 8px;
+      }
 
-      @media (max-width: 600px) {
+      /* ===================================================
+         BREAKPOINT 1 — SMALL DESKTOP / TABLET (≤ 1080px)
+         This page has 6 nav links + Practice free + Settings +
+         Log Out, which doesn't fit comfortably in one row even
+         on laptop screens — collapse behind a hamburger here.
+         =================================================== */
+      @media (max-width: 1080px) {
         header {
           padding: 16px 5vw;
         }
-        nav a:not(.btn) {
+
+        .hamburger-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          background: var(--cream);
+          border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+          box-shadow: 0 8px 16px rgba(18, 48, 31, 0.08);
+          padding: 8px 5vw 16px;
+          z-index: 20;
+          max-height: 75vh;
+          overflow-y: auto;
+        }
+        nav.nav-open {
+          display: flex;
+        }
+        nav a:not(.icon-btn):not(.btn) {
+          display: block;
+          padding: 12px 4px;
+          border-bottom: 1px solid rgba(27, 67, 50, 0.08);
+          font-size: 15px;
+        }
+        nav a:not(.icon-btn):not(.btn)::after {
           display: none;
         }
+        nav a.btn {
+          margin-top: 10px;
+          text-align: center;
+          display: block;
+        }
+        nav .icon-btn {
+          margin-top: 10px;
+          width: 100%;
+          text-align: center;
+          padding: 10px;
+          border: 1px solid rgba(27, 67, 50, 0.2);
+          border-radius: 7px;
+        }
+
         main {
-          padding: 28px 5vw 60px;
+          max-width: 100%;
+          padding: 32px 5vw 60px;
+        }
+      }
+
+      /* ===================================================
+         BREAKPOINT 2 — TABLET / LARGE MOBILE (≤ 700px)
+         Tighten the card grid and dialogue viewer.
+         =================================================== */
+      @media (max-width: 700px) {
+        #cardGrid {
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+        .dialogue-header .icon {
+          font-size: 28px;
+        }
+        .dialogue-header h1 {
+          font-size: 20px !important;
+        }
+        .player-controls {
+          gap: 8px;
         }
         .line-bubble-wrap {
-          max-width: 86%;
+          max-width: 84%;
+        }
+      }
+
+      /* ===================================================
+         BREAKPOINT 3 — MOBILE (≤ 480px)
+         Final tightening for small phones.
+         =================================================== */
+      @media (max-width: 480px) {
+        main {
+          padding: 24px 5vw 56px;
+        }
+
+        .controls {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        #langSelect {
+          width: 100%;
+        }
+        .diff-pills {
+          justify-content: space-between;
+        }
+        .diff-pill {
+          flex: 1;
+          text-align: center;
+          padding: 8px 6px;
+        }
+
+        #cardGrid {
+          grid-template-columns: 1fr;
+        }
+
+        .dialogue-header {
+          gap: 8px;
+        }
+        .dialogue-header .icon {
+          font-size: 24px;
+        }
+        .dialogue-header h1 {
+          font-size: 18px !important;
+        }
+
+        .player-controls {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        #playAllBtn,
+        #speedSelect,
+        #transEyeBtn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .line-bubble-wrap {
+          max-width: 90%;
+        }
+        .line-bubble {
+          font-size: 14px;
+        }
+        .line-bubble[dir="rtl"] {
+          font-size: 16px;
+        }
+        .avatar {
+          width: 28px;
+          height: 28px;
+          font-size: 10.5px;
         }
       }
     </style>
@@ -556,7 +731,16 @@
   <body>
     <header>
       <a href="/" class="logo">STEMBridge Speaks</a>
-      <nav>
+      <button
+        class="hamburger-btn"
+        id="hamburgerBtn"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mainNav"
+      >
+        ☰
+      </button>
+      <nav id="mainNav">
         <a href="/practice.html">Conversation Practice</a>
         <a href="/learn.html">Learn Grammar</a>
         <a href="/dictionary.html">Dictionary</a>
@@ -694,6 +878,36 @@
       let translationsVisible = true;
       let isPlayingAll = false;
       let playToken = 0; // bumped to cancel an in-flight "play all" run
+
+      // ---------- Hamburger menu ----------
+      const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      function closeNav() {
+        mainNav.classList.remove("nav-open");
+        hamburgerBtn.setAttribute("aria-expanded", "false");
+      }
+      function toggleNav() {
+        const isOpen = mainNav.classList.toggle("nav-open");
+        hamburgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      }
+
+      hamburgerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleNav();
+      });
+
+      mainNav.addEventListener("click", (e) => {
+        if (e.target.tagName === "A") closeNav();
+      });
+      document.addEventListener("click", (e) => {
+        if (!mainNav.contains(e.target) && e.target !== hamburgerBtn) {
+          closeNav();
+        }
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1080) closeNav();
+      });
 
       async function loadDialoguesFor(langKey) {
         if (dialoguesCache[langKey]) return dialoguesCache[langKey];

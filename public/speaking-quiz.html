@@ -52,13 +52,15 @@
         font-weight: 600;
         color: var(--forest-dark);
       }
+
+      /* ---------- HEADER / NAV ---------- */
       header {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 20px 6vw;
         border-bottom: 1px solid rgba(27, 67, 50, 0.1);
-        flex-wrap: wrap;
         gap: 10px;
       }
       .logo {
@@ -67,6 +69,7 @@
         font-size: 19px;
         color: var(--forest);
         text-decoration: none;
+        flex-shrink: 0;
       }
       nav {
         display: flex;
@@ -97,6 +100,22 @@
         cursor: pointer;
         font-weight: 500;
       }
+
+      /* Hamburger button: hidden on desktop/tablet, shown on mobile */
+      .hamburger-btn {
+        display: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: transparent;
+        color: var(--forest-dark);
+        font-size: 19px;
+        line-height: 1;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+
       main {
         max-width: 640px;
         margin: 0 auto;
@@ -191,6 +210,8 @@
         font-weight: 600;
         color: var(--forest-dark);
         margin-bottom: 8px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
       }
       .prompt-text[dir="rtl"] {
         font-size: 28px;
@@ -295,6 +316,8 @@
         line-height: 1.8;
         text-align: center;
         border: 1px solid rgba(27, 67, 50, 0.12);
+        word-wrap: break-word;
+        overflow-wrap: break-word;
       }
       .word-diff[dir="rtl"] {
         font-size: 22px;
@@ -353,12 +376,118 @@
         display: none;
       }
 
-      @media (max-width: 500px) {
+      footer div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 8px;
+      }
+
+      /* ===================================================
+         BREAKPOINT 1 — TABLET (≤ 900px)
+         Tighten spacing so content isn't lost in whitespace.
+         =================================================== */
+      @media (max-width: 900px) {
+        main {
+          max-width: 100%;
+          padding: 32px 5vw 60px;
+        }
+        header {
+          padding: 16px 5vw;
+        }
+        nav {
+          gap: 14px;
+        }
+      }
+
+      /* ===================================================
+         BREAKPOINT 2 — LARGE MOBILE / SMALL TABLET (≤ 600px)
+         Shrink the prompt text, tighten the language grid,
+         stack the result actions.
+         =================================================== */
+      @media (max-width: 600px) {
         .prompt-text {
           font-size: 20px;
         }
         .prompt-text[dir="rtl"] {
           font-size: 24px;
+        }
+        .prompt-card {
+          padding: 22px 16px;
+        }
+        .lang-grid {
+          grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        }
+        .word-diff {
+          font-size: 16px;
+        }
+        .word-diff[dir="rtl"] {
+          font-size: 19px;
+        }
+      }
+
+      /* ===================================================
+         BREAKPOINT 3 — MOBILE (≤ 480px)
+         Collapse the nav behind a hamburger menu.
+         =================================================== */
+      @media (max-width: 480px) {
+        header {
+          padding: 14px 5vw;
+        }
+
+        .hamburger-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          background: var(--cream);
+          border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+          box-shadow: 0 8px 16px rgba(18, 48, 31, 0.08);
+          padding: 8px 5vw 16px;
+          z-index: 20;
+        }
+        nav.nav-open {
+          display: flex;
+        }
+        nav a:not(.icon-btn):not(.btn) {
+          display: block;
+          padding: 12px 4px;
+          border-bottom: 1px solid rgba(27, 67, 50, 0.08);
+          font-size: 15px;
+        }
+        nav a.btn {
+          margin-top: 10px;
+          text-align: center;
+          display: block;
+        }
+        nav .icon-btn {
+          margin-top: 10px;
+          width: 100%;
+          text-align: center;
+        }
+
+        main {
+          padding: 24px 5vw 56px;
+        }
+
+        #recordBtn {
+          width: 72px;
+          height: 72px;
+          font-size: 26px;
+        }
+
+        .result-actions {
+          flex-direction: column;
         }
       }
     </style>
@@ -368,7 +497,16 @@
   <body>
     <header>
       <a href="/" class="logo">STEMBridge Speaks</a>
-      <nav>
+      <button
+        class="hamburger-btn"
+        id="hamburgerBtn"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mainNav"
+      >
+        ☰
+      </button>
+      <nav id="mainNav">
         <a href="/practice.html">Conversation Practice</a>
         <a href="/learn.html">Learn Grammar</a>
         <a href="/dictionary.html">Dictionary</a>
@@ -506,6 +644,36 @@
         });
       }
       renderLangGrid();
+
+      // ---------- Hamburger menu ----------
+      const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      function closeNav() {
+        mainNav.classList.remove("nav-open");
+        hamburgerBtn.setAttribute("aria-expanded", "false");
+      }
+      function toggleNav() {
+        const isOpen = mainNav.classList.toggle("nav-open");
+        hamburgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      }
+
+      hamburgerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleNav();
+      });
+
+      mainNav.addEventListener("click", (e) => {
+        if (e.target.tagName === "A") closeNav();
+      });
+      document.addEventListener("click", (e) => {
+        if (!mainNav.contains(e.target) && e.target !== hamburgerBtn) {
+          closeNav();
+        }
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 480) closeNav();
+      });
 
       // ---------- Build the phrase pool from existing course + dialogue data ----------
 

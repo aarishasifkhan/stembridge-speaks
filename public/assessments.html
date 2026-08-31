@@ -44,6 +44,9 @@
         font-family: "Work Sans", sans-serif;
         line-height: 1.55;
       }
+      body.nav-lock {
+        overflow: hidden;
+      }
       h1,
       h2,
       h3 {
@@ -51,14 +54,19 @@
         font-weight: 600;
         color: var(--forest-dark);
       }
+
+      /* ---------- Header / Nav ---------- */
       header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 16px;
         padding: 20px 6vw;
+        position: sticky;
+        top: 0;
+        background: var(--cream);
+        z-index: 200;
         border-bottom: 1px solid rgba(27, 67, 50, 0.1);
-        flex-wrap: wrap;
-        gap: 10px;
       }
       .logo {
         font-family: "Fraunces", serif;
@@ -66,25 +74,128 @@
         font-size: 19px;
         color: var(--forest);
         text-decoration: none;
+        white-space: nowrap;
+        flex-shrink: 0;
       }
       nav {
         display: flex;
-        gap: 18px;
+        gap: 6px;
         align-items: center;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
       }
       nav a {
         color: var(--ink);
         text-decoration: none;
         font-weight: 500;
         font-size: 14px;
+        white-space: nowrap;
+      }
+      nav a:not(.btn) {
+        padding: 8px 9px;
       }
       nav a.btn {
         background: var(--forest);
         color: var(--cream) !important;
-        padding: 8px 16px;
+        padding: 10px 18px;
         border-radius: 6px;
         font-weight: 600;
+        margin-left: 8px;
+      }
+
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        flex-shrink: 0;
+        z-index: 210;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: var(--forest-dark);
+        transition:
+          transform 0.25s ease,
+          opacity 0.25s ease;
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .nav-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 48, 31, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 190;
+      }
+      .nav-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      @media (max-width: 900px) {
+        .nav-toggle {
+          display: flex;
+        }
+        nav {
+          position: fixed;
+          top: 0;
+          right: 0;
+          height: 100vh;
+          width: min(300px, 82vw);
+          background: var(--forest-dark);
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding: 96px 28px 32px;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          box-shadow: -12px 0 32px rgba(18, 48, 31, 0.28);
+          overflow-y: auto;
+        }
+        nav.open {
+          transform: translateX(0);
+        }
+        nav a:not(.btn) {
+          color: var(--cream);
+          font-size: 16.5px;
+          padding: 14px 2px;
+          border-bottom: 1px solid rgba(251, 247, 238, 0.1);
+        }
+        nav a.btn {
+          margin: 20px 0 0;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header {
+          padding: 16px 5vw;
+        }
+        .logo {
+          font-size: 17px;
+        }
+        nav {
+          width: 88vw;
+          padding: 88px 24px 28px;
+        }
       }
 
       main {
@@ -350,14 +461,32 @@
       }
 
       @media (max-width: 600px) {
-        header {
-          padding: 16px 5vw;
-        }
-        nav a:not(.btn) {
-          display: none;
-        }
         main {
           padding: 28px 5vw 60px;
+        }
+        h1 {
+          font-size: 24px;
+        }
+        .exam-header {
+          padding: 20px;
+        }
+        .exam-header h1 {
+          font-size: 21px;
+        }
+        .tabs {
+          gap: 8px;
+        }
+        .tab-btn {
+          flex: 1;
+          text-align: center;
+          padding: 9px 10px;
+          font-size: 12.5px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .exam-grid {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -366,7 +495,18 @@
   <body>
     <header>
       <a href="/" class="logo">STEMBridge Speaks</a>
-      <nav>
+
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="siteNav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="siteNav">
         <a href="/learn.html">Learn Grammar</a>
         <a href="/interview.html">Interview Prep</a>
         <a href="/speaking-quiz.html">Speaking Quiz</a>
@@ -376,6 +516,7 @@
         <a href="/practice.html" class="btn">Practice free</a>
       </nav>
     </header>
+    <div class="nav-backdrop" id="navBackdrop"></div>
 
     <main>
       <div id="view-hub">
@@ -578,6 +719,37 @@
       }
 
       loadExams();
+
+      // ---------- Nav toggle (hamburger) ----------
+      const navToggle = document.getElementById("navToggle");
+      const siteNav = document.getElementById("siteNav");
+      const navBackdrop = document.getElementById("navBackdrop");
+
+      function openNav() {
+        siteNav.classList.add("open");
+        navBackdrop.classList.add("open");
+        navToggle.setAttribute("aria-expanded", "true");
+        document.body.classList.add("nav-lock");
+      }
+      function closeNav() {
+        siteNav.classList.remove("open");
+        navBackdrop.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("nav-lock");
+      }
+      navToggle.addEventListener("click", () => {
+        siteNav.classList.contains("open") ? closeNav() : openNav();
+      });
+      navBackdrop.addEventListener("click", closeNav);
+      siteNav
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", closeNav));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeNav();
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 900) closeNav();
+      });
     </script>
   </body>
 </html>

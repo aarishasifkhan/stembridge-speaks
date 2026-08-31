@@ -112,6 +112,9 @@
         font-family: "Work Sans", sans-serif;
         line-height: 1.5;
       }
+      body.nav-lock {
+        overflow: hidden;
+      }
       h1,
       h2,
       .display {
@@ -138,15 +141,17 @@
         transform: translateY(0);
       }
 
+      /* ---------- Header / Nav ---------- */
       header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 24px 6vw;
+        gap: 16px;
+        padding: 18px 6vw;
         position: sticky;
         top: 0;
         background: var(--cream);
-        z-index: 10;
+        z-index: 200;
         border-bottom: 1px solid rgba(27, 67, 50, 0.1);
       }
       .logo {
@@ -155,37 +160,51 @@
         font-size: 20px;
         color: var(--forest);
         text-decoration: none;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 2px;
       }
       nav a {
         text-decoration: none;
-        margin-left: 28px;
-        font-size: 15px;
+        font-size: 14.5px;
         font-weight: 500;
         color: var(--ink);
         position: relative;
+        white-space: nowrap;
+      }
+      nav a:not(.btn) {
+        padding: 8px 10px;
       }
       nav a:not(.btn)::after {
         content: "";
         position: absolute;
-        left: 0;
-        bottom: -4px;
+        left: 10px;
+        right: 10px;
+        bottom: 3px;
         width: 0;
         height: 2px;
         background: var(--gold);
         transition: width 0.2s ease;
       }
       nav a:not(.btn):hover::after {
-        width: 100%;
+        width: calc(100% - 20px);
       }
       .btn {
         display: inline-block;
         background: var(--forest);
         color: var(--cream) !important;
-        padding: 12px 22px;
+        padding: 12px 20px;
         border-radius: 6px;
         text-decoration: none;
         font-weight: 600;
-        font-size: 15px;
+        font-size: 14.5px;
+        margin-left: 10px;
         transition:
           transform 0.15s ease,
           background 0.15s ease,
@@ -202,6 +221,118 @@
       }
       .btn-gold:hover {
         background: #d6922e;
+      }
+
+      /* Hamburger button — hidden on desktop */
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        flex-shrink: 0;
+        z-index: 210;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: var(--forest-dark);
+        transition:
+          transform 0.25s ease,
+          opacity 0.25s ease;
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .nav-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 48, 31, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 190;
+      }
+      .nav-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      /* Tablet: tighten spacing before switching to the hamburger */
+      @media (max-width: 1180px) and (min-width: 981px) {
+        nav a:not(.btn) {
+          padding: 8px 7px;
+          font-size: 13.5px;
+        }
+        .btn {
+          padding: 11px 16px;
+        }
+      }
+
+      /* Tablet + mobile: collapse into an off-canvas menu */
+      @media (max-width: 980px) {
+        .nav-toggle {
+          display: flex;
+        }
+        nav {
+          position: fixed;
+          top: 0;
+          right: 0;
+          height: 100vh;
+          width: min(320px, 82vw);
+          background: var(--forest-dark);
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding: 96px 28px 32px;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          box-shadow: -12px 0 32px rgba(18, 48, 31, 0.28);
+          overflow-y: auto;
+        }
+        nav.open {
+          transform: translateX(0);
+        }
+        nav a:not(.btn) {
+          color: var(--cream);
+          font-size: 16.5px;
+          padding: 14px 2px;
+          border-bottom: 1px solid rgba(251, 247, 238, 0.1);
+        }
+        nav a:not(.btn)::after {
+          display: none;
+        }
+        nav .btn {
+          margin: 20px 0 0;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header {
+          padding: 16px 5vw;
+        }
+        .logo {
+          font-size: 18px;
+        }
+        nav {
+          width: 88vw;
+          padding: 88px 24px 28px;
+        }
       }
 
       .hero {
@@ -505,9 +636,6 @@
         .steps {
           grid-template-columns: 1fr;
         }
-        nav a:not(.btn) {
-          display: none;
-        }
       }
     </style>
     <script src="/js/read-aloud.js"></script>
@@ -515,7 +643,18 @@
   <body>
     <header>
       <a href="/" class="logo">STEMBridge Speaks</a>
-      <nav>
+
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="siteNav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="siteNav">
         <a href="/learn.html">Learn Grammar</a>
         <a href="/dictionary.html">Dictionary</a>
         <a href="/assessments.html">Assessment Prep</a>
@@ -528,6 +667,7 @@
         <a href="/practice.html" class="btn">Start practicing</a>
       </nav>
     </header>
+    <div class="nav-backdrop" id="navBackdrop"></div>
 
     <div class="hero">
       <div class="reveal">
@@ -758,6 +898,38 @@
         item.querySelector("h3").addEventListener("click", () => {
           item.classList.toggle("open");
         });
+      });
+
+      // ---------- Nav toggle (hamburger) ----------
+      const navToggle = document.getElementById("navToggle");
+      const siteNav = document.getElementById("siteNav");
+      const navBackdrop = document.getElementById("navBackdrop");
+
+      function openNav() {
+        siteNav.classList.add("open");
+        navBackdrop.classList.add("open");
+        navToggle.setAttribute("aria-expanded", "true");
+        document.body.classList.add("nav-lock");
+      }
+      function closeNav() {
+        siteNav.classList.remove("open");
+        navBackdrop.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("nav-lock");
+      }
+
+      navToggle.addEventListener("click", () => {
+        siteNav.classList.contains("open") ? closeNav() : openNav();
+      });
+      navBackdrop.addEventListener("click", closeNav);
+      siteNav
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", closeNav));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeNav();
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 980) closeNav();
       });
     </script>
   </body>

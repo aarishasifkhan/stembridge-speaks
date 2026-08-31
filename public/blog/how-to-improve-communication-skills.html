@@ -50,11 +50,15 @@
         background: var(--cream);
         color: var(--ink);
         font-family: "Work Sans", sans-serif;
-        line-height: 1.7;
+        line-height: 1.75;
+        overflow-x: hidden;
       }
       header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
         padding: 20px 6vw;
         border-bottom: 1px solid rgba(27, 67, 50, 0.1);
       }
@@ -70,11 +74,12 @@
         text-decoration: none;
         font-size: 14px;
         font-weight: 500;
+        white-space: nowrap;
       }
       article {
-        max-width: 640px;
+        max-width: 680px;
         margin: 0 auto;
-        padding: 48px 6vw 80px;
+        padding: 56px 6vw 90px;
       }
       .tag {
         font-family: monospace;
@@ -85,49 +90,81 @@
       }
       h1 {
         font-family: "Fraunces", serif;
-        font-size: 32px;
+        font-size: 36px;
+        line-height: 1.25;
         color: var(--forest-dark);
-        margin: 10px 0 14px;
+        margin: 14px 0 18px;
       }
       .meta {
         font-size: 13px;
         color: #6b7062;
-        margin-bottom: 32px;
+        margin-bottom: 40px;
       }
       h2 {
         font-family: "Fraunces", serif;
-        font-size: 22px;
+        font-size: 23px;
+        line-height: 1.35;
         color: var(--forest-dark);
-        margin-top: 36px;
+        margin-top: 52px;
+        margin-bottom: 18px;
       }
       p {
-        font-size: 16px;
+        font-size: 16.5px;
         color: #2c3128;
+        margin: 0 0 22px;
+      }
+      p:last-child {
+        margin-bottom: 0;
+      }
+      strong {
+        color: var(--forest-dark);
       }
       .callout {
         background: var(--sage);
         border-radius: 12px;
-        padding: 20px 24px;
-        margin: 24px 0;
-        font-size: 15px;
+        padding: 26px 28px;
+        margin: 34px 0;
+        font-size: 15.5px;
+        line-height: 1.7;
       }
       .cta {
         background: var(--forest);
         color: var(--cream);
         border-radius: 14px;
-        padding: 32px;
+        padding: 40px 32px;
         text-align: center;
-        margin-top: 48px;
+        margin-top: 60px;
+      }
+      .cta h2 {
+        color: var(--cream);
+        margin-top: 0;
+        margin-bottom: 14px;
+        font-size: 24px;
+      }
+      /* The generic `p` rule above was overriding the inherited cream
+         text color inside the dark CTA box, leaving this paragraph
+         nearly invisible against the forest background. Restore
+         readable contrast explicitly. */
+      .cta p {
+        color: rgba(251, 247, 238, 0.92);
+        font-size: 16px;
+        margin: 0;
+        max-width: 48ch;
+        margin-left: auto;
+        margin-right: auto;
       }
       .cta a {
         display: inline-block;
         background: var(--gold);
         color: var(--forest-dark);
-        padding: 12px 24px;
+        padding: 13px 26px;
         border-radius: 8px;
         text-decoration: none;
         font-weight: 700;
-        margin-top: 12px;
+        margin-top: 22px;
+      }
+      .cta a:hover {
+        background: #d9922f;
       }
       footer {
         padding: 32px 6vw;
@@ -140,8 +177,72 @@
         margin: 0 10px;
         color: var(--forest-dark);
       }
+
+      /* ---------- TABLET (≤ 900px) ---------- */
+      @media (max-width: 900px) {
+        article {
+          max-width: 100%;
+          padding: 48px 6vw 80px;
+        }
+        h1 {
+          font-size: 32px;
+        }
+      }
+
+      /* ---------- MOBILE (≤ 600px) ---------- */
+      @media (max-width: 600px) {
+        header {
+          padding: 16px 5vw;
+        }
+        .logo {
+          font-size: 17px;
+        }
+        article {
+          padding: 40px 5vw 64px;
+        }
+        h1 {
+          font-size: 26px;
+          margin: 12px 0 14px;
+        }
+        .meta {
+          margin-bottom: 30px;
+        }
+        h2 {
+          font-size: 20px;
+          margin-top: 40px;
+          margin-bottom: 14px;
+        }
+        p {
+          font-size: 15.5px;
+          margin-bottom: 18px;
+        }
+        .callout {
+          padding: 20px;
+          margin: 28px 0;
+          font-size: 14.5px;
+        }
+        .cta {
+          padding: 30px 20px;
+          margin-top: 48px;
+        }
+        .cta h2 {
+          font-size: 20px;
+        }
+        .cta a {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .logo {
+          font-size: 15px;
+        }
+        h1 {
+          font-size: 23px;
+        }
+      }
     </style>
-    <script src="/js/read-aloud.js"></script>
+    <script src="/js/read-aloud.js" defer></script>
   </head>
   <body>
     <header>
@@ -252,10 +353,8 @@
       </p>
 
       <div class="cta">
-        <h2 style="color: var(--cream); margin-top: 0">
-          Build real communication skills, not just vocabulary
-        </h2>
-        <p style="margin: 0">
+        <h2>Build real communication skills, not just vocabulary</h2>
+        <p>
           STEMBridge Speaks puts you in real scenarios with live feedback on
           clarity, not just grammar — free.
         </p>

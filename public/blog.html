@@ -34,9 +34,13 @@
         --sage: #e3eae0;
         --ink: #22281e;
         --brick: #8c4a3a;
+        --header-h: 68px;
       }
       * {
         box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
       }
       body {
         margin: 0;
@@ -44,6 +48,7 @@
         color: var(--ink);
         font-family: "Work Sans", sans-serif;
         line-height: 1.55;
+        overflow-x: hidden;
       }
       h1,
       h2,
@@ -52,14 +57,22 @@
         font-weight: 600;
         color: var(--forest-dark);
       }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      /* ---------- HEADER / NAV ---------- */
       header {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 6vw;
+        padding: 16px 6vw;
         border-bottom: 1px solid rgba(27, 67, 50, 0.1);
-        flex-wrap: wrap;
-        gap: 10px;
+        background: var(--cream);
+        min-height: var(--header-h);
+        z-index: 100;
       }
       .logo {
         font-family: "Fraunces", serif;
@@ -67,30 +80,99 @@
         font-size: 19px;
         color: var(--forest);
         text-decoration: none;
+        flex-shrink: 0;
       }
+
       nav {
         display: flex;
-        gap: 20px;
         align-items: center;
-        flex-wrap: wrap;
       }
-      nav a {
+      .nav-links {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        flex-wrap: nowrap;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .nav-links a {
         color: var(--ink);
         text-decoration: none;
         font-weight: 500;
         font-size: 14px;
+        white-space: nowrap;
       }
-      nav a.btn {
+      .nav-links a:hover {
+        color: var(--forest);
+      }
+      .nav-links a.btn {
         background: var(--forest);
         color: var(--cream) !important;
         padding: 8px 16px;
         border-radius: 6px;
         font-weight: 600;
       }
+      .nav-links a.btn:hover {
+        background: var(--forest-dark);
+      }
+
+      /* Hamburger button — hidden on desktop by default */
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: 1px solid rgba(27, 67, 50, 0.2);
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 0;
+        flex-shrink: 0;
+      }
+      .menu-toggle span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: var(--forest-dark);
+        border-radius: 2px;
+        transition:
+          transform 0.25s ease,
+          opacity 0.25s ease;
+      }
+      .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+      }
+      .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* backdrop shown behind the open mobile/tablet menu */
+      .nav-backdrop {
+        display: none;
+        position: fixed;
+        inset: var(--header-h) 0 0 0;
+        background: rgba(18, 48, 31, 0.25);
+        z-index: 90;
+      }
+      .nav-backdrop.open {
+        display: block;
+      }
+
+      /* ---------- MAIN CONTENT ---------- */
       main {
         max-width: 780px;
         margin: 0 auto;
         padding: 48px 6vw 80px;
+      }
+      main > h1 {
+        font-size: 40px;
       }
       main > p.intro {
         color: #4a4f42;
@@ -128,6 +210,7 @@
       .post-card h2 {
         font-size: 21px;
         margin: 8px 0 8px;
+        line-height: 1.3;
       }
       .post-card p {
         font-size: 14.5px;
@@ -151,35 +234,141 @@
         margin: 0 10px;
         color: var(--forest-dark);
       }
+      footer div {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 4px 0;
+      }
+
+      /* =========================================================
+         TABLET breakpoint (≤ 1100px): the full link list no
+         longer fits next to the logo + button, so switch to the
+         hamburger menu here instead of letting the links wrap.
+         ========================================================= */
+      @media (max-width: 1100px) {
+        .menu-toggle {
+          display: flex;
+          order: 3;
+        }
+        .nav-links {
+          position: fixed;
+          top: var(--header-h);
+          right: 0;
+          left: 0;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          background: var(--cream);
+          border-bottom: 1px solid rgba(27, 67, 50, 0.12);
+          box-shadow: 0 12px 24px rgba(27, 67, 50, 0.1);
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease;
+          z-index: 95;
+        }
+        .nav-links.open {
+          max-height: 80vh;
+          overflow-y: auto;
+        }
+        .nav-links a {
+          padding: 14px 6vw;
+          border-bottom: 1px solid rgba(27, 67, 50, 0.06);
+          white-space: normal;
+        }
+        .nav-links a.btn {
+          margin: 14px 6vw;
+          text-align: center;
+          border-radius: 8px;
+        }
+      }
+
+      /* Recalculate header height available to smaller screens so
+         the dropdown always starts right below the header, even
+         though the header wraps to two rows on very small phones. */
+      @media (max-width: 480px) {
+        :root {
+          --header-h: 64px;
+        }
+      }
+
+      /* ---------- TABLET tuning (601px–1100px) ---------- */
+      @media (max-width: 900px) {
+        main {
+          max-width: 100%;
+        }
+        main > h1 {
+          font-size: 34px;
+        }
+      }
+
+      /* ---------- MOBILE (≤ 600px) ---------- */
       @media (max-width: 600px) {
         header {
-          padding: 16px 5vw;
+          padding: 14px 5vw;
         }
-        nav a:not(.btn) {
-          display: none;
+        .logo {
+          font-size: 17px;
         }
         main {
           padding: 32px 5vw 60px;
         }
+        main > h1 {
+          font-size: 28px;
+        }
+        main > p.intro {
+          font-size: 15px;
+        }
+        .post-card {
+          padding: 20px;
+        }
+        .post-card h2 {
+          font-size: 19px;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .logo {
+          font-size: 15px;
+        }
+        .menu-toggle {
+          width: 36px;
+          height: 36px;
+        }
       }
     </style>
-    <script src="/js/read-aloud.js"></script>
+    <script src="/js/read-aloud.js" defer></script>
   </head>
   <body>
     <header>
       <a href="/" class="logo">STEMBridge Speaks</a>
       <nav>
-        <a href="/practice.html">Conversation Practice</a>
-        <a href="/assessments.html">Assessment Prep</a>
-        <a href="/interview.html">Interview Prep</a>
-        <a href="/speaking-quiz.html">Speaking Quiz</a>
-        <a href="/flashcards.html">Flashcards</a>
-        <a href="/dialogues.html">Dialogues</a>
-        <a href="/writing.html">Writing Practice</a>
-        <a href="/learn.html">Learn Grammar</a>
-        <a href="/practice.html" class="btn">Practice free</a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/practice.html">Conversation Practice</a></li>
+          <li><a href="/assessments.html">Assessment Prep</a></li>
+          <li><a href="/interview.html">Interview Prep</a></li>
+          <li><a href="/speaking-quiz.html">Speaking Quiz</a></li>
+          <li><a href="/flashcards.html">Flashcards</a></li>
+          <li><a href="/dialogues.html">Dialogues</a></li>
+          <li><a href="/writing.html">Writing Practice</a></li>
+          <li><a href="/learn.html">Learn Grammar</a></li>
+          <li><a href="/practice.html" class="btn">Practice free</a></li>
+        </ul>
       </nav>
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="navLinks"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </header>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+
     <main>
       <h1>Blog</h1>
       <p class="intro">
@@ -197,7 +386,45 @@
         <a href="/contact.html">Contact</a>
       </div>
     </footer>
+
     <script>
+      // ---------- Mobile / tablet hamburger menu ----------
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+      const navBackdrop = document.getElementById("navBackdrop");
+
+      function closeMenu() {
+        navLinks.classList.remove("open");
+        navBackdrop.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      }
+
+      function openMenu() {
+        navLinks.classList.add("open");
+        navBackdrop.classList.add("open");
+        menuToggle.setAttribute("aria-expanded", "true");
+      }
+
+      menuToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.contains("open");
+        isOpen ? closeMenu() : openMenu();
+      });
+
+      navBackdrop.addEventListener("click", closeMenu);
+
+      // Close the menu after a link is tapped
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+
+      // Close and reset state if the viewport is resized back to desktop
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1100) {
+          closeMenu();
+        }
+      });
+
+      // ---------- Blog post list ----------
       fetch("/data/blog-posts.json")
         .then((res) => res.json())
         .then((data) => {

@@ -49,13 +49,15 @@
         font-weight: 600;
         color: var(--forest-dark);
       }
+
+      /* ---------- HEADER / NAV ---------- */
       header {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 20px 6vw;
         border-bottom: 1px solid rgba(27, 67, 50, 0.1);
-        flex-wrap: wrap;
         gap: 10px;
       }
       .logo {
@@ -64,18 +66,21 @@
         font-size: 19px;
         color: var(--forest);
         text-decoration: none;
+        flex-shrink: 0;
       }
       nav {
         display: flex;
-        gap: 16px;
+        gap: 14px;
         align-items: center;
         flex-wrap: wrap;
+        justify-content: flex-end;
       }
       nav a {
         color: var(--ink);
         text-decoration: none;
         font-weight: 500;
-        font-size: 14px;
+        font-size: 13.5px;
+        white-space: nowrap;
       }
       nav a.btn {
         background: var(--forest);
@@ -94,6 +99,22 @@
         cursor: pointer;
         font-weight: 500;
         text-decoration: none;
+        white-space: nowrap;
+      }
+
+      /* Hamburger button: hidden on wide desktop, shown once the nav can't fit comfortably */
+      .hamburger-btn {
+        display: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: transparent;
+        color: var(--forest-dark);
+        font-size: 19px;
+        line-height: 1;
+        cursor: pointer;
+        flex-shrink: 0;
       }
 
       main {
@@ -224,6 +245,7 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
+        gap: 10px;
       }
       .session-header button {
         background: transparent;
@@ -232,6 +254,7 @@
         font-size: 14px;
         color: var(--forest-dark);
         font-weight: 600;
+        flex-shrink: 0;
       }
       .progress-track {
         flex: 1;
@@ -240,6 +263,7 @@
         border-radius: 6px;
         margin: 0 16px;
         overflow: hidden;
+        min-width: 0;
       }
       .progress-fill {
         height: 100%;
@@ -252,6 +276,7 @@
         font-size: 12px;
         color: var(--brick);
         white-space: nowrap;
+        flex-shrink: 0;
       }
 
       .card-stage {
@@ -282,6 +307,7 @@
         padding: 24px;
         text-align: center;
         box-shadow: 0 10px 30px rgba(18, 48, 31, 0.15);
+        overflow-y: auto;
       }
       .card-front {
         background: var(--forest-dark);
@@ -304,6 +330,9 @@
         font-size: 20px;
         font-family: "IBM Plex Mono", monospace;
         line-height: 1.5;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
       }
       .card-text[dir="rtl"] {
         font-size: 24px;
@@ -325,6 +354,7 @@
         font-family: "Work Sans", sans-serif;
         line-height: 1.7;
         opacity: 0.85;
+        text-align: left;
       }
 
       .rate-row {
@@ -406,19 +436,148 @@
         margin: 0 10px;
         color: var(--forest-dark);
       }
+      footer div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 8px;
+      }
 
-      @media (max-width: 600px) {
+      /* ===================================================
+         BREAKPOINT 1 — SMALL DESKTOP / TABLET (≤ 1080px)
+         This page has 8 nav links + Settings + Log Out, which
+         never fits comfortably in one row even on laptop
+         screens — collapse behind a hamburger from here down.
+         =================================================== */
+      @media (max-width: 1080px) {
         header {
           padding: 16px 5vw;
         }
-        nav a:not(.btn) {
-          display: none;
+
+        .hamburger-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
+
+        nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          background: var(--cream);
+          border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+          box-shadow: 0 8px 16px rgba(18, 48, 31, 0.08);
+          padding: 8px 5vw 16px;
+          z-index: 20;
+          max-height: 75vh;
+          overflow-y: auto;
+        }
+        nav.nav-open {
+          display: flex;
+        }
+        nav a:not(.icon-btn):not(.btn) {
+          display: block;
+          padding: 12px 4px;
+          border-bottom: 1px solid rgba(27, 67, 50, 0.08);
+          font-size: 15px;
+        }
+        nav a.btn {
+          margin-top: 10px;
+          text-align: center;
+          display: block;
+        }
+        nav .icon-btn {
+          margin-top: 10px;
+          width: 100%;
+          text-align: center;
+        }
+
         main {
-          padding: 28px 5vw 60px;
+          max-width: 100%;
+          padding: 32px 5vw 60px;
+        }
+      }
+
+      /* ===================================================
+         BREAKPOINT 2 — TABLET / LARGE MOBILE (≤ 700px)
+         Stack the setup form, shrink the card stage.
+         =================================================== */
+      @media (max-width: 700px) {
+        .setup-grid {
+          grid-template-columns: 1fr;
+        }
+        .setup-field.full {
+          grid-column: span 1;
+        }
+        .source-row {
+          flex-direction: column;
         }
         .card-stage {
-          height: 220px;
+          height: 230px;
+        }
+        .card-text {
+          font-size: 17px;
+        }
+        .card-text[dir="rtl"] {
+          font-size: 20px;
+        }
+        .summary-card {
+          padding: 26px;
+        }
+      }
+
+      /* ===================================================
+         BREAKPOINT 3 — MOBILE (≤ 480px)
+         Final tightening for small phones.
+         =================================================== */
+      @media (max-width: 480px) {
+        main {
+          padding: 24px 5vw 56px;
+        }
+
+        .diff-row {
+          flex-direction: column;
+        }
+
+        .session-header {
+          flex-wrap: wrap;
+        }
+        .progress-track {
+          order: 3;
+          flex-basis: 100%;
+          margin: 8px 0 0;
+        }
+
+        .card-stage {
+          height: 210px;
+        }
+        .card-face {
+          padding: 18px;
+        }
+        .card-text {
+          font-size: 15.5px;
+        }
+        .card-text[dir="rtl"] {
+          font-size: 18px;
+        }
+        .mc-options {
+          font-size: 13px;
+        }
+
+        .rate-row {
+          flex-direction: column;
+        }
+
+        .summary-card .big {
+          font-size: 36px;
+        }
+        .summary-actions {
+          flex-direction: column;
         }
       }
     </style>
@@ -427,7 +586,16 @@
   <body>
     <header>
       <a href="/" class="logo">STEMBridge Speaks</a>
-      <nav>
+      <button
+        class="hamburger-btn"
+        id="hamburgerBtn"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mainNav"
+      >
+        ☰
+      </button>
+      <nav id="mainNav">
         <a href="/learn.html">Learn Grammar</a>
         <a href="/practice.html">Practice</a>
         <a href="/assessments.html">Assessment Prep</a>
@@ -590,6 +758,36 @@
         div.textContent = str;
         return div.innerHTML;
       }
+
+      // ---------- Hamburger menu ----------
+      const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      function closeNav() {
+        mainNav.classList.remove("nav-open");
+        hamburgerBtn.setAttribute("aria-expanded", "false");
+      }
+      function toggleNav() {
+        const isOpen = mainNav.classList.toggle("nav-open");
+        hamburgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      }
+
+      hamburgerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleNav();
+      });
+
+      mainNav.addEventListener("click", (e) => {
+        if (e.target.tagName === "A") closeNav();
+      });
+      document.addEventListener("click", (e) => {
+        if (!mainNav.contains(e.target) && e.target !== hamburgerBtn) {
+          closeNav();
+        }
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1080) closeNav();
+      });
 
       document.querySelectorAll(".source-btn").forEach((btn) => {
         btn.addEventListener("click", () => {

@@ -80,6 +80,7 @@
         background: var(--cream);
         color: var(--ink);
         font-family: "Work Sans", sans-serif;
+        overflow-x: hidden;
       }
       .sr-only {
         position: absolute;
@@ -216,24 +217,6 @@
         opacity: 0.6;
       }
 
-      #sidebar.collapsed {
-        width: 60px;
-      }
-      #sidebar.collapsed .sidebar-top .logo,
-      #sidebar.collapsed #newChatBtn span.label,
-      #sidebar.collapsed #searchInput,
-      #sidebar.collapsed .chat-item .title,
-      #sidebar.collapsed .chat-item .actions,
-      #sidebar.collapsed #sidebarFooter {
-        display: none;
-      }
-      #sidebar.collapsed #newChatBtn {
-        padding: 10px;
-        font-size: 18px;
-      }
-      #sidebar.collapsed #collapseBtn {
-        transform: rotate(180deg);
-      }
       #sidebar {
         transition: width 0.2s ease;
       }
@@ -254,12 +237,24 @@
         font-size: 16px;
       }
 
+      /* Dimming layer behind the mobile/tablet sidebar drawer so the user
+         has a visible, tappable way to close it (previously there was no
+         way to dismiss the drawer other than the tiny toggle button). */
+      .sidebar-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 48, 31, 0.45);
+        z-index: 14;
+      }
+
       #mainArea {
         flex: 1;
         display: flex;
         flex-direction: column;
         height: 100vh;
         overflow: hidden;
+        min-width: 0;
       }
       header {
         display: flex;
@@ -310,6 +305,9 @@
         font-weight: 500;
         white-space: nowrap;
         transition: background 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
       .icon-btn:hover {
         background: rgba(27, 67, 50, 0.08);
@@ -747,46 +745,113 @@
         margin: 0 6px;
       }
 
+      /* Sidebar "collapsed" (icon-rail) mode is a desktop-only affordance —
+         on desktop the sidebar is permanently docked, so collapsing it to
+         free up width makes sense. On tablet/mobile the sidebar is already
+         an off-canvas overlay (see the 900px breakpoint below), so a
+         previously-saved "collapsed" preference from a desktop session must
+         not carry over: without this guard, opening the mobile drawer while
+         collapsed=true from an earlier desktop visit rendered a nearly
+         empty 60px-wide strip, since all of the sidebar's content is
+         display:none in the collapsed state. */
+      @media (min-width: 901px) {
+        #sidebar.collapsed {
+          width: 60px;
+        }
+        #sidebar.collapsed .sidebar-top .logo,
+        #sidebar.collapsed #newChatBtn span.label,
+        #sidebar.collapsed #searchInput,
+        #sidebar.collapsed .chat-item .title,
+        #sidebar.collapsed .chat-item .actions,
+        #sidebar.collapsed #sidebarFooter {
+          display: none;
+        }
+        #sidebar.collapsed #newChatBtn {
+          padding: 10px;
+          font-size: 18px;
+        }
+        #sidebar.collapsed #collapseBtn {
+          transform: rotate(180deg);
+        }
+      }
+
+      /* ---------- "Large tablet / small desktop" (≤ 1200px) ----------
+         With the sidebar docked, a laptop-width window doesn't have room
+         for three selects plus five fully-labelled buttons on one line —
+         it was wrapping into a messy multi-row header. Icons stay, text
+         labels drop (an aria-label keeps each button accessible). */
+      @media (max-width: 1200px) {
+        .current-title {
+          max-width: 160px;
+        }
+        select {
+          max-width: 130px;
+        }
+        .header-right {
+          gap: 6px;
+        }
+        .icon-btn .btn-label {
+          display: none;
+        }
+        .icon-btn {
+          padding: 8px;
+          min-width: 38px;
+        }
+      }
+
+      /* ---------- TABLET (≤ 900px): off-canvas sidebar ---------- */
       @media (max-width: 900px) {
         #chatInner,
         #inputBar {
           max-width: 100%;
         }
-      }
-      @media (max-width: 768px) {
         #sidebarToggle {
           display: block;
+        }
+        #collapseBtn {
+          display: none;
         }
         #sidebar {
           position: fixed;
           left: -320px;
           top: 0;
           z-index: 15;
+          width: 300px;
           transition: left 0.2s ease;
           box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
         }
         #sidebar.open {
           left: 0;
         }
+        .sidebar-backdrop.open {
+          display: block;
+        }
         header {
           padding-left: 56px;
         }
       }
+
+      /* ---------- MOBILE (≤ 600px) ---------- */
       @media (max-width: 600px) {
         header {
           padding: 12px 4vw 12px 56px;
+        }
+        .current-title {
+          max-width: 140px;
         }
         .header-right {
           width: 100%;
           justify-content: flex-start;
         }
         select {
-          max-width: 120px;
+          max-width: 105px;
           font-size: 12px;
+          padding: 6px 8px;
         }
         .icon-btn {
           font-size: 12px;
-          padding: 6px 10px;
+          padding: 7px;
+          min-width: 34px;
         }
         .bubble {
           max-width: 88%;
@@ -808,6 +873,12 @@
           height: 40px;
           font-size: 16px;
         }
+        .onboard-card {
+          padding: 22px;
+        }
+        .onboard-card h2 {
+          font-size: 19px;
+        }
       }
     </style>
     <script src="/js/auth.js"></script>
@@ -819,7 +890,15 @@
       Mandarin, Russian, Arabic, and Hebrew
     </h1>
 
-    <button id="sidebarToggle">☰</button>
+    <button
+      id="sidebarToggle"
+      aria-label="Toggle sidebar"
+      aria-expanded="false"
+      aria-controls="sidebar"
+    >
+      ☰
+    </button>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <div id="sidebar">
       <div class="sidebar-top">
@@ -859,16 +938,46 @@
             <option value="C1">C1 · Advanced</option>
             <option value="C2">C2 · Native-level</option>
           </select>
-          <button class="icon-btn" id="speakTestBtn">🔊 Intro</button>
-          <button class="icon-btn" id="shareBtn">🔗 Share</button>
-          <button class="icon-btn" id="guidedSetupBtn">🧭 Guided Setup</button>
+          <button
+            class="icon-btn"
+            id="speakTestBtn"
+            aria-label="Play intro audio"
+            title="Intro"
+          >
+            🔊<span class="btn-label"> Intro</span>
+          </button>
+          <button
+            class="icon-btn"
+            id="shareBtn"
+            aria-label="Share this chat"
+            title="Share"
+          >
+            🔗<span class="btn-label"> Share</span>
+          </button>
+          <button
+            class="icon-btn"
+            id="guidedSetupBtn"
+            aria-label="Open guided setup"
+            title="Guided Setup"
+          >
+            🧭<span class="btn-label"> Guided Setup</span>
+          </button>
           <a
             href="/settings.html"
             class="icon-btn"
-            style="text-decoration: none; display: inline-block"
-            >⚙️ Settings</a
+            style="text-decoration: none; display: inline-flex"
+            aria-label="Settings"
+            title="Settings"
+            >⚙️<span class="btn-label"> Settings</span></a
           >
-          <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
+          <button
+            class="icon-btn"
+            id="logoutBtn"
+            aria-label="Log out"
+            title="Log Out"
+          >
+            👤<span class="btn-label"> Log Out</span>
+          </button>
         </div>
       </header>
 
@@ -994,6 +1103,7 @@
 
       const sidebar = document.getElementById("sidebar");
       const sidebarToggle = document.getElementById("sidebarToggle");
+      const sidebarBackdrop = document.getElementById("sidebarBackdrop");
       const collapseBtn = document.getElementById("collapseBtn");
       const searchInput = document.getElementById("searchInput");
       const currentChatTitle = document.getElementById("currentChatTitle");
@@ -1008,9 +1118,25 @@
       const micBtn = document.getElementById("micBtn");
       const sendBtn = document.getElementById("sendBtn");
 
-      sidebarToggle.addEventListener("click", () =>
-        sidebar.classList.toggle("open"),
-      );
+      // ---------- Mobile/tablet off-canvas sidebar open/close ----------
+      // Centralized so every place that needs to open or close the drawer
+      // (the toggle button, tapping a chat, starting a new chat, the
+      // backdrop, and Escape) stays in sync — including the backdrop
+      // visibility and the toggle's aria-expanded state.
+      function openSidebar() {
+        sidebar.classList.add("open");
+        sidebarBackdrop.classList.add("open");
+        sidebarToggle.setAttribute("aria-expanded", "true");
+      }
+      function closeSidebar() {
+        sidebar.classList.remove("open");
+        sidebarBackdrop.classList.remove("open");
+        sidebarToggle.setAttribute("aria-expanded", "false");
+      }
+      sidebarToggle.addEventListener("click", () => {
+        sidebar.classList.contains("open") ? closeSidebar() : openSidebar();
+      });
+      sidebarBackdrop.addEventListener("click", closeSidebar);
 
       function applySidebarCollapse() {
         const collapsed =
@@ -1119,7 +1245,7 @@
           });
         }
         loadChatList();
-        if (window.innerWidth <= 768) sidebar.classList.remove("open");
+        closeSidebar();
       }
 
       async function createNewChat() {
@@ -1141,7 +1267,7 @@
         textInput.disabled = false;
         micBtn.disabled = false;
         loadChatList();
-        if (window.innerWidth <= 768) sidebar.classList.remove("open");
+        closeSidebar();
         await startConversationOpener();
       }
 
@@ -1742,6 +1868,10 @@
         const overlay = document.getElementById("onboardOverlay");
         if (overlay && !overlay.classList.contains("hidden")) {
           closeOnboarding();
+          return;
+        }
+        if (sidebar.classList.contains("open")) {
+          closeSidebar();
         }
       });
 

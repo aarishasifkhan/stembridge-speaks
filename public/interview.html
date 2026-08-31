@@ -49,13 +49,15 @@
         font-weight: 600;
         color: var(--forest-dark);
       }
+
+      /* ---------- HEADER / NAV ---------- */
       header {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 20px 6vw;
         border-bottom: 1px solid rgba(27, 67, 50, 0.1);
-        flex-wrap: wrap;
         gap: 10px;
       }
       .logo {
@@ -64,6 +66,7 @@
         font-size: 19px;
         color: var(--forest);
         text-decoration: none;
+        flex-shrink: 0;
       }
       nav {
         display: flex;
@@ -87,6 +90,21 @@
         cursor: pointer;
         font-weight: 500;
         text-decoration: none;
+      }
+
+      /* Hamburger button: hidden on desktop/tablet, shown on mobile */
+      .hamburger-btn {
+        display: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: transparent;
+        color: var(--forest-dark);
+        font-size: 19px;
+        line-height: 1;
+        cursor: pointer;
+        flex-shrink: 0;
       }
 
       main {
@@ -234,6 +252,8 @@
         font-size: 14.5px;
         line-height: 1.5;
         white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
       }
       .bubble.user {
         background: var(--sage);
@@ -293,6 +313,7 @@
       }
       #textInput {
         flex: 1;
+        min-width: 0;
         padding: 12px 16px;
         border-radius: 24px;
         border: 1px solid rgba(27, 67, 50, 0.25);
@@ -303,6 +324,7 @@
       #sendBtn {
         width: 44px;
         height: 44px;
+        flex-shrink: 0;
         border-radius: 50%;
         border: none;
         cursor: pointer;
@@ -344,25 +366,108 @@
         margin: 0 10px;
         color: var(--forest-dark);
       }
+      footer div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 8px;
+      }
 
-      @media (max-width: 600px) {
+      /* ===================================================
+         BREAKPOINT 1 — TABLET (≤ 900px)
+         Tighten spacing, let the nav wrap gracefully.
+         =================================================== */
+      @media (max-width: 900px) {
+        main {
+          max-width: 100%;
+          padding: 32px 5vw 60px;
+        }
         header {
           padding: 16px 5vw;
         }
-        nav a:not(.icon-btn) {
-          display: none;
+        nav {
+          gap: 12px;
         }
-        main {
-          padding: 28px 5vw 60px;
-        }
+      }
+
+      /* ===================================================
+         BREAKPOINT 2 — LARGE MOBILE / SMALL TABLET (≤ 700px)
+         Stack the mode tabs, single-column setup fields.
+         =================================================== */
+      @media (max-width: 700px) {
         .mode-tabs {
           flex-direction: column;
         }
         .setup-grid {
           grid-template-columns: 1fr;
         }
-        .setup-field {
-          grid-column: span 1 !important;
+        .setup-field.full {
+          grid-column: span 1;
+        }
+      }
+
+      /* ===================================================
+         BREAKPOINT 3 — MOBILE (≤ 600px)
+         Collapse the nav behind a hamburger menu.
+         =================================================== */
+      @media (max-width: 600px) {
+        header {
+          padding: 14px 5vw;
+        }
+
+        .hamburger-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          background: var(--cream);
+          border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+          box-shadow: 0 8px 16px rgba(18, 48, 31, 0.08);
+          padding: 8px 5vw 16px;
+          z-index: 20;
+        }
+        nav.nav-open {
+          display: flex;
+        }
+        nav a:not(.icon-btn) {
+          display: block;
+          padding: 12px 4px;
+          border-bottom: 1px solid rgba(27, 67, 50, 0.08);
+          font-size: 15px;
+        }
+        nav .icon-btn {
+          margin-top: 10px;
+          width: 100%;
+          text-align: center;
+        }
+
+        main {
+          padding: 24px 5vw 56px;
+        }
+
+        .bubble {
+          max-width: 90%;
+          font-size: 14px;
+        }
+        .bubble[dir="rtl"] {
+          font-size: 16px;
+        }
+
+        #micBtn,
+        #sendBtn {
+          width: 40px;
+          height: 40px;
+          font-size: 16px;
         }
       }
     </style>
@@ -371,7 +476,16 @@
   <body>
     <header>
       <a href="/" class="logo">STEMBridge Speaks</a>
-      <nav>
+      <button
+        class="hamburger-btn"
+        id="hamburgerBtn"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mainNav"
+      >
+        ☰
+      </button>
+      <nav id="mainNav">
         <a href="/practice.html">Practice</a>
         <a href="/speaking-quiz.html">Speaking Quiz</a>
         <a href="/settings.html" class="icon-btn">⚙️ Settings</a>
@@ -518,6 +632,38 @@
 
       document.getElementById("tipsToggleBtn").addEventListener("click", () => {
         document.getElementById("tipsBox").classList.toggle("show");
+      });
+
+      // ---------- Hamburger menu ----------
+      const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      function closeNav() {
+        mainNav.classList.remove("nav-open");
+        hamburgerBtn.setAttribute("aria-expanded", "false");
+      }
+      function toggleNav() {
+        const isOpen = mainNav.classList.toggle("nav-open");
+        hamburgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      }
+
+      hamburgerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleNav();
+      });
+
+      // Close the mobile nav when a link/button inside it is used,
+      // when clicking outside of it, or on resize back to desktop.
+      mainNav.addEventListener("click", (e) => {
+        if (e.target.tagName === "A") closeNav();
+      });
+      document.addEventListener("click", (e) => {
+        if (!mainNav.contains(e.target) && e.target !== hamburgerBtn) {
+          closeNav();
+        }
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 600) closeNav();
       });
 
       function getConfig() {
