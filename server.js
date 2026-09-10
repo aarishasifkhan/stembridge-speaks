@@ -1,4 +1,6 @@
 require("dotenv").config();
+const { setGlobalDispatcher, Agent } = require("undici");
+setGlobalDispatcher(new Agent({ allowH2: false }));
 const express = require("express");
 const cors = require("cors");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
@@ -99,14 +101,53 @@ const scenarios = {
 };
 
 const languages = {
-  german: { name: "German", ttsLang: "de-DE" },
-  english: { name: "English", ttsLang: "en-US" },
-  spanish: { name: "Spanish", ttsLang: "es-ES" },
-  mandarin: { name: "Mandarin Chinese", ttsLang: "zh-CN" },
-  russian: { name: "Russian", ttsLang: "ru-RU" },
-  arabic: { name: "Arabic", ttsLang: "ar-SA" },
-  hebrew: { name: "Hebrew", ttsLang: "he-IL" },
+  german: { name: "German", ttsLang: "de-DE", dgLang: "de" },
+  english: { name: "English", ttsLang: "en-US", dgLang: "en" },
+  spanish: { name: "Spanish", ttsLang: "es-ES", dgLang: "es" },
+  mandarin: { name: "Mandarin Chinese", ttsLang: "zh-CN", dgLang: "zh-CN" },
+  russian: { name: "Russian", ttsLang: "ru-RU", dgLang: "ru" },
+  arabic: { name: "Arabic", ttsLang: "ar-SA", dgLang: "ar" },
+  hebrew: { name: "Hebrew", ttsLang: "he-IL", dgLang: "he" },
 };
+
+// Transcribes a base64-encoded webm audio clip with Deepgram Nova-3.
+// Calls Deepgram's REST endpoint directly with plain fetch, rather than
+// through @deepgram/sdk's transcribeFile() helper — that helper sets
+// `duplex: "half"` on every request regardless of body type, which
+// conflicts with its own manually-computed Content-Length header when
+// given a Buffer (not a stream). That combination trips a validation
+// bug in Node's undici (confirmed by reading the SDK's own source,
+// node_modules/@deepgram/sdk/dist/cjs/core/fetcher/makeRequest.js).
+// Plain fetch with a Buffer body has no such conflict — Node computes
+// Content-Length correctly on its own.
+async function transcribeAudio(base64Audio, languageKey) {
+  const dgLang = (languages[languageKey] || languages.german).dgLang;
+  const buffer = Buffer.from(base64Audio, "base64");
+  const params = new URLSearchParams({
+    model: "nova-3",
+    language: dgLang,
+    smart_format: "true",
+  });
+  const res = await fetch(
+    `https://api.deepgram.com/v1/listen?${params.toString()}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+        "Content-Type": "audio/webm",
+      },
+      body: buffer,
+    },
+  );
+  if (!res.ok) {
+    const errText = await res.text().catch(() => "");
+    throw new Error(`Deepgram error ${res.status}: ${errText}`);
+  }
+  const data = await res.json();
+  return (
+    data?.results?.channels?.[0]?.alternatives?.[0]?.transcript || ""
+  ).trim();
+}
 
 const levelGuidance = {
   A1: "The user is a complete beginner (CEFR A1). Use only the simplest, most common words and very short sentences (3-6 words). Avoid idioms entirely.",
@@ -275,7 +316,7 @@ Respond with ONLY a JSON object, no other text, no markdown fences, in this exac
 
 async function generateChatTitle(userMessage, replyText, attempt = 1) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
     const result = await model.generateContent(
       `Summarize this exchange into a short 3-5 word conversation title. No punctuation, no quotes, just the title itself.\n\nUser: ${userMessage}\nReply: ${replyText}`,
     );
@@ -297,7 +338,7 @@ async function generateChatTitle(userMessage, replyText, attempt = 1) {
 
 async function lookupWord(word, languageKey) {
   const language = languages[languageKey] || languages.german;
-  const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+  const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
 
   const prompt = `You are a comprehensive multilingual dictionary and thesaurus for ${language.name}. Look up "${word}" — this could be a single letter/alphabet character, a single word, a multi-word phrase, or an idiom. Handle ALL of these categories properly; do not reject something just because it isn't a single standalone word.
 
@@ -438,7 +479,7 @@ app.post("/chat", requireAuth, async (req, res) => {
     if (!chat) return res.status(404).json({ error: "Chat not found." });
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-flash-latest",
+      model: "gemini-3.6-flash",
       systemInstruction: buildSystemInstruction(
         scenario,
         language,
@@ -497,26 +538,28 @@ app.post("/chat-audio", requireAuth, async (req, res) => {
     });
     if (!chat) return res.status(404).json({ error: "Chat not found." });
 
+    const transcription = await transcribeAudio(audio, language);
+
     const model = genAI.getGenerativeModel({
-      model: "gemini-flash-latest",
+      model: "gemini-3.6-flash",
       systemInstruction: buildSystemInstruction(
         scenario,
         language,
-        "audio",
+        "text",
         level,
       ),
     });
 
-    const result = await model.generateContent([
-      { inlineData: { mimeType: "audio/webm", data: audio } },
-      {
-        text: "Listen to this audio and respond according to your instructions.",
-      },
-    ]);
-
-    const rawText = result.response.text();
-    const cleaned = rawText.replace(/```json|```/g, "").trim();
-    const parsed = JSON.parse(cleaned);
+    const geminiHistory = chat.messages.map((m) => ({
+      role: m.role,
+      parts: [{ text: m.text }],
+    }));
+    const chatSession = model.startChat({ history: geminiHistory });
+    const result = await chatSession.sendMessage(
+      transcription || "(the user's audio was inaudible or empty)",
+    );
+    const reply = result.response.text();
+    const parsed = { transcription, reply };
 
     const newMessages = [
       ...chat.messages,
@@ -563,7 +606,7 @@ app.post("/chat/start", requireAuth, async (req, res) => {
     if (!chat) return res.status(404).json({ error: "Chat not found." });
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-flash-latest",
+      model: "gemini-3.6-flash",
       systemInstruction: buildSystemInstruction(
         scenario,
         language,
@@ -604,7 +647,7 @@ app.post("/api/interview/start", requireAuth, async (req, res) => {
   try {
     const { mode, language, level, jobField } = req.body;
     const model = genAI.getGenerativeModel({
-      model: "gemini-flash-latest",
+      model: "gemini-3.6-flash",
       systemInstruction: buildInterviewSystemInstruction(
         mode,
         language,
@@ -626,7 +669,7 @@ app.post("/api/interview/message", requireAuth, async (req, res) => {
   try {
     const { mode, language, level, jobField, message, history } = req.body;
     const model = genAI.getGenerativeModel({
-      model: "gemini-flash-latest",
+      model: "gemini-3.6-flash",
       systemInstruction: buildInterviewSystemInstruction(
         mode,
         language,
@@ -649,30 +692,30 @@ app.post("/api/interview/message", requireAuth, async (req, res) => {
 
 app.post("/api/interview/audio", requireAuth, async (req, res) => {
   try {
-    const { mode, language, level, jobField, audio } = req.body;
-    const model = genAI.getGenerativeModel({
-      model: "gemini-flash-latest",
-      systemInstruction:
-        buildInterviewSystemInstruction(mode, language, level, jobField) +
-        `
+    const { mode, language, level, jobField, audio, history } = req.body;
 
-You will receive an audio clip of the candidate's spoken answer. Respond with ONLY a JSON object, no other text, in this exact format:
-{
-  "transcription": "the exact words the candidate said, in their original language, not translated",
-  "reply": "your response, following all the rules above"
-}`,
+    // "star" mode interviews always run in English, regardless of `language`.
+    const transcriptionLangKey = mode === "star" ? "english" : language;
+    const transcription = await transcribeAudio(audio, transcriptionLangKey);
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.6-flash",
+      systemInstruction: buildInterviewSystemInstruction(
+        mode,
+        language,
+        level,
+        jobField,
+      ),
     });
-    const result = await model.generateContent([
-      { inlineData: { mimeType: "audio/webm", data: audio } },
-      {
-        text: "Listen to this audio and respond according to your instructions.",
-      },
-    ]);
-    const cleaned = result.response
-      .text()
-      .replace(/```json|```/g, "")
-      .trim();
-    res.json(JSON.parse(cleaned));
+    const geminiHistory = (history || []).map((m) => ({
+      role: m.role,
+      parts: [{ text: m.text }],
+    }));
+    const chat = model.startChat({ history: geminiHistory });
+    const result = await chat.sendMessage(
+      transcription || "(the candidate's audio was inaudible or empty)",
+    );
+    res.json({ transcription, reply: result.response.text() });
   } catch (err) {
     console.error(err);
     res.status(500).json({
@@ -696,7 +739,7 @@ app.post("/api/speaking-check", requireAuth, async (req, res) => {
     const languageName = (languages[language] || languages.german).name;
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-flash-latest",
+      model: "gemini-3.6-flash",
       systemInstruction: `You are a pronunciation coach for ${languageName} language learners.
 
 You will receive an audio clip of a learner attempting to say this exact phrase out loud:
@@ -763,7 +806,7 @@ app.post("/api/writing/review", requireAuth, async (req, res) => {
       return res.status(400).json({ error: "Please write something first." });
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-flash-latest",
+      model: "gemini-3.6-flash",
       systemInstruction: buildWritingReviewInstruction(language, level),
     });
     const result = await model.generateContent(text);
@@ -840,7 +883,7 @@ app.post("/api/tutor-help", async (req, res) => {
     }
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-flash-latest",
+      model: "gemini-3.6-flash",
       systemInstruction: buildTutorSystemInstruction(
         language,
         unitTitle,

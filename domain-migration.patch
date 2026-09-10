@@ -1,0 +1,375 @@
+diff --git a/public/assessments.html b/public/assessments.html
+index 9d5a240..1a281c3 100644
+--- a/public/assessments.html
++++ b/public/assessments.html
+@@ -15,7 +15,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/assessments.html"
++      href="https://stembridgespeaks.tech/assessments.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+diff --git a/public/blog.html b/public/blog.html
+index db763d7..22fd789 100644
+--- a/public/blog.html
++++ b/public/blog.html
+@@ -13,7 +13,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/blog.html"
++      href="https://stembridgespeaks.tech/blog.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+diff --git a/public/blog/free-vs-paid-language-apps.html b/public/blog/free-vs-paid-language-apps.html
+index 4ed55f2..0cd3094 100644
+--- a/public/blog/free-vs-paid-language-apps.html
++++ b/public/blog/free-vs-paid-language-apps.html
+@@ -14,7 +14,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/blog/free-vs-paid-language-apps.html"
++      href="https://stembridgespeaks.tech/blog/free-vs-paid-language-apps.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+diff --git a/public/blog/german-cases-explained.html b/public/blog/german-cases-explained.html
+index 82a6391..f2e684c 100644
+--- a/public/blog/german-cases-explained.html
++++ b/public/blog/german-cases-explained.html
+@@ -13,7 +13,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/blog/german-cases-explained.html"
++      href="https://stembridgespeaks.tech/blog/german-cases-explained.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+diff --git a/public/blog/how-to-improve-communication-skills.html b/public/blog/how-to-improve-communication-skills.html
+index 2507c45..2e822b4 100644
+--- a/public/blog/how-to-improve-communication-skills.html
++++ b/public/blog/how-to-improve-communication-skills.html
+@@ -14,7 +14,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/blog/how-to-improve-communication-skills.html"
++      href="https://stembridgespeaks.tech/blog/how-to-improve-communication-skills.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+diff --git a/public/blog/why-you-freeze-up-speaking.html b/public/blog/why-you-freeze-up-speaking.html
+index 717241c..307a11d 100644
+--- a/public/blog/why-you-freeze-up-speaking.html
++++ b/public/blog/why-you-freeze-up-speaking.html
+@@ -14,7 +14,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/blog/why-you-freeze-up-speaking.html"
++      href="https://stembridgespeaks.tech/blog/why-you-freeze-up-speaking.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+diff --git a/public/dialogues.html b/public/dialogues.html
+index 8788b47..c0c6dc7 100644
+--- a/public/dialogues.html
++++ b/public/dialogues.html
+@@ -13,7 +13,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/dialogues.html"
++      href="https://stembridgespeaks.tech/dialogues.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+@@ -27,7 +27,7 @@
+     <meta property="og:type" content="website" />
+     <meta
+       property="og:url"
+-      content="https://stembridge-speaks.onrender.com/dialogues.html"
++      content="https://stembridgespeaks.tech/dialogues.html"
+     />
+ 
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+@@ -42,14 +42,14 @@
+         "@context": "https://schema.org",
+         "@type": "WebApplication",
+         "name": "STEMBridge Speaks — Dialogues",
+-        "url": "https://stembridge-speaks.onrender.com/dialogues.html",
++        "url": "https://stembridgespeaks.tech/dialogues.html",
+         "description": "Scripted two-speaker dialogues in German, English, Spanish, Mandarin, Russian, Arabic, and Hebrew, with English translations and native-voice audio.",
+         "applicationCategory": "EducationalApplication",
+         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+         "isPartOf": {
+           "@type": "WebApplication",
+           "name": "STEMBridge Speaks",
+-          "url": "https://stembridge-speaks.onrender.com/"
++          "url": "https://stembridgespeaks.tech/"
+         }
+       }
+     </script>
+diff --git a/public/dictionary.html b/public/dictionary.html
+index 5e2ac58..db14f00 100644
+--- a/public/dictionary.html
++++ b/public/dictionary.html
+@@ -13,7 +13,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/dictionary.html"
++      href="https://stembridgespeaks.tech/dictionary.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+@@ -30,7 +30,7 @@
+     <meta property="og:type" content="website" />
+     <meta
+       property="og:url"
+-      content="https://stembridge-speaks.onrender.com/dictionary.html"
++      content="https://stembridgespeaks.tech/dictionary.html"
+     />
+ 
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+@@ -45,14 +45,14 @@
+         "@context": "https://schema.org",
+         "@type": "WebApplication",
+         "name": "STEMBridge Speaks — Dictionary",
+-        "url": "https://stembridge-speaks.onrender.com/dictionary.html",
++        "url": "https://stembridgespeaks.tech/dictionary.html",
+         "description": "Free multilingual dictionary and thesaurus covering words, phrases, idioms, and letters in German, English, Spanish, Mandarin, Russian, and Arabic.",
+         "applicationCategory": "ReferenceApplication",
+         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+         "isPartOf": {
+           "@type": "WebApplication",
+           "name": "STEMBridge Speaks",
+-          "url": "https://stembridge-speaks.onrender.com/"
++          "url": "https://stembridgespeaks.tech/"
+         }
+       }
+     </script>
+diff --git a/public/flashcards.html b/public/flashcards.html
+index dad22a1..76a1cb1 100644
+--- a/public/flashcards.html
++++ b/public/flashcards.html
+@@ -13,7 +13,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/flashcards.html"
++      href="https://stembridgespeaks.tech/flashcards.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+diff --git a/public/index.html b/public/index.html
+index 4f6a44c..dbcb865 100644
+--- a/public/index.html
++++ b/public/index.html
+@@ -13,7 +13,7 @@
+       name="description"
+       content="Free AI-powered conversation practice for German, English, Spanish, Mandarin, and Russian. Speak or type in real scenarios and get corrected as you go — plus a free grammar course and dictionary. No subscription, ever."
+     />
+-    <link rel="canonical" href="https://stembridge-speaks.onrender.com/" />
++    <link rel="canonical" href="https://stembridgespeaks.tech/" />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+@@ -28,7 +28,7 @@
+       content="Practice speaking German, English, Spanish, Mandarin, and Russian in real scenarios with an AI tutor that corrects you as you go. Completely free."
+     />
+     <meta property="og:type" content="website" />
+-    <meta property="og:url" content="https://stembridge-speaks.onrender.com/" />
++    <meta property="og:url" content="https://stembridgespeaks.tech/" />
+     <meta name="twitter:card" content="summary" />
+ 
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+@@ -43,7 +43,7 @@
+         "@context": "https://schema.org",
+         "@type": "WebApplication",
+         "name": "STEMBridge Speaks",
+-        "url": "https://stembridge-speaks.onrender.com/",
++        "url": "https://stembridgespeaks.tech/",
+         "description": "Free AI-powered conversational practice and structured grammar courses for German, English, Spanish, Mandarin, Russian, and Hebrew.",
+         "applicationCategory": "EducationalApplication",
+         "datePublished": "2026-07-18",
+@@ -51,7 +51,7 @@
+         "publisher": {
+           "@type": "Organization",
+           "name": "STEMBridge",
+-          "url": "https://stembridge-speaks.onrender.com/",
++          "url": "https://stembridgespeaks.tech/",
+           "founder": { "@type": "Person", "name": "Aarish Asif Khan" }
+         }
+       }
+diff --git a/public/interview.html b/public/interview.html
+index 48f94cf..ee10b30 100644
+--- a/public/interview.html
++++ b/public/interview.html
+@@ -13,7 +13,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/interview.html"
++      href="https://stembridgespeaks.tech/interview.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+diff --git a/public/learn.html b/public/learn.html
+index 3806499..9028cb3 100644
+--- a/public/learn.html
++++ b/public/learn.html
+@@ -15,7 +15,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/learn.html"
++      href="https://stembridgespeaks.tech/learn.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+@@ -32,7 +32,7 @@
+     <meta property="og:type" content="website" />
+     <meta
+       property="og:url"
+-      content="https://stembridge-speaks.onrender.com/learn.html"
++      content="https://stembridgespeaks.tech/learn.html"
+     />
+ 
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+@@ -51,7 +51,7 @@
+         "provider": {
+           "@type": "Organization",
+           "name": "STEMBridge",
+-          "sameAs": "https://stembridge-speaks.onrender.com/"
++          "sameAs": "https://stembridgespeaks.tech/"
+         },
+         "hasCourseInstance": {
+           "@type": "CourseInstance",
+@@ -62,7 +62,7 @@
+         "isPartOf": {
+           "@type": "WebApplication",
+           "name": "STEMBridge Speaks",
+-          "url": "https://stembridge-speaks.onrender.com/"
++          "url": "https://stembridgespeaks.tech/"
+         }
+       }
+     </script>
+diff --git a/public/practice.html b/public/practice.html
+index 684b471..489ee0e 100644
+--- a/public/practice.html
++++ b/public/practice.html
+@@ -13,7 +13,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/practice.html"
++      href="https://stembridgespeaks.tech/practice.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+@@ -30,7 +30,7 @@
+     <meta property="og:type" content="website" />
+     <meta
+       property="og:url"
+-      content="https://stembridge-speaks.onrender.com/practice.html"
++      content="https://stembridgespeaks.tech/practice.html"
+     />
+ 
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+@@ -45,14 +45,14 @@
+         "@context": "https://schema.org",
+         "@type": "WebApplication",
+         "name": "STEMBridge Speaks — Conversational Practice",
+-        "url": "https://stembridge-speaks.onrender.com/practice.html",
++        "url": "https://stembridgespeaks.tech/practice.html",
+         "description": "AI-powered conversational language practice in German, English, Spanish, Mandarin, Russian, Arabic, and Hebrew, with real-time corrections and translations.",
+         "applicationCategory": "EducationalApplication",
+         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+         "isPartOf": {
+           "@type": "WebApplication",
+           "name": "STEMBridge Speaks",
+-          "url": "https://stembridge-speaks.onrender.com/"
++          "url": "https://stembridgespeaks.tech/"
+         }
+       }
+     </script>
+diff --git a/public/robots.txt b/public/robots.txt
+index ac7f6dc..db34135 100644
+--- a/public/robots.txt
++++ b/public/robots.txt
+@@ -1,4 +1,4 @@
+-# stembridge-speaks.onrender.com
++# stembridgespeaks.tech
+ # Default: allow all crawlers; keep backend/API routes out of the crawl.
+ User-agent: *
+ Allow: /
+@@ -65,4 +65,4 @@ Allow: /
+ User-agent: GrokBot
+ Allow: /
+ 
+-Sitemap: https://stembridge-speaks.onrender.com/sitemap.xml
+\ No newline at end of file
++Sitemap: https://stembridgespeaks.tech/sitemap.xml
+\ No newline at end of file
+diff --git a/public/sitemap.xml b/public/sitemap.xml
+index f2675fa..f70d9ad 100644
+--- a/public/sitemap.xml
++++ b/public/sitemap.xml
+@@ -1,20 +1,20 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+-  <url><loc>https://stembridge-speaks.onrender.com/</loc><priority>1.0</priority></url>
+-  <url><loc>https://stembridge-speaks.onrender.com/practice.html</loc><priority>0.9</priority></url>
+-  <url><loc>https://stembridge-speaks.onrender.com/learn.html</loc><priority>0.9</priority></url>
+-  <url><loc>https://stembridge-speaks.onrender.com/dictionary.html</loc><priority>0.8</priority></url>
+-  <url><loc>https://stembridge-speaks.onrender.com/about.html</loc><priority>0.5</priority></url>
+-  <url><loc>https://stembridge-speaks.onrender.com/privacy.html</loc><priority>0.3</priority></url>
+-  <url><loc>https://stembridge-speaks.onrender.com/contact.html</loc><priority>0.3</priority></url>
+-  <url><loc>https://stembridge-speaks.onrender.com/blog.html</loc><priority>0.7</priority></url>
+-<url><loc>https://stembridge-speaks.onrender.com/blog/why-you-freeze-up-speaking.html</loc><priority>0.6</priority></url>
+-<url><loc>https://stembridge-speaks.onrender.com/blog/german-cases-explained.html</loc><priority>0.6</priority></url>
+-<url><loc>https://stembridge-speaks.onrender.com/blog/free-vs-paid-language-apps.html</loc><priority>0.6</priority></url>
+-<url><loc>https://stembridge-speaks.onrender.com/blog/how-to-improve-communication-skills.html</loc><priority>0.6</priority></url>
+-<url><loc>https://stembridge-speaks.onrender.com/assessments.html</loc><priority>0.8</priority></url>
+-<url><loc>https://stembridge-speaks.onrender.com/flashcards.html</loc><priority>0.7</priority></url>
+-<url><loc>https://stembridge-speaks.onrender.com/interview.html</loc><priority>0.7</priority></url>
+-<url><loc>https://stembridge-speaks.onrender.com/speaking-quiz.html</loc><priority>0.7</priority></url>
+-<url><loc>https://stembridge-speaks.onrender.com/writing.html</loc><priority>0.7</priority></url>
++  <url><loc>https://stembridgespeaks.tech/</loc><priority>1.0</priority></url>
++  <url><loc>https://stembridgespeaks.tech/practice.html</loc><priority>0.9</priority></url>
++  <url><loc>https://stembridgespeaks.tech/learn.html</loc><priority>0.9</priority></url>
++  <url><loc>https://stembridgespeaks.tech/dictionary.html</loc><priority>0.8</priority></url>
++  <url><loc>https://stembridgespeaks.tech/about.html</loc><priority>0.5</priority></url>
++  <url><loc>https://stembridgespeaks.tech/privacy.html</loc><priority>0.3</priority></url>
++  <url><loc>https://stembridgespeaks.tech/contact.html</loc><priority>0.3</priority></url>
++  <url><loc>https://stembridgespeaks.tech/blog.html</loc><priority>0.7</priority></url>
++<url><loc>https://stembridgespeaks.tech/blog/why-you-freeze-up-speaking.html</loc><priority>0.6</priority></url>
++<url><loc>https://stembridgespeaks.tech/blog/german-cases-explained.html</loc><priority>0.6</priority></url>
++<url><loc>https://stembridgespeaks.tech/blog/free-vs-paid-language-apps.html</loc><priority>0.6</priority></url>
++<url><loc>https://stembridgespeaks.tech/blog/how-to-improve-communication-skills.html</loc><priority>0.6</priority></url>
++<url><loc>https://stembridgespeaks.tech/assessments.html</loc><priority>0.8</priority></url>
++<url><loc>https://stembridgespeaks.tech/flashcards.html</loc><priority>0.7</priority></url>
++<url><loc>https://stembridgespeaks.tech/interview.html</loc><priority>0.7</priority></url>
++<url><loc>https://stembridgespeaks.tech/speaking-quiz.html</loc><priority>0.7</priority></url>
++<url><loc>https://stembridgespeaks.tech/writing.html</loc><priority>0.7</priority></url>
+ </urlset>
+\ No newline at end of file
+diff --git a/public/writing.html b/public/writing.html
+index 7388643..e4b61b4 100644
+--- a/public/writing.html
++++ b/public/writing.html
+@@ -13,7 +13,7 @@
+     />
+     <link
+       rel="canonical"
+-      href="https://stembridge-speaks.onrender.com/writing.html"
++      href="https://stembridgespeaks.tech/writing.html"
+     />
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+     <link rel="preconnect" href="https://fonts.googleapis.com" />

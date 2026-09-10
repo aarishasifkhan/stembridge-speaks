@@ -13,7 +13,7 @@
     />
     <link
       rel="canonical"
-      href="https://stembridge-speaks.onrender.com/practice.html"
+      href="https://stembridgespeaks.tech/practice.html"
     />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -30,7 +30,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
-      content="https://stembridge-speaks.onrender.com/practice.html"
+      content="https://stembridgespeaks.tech/practice.html"
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,14 +45,14 @@
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "STEMBridge Speaks — Conversational Practice",
-        "url": "https://stembridge-speaks.onrender.com/practice.html",
+        "url": "https://stembridgespeaks.tech/practice.html",
         "description": "AI-powered conversational language practice in German, English, Spanish, Mandarin, Russian, Arabic, and Hebrew, with real-time corrections and translations.",
         "applicationCategory": "EducationalApplication",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "isPartOf": {
           "@type": "WebApplication",
           "name": "STEMBridge Speaks",
-          "url": "https://stembridge-speaks.onrender.com/"
+          "url": "https://stembridgespeaks.tech/"
         }
       }
     </script>
@@ -1286,14 +1286,21 @@
             }),
           });
           const data = await res.json();
+          if (!res.ok)
+            throw new Error(
+              data.error || "Server error starting the conversation.",
+            );
           chatInner.lastChild.remove();
           addTutorMessage(data.reply, "", false, true);
           chatIsOpenerOnly = true;
           loadChatList();
         } catch (err) {
           chatInner.lastChild.remove();
+          console.error("chat/start failed:", err);
           addSystemMessage(
-            "Couldn't start automatically — just type or tap the mic to begin.",
+            "Couldn't start automatically (" +
+              err.message +
+              ") — just type or tap the mic to begin.",
           );
         }
       }
@@ -1653,6 +1660,10 @@
                   }),
                 });
                 const data = await response.json();
+                if (!response.ok)
+                  throw new Error(
+                    data.error || "Server error processing audio.",
+                  );
                 chatInner.lastChild.remove();
                 addUserMessage(data.transcription);
                 addTutorMessage(data.reply, data.transcription);

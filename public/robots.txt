@@ -1,4 +1,4 @@
-# stembridge-speaks.onrender.com
+# stembridgespeaks.tech
 # Default: allow all crawlers; keep backend/API routes out of the crawl.
 User-agent: *
 Allow: /
@@ -65,4 +65,4 @@ Allow: /
 User-agent: GrokBot
 Allow: /
 
-Sitemap: https://stembridge-speaks.onrender.com/sitemap.xml
+Sitemap: https://stembridgespeaks.tech/sitemap.xml
