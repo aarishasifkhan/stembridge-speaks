@@ -1,6 +1,12 @@
 require("dotenv").config();
 const { setGlobalDispatcher, Agent } = require("undici");
+// Force HTTP/1.1 for all outbound fetch calls (including the Gemini SDK's).
+// Some networks/antivirus mishandle TLS renegotiation on HTTP/2, causing
+// Node's fetch to hang or fail intermittently even though the endpoint is
+// reachable — HTTP/1.1-only avoids that. See conversation with Aarish,
+// Sep 2026, for the diagnosis (curl worked reliably, Node fetch didn't).
 setGlobalDispatcher(new Agent({ allowH2: false }));
+
 const express = require("express");
 const cors = require("cors");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
@@ -149,6 +155,49 @@ async function transcribeAudio(base64Audio, languageKey) {
   ).trim();
 }
 
+// Wraps a promise so it fails fast with a clear error instead of hanging
+// forever — used around calls to Gemini/Deepgram so a flaky network
+// connection surfaces as a real error the frontend can show, not an
+// endless "Getting started..." spinner.
+function withTimeout(promise, ms, label) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(
+      () =>
+        reject(
+          new Error(
+            `${label} timed out after ${ms / 1000}s — check your network connection.`,
+          ),
+        ),
+      ms,
+    );
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
+// The exact prompt /chat/start uses to generate a new chat's opener.
+// Reused below so reconstructed history stays consistent with what
+// actually produced that first model message.
+const OPENER_PROMPT =
+  "Start the conversation naturally, in character, with a short opening line or question — as if the user just walked up to you. Do not wait for the user to speak first.";
+
+// Converts our stored {role, text} messages into Gemini's {role, parts}
+// history format. Gemini's startChat() requires the first turn to be
+// "user" — but our chats often start with a model-generated opener (see
+// /chat/start), so when that's the case we prepend the same prompt that
+// produced that opener as a synthetic leading user turn. This preserves
+// full context for Gemini without violating the API's requirement.
+function toGeminiHistory(messages) {
+  const history = (messages || []).map((m) => ({
+    role: m.role,
+    parts: [{ text: m.text }],
+  }));
+  if (history.length > 0 && history[0].role === "model") {
+    history.unshift({ role: "user", parts: [{ text: OPENER_PROMPT }] });
+  }
+  return history;
+}
+
 const levelGuidance = {
   A1: "The user is a complete beginner (CEFR A1). Use only the simplest, most common words and very short sentences (3-6 words). Avoid idioms entirely.",
   A2: "The user is an elementary learner (CEFR A2). Use simple, common vocabulary and short, clear sentences.",
@@ -220,6 +269,48 @@ const edgeVoicesSecondary = {
   arabic: "ar-SA-HamedNeural",
   hebrew: "he-IL-AvriNeural",
 };
+
+// Deepgram Aura-2 voices — Aura-2 currently covers English, Spanish,
+// German, French, Dutch, Italian, and Japanese. Of our 7 app languages,
+// that's only english/german/spanish; mandarin/russian/arabic/hebrew stay
+// on msedge-tts below since Deepgram has no voices for them yet.
+const deepgramTtsVoices = {
+  english: "aura-2-thalia-en",
+  german: "aura-2-aurelia-de",
+  spanish: "aura-2-antonia-es",
+};
+const deepgramTtsVoicesSecondary = {
+  english: "aura-2-apollo-en",
+  german: "aura-2-fabian-de",
+  spanish: "aura-2-alvaro-es",
+};
+
+// Generates speech with Deepgram Aura-2, returning an MP3 Buffer.
+// Note: Aura-2's REST API has no speaking-rate parameter (unlike
+// msedge-tts's `rate`), so the per-CEFR-level slow-speech feature only
+// applies to the 4 languages still on msedge-tts below. If we want
+// level-based slow-down for EN/DE/ES too, the clean fix is adjusting
+// HTML5 <audio>.playbackRate client-side rather than server-side —
+// worth a follow-up if this is missed in practice.
+async function speakWithDeepgram(text, voiceModel) {
+  const res = await fetch(
+    `https://api.deepgram.com/v1/speak?model=${voiceModel}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text }),
+    },
+  );
+  if (!res.ok) {
+    const errText = await res.text().catch(() => "");
+    throw new Error(`Deepgram TTS error ${res.status}: ${errText}`);
+  }
+  const arrayBuffer = await res.arrayBuffer();
+  return Buffer.from(arrayBuffer);
+}
 
 const rateByLevel = {
   A1: "-40%",
@@ -488,10 +579,7 @@ app.post("/chat", requireAuth, async (req, res) => {
       ),
     });
 
-    const geminiHistory = chat.messages.map((m) => ({
-      role: m.role,
-      parts: [{ text: m.text }],
-    }));
+    const geminiHistory = toGeminiHistory(chat.messages);
     const chatSession = model.startChat({ history: geminiHistory });
     const result = await chatSession.sendMessage(message);
     const text = result.response.text();
@@ -538,7 +626,11 @@ app.post("/chat-audio", requireAuth, async (req, res) => {
     });
     if (!chat) return res.status(404).json({ error: "Chat not found." });
 
-    const transcription = await transcribeAudio(audio, language);
+    const transcription = await withTimeout(
+      transcribeAudio(audio, language),
+      20000,
+      "Deepgram",
+    );
 
     const model = genAI.getGenerativeModel({
       model: "gemini-3.6-flash",
@@ -550,13 +642,14 @@ app.post("/chat-audio", requireAuth, async (req, res) => {
       ),
     });
 
-    const geminiHistory = chat.messages.map((m) => ({
-      role: m.role,
-      parts: [{ text: m.text }],
-    }));
+    const geminiHistory = toGeminiHistory(chat.messages);
     const chatSession = model.startChat({ history: geminiHistory });
-    const result = await chatSession.sendMessage(
-      transcription || "(the user's audio was inaudible or empty)",
+    const result = await withTimeout(
+      chatSession.sendMessage(
+        transcription || "(the user's audio was inaudible or empty)",
+      ),
+      20000,
+      "Gemini",
     );
     const reply = result.response.text();
     const parsed = { transcription, reply };
@@ -615,8 +708,12 @@ app.post("/chat/start", requireAuth, async (req, res) => {
       ),
     });
 
-    const result = await model.generateContent(
-      "Start the conversation naturally, in character, with a short opening line or question — as if the user just walked up to you. Do not wait for the user to speak first.",
+    const result = await withTimeout(
+      model.generateContent(
+        "Start the conversation naturally, in character, with a short opening line or question — as if the user just walked up to you. Do not wait for the user to speak first.",
+      ),
+      20000,
+      "Gemini",
     );
     const text = result.response.text();
 
@@ -696,7 +793,11 @@ app.post("/api/interview/audio", requireAuth, async (req, res) => {
 
     // "star" mode interviews always run in English, regardless of `language`.
     const transcriptionLangKey = mode === "star" ? "english" : language;
-    const transcription = await transcribeAudio(audio, transcriptionLangKey);
+    const transcription = await withTimeout(
+      transcribeAudio(audio, transcriptionLangKey),
+      20000,
+      "Deepgram",
+    );
 
     const model = genAI.getGenerativeModel({
       model: "gemini-3.6-flash",
@@ -712,8 +813,12 @@ app.post("/api/interview/audio", requireAuth, async (req, res) => {
       parts: [{ text: m.text }],
     }));
     const chat = model.startChat({ history: geminiHistory });
-    const result = await chat.sendMessage(
-      transcription || "(the candidate's audio was inaudible or empty)",
+    const result = await withTimeout(
+      chat.sendMessage(
+        transcription || "(the candidate's audio was inaudible or empty)",
+      ),
+      20000,
+      "Gemini",
     );
     res.json({ transcription, reply: result.response.text() });
   } catch (err) {
@@ -824,9 +929,108 @@ app.post("/api/writing/review", requireAuth, async (req, res) => {
   }
 });
 
+app.post("/api/translate-speech", requireAuth, async (req, res) => {
+  try {
+    const { audio, sourceLanguage, targetLanguage } = req.body;
+    if (!audio) {
+      return res.status(400).json({ error: "No audio was received." });
+    }
+    if (!sourceLanguage || !languages[sourceLanguage]) {
+      return res.status(400).json({ error: "Invalid source language." });
+    }
+    if (!targetLanguage || !languages[targetLanguage]) {
+      return res.status(400).json({ error: "Invalid target language." });
+    }
+
+    const originalText = await withTimeout(
+      transcribeAudio(audio, sourceLanguage),
+      20000,
+      "Deepgram",
+    );
+
+    if (!originalText) {
+      return res.json({
+        originalText: "",
+        translatedText: "",
+        sourceLanguage,
+        targetLanguage,
+      });
+    }
+
+    // Deepgram transcribes; it doesn't translate. Gemini does the actual
+    // translation — right tool for each job, same split we use elsewhere
+    // (Deepgram for "what was said", Gemini for anything that requires
+    // understanding or generating language, not just recognizing sound).
+    const sourceLangName = languages[sourceLanguage].name;
+    const targetLangName = languages[targetLanguage].name;
+    const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
+    const result = await withTimeout(
+      model.generateContent(
+        `Translate the following ${sourceLangName} text into natural, fluent ${targetLangName}. Respond with ONLY the translation itself — no quotes, no explanation, no repeating the original text.\n\nText: ${originalText}`,
+      ),
+      20000,
+      "Gemini",
+    );
+    const translatedText = result.response.text().trim();
+
+    res.json({ originalText, translatedText, sourceLanguage, targetLanguage });
+  } catch (err) {
+    console.error("Speech translation error:", err);
+    res.status(500).json({
+      error: "Could not translate that right now. Please try again.",
+    });
+  }
+});
+
+app.post("/api/deepgram/token", requireAuth, async (req, res) => {
+  try {
+    const dgRes = await fetch("https://api.deepgram.com/v1/auth/grant", {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ttl_seconds: 30 }),
+    });
+    if (!dgRes.ok) {
+      const errText = await dgRes.text().catch(() => "");
+      throw new Error(
+        `Deepgram token grant failed ${dgRes.status}: ${errText}`,
+      );
+    }
+    const data = await dgRes.json();
+    res.json({ token: data.access_token });
+  } catch (err) {
+    console.error("Deepgram token grant error:", err);
+    res.status(500).json({ error: "Could not start live captions right now." });
+  }
+});
+
 app.post("/tts", async (req, res) => {
   try {
     const { text, level, language, speaker } = req.body;
+
+    // Try Deepgram Aura-2 first for the languages it covers.
+    const dgVoiceMap =
+      speaker === 2 ? deepgramTtsVoicesSecondary : deepgramTtsVoices;
+    const dgVoice = dgVoiceMap[language];
+    if (dgVoice) {
+      try {
+        const audioBuffer = await withTimeout(
+          speakWithDeepgram(text, dgVoice),
+          15000,
+          "Deepgram TTS",
+        );
+        return res.json({ audio: audioBuffer.toString("base64") });
+      } catch (dgErr) {
+        console.error(
+          "Deepgram TTS failed, falling back to msedge-tts:",
+          dgErr.message,
+        );
+        // fall through to msedge-tts below
+      }
+    }
+
     const voiceMap = speaker === 2 ? edgeVoicesSecondary : edgeVoices;
     const voice = voiceMap[language] || voiceMap.german;
     const rate = rateByLevel[level] || rateByLevel.B1;

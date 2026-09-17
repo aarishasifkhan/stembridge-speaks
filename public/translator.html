@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1B4332" />
+    <title>STEMBridge Speaks — Speech Translator</title>
+    <meta
+      name="description"
+      content="Speak in German, English, Spanish, Mandarin, Russian, Arabic, or Hebrew and get an instant spoken translation into any of the other six."
+    />
+    <link
+      rel="canonical"
+      href="https://stembridge-speaks.onrender.com/translator.html"
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --forest: #1b4332;
+        --forest-dark: #12301f;
+        --gold: #e8a33d;
+        --cream: #fbf7ee;
+        --sage: #e3eae0;
+        --ink: #22281e;
+        --brick: #8c4a3a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+        line-height: 1.55;
+      }
+      body.nav-lock {
+        overflow: hidden;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        color: var(--forest-dark);
+      }
+
+      /* ---------- Header / Nav (shared pattern) ---------- */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 6vw;
+        position: sticky;
+        top: 0;
+        background: var(--cream);
+        z-index: 200;
+        border-bottom: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 19px;
+        color: var(--forest);
+        text-decoration: none;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      nav {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        flex-wrap: nowrap;
+      }
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        position: relative;
+        white-space: nowrap;
+      }
+      nav a:not(.btn) {
+        padding: 8px 9px;
+      }
+      nav a:not(.btn)::after {
+        content: "";
+        position: absolute;
+        left: 9px;
+        right: 9px;
+        bottom: 3px;
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+        transition: width 0.2s ease;
+      }
+      nav a:not(.btn):hover::after {
+        width: calc(100% - 18px);
+      }
+      nav a.btn {
+        background: var(--forest);
+        color: var(--cream) !important;
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-weight: 600;
+        margin-left: 8px;
+        white-space: nowrap;
+      }
+      .icon-btn {
+        font-size: 13px;
+        padding: 7px 12px;
+        border-radius: 7px;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        background: transparent;
+        color: var(--forest-dark);
+        cursor: pointer;
+        font-weight: 500;
+        text-decoration: none;
+        margin-left: 8px;
+        white-space: nowrap;
+      }
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        flex-shrink: 0;
+        z-index: 210;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: var(--forest-dark);
+        transition:
+          transform 0.25s ease,
+          opacity 0.25s ease;
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+      .nav-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 48, 31, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 190;
+      }
+      .nav-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      @media (max-width: 1050px) {
+        .nav-toggle {
+          display: flex;
+        }
+        nav {
+          position: fixed;
+          top: 0;
+          right: 0;
+          height: 100vh;
+          width: min(320px, 82vw);
+          background: var(--forest-dark);
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding: 96px 28px 32px;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          box-shadow: -12px 0 32px rgba(18, 48, 31, 0.28);
+          overflow-y: auto;
+        }
+        nav.open {
+          transform: translateX(0);
+        }
+        nav a:not(.btn) {
+          color: var(--cream);
+          font-size: 16.5px;
+          padding: 14px 2px;
+          border-bottom: 1px solid rgba(251, 247, 238, 0.1);
+        }
+        nav a:not(.btn)::after {
+          display: none;
+        }
+        nav a.btn {
+          margin: 20px 0 0;
+          text-align: center;
+        }
+        nav .icon-btn {
+          margin: 12px 0 0;
+          width: 100%;
+          text-align: center;
+          border-color: rgba(251, 247, 238, 0.35);
+        }
+      }
+
+      /* ---------- Translator UI ---------- */
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 40px 20px 80px;
+      }
+      main > p {
+        color: #4a5049;
+        margin-top: -6px;
+      }
+
+      .lang-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 28px 0 20px;
+      }
+      .lang-picker {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .lang-picker label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--forest-dark);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .lang-picker select {
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(27, 67, 50, 0.2);
+        background: #fff;
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+      }
+      #swapBtn {
+        margin-top: 20px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid rgba(27, 67, 50, 0.2);
+        background: #fff;
+        color: var(--forest);
+        font-size: 16px;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+      }
+      #swapBtn:hover {
+        transform: rotate(180deg);
+      }
+
+      .record-area {
+        text-align: center;
+        padding: 36px 20px;
+        background: var(--sage);
+        border-radius: 18px;
+        margin-bottom: 24px;
+      }
+      #micBtn {
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        border: none;
+        background: var(--forest);
+        color: var(--cream);
+        font-size: 30px;
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(27, 67, 50, 0.25);
+        transition:
+          transform 0.15s ease,
+          background 0.2s ease;
+      }
+      #micBtn:hover {
+        transform: scale(1.05);
+      }
+      #micBtn.recording {
+        background: var(--brick);
+        animation: pulse 1.4s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(140, 74, 58, 0.45);
+        }
+        70% {
+          box-shadow: 0 0 0 18px rgba(140, 74, 58, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(140, 74, 58, 0);
+        }
+      }
+      #recordStatus {
+        margin-top: 14px;
+        font-size: 14px;
+        color: var(--forest-dark);
+        min-height: 1.3em;
+      }
+      .live-caption {
+        margin-top: 6px;
+        font-size: 13px;
+        color: #6b7268;
+        font-style: italic;
+        min-height: 1.2em;
+      }
+
+      .result-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 20px 22px;
+        margin-bottom: 16px;
+        border: 1px solid rgba(27, 67, 50, 0.1);
+      }
+      .result-card.hidden {
+        display: none;
+      }
+      .result-label {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--forest);
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .result-text {
+        font-size: 17px;
+        color: var(--ink);
+      }
+      .listen-btn {
+        background: none;
+        border: 1px solid rgba(27, 67, 50, 0.25);
+        border-radius: 7px;
+        padding: 4px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        color: var(--forest-dark);
+      }
+      .listen-btn:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      #errorMsg {
+        color: var(--brick);
+        font-size: 14px;
+        text-align: center;
+        min-height: 1.3em;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">STEMBridge Speaks</a>
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="siteNav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="siteNav">
+        <a href="/practice.html">Conversation Practice</a>
+        <a href="/translator.html">Speech Translator</a>
+        <a href="/dictionary.html">Dictionary</a>
+        <a href="/flashcards.html">Flashcards</a>
+        <a href="/assessments.html">Assessment Prep</a>
+        <a href="/interview.html">Interview Prep</a>
+        <a href="/writing.html">Writing Practice</a>
+        <a href="/about.html">About</a>
+        <a href="/practice.html" class="btn">Practice free</a>
+        <button class="icon-btn" id="logoutBtn">👤 Log Out</button>
+      </nav>
+    </header>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+
+    <main>
+      <h1>Speech Translator</h1>
+      <p>
+        Speak in one language, hear and read it in another — hold the mic, say
+        something, and let go.
+      </p>
+
+      <div class="lang-row">
+        <div class="lang-picker">
+          <label for="sourceLang">Speaking in</label>
+          <select id="sourceLang"></select>
+        </div>
+        <button id="swapBtn" title="Swap languages">⇄</button>
+        <div class="lang-picker">
+          <label for="targetLang">Translate to</label>
+          <select id="targetLang"></select>
+        </div>
+      </div>
+
+      <div class="record-area">
+        <button id="micBtn" title="Hold to speak">🎤</button>
+        <div id="recordStatus">Hold the button and speak</div>
+        <div class="live-caption" id="liveCaption"></div>
+      </div>
+
+      <div id="errorMsg"></div>
+
+      <div class="result-card hidden" id="originalCard">
+        <div class="result-label">
+          <span id="originalLabel">You said</span>
+        </div>
+        <div class="result-text" id="originalText"></div>
+      </div>
+
+      <div class="result-card hidden" id="translatedCard">
+        <div class="result-label">
+          <span id="translatedLabel">Translation</span>
+          <button class="listen-btn" id="listenBtn">🔊 Listen</button>
+        </div>
+        <div class="result-text" id="translatedText"></div>
+      </div>
+    </main>
+
+    <script src="/js/auth.js"></script>
+    <script>
+      const languageNames = {
+        german: "German",
+        english: "English",
+        spanish: "Spanish",
+        mandarin: "Mandarin Chinese",
+        russian: "Russian",
+        arabic: "Arabic",
+        hebrew: "Hebrew",
+      };
+
+      const sourceLang = document.getElementById("sourceLang");
+      const targetLang = document.getElementById("targetLang");
+      const swapBtn = document.getElementById("swapBtn");
+      const micBtn = document.getElementById("micBtn");
+      const recordStatus = document.getElementById("recordStatus");
+      const liveCaptionEl = document.getElementById("liveCaption");
+      const errorMsg = document.getElementById("errorMsg");
+      const originalCard = document.getElementById("originalCard");
+      const originalLabel = document.getElementById("originalLabel");
+      const originalTextEl = document.getElementById("originalText");
+      const translatedCard = document.getElementById("translatedCard");
+      const translatedLabel = document.getElementById("translatedLabel");
+      const translatedTextEl = document.getElementById("translatedText");
+      const listenBtn = document.getElementById("listenBtn");
+
+      function populateSelects() {
+        Object.entries(languageNames).forEach(([key, name]) => {
+          const opt1 = document.createElement("option");
+          opt1.value = key;
+          opt1.textContent = name;
+          sourceLang.appendChild(opt1);
+          const opt2 = document.createElement("option");
+          opt2.value = key;
+          opt2.textContent = name;
+          targetLang.appendChild(opt2);
+        });
+        sourceLang.value = "arabic";
+        targetLang.value = "english";
+      }
+      populateSelects();
+
+      swapBtn.addEventListener("click", () => {
+        const a = sourceLang.value;
+        sourceLang.value = targetLang.value;
+        targetLang.value = a;
+      });
+      // Source and target must never match — nudge the other picker instead
+      // of allowing a no-op translation.
+      sourceLang.addEventListener("change", () => {
+        if (sourceLang.value === targetLang.value) {
+          const other = Object.keys(languageNames).find(
+            (k) => k !== sourceLang.value,
+          );
+          targetLang.value = other;
+        }
+      });
+      targetLang.addEventListener("change", () => {
+        if (targetLang.value === sourceLang.value) {
+          const other = Object.keys(languageNames).find(
+            (k) => k !== targetLang.value,
+          );
+          sourceLang.value = other;
+        }
+      });
+
+      let mediaRecorder;
+      let audioChunks = [];
+      let isRecording = false;
+
+      // ---------- Live captions (Deepgram Nova-3 streaming) ----------
+      // Same pattern as practice.html — a visual layer only. If it fails,
+      // the actual translation flow below (full-clip + /api/translate-speech)
+      // still works completely independently.
+      const dgLangCodes = {
+        german: "de",
+        english: "en",
+        spanish: "es",
+        mandarin: "zh-CN",
+        russian: "ru",
+        arabic: "ar",
+        hebrew: "he",
+      };
+      let dgSocket = null;
+      let captionRecorder = null;
+
+      async function startLiveCaptions(stream, languageKey) {
+        try {
+          const tokenRes = await fetch("/api/deepgram/token", {
+            method: "POST",
+            headers: authHeaders(),
+          });
+          const tokenData = await tokenRes.json();
+          if (!tokenRes.ok)
+            throw new Error(tokenData.error || "Could not get token.");
+
+          const dgLang = dgLangCodes[languageKey] || "en";
+          dgSocket = new WebSocket(
+            `wss://api.deepgram.com/v1/listen?model=nova-3&language=${dgLang}&interim_results=true&smart_format=true&punctuate=true`,
+            ["token", tokenData.token],
+          );
+          dgSocket.onmessage = (event) => {
+            try {
+              const msg = JSON.parse(event.data);
+              const transcript = msg?.channel?.alternatives?.[0]?.transcript;
+              if (transcript) liveCaptionEl.textContent = transcript;
+            } catch (e) {
+              /* control frame — ignore */
+            }
+          };
+          dgSocket.onerror = (e) =>
+            console.error("Live caption socket error:", e);
+          dgSocket.onopen = () => {
+            captionRecorder = new MediaRecorder(stream);
+            captionRecorder.ondataavailable = (e) => {
+              if (e.data.size > 0 && dgSocket.readyState === WebSocket.OPEN) {
+                dgSocket.send(e.data);
+              }
+            };
+            captionRecorder.start(250);
+          };
+        } catch (err) {
+          console.error("Could not start live captions:", err);
+        }
+      }
+
+      function stopLiveCaptions() {
+        if (captionRecorder && captionRecorder.state !== "inactive") {
+          captionRecorder.stop();
+        }
+        captionRecorder = null;
+        if (dgSocket && dgSocket.readyState === WebSocket.OPEN) {
+          dgSocket.send(JSON.stringify({ type: "CloseStream" }));
+          const socketToClose = dgSocket;
+          setTimeout(() => socketToClose.close(), 1500);
+        }
+        dgSocket = null;
+        liveCaptionEl.textContent = "";
+      }
+
+      // ---------- Recording + translation ----------
+      micBtn.addEventListener("mousedown", startRecording);
+      micBtn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        startRecording();
+      });
+      micBtn.addEventListener("mouseup", stopRecording);
+      micBtn.addEventListener("mouseleave", () => {
+        if (isRecording) stopRecording();
+      });
+      micBtn.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        stopRecording();
+      });
+
+      async function startRecording() {
+        if (isRecording) return;
+        errorMsg.textContent = "";
+        let stream;
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        } catch (err) {
+          errorMsg.textContent =
+            "Microphone access is needed. Please allow microphone permission and try again.";
+          return;
+        }
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+        mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+        mediaRecorder.start();
+        isRecording = true;
+        micBtn.classList.add("recording");
+        recordStatus.textContent = "Listening… let go when you're done";
+        startLiveCaptions(stream, sourceLang.value);
+      }
+
+      function stopRecording() {
+        if (!isRecording) return;
+        mediaRecorder.stop();
+        isRecording = false;
+        micBtn.classList.remove("recording");
+        stopLiveCaptions();
+
+        mediaRecorder.onstop = async () => {
+          const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+          recordStatus.textContent = "Translating…";
+
+          const reader = new FileReader();
+          reader.readAsDataURL(audioBlob);
+          reader.onloadend = async () => {
+            const base64Audio = reader.result.split(",")[1];
+            try {
+              const res = await fetch("/api/translate-speech", {
+                method: "POST",
+                headers: {
+                  ...authHeaders(),
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  audio: base64Audio,
+                  sourceLanguage: sourceLang.value,
+                  targetLanguage: targetLang.value,
+                }),
+              });
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.error || "Translation failed.");
+
+              recordStatus.textContent = "Hold the button and speak";
+
+              if (!data.originalText) {
+                errorMsg.textContent =
+                  "Didn't catch that — try speaking a little longer or closer to the mic.";
+                originalCard.classList.add("hidden");
+                translatedCard.classList.add("hidden");
+                return;
+              }
+
+              originalLabel.textContent = `You said (${languageNames[sourceLang.value]})`;
+              originalTextEl.textContent = data.originalText;
+              originalCard.classList.remove("hidden");
+
+              translatedLabel.textContent = `Translation (${languageNames[targetLang.value]})`;
+              translatedTextEl.textContent = data.translatedText;
+              translatedCard.classList.remove("hidden");
+              listenBtn.disabled = false;
+            } catch (err) {
+              recordStatus.textContent = "Hold the button and speak";
+              errorMsg.textContent = err.message;
+            }
+          };
+        };
+      }
+
+      listenBtn.addEventListener("click", async () => {
+        const text = translatedTextEl.textContent;
+        if (!text) return;
+        listenBtn.disabled = true;
+        listenBtn.textContent = "🔊 Playing…";
+        try {
+          const res = await fetch("/tts", {
+            method: "POST",
+            headers: { ...authHeaders(), "Content-Type": "application/json" },
+            body: JSON.stringify({
+              text,
+              language: targetLang.value,
+              level: "B1",
+            }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Playback failed.");
+          const audio = new Audio("data:audio/mp3;base64," + data.audio);
+          audio.onended = () => {
+            listenBtn.disabled = false;
+            listenBtn.textContent = "🔊 Listen";
+          };
+          audio.play();
+        } catch (err) {
+          errorMsg.textContent = err.message;
+          listenBtn.disabled = false;
+          listenBtn.textContent = "🔊 Listen";
+        }
+      });
+
+      // ---------- Auth + nav (shared pattern) ----------
+      requireAuth();
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        if (confirm("Log out?")) logout();
+      });
+
+      const navToggle = document.getElementById("navToggle");
+      const siteNav = document.getElementById("siteNav");
+      const navBackdrop = document.getElementById("navBackdrop");
+
+      function openNav() {
+        siteNav.classList.add("open");
+        navBackdrop.classList.add("open");
+        navToggle.setAttribute("aria-expanded", "true");
+        document.body.classList.add("nav-lock");
+      }
+      function closeNav() {
+        siteNav.classList.remove("open");
+        navBackdrop.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("nav-lock");
+      }
+      navToggle.addEventListener("click", () => {
+        siteNav.classList.contains("open") ? closeNav() : openNav();
+      });
+      navBackdrop.addEventListener("click", closeNav);
+      siteNav
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", closeNav));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeNav();
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1050) closeNav();
+      });
+    </script>
+  </body>
+</html>
