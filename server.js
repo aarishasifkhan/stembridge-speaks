@@ -71,6 +71,7 @@ let chatsCollection;
 let usersCollection;
 let progressCollection;
 let dictionaryHistoryCollection;
+let essayDictationCollection;
 
 async function connectDB() {
   try {
@@ -82,6 +83,9 @@ async function connectDB() {
     dictionaryHistoryCollection = mongoClient
       .db("stembridge")
       .collection("dictionaryHistory");
+    essayDictationCollection = mongoClient
+      .db("stembridge")
+      .collection("essayDictationJobs");
     console.log("Connected to MongoDB");
   } catch (err) {
     console.error("MongoDB connection failed:", err);
@@ -307,6 +311,37 @@ async function speakWithDeepgram(text, voiceModel) {
   if (!res.ok) {
     const errText = await res.text().catch(() => "");
     throw new Error(`Deepgram TTS error ${res.status}: ${errText}`);
+  }
+  const arrayBuffer = await res.arrayBuffer();
+  return Buffer.from(arrayBuffer);
+}
+
+// Generates speech with Deepgram Flux TTS (the newer, conversation-native
+// model — English-only, so this is only ever called for English text).
+// expressivity is a whole number -2 (calmest) to 2 (most animated), 0
+// default; Bridgee uses -1, a touch calmer than the tuned default. Note
+// this is a beta parameter per Deepgram's own docs — worth keeping an
+// eye on output quality since non-default values carry some risk of
+// mispronunciation.
+async function speakWithFlux(text, voiceModel, expressivity) {
+  const params = new URLSearchParams({ model: voiceModel });
+  if (typeof expressivity === "number") {
+    params.set("expressivity", String(expressivity));
+  }
+  const res = await fetch(
+    `https://api.deepgram.com/v2/speak?${params.toString()}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text }),
+    },
+  );
+  if (!res.ok) {
+    const errText = await res.text().catch(() => "");
+    throw new Error(`Deepgram Flux TTS error ${res.status}: ${errText}`);
   }
   const arrayBuffer = await res.arrayBuffer();
   return Buffer.from(arrayBuffer);
@@ -929,6 +964,166 @@ app.post("/api/writing/review", requireAuth, async (req, res) => {
   }
 });
 
+// ---------- ESSAY DICTATION (Deepgram async STT + webhook callback) ----------
+// Essay-length recordings can run several minutes, so instead of holding
+// one long HTTP request open (fragile on an unreliable connection), we
+// submit the audio to Deepgram with a callback URL and return
+// immediately. Deepgram POSTs the finished transcript to
+// /api/essay/dictate/webhook whenever it's actually done; the frontend
+// polls /api/essay/dictate/status/:jobId in the meantime.
+//
+// Requires two env vars:
+//   PUBLIC_BASE_URL         the server's own publicly reachable HTTPS
+//                           URL — e.g. https://your-app.onrender.com in
+//                           production, or an ngrok URL for local testing
+//   DEEPGRAM_CALLBACK_SECRET  any random string you choose — used as
+//                           Basic Auth on the callback URL so only a
+//                           genuine Deepgram callback (not a random
+//                           internet request) can complete a job
+
+app.post("/api/essay/dictate/start", requireAuth, async (req, res) => {
+  try {
+    const { audio, language } = req.body;
+    if (!audio) {
+      return res.status(400).json({ error: "No audio was received." });
+    }
+    if (!process.env.PUBLIC_BASE_URL) {
+      return res.status(500).json({
+        error:
+          "PUBLIC_BASE_URL isn't set on the server, so Deepgram has no address to call back to.",
+      });
+    }
+
+    const jobId = crypto.randomBytes(24).toString("hex");
+    await essayDictationCollection.insertOne({
+      jobId,
+      userId: req.userId,
+      status: "pending",
+      transcript: null,
+      errorMessage: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    const dgLang = (languages[language] || languages.german).dgLang;
+    const base = new URL(process.env.PUBLIC_BASE_URL);
+    base.username = "stembridge";
+    base.password = process.env.DEEPGRAM_CALLBACK_SECRET || "";
+    base.pathname = "/api/essay/dictate/webhook";
+    base.search = `?jobId=${jobId}`;
+    const callbackUrl = base.toString();
+
+    const buffer = Buffer.from(audio, "base64");
+    const params = new URLSearchParams({
+      model: "nova-3",
+      language: dgLang,
+      smart_format: "true",
+      callback: callbackUrl,
+      callback_method: "post",
+    });
+    const dgRes = await fetch(
+      `https://api.deepgram.com/v1/listen?${params.toString()}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+          "Content-Type": "audio/webm",
+        },
+        body: buffer,
+      },
+    );
+    if (!dgRes.ok) {
+      const errText = await dgRes.text().catch(() => "");
+      throw new Error(`Deepgram submit failed ${dgRes.status}: ${errText}`);
+    }
+
+    res.json({ jobId });
+  } catch (err) {
+    console.error("Essay dictation start error:", err);
+    res.status(500).json({
+      error: "Could not start transcription right now. Please try again.",
+    });
+  }
+});
+
+// Deepgram calls this directly — it can't send our JWT, so it isn't
+// behind requireAuth. Protected instead by Basic Auth (checked below,
+// matching the secret we embedded in the callback URL) plus an
+// unguessable jobId.
+app.post("/api/essay/dictate/webhook", async (req, res) => {
+  try {
+    const jobId = req.query.jobId;
+    const authHeader = req.headers.authorization || "";
+    const expected =
+      "Basic " +
+      Buffer.from(
+        `stembridge:${process.env.DEEPGRAM_CALLBACK_SECRET || ""}`,
+      ).toString("base64");
+    if (!jobId || authHeader !== expected) {
+      return res.status(401).send("Unauthorized");
+    }
+
+    const job = await essayDictationCollection.findOne({ jobId });
+    if (!job) {
+      // Not necessarily an attack — could be a retry for a job we've
+      // already cleaned up. Acknowledge so Deepgram doesn't keep retrying.
+      return res.status(200).send("OK");
+    }
+
+    const transcript =
+      req.body?.results?.channels?.[0]?.alternatives?.[0]?.transcript || "";
+
+    if (!transcript && req.body?.err_msg) {
+      await essayDictationCollection.updateOne(
+        { jobId },
+        {
+          $set: {
+            status: "error",
+            errorMessage: req.body.err_msg,
+            updatedAt: new Date(),
+          },
+        },
+      );
+    } else {
+      await essayDictationCollection.updateOne(
+        { jobId },
+        {
+          $set: {
+            status: "done",
+            transcript: transcript.trim(),
+            updatedAt: new Date(),
+          },
+        },
+      );
+    }
+
+    res.status(200).send("OK");
+  } catch (err) {
+    console.error("Essay dictation webhook error:", err);
+    // Still 200 — a 500 here just makes Deepgram retry a request that
+    // will fail the exact same way again.
+    res.status(200).send("OK");
+  }
+});
+
+app.get("/api/essay/dictate/status/:jobId", requireAuth, async (req, res) => {
+  try {
+    const job = await essayDictationCollection.findOne({
+      jobId: req.params.jobId,
+      userId: req.userId,
+    });
+    if (!job) return res.status(404).json({ error: "Job not found." });
+    res.json({
+      status: job.status,
+      transcript: job.transcript,
+      errorMessage: job.errorMessage,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not check transcription status." });
+  }
+});
+
 app.post("/api/translate-speech", requireAuth, async (req, res) => {
   try {
     const { audio, sourceLanguage, targetLanguage } = req.body;
@@ -1008,7 +1203,29 @@ app.post("/api/deepgram/token", requireAuth, async (req, res) => {
 
 app.post("/tts", async (req, res) => {
   try {
-    const { text, level, language, speaker } = req.body;
+    const { text, level, language, speaker, mascotVoice } = req.body;
+
+    // Bridgee's own voice: Deepgram Flux TTS ("Bruce", expressivity -1 —
+    // a touch calmer than default). Flux only serves English, so this
+    // only applies when the reply is in English; every other language,
+    // and any non-mascot read-aloud, falls through to Aura-2/msedge-tts
+    // below exactly as before.
+    if (mascotVoice && language === "english") {
+      try {
+        const audioBuffer = await withTimeout(
+          speakWithFlux(text, "flux-bruce-en", -1),
+          15000,
+          "Deepgram Flux TTS",
+        );
+        return res.json({ audio: audioBuffer.toString("base64") });
+      } catch (fluxErr) {
+        console.error(
+          "Flux TTS failed, falling back to Aura-2/msedge-tts:",
+          fluxErr.message,
+        );
+        // fall through below
+      }
+    }
 
     // Try Deepgram Aura-2 first for the languages it covers.
     const dgVoiceMap =

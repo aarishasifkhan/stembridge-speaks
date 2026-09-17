@@ -530,6 +530,10 @@
 
         <textarea id="writingInput" placeholder="Start writing..."></textarea>
         <div class="word-count" id="wordCount">0 words</div>
+        <button class="submit-btn" id="dictateBtn" type="button" style="background:#8c4a3a; margin-bottom:10px;">
+          🎙️ Dictate my essay instead
+        </button>
+        <div id="dictateStatus" style="text-align:center; font-size:14px; color:#4a5049; min-height:1.3em;"></div>
 
         <button class="submit-btn" id="submitBtn">Get Feedback →</button>
       </div>
@@ -685,6 +689,108 @@
         document.getElementById("wordCount").textContent =
           `${words} word${words === 1 ? "" : "s"}`;
       });
+
+      // ---------- Dictate essay (Deepgram async STT + webhook) ----------
+      const dictateBtn = document.getElementById("dictateBtn");
+      const dictateStatus = document.getElementById("dictateStatus");
+      let dictateRecorder = null;
+      let dictateChunks = [];
+      let dictateIsRecording = false;
+      let dictatePollTimer = null;
+
+      dictateBtn.addEventListener("click", async () => {
+        if (!dictateIsRecording) {
+          let stream;
+          try {
+            stream = await navigator.mediaDevices.getUserMedia({
+              audio: true,
+            });
+          } catch (err) {
+            dictateStatus.textContent =
+              "Microphone access is needed to dictate.";
+            return;
+          }
+          dictateChunks = [];
+          dictateRecorder = new MediaRecorder(stream);
+          dictateRecorder.ondataavailable = (e) => dictateChunks.push(e.data);
+          dictateRecorder.start();
+          dictateIsRecording = true;
+          dictateBtn.textContent = "⏹️ Stop dictating";
+          dictateStatus.textContent = "Recording — speak your essay, then click Stop.";
+        } else {
+          dictateRecorder.stop();
+          dictateIsRecording = false;
+          dictateBtn.textContent = "🎙️ Dictate my essay instead";
+          dictateBtn.disabled = true;
+
+          dictateRecorder.onstop = async () => {
+            const blob = new Blob(dictateChunks, { type: "audio/webm" });
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = async () => {
+              const base64Audio = reader.result.split(",")[1];
+              dictateStatus.textContent = "Uploading your recording…";
+              try {
+                const res = await fetch("/api/essay/dictate/start", {
+                  method: "POST",
+                  headers: {
+                    ...authHeaders(),
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    audio: base64Audio,
+                    language: langSelect.value,
+                  }),
+                });
+                const data = await res.json();
+                if (!res.ok)
+                  throw new Error(data.error || "Could not start transcription.");
+                pollDictationStatus(data.jobId);
+              } catch (err) {
+                dictateStatus.textContent = err.message;
+                dictateBtn.disabled = false;
+              }
+            };
+          };
+        }
+      });
+
+      function pollDictationStatus(jobId, elapsedSeconds = 0) {
+        dictateStatus.textContent =
+          "Transcribing your essay… this can take a little while for longer recordings.";
+        clearTimeout(dictatePollTimer);
+        dictatePollTimer = setTimeout(async () => {
+          try {
+            const res = await fetch(`/api/essay/dictate/status/${jobId}`, {
+              headers: authHeaders(),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Status check failed.");
+
+            if (data.status === "done") {
+              writingInput.value = data.transcript || "";
+              writingInput.dispatchEvent(new Event("input"));
+              dictateStatus.textContent = "Done — your essay is filled in below.";
+              dictateBtn.disabled = false;
+              return;
+            }
+            if (data.status === "error") {
+              dictateStatus.textContent =
+                "Transcription failed: " + (data.errorMessage || "unknown error");
+              dictateBtn.disabled = false;
+              return;
+            }
+            if (elapsedSeconds > 180) {
+              dictateStatus.textContent =
+                "Still waiting on Deepgram — this is taking longer than usual. You can keep waiting or try again.";
+            }
+            pollDictationStatus(jobId, elapsedSeconds + 3);
+          } catch (err) {
+            dictateStatus.textContent = err.message;
+            dictateBtn.disabled = false;
+          }
+        }, 3000);
+      }
 
       document
         .getElementById("submitBtn")
