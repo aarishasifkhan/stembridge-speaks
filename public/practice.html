@@ -11,10 +11,7 @@
       name="description"
       content="Practice speaking German, English, Spanish, Mandarin, Russian, Arabic, or Hebrew with an AI tutor. Real scenarios, live corrections, English translations, and adjustable difficulty from A1 to C2 — completely free."
     />
-    <link
-      rel="canonical"
-      href="https://stembridgespeaks.tech/practice.html"
-    />
+    <link rel="canonical" href="https://stembridgespeaks.tech/practice.html" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -1629,10 +1626,12 @@
           mediaRecorder.start();
           isRecording = true;
           micBtn.classList.add("recording");
+          startLiveCaptions(stream, languageSelect.value);
         } else {
           mediaRecorder.stop();
           isRecording = false;
           micBtn.classList.remove("recording");
+          stopLiveCaptions();
 
           mediaRecorder.onstop = async () => {
             await ensureChatExists();
