@@ -686,6 +686,19 @@
             <div class="card-face card-front">
               <span class="card-tag" id="cardFrontTag"></span>
               <div class="card-text" id="cardFrontText"></div>
+              <button
+                class="icon-btn"
+                id="pronounceBtn"
+                type="button"
+                title="Hear this pronounced"
+                style="margin-top: 10px; align-self: center"
+                onclick="
+                  event.stopPropagation();
+                  pronounceCurrentCard();
+                "
+              >
+                🔊 Listen
+              </button>
               <div class="flip-hint">Tap to flip</div>
             </div>
             <div class="card-face card-back">
@@ -743,6 +756,41 @@
       let courseUnits = [];
       let deck = [];
       let deckIndex = 0;
+      let flashcardAudio = null;
+
+      async function pronounceCurrentCard() {
+        const card = deck[deckIndex];
+        if (!card || !card.front) return;
+        const btn = document.getElementById("pronounceBtn");
+        if (flashcardAudio) {
+          flashcardAudio.pause();
+          flashcardAudio = null;
+        }
+        btn.disabled = true;
+        btn.textContent = "🔊 Loading…";
+        try {
+          const res = await fetch("/tts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              text: card.front,
+              language: langSelect.value,
+            }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Playback failed.");
+          flashcardAudio = new Audio("data:audio/mp3;base64," + data.audio);
+          flashcardAudio.onended = () => {
+            btn.disabled = false;
+            btn.textContent = "🔊 Listen";
+          };
+          await flashcardAudio.play();
+        } catch (err) {
+          console.error("Flashcard pronunciation failed:", err);
+          btn.disabled = false;
+          btn.textContent = "🔊 Listen";
+        }
+      }
       let score = 0;
       let selectedDifficulty = "easy";
       let currentSource = "grammar";

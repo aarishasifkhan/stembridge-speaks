@@ -1597,6 +1597,98 @@
         }
       }
 
+      // ---------- LIVE CAPTIONS (Deepgram Nova-3 streaming) ----------
+      // Purely a visual layer on top of the recording flow below — if it
+      // fails for any reason (network, token, browser support), recording
+      // and submission via /chat-audio still work exactly as before.
+      const dgLangCodes = {
+        german: "de",
+        english: "en",
+        spanish: "es",
+        mandarin: "zh-CN",
+        russian: "ru",
+        arabic: "ar",
+        hebrew: "he",
+      };
+      let dgSocket = null;
+      let captionRecorder = null;
+      let liveCaptionEl = null;
+
+      function showLiveCaption(text) {
+        if (!liveCaptionEl) {
+          liveCaptionEl = document.createElement("div");
+          liveCaptionEl.className = "live-caption";
+          liveCaptionEl.style.cssText =
+            "text-align:center;color:#888;font-style:italic;padding:4px 12px;min-height:1.2em;";
+          micBtn.insertAdjacentElement("afterend", liveCaptionEl);
+        }
+        liveCaptionEl.textContent = text;
+      }
+
+      function clearLiveCaption() {
+        if (liveCaptionEl) {
+          liveCaptionEl.remove();
+          liveCaptionEl = null;
+        }
+      }
+
+      async function startLiveCaptions(stream, languageKey) {
+        try {
+          const tokenRes = await fetch("/api/deepgram/token", {
+            method: "POST",
+            headers: authHeaders(),
+          });
+          const tokenData = await tokenRes.json();
+          if (!tokenRes.ok)
+            throw new Error(tokenData.error || "Could not get token.");
+
+          const dgLang = dgLangCodes[languageKey] || "en";
+          dgSocket = new WebSocket(
+            `wss://api.deepgram.com/v1/listen?model=nova-3&language=${dgLang}&interim_results=true&smart_format=true&punctuate=true`,
+            ["token", tokenData.token],
+          );
+
+          dgSocket.onmessage = (event) => {
+            try {
+              const msg = JSON.parse(event.data);
+              const transcript = msg?.channel?.alternatives?.[0]?.transcript;
+              if (transcript) showLiveCaption(transcript);
+            } catch (e) {
+              // non-JSON/control frame — ignore
+            }
+          };
+          dgSocket.onerror = (e) => {
+            console.error("Live caption socket error:", e);
+          };
+          dgSocket.onopen = () => {
+            captionRecorder = new MediaRecorder(stream);
+            captionRecorder.ondataavailable = (e) => {
+              if (e.data.size > 0 && dgSocket.readyState === WebSocket.OPEN) {
+                dgSocket.send(e.data);
+              }
+            };
+            captionRecorder.start(250);
+          };
+        } catch (err) {
+          console.error("Could not start live captions:", err);
+          // Nice-to-have only — recording/submission still work without it.
+        }
+      }
+
+      function stopLiveCaptions() {
+        if (captionRecorder && captionRecorder.state !== "inactive") {
+          captionRecorder.stop();
+        }
+        captionRecorder = null;
+        if (dgSocket && dgSocket.readyState === WebSocket.OPEN) {
+          dgSocket.send(JSON.stringify({ type: "CloseStream" }));
+          const socketToClose = dgSocket;
+          setTimeout(() => socketToClose.close(), 1500);
+        }
+        dgSocket = null;
+        clearLiveCaption();
+      }
+
       sendBtn.addEventListener("click", () => {
         unlockAudio();
         const text = textInput.value.trim();

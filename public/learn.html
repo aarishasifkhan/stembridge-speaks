@@ -1135,6 +1135,16 @@
       function playAudio(audioId, lang) {
         if (!audioId) return;
         const audio = new Audio(`/audio/${lang}/${audioId}.mp3`);
+        // English/German/Spanish lesson audio is generated with Deepgram
+        // Aura-2, which has no server-side speaking-rate control (unlike
+        // the msedge-tts files used for the other languages, which are
+        // already baked at a slower learner-friendly pace). Slow these
+        // three down client-side instead so the pace stays consistent
+        // across all languages. playbackRate < 1 preserves pitch in
+        // modern browsers, so this doesn't sound artificially deep.
+        if (["en", "de", "es"].includes(lang)) {
+          audio.playbackRate = 0.75;
+        }
         audio
           .play()
           .catch((err) => console.error("Audio playback failed:", err));

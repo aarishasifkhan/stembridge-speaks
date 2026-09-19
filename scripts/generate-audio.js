@@ -1,3 +1,4 @@
+require("dotenv").config();
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
@@ -10,6 +11,15 @@ if (!langCode || !voice) {
   console.error("Usage: node scripts/generate-audio.js <langCode> <voiceName>");
   process.exit(1);
 }
+
+// Deepgram Aura-2 only covers English, German, and Spanish among our
+// languages — everything else (ar/he/ru/zh) stays on msedge-tts below,
+// the same split used in server.js's /tts endpoint.
+const deepgramVoiceByLangCode = {
+  en: "aura-2-thalia-en",
+  de: "aura-2-aurelia-de",
+  es: "aura-2-antonia-es",
+};
 
 const courseData = JSON.parse(
   fs.readFileSync(
@@ -30,6 +40,44 @@ function sanitizeForSpeech(text) {
   return clean;
 }
 
+// Deepgram Aura-2 has no server-side speaking-rate control (unlike
+// msedge-tts's `rate` below), so files generated this way come out at
+// normal pace. learn.html compensates with a client-side playbackRate
+// of 0.75 for exactly these three languages, keeping the felt pace
+// consistent with the other languages' baked-in -30% rate.
+async function generateWithDeepgram(text, voiceModel, finalPath) {
+  const res = await fetch(
+    `https://api.deepgram.com/v1/speak?model=${voiceModel}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text }),
+    },
+  );
+  if (!res.ok) {
+    const errText = await res.text().catch(() => "");
+    throw new Error(`Deepgram TTS error ${res.status}: ${errText}`);
+  }
+  const arrayBuffer = await res.arrayBuffer();
+  fs.writeFileSync(finalPath, Buffer.from(arrayBuffer));
+}
+
+async function generateWithMsedge(text, finalPath) {
+  const tts = new MsEdgeTTS();
+  await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+  const tempDir = path.join(
+    os.tmpdir(),
+    "stembridge-tts-" + Date.now() + "-" + Math.random().toString(36).slice(2),
+  );
+  fs.mkdirSync(tempDir, { recursive: true });
+  const { audioFilePath } = await tts.toFile(tempDir, text, { rate: "-30%" }); // moderate, learner-friendly pace
+  fs.renameSync(audioFilePath, finalPath);
+  fs.rmSync(tempDir, { recursive: true, force: true });
+}
+
 async function generateAudio(rawText, finalPath) {
   if (fs.existsSync(finalPath)) {
     console.log("Skipping (already exists):", path.basename(finalPath));
@@ -41,17 +89,23 @@ async function generateAudio(rawText, finalPath) {
     return;
   }
 
-  const tts = new MsEdgeTTS();
-  await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
-  const tempDir = path.join(
-    os.tmpdir(),
-    "stembridge-tts-" + Date.now() + "-" + Math.random().toString(36).slice(2),
-  );
-  fs.mkdirSync(tempDir, { recursive: true });
-  const { audioFilePath } = await tts.toFile(tempDir, text, { rate: "-30%" }); // moderate, learner-friendly pace
-  fs.renameSync(audioFilePath, finalPath);
-  fs.rmSync(tempDir, { recursive: true, force: true });
-  console.log("Generated:", path.basename(finalPath));
+  const dgVoice = deepgramVoiceByLangCode[langCode];
+  if (dgVoice && process.env.DEEPGRAM_API_KEY) {
+    try {
+      await generateWithDeepgram(text, dgVoice, finalPath);
+      console.log("Generated (Deepgram):", path.basename(finalPath));
+      return;
+    } catch (err) {
+      console.error(
+        "Deepgram TTS failed, falling back to msedge-tts:",
+        err.message,
+      );
+      // fall through to msedge-tts below
+    }
+  }
+
+  await generateWithMsedge(text, finalPath);
+  console.log("Generated (msedge-tts):", path.basename(finalPath));
 }
 
 async function main() {
