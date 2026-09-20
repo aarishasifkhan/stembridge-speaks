@@ -16,6 +16,10 @@ const os = require("os");
 const path = require("path");
 const { MsEdgeTTS, OUTPUT_FORMAT } = require("msedge-tts");
 const crypto = require("crypto");
+const ffmpegPath = require("ffmpeg-static");
+const { execFile } = require("child_process");
+const { promisify } = require("util");
+const execFileAsync = promisify(execFile);
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -136,6 +140,36 @@ const languages = {
 // specific terms correctly.
 const STEMBRIDGE_KEYTERMS = ["STEMBridge Speaks", "Aarish Asif Khan"];
 
+// Scenario-specific vocabulary for Keyterm Prompting — boosts recognition
+// of words a learner is likely to actually say in that scenario, on top
+// of the brand/name terms above. IMPORTANT LIMITATION: Deepgram's Keyterm
+// Prompting is currently English-only, so this only helps when
+// language === "english" (see the "en" check in transcribeAudio and its
+// call sites) — it cannot help German/Spanish/etc. scenarios yet, which
+// is most of this app's actual usage. Extend this list as more scenarios
+// are added.
+const scenarioKeyterms = {
+  restaurant: [
+    "menu",
+    "appetizer",
+    "entree",
+    "reservation",
+    "check please",
+    "waiter",
+    "vegetarian",
+    "allergy",
+  ],
+  directions: [
+    "intersection",
+    "crosswalk",
+    "landmark",
+    "roundabout",
+    "straight ahead",
+  ],
+  shopping: ["receipt", "fitting room", "discount", "cashier", "size medium"],
+  hotel: ["check-in", "check-out", "reservation", "concierge", "room service"],
+};
+
 async function transcribeAudio(
   base64Audio,
   languageKey,
@@ -203,19 +237,25 @@ function withTimeout(promise, ms, label) {
 const OPENER_PROMPT =
   "Start the conversation naturally, in character, with a short opening line or question — as if the user just walked up to you. Do not wait for the user to speak first.";
 
+const INTERVIEW_OPENER_PROMPT =
+  "Start the interview with a brief, warm greeting and your first question. Do not wait for the candidate to speak first.";
+
 // Converts our stored {role, text} messages into Gemini's {role, parts}
 // history format. Gemini's startChat() requires the first turn to be
-// "user" — but our chats often start with a model-generated opener (see
-// /chat/start), so when that's the case we prepend the same prompt that
-// produced that opener as a synthetic leading user turn. This preserves
-// full context for Gemini without violating the API's requirement.
-function toGeminiHistory(messages) {
+// "user" — but our chats/interviews often start with a model-generated
+// opener (see /chat/start and /api/interview/start), so when that's the
+// case we prepend the same prompt that produced that opener as a
+// synthetic leading user turn. This preserves full context for Gemini
+// without violating the API's requirement. Pass openerPrompt to match
+// whichever flow's actual opener text applies — defaults to the
+// practice-chat one since that's the original/most common caller.
+function toGeminiHistory(messages, openerPrompt = OPENER_PROMPT) {
   const history = (messages || []).map((m) => ({
     role: m.role,
     parts: [{ text: m.text }],
   }));
   if (history.length > 0 && history[0].role === "model") {
-    history.unshift({ role: "user", parts: [{ text: OPENER_PROMPT }] });
+    history.unshift({ role: "user", parts: [{ text: openerPrompt }] });
   }
   return history;
 }
@@ -680,7 +720,11 @@ app.post("/chat-audio", requireAuth, async (req, res) => {
     if (!chat) return res.status(404).json({ error: "Chat not found." });
 
     const transcription = await withTimeout(
-      transcribeAudio(audio, language),
+      transcribeAudio(
+        audio,
+        language,
+        STEMBRIDGE_KEYTERMS.concat(scenarioKeyterms[scenario] || []),
+      ),
       20000,
       "Deepgram",
     );
@@ -827,10 +871,7 @@ app.post("/api/interview/message", requireAuth, async (req, res) => {
         jobField,
       ),
     });
-    const geminiHistory = (history || []).map((m) => ({
-      role: m.role,
-      parts: [{ text: m.text }],
-    }));
+    const geminiHistory = toGeminiHistory(history, INTERVIEW_OPENER_PROMPT);
     const chat = model.startChat({ history: geminiHistory });
     const result = await chat.sendMessage(message);
     res.json({ reply: result.response.text() });
@@ -861,10 +902,7 @@ app.post("/api/interview/audio", requireAuth, async (req, res) => {
         jobField,
       ),
     });
-    const geminiHistory = (history || []).map((m) => ({
-      role: m.role,
-      parts: [{ text: m.text }],
-    }));
+    const geminiHistory = toGeminiHistory(history, INTERVIEW_OPENER_PROMPT);
     const chat = model.startChat({ history: geminiHistory });
     const result = await withTimeout(
       chat.sendMessage(
@@ -963,16 +1001,58 @@ app.post("/api/writing/review", requireAuth, async (req, res) => {
     if (!text || !text.trim())
       return res.status(400).json({ error: "Please write something first." });
 
+    // A generous cap for a practice-essay submission — well beyond any
+    // normal response to these prompts, but bounded so a pathologically
+    // long paste can't blow past Gemini's output budget (the review
+    // response includes a full corrected copy of the text plus notes and
+    // feedback, so output size scales with input size) or hang the
+    // request for minutes.
+    const MAX_WRITING_CHARS = 6000;
+    if (text.length > MAX_WRITING_CHARS) {
+      return res.status(400).json({
+        error: `That's a bit long for one review (${text.length} characters, ${MAX_WRITING_CHARS} max) — try splitting it into a couple of submissions, or trimming it down.`,
+      });
+    }
+
     const model = genAI.getGenerativeModel({
       model: "gemini-3.6-flash",
       systemInstruction: buildWritingReviewInstruction(language, level),
+      // The review response duplicates the submission (as correctedText)
+      // plus inline notes and feedback, so it needs real headroom —
+      // the SDK's default is well under what a long essay's full review
+      // needs, and hitting that limit mid-generation produces truncated,
+      // unparseable JSON. This is the main fix for reliability on longer
+      // submissions.
+      generationConfig: { maxOutputTokens: 8192 },
     });
-    const result = await model.generateContent(text);
+    const result = await withTimeout(
+      model.generateContent(text),
+      45000,
+      "Gemini",
+    );
     const cleaned = result.response
       .text()
       .replace(/```json|```/g, "")
       .trim();
-    const parsed = JSON.parse(cleaned);
+
+    let parsed;
+    try {
+      parsed = JSON.parse(cleaned);
+    } catch (parseErr) {
+      // Almost always means the response got cut off mid-generation —
+      // give the person something actionable instead of a generic error.
+      console.error(
+        "Writing review: failed to parse JSON response:",
+        parseErr.message,
+        "raw length:",
+        cleaned.length,
+      );
+      return res.status(502).json({
+        error:
+          "The review response was cut off before finishing — this can happen with longer submissions. Try again, or trim the text a bit.",
+      });
+    }
+
     res.json(parsed);
   } catch (err) {
     console.error(err);
@@ -1030,6 +1110,10 @@ app.post("/api/essay/dictate/start", requireAuth, async (req, res) => {
     base.pathname = "/api/essay/dictate/webhook";
     base.search = `?jobId=${jobId}`;
     const callbackUrl = base.toString();
+    console.log(
+      `[essay-dictate] job ${jobId} — callback URL (password redacted): ` +
+        callbackUrl.replace(/:[^:@]*@/, ":***@"),
+    );
 
     const buffer = Buffer.from(audio, "base64");
     const params = new URLSearchParams({
@@ -1078,6 +1162,10 @@ app.post("/api/essay/dictate/start", requireAuth, async (req, res) => {
 app.post("/api/essay/dictate/webhook", async (req, res) => {
   try {
     const jobId = req.query.jobId;
+    console.log(
+      `[essay-dictate] webhook hit — jobId=${jobId || "(missing)"}, ` +
+        `has auth header=${!!req.headers.authorization}`,
+    );
     const authHeader = req.headers.authorization || "";
     const expected =
       "Basic " +
@@ -1085,6 +1173,9 @@ app.post("/api/essay/dictate/webhook", async (req, res) => {
         `stembridge:${process.env.DEEPGRAM_CALLBACK_SECRET || ""}`,
       ).toString("base64");
     if (!jobId || authHeader !== expected) {
+      console.log(
+        `[essay-dictate] webhook rejected — jobId or auth mismatch for jobId=${jobId}`,
+      );
       return res.status(401).send("Unauthorized");
     }
 
@@ -1131,6 +1222,20 @@ app.post("/api/essay/dictate/webhook", async (req, res) => {
   }
 });
 
+// Quick manual reachability check — visit this URL directly in a browser
+// (e.g. https://your-public-url/api/essay/dictate/health) to confirm the
+// deployed server is actually reachable at this path prefix at all. This
+// doesn't test the webhook's auth or logic, just basic reachability —
+// useful for isolating "is the URL globally accessible" from "is
+// something else about the webhook wrong."
+app.get("/api/essay/dictate/health", (req, res) => {
+  res.json({
+    status: "ok",
+    publicBaseUrlConfigured: !!process.env.PUBLIC_BASE_URL,
+    callbackSecretConfigured: !!process.env.DEEPGRAM_CALLBACK_SECRET,
+  });
+});
+
 app.get("/api/essay/dictate/status/:jobId", requireAuth, async (req, res) => {
   try {
     const job = await essayDictationCollection.findOne({
@@ -1138,6 +1243,37 @@ app.get("/api/essay/dictate/status/:jobId", requireAuth, async (req, res) => {
       userId: req.userId,
     });
     if (!job) return res.status(404).json({ error: "Job not found." });
+
+    // If the webhook never arrives (misconfigured callback URL, Deepgram
+    // outage, etc.), a job would otherwise sit in "pending" forever with
+    // the frontend polling indefinitely. Time it out after 5 minutes —
+    // far longer than any real essay-length transcription should take —
+    // so the person gets a clear, actionable failure instead of an
+    // endless spinner.
+    const JOB_TIMEOUT_MS = 5 * 60 * 1000;
+    if (
+      job.status === "pending" &&
+      Date.now() - new Date(job.createdAt).getTime() > JOB_TIMEOUT_MS
+    ) {
+      await essayDictationCollection.updateOne(
+        { jobId: job.jobId },
+        {
+          $set: {
+            status: "error",
+            errorMessage:
+              "Transcription timed out — Deepgram's callback never reached us. This usually means the server's callback URL isn't currently reachable from the internet; try again, and if it keeps happening, it's worth double-checking PUBLIC_BASE_URL.",
+            updatedAt: new Date(),
+          },
+        },
+      );
+      return res.json({
+        status: "error",
+        transcript: null,
+        errorMessage:
+          "Transcription timed out — Deepgram's callback never reached us. Please try again.",
+      });
+    }
+
     res.json({
       status: job.status,
       transcript: job.transcript,
@@ -1226,6 +1362,49 @@ app.post("/api/deepgram/token", requireAuth, async (req, res) => {
   }
 });
 
+// Normalizes perceived loudness across all TTS output, regardless of
+// which backend generated it. Different voices — even within the same
+// TTS model — can have noticeably different natural loudness (e.g.
+// Aura-2's German voice sounding quieter than its English voice), which
+// is jarring for someone switching languages. Single-pass EBU R128
+// loudness normalization via ffmpeg, targeting -16 LUFS (a common
+// streaming-loudness standard). This adds a small amount of processing
+// time per request — on the short clips this app generates, that should
+// be modest, but it's a real trade-off against response latency worth
+// keeping an eye on rather than assuming away.
+async function normalizeAudioVolume(inputBuffer) {
+  const tempDir = path.join(
+    os.tmpdir(),
+    "stembridge-normalize-" +
+      Date.now() +
+      "-" +
+      Math.random().toString(36).slice(2),
+  );
+  fs.mkdirSync(tempDir, { recursive: true });
+  const inputPath = path.join(tempDir, "input.mp3");
+  const outputPath = path.join(tempDir, "output.mp3");
+  try {
+    fs.writeFileSync(inputPath, inputBuffer);
+    await execFileAsync(ffmpegPath, [
+      "-y",
+      "-i",
+      inputPath,
+      "-af",
+      "loudnorm=I=-16:TP=-1.5:LRA=11",
+      outputPath,
+    ]);
+    return fs.readFileSync(outputPath);
+  } catch (err) {
+    console.error(
+      "Audio normalization failed, returning unnormalized audio:",
+      err.message,
+    );
+    return inputBuffer; // better an inconsistent volume than a broken clip
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+}
+
 app.post("/tts", async (req, res) => {
   try {
     const { text, level, language, speaker, mascotVoice } = req.body;
@@ -1242,7 +1421,8 @@ app.post("/tts", async (req, res) => {
           15000,
           "Deepgram Flux TTS",
         );
-        return res.json({ audio: audioBuffer.toString("base64") });
+        const normalized = await normalizeAudioVolume(audioBuffer);
+        return res.json({ audio: normalized.toString("base64") });
       } catch (fluxErr) {
         console.error(
           "Flux TTS failed, falling back to Aura-2/msedge-tts:",
@@ -1263,7 +1443,8 @@ app.post("/tts", async (req, res) => {
           15000,
           "Deepgram TTS",
         );
-        return res.json({ audio: audioBuffer.toString("base64") });
+        const normalized = await normalizeAudioVolume(audioBuffer);
+        return res.json({ audio: normalized.toString("base64") });
       } catch (dgErr) {
         console.error(
           "Deepgram TTS failed, falling back to msedge-tts:",
@@ -1293,7 +1474,8 @@ app.post("/tts", async (req, res) => {
     const audioBuffer = fs.readFileSync(audioFilePath);
     fs.rmSync(tempDir, { recursive: true, force: true });
 
-    res.json({ audio: audioBuffer.toString("base64") });
+    const normalized = await normalizeAudioVolume(audioBuffer);
+    res.json({ audio: normalized.toString("base64") });
   } catch (err) {
     console.error("TTS error:", err);
     res.status(500).json({ error: "Speech generation failed." });
@@ -1655,4 +1837,10 @@ app.post("/api/migrate", requireAuth, async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
+  console.log(
+    `[essay-dictate] PUBLIC_BASE_URL=${process.env.PUBLIC_BASE_URL || "(NOT SET — essay dictation's webhook callback will fail)"}`,
+  );
+  console.log(
+    `[essay-dictate] DEEPGRAM_CALLBACK_SECRET is ${process.env.DEEPGRAM_CALLBACK_SECRET ? "set" : "NOT SET — webhook auth will always fail"}`,
+  );
 });

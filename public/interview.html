@@ -703,6 +703,7 @@
         row.innerHTML = `<div class="bubble system">${text}</div>`;
         chatInner().appendChild(row);
         scrollBottom();
+        return row;
       }
 
       function addTutorBubble(fullText, lang, autoSpeak) {
@@ -786,7 +787,9 @@
               ? "STAR Method Mock Interview"
               : `Mock Interview — ${document.getElementById("langSelect").selectedOptions[0].text}`;
           chatInner().innerHTML = "";
-          addSystemBubble("Connecting to your interviewer...");
+          const connectingRow = addSystemBubble(
+            "Connecting to your interviewer...",
+          );
           try {
             const res = await fetch("/api/interview/start", {
               method: "POST",
@@ -794,12 +797,18 @@
               body: JSON.stringify(cfg),
             });
             const data = await res.json();
-            chatInner().lastChild.remove();
+            if (!res.ok)
+              throw new Error(data.error || "Could not start the interview.");
+            connectingRow.remove();
             const spoken = addTutorBubble(data.reply, cfg.language, true);
             history.push({ role: "model", text: data.reply });
           } catch (err) {
-            chatInner().lastChild.remove();
-            addSystemBubble("Couldn't start the interview. Please try again.");
+            connectingRow.remove();
+            addSystemBubble(
+              "Couldn't start the interview (" +
+                err.message +
+                "). Please try again.",
+            );
           }
         });
 
@@ -807,7 +816,7 @@
         const cfg = getConfig();
         addUserBubble(text, cfg.language);
         history.push({ role: "user", text });
-        addSystemBubble("Thinking...");
+        const thinkingRow = addSystemBubble("Thinking...");
         try {
           const res = await fetch("/api/interview/message", {
             method: "POST",
@@ -819,12 +828,13 @@
             }),
           });
           const data = await res.json();
-          chatInner().lastChild.remove();
+          if (!res.ok) throw new Error(data.error || "Something went wrong.");
+          thinkingRow.remove();
           addTutorBubble(data.reply, cfg.language, true);
           history.push({ role: "model", text: data.reply });
         } catch (err) {
-          chatInner().lastChild.remove();
-          addSystemBubble("Something went wrong. Try again.");
+          thinkingRow.remove();
+          addSystemBubble("Error: " + err.message);
         }
       }
 
@@ -956,7 +966,7 @@
           mediaRecorder.onstop = async () => {
             const cfg = getConfig();
             const blob = new Blob(audioChunks, { type: "audio/webm" });
-            addSystemBubble("Processing your answer...");
+            const processingRow = addSystemBubble("Processing your answer...");
             const reader = new FileReader();
             reader.readAsDataURL(blob);
             reader.onloadend = async () => {
@@ -975,14 +985,18 @@
                   }),
                 });
                 const data = await res.json();
-                chatInner().lastChild.remove();
+                if (!res.ok)
+                  throw new Error(
+                    data.error || "Something went wrong processing audio.",
+                  );
+                processingRow.remove();
                 addUserBubble(data.transcription, cfg.language);
                 history.push({ role: "user", text: data.transcription });
                 addTutorBubble(data.reply, cfg.language, true);
                 history.push({ role: "model", text: data.reply });
               } catch (err) {
-                chatInner().lastChild.remove();
-                addSystemBubble("Something went wrong. Try again.");
+                processingRow.remove();
+                addSystemBubble("Error: " + err.message);
               }
             };
           };

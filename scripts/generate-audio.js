@@ -1,51 +1,354 @@
 require("dotenv").config();
+const { setGlobalDispatcher, Agent } = require("undici");
+// Force HTTP/1.1 for all outbound fetch calls (including the Gemini SDK's).
+// Some networks/antivirus mishandle TLS renegotiation on HTTP/2, causing
+// Node's fetch to hang or fail intermittently even though the endpoint is
+// reachable — HTTP/1.1-only avoids that. See conversation with Aarish,
+// Sep 2026, for the diagnosis (curl worked reliably, Node fetch didn't).
+setGlobalDispatcher(new Agent({ allowH2: false }));
+
+const express = require("express");
+const cors = require("cors");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { MongoClient, ObjectId } = require("mongodb");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const { MsEdgeTTS, OUTPUT_FORMAT } = require("msedge-tts");
+const crypto = require("crypto");
+const ffmpegPath = require("ffmpeg-static");
+const { execFile } = require("child_process");
+const { promisify } = require("util");
+const execFileAsync = promisify(execFile);
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-const langCode = process.argv[2];
-const voice = process.argv[3];
-
-if (!langCode || !voice) {
-  console.error("Usage: node scripts/generate-audio.js <langCode> <voiceName>");
-  process.exit(1);
-}
-
-// Deepgram Aura-2 only covers English, German, and Spanish among our
-// languages — everything else (ar/he/ru/zh) stays on msedge-tts below,
-// the same split used in server.js's /tts endpoint.
-const deepgramVoiceByLangCode = {
-  en: "aura-2-thalia-en",
-  de: "aura-2-aurelia-de",
-  es: "aura-2-antonia-es",
+const writingTopics = {
+  restaurant:
+    "Write about a memorable meal you had — where, what you ate, and why it stood out.",
+  travel:
+    "Describe a trip you'd like to take, and explain why that destination interests you.",
+  daily_routine:
+    "Describe your typical daily routine, from morning to evening.",
+  opinion:
+    "Do you think social media does more good than harm? Explain your view with reasons.",
+  hobby: "Write about a hobby or activity you enjoy, and how you got into it.",
+  work_study:
+    "Describe your job or studies, and what you find most challenging about it.",
 };
 
-const courseData = JSON.parse(
-  fs.readFileSync(
-    path.join(__dirname, `../public/data/${langCode}-course.json`),
-    "utf-8",
-  ),
-);
+function buildWritingReviewInstruction(languageKey, levelKey) {
+  const language = languages[languageKey] || languages.german;
+  const levelText = levelGuidance[levelKey] || levelGuidance.B1;
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return `You are an experienced, encouraging ${language.name} writing teacher reviewing a learner's written submission.
+
+${levelText}
+
+The learner has submitted a piece of writing in ${language.name}. Review it and respond with ONLY a JSON object, no other text, in this exact format:
+
+{
+  "correctedText": "the FULL text, lightly corrected — fix grammar/spelling errors but preserve the learner's own voice and structure as much as possible",
+  "inlineNotes": [
+    { "original": "the exact original phrase with the mistake", "corrected": "the corrected version", "explanation": "a short, plain-language explanation of the mistake" }
+  ],
+  "overallFeedback": {
+    "structure": "1-2 sentences on how well-organized the writing is (intro/body/conclusion, paragraph flow, logical order)",
+    "vocabulary": "1-2 sentences on vocabulary range and word choice — repetitive, appropriate, impressive word use, etc.",
+    "register": "1-2 sentences on whether the tone/formality matches what the piece seems to be going for",
+    "strengths": "1-2 sentences on what the learner did well — always find something genuine",
+    "nextSteps": "1-2 concrete, specific things to focus on improving next time"
+  },
+  "wordCount": <integer, the word count of the original submission>
 }
 
-function sanitizeForSpeech(text) {
-  if (!text) return text;
-  let clean = text.replace(/\([^)]*\)/g, "");
-  clean = clean.replace(/_{2,}/g, ", blank,");
-  clean = clean.replace(/\s{2,}/g, " ").trim();
-  return clean;
+Only include entries in "inlineNotes" for genuine errors — do not invent corrections for stylistic preferences that aren't actually wrong. If the submission has no errors at all, "inlineNotes" can be an empty array, but still give full "overallFeedback".`;
 }
 
-// Deepgram Aura-2 has no server-side speaking-rate control (unlike
-// msedge-tts's `rate` below), so files generated this way come out at
-// normal pace. learn.html compensates with a client-side playbackRate
-// of 0.75 for exactly these three languages, keeping the felt pace
-// consistent with the other languages' baked-in -30% rate.
-async function generateWithDeepgram(text, voiceModel, finalPath) {
+function generateId() {
+  return crypto.randomBytes(12).toString("hex");
+}
+
+const mongoClient = new MongoClient(process.env.MONGODB_URI);
+let feedbackCollection;
+let chatsCollection;
+let usersCollection;
+let progressCollection;
+let dictionaryHistoryCollection;
+let essayDictationCollection;
+
+async function connectDB() {
+  try {
+    await mongoClient.connect();
+    feedbackCollection = mongoClient.db("stembridge").collection("feedback");
+    chatsCollection = mongoClient.db("stembridge").collection("chats");
+    usersCollection = mongoClient.db("stembridge").collection("users");
+    progressCollection = mongoClient.db("stembridge").collection("progress");
+    dictionaryHistoryCollection = mongoClient
+      .db("stembridge")
+      .collection("dictionaryHistory");
+    essayDictationCollection = mongoClient
+      .db("stembridge")
+      .collection("essayDictationJobs");
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("MongoDB connection failed:", err);
+  }
+}
+connectDB();
+
+const app = express();
+app.use(cors());
+app.use(express.json({ limit: "25mb" }));
+app.use(express.static("public"));
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+const scenarios = {
+  restaurant: "a waiter in a restaurant, helping the user order food",
+  directions:
+    "a friendly local in a city, helping the user who is lost find their way somewhere",
+  shopping:
+    "a shop assistant in a clothing store, helping the user find and buy an item",
+  hotel:
+    "a hotel receptionist, helping the user check in and ask about their room",
+};
+
+const languages = {
+  german: { name: "German", ttsLang: "de-DE", dgLang: "de" },
+  english: { name: "English", ttsLang: "en-US", dgLang: "en" },
+  spanish: { name: "Spanish", ttsLang: "es-ES", dgLang: "es" },
+  mandarin: { name: "Mandarin Chinese", ttsLang: "zh-CN", dgLang: "zh-CN" },
+  russian: { name: "Russian", ttsLang: "ru-RU", dgLang: "ru" },
+  arabic: { name: "Arabic", ttsLang: "ar-SA", dgLang: "ar" },
+  hebrew: { name: "Hebrew", ttsLang: "he-IL", dgLang: "he" },
+};
+
+// Transcribes a base64-encoded webm audio clip with Deepgram Nova-3.
+// Calls Deepgram's REST endpoint directly with plain fetch, rather than
+// through @deepgram/sdk's transcribeFile() helper — that helper sets
+// `duplex: "half"` on every request regardless of body type, which
+// conflicts with its own manually-computed Content-Length header when
+// given a Buffer (not a stream). That combination trips a validation
+// bug in Node's undici (confirmed by reading the SDK's own source,
+// node_modules/@deepgram/sdk/dist/cjs/core/fetcher/makeRequest.js).
+// Plain fetch with a Buffer body has no such conflict — Node computes
+// Content-Length correctly on its own.
+// Words/phrases Deepgram is likely to otherwise mishear — proper nouns
+// aren't well represented in any STT model's training data. Applied via
+// Keyterm Prompting below, which biases Nova-3 toward recognizing these
+// specific terms correctly.
+const STEMBRIDGE_KEYTERMS = ["STEMBridge Speaks", "Aarish Asif Khan"];
+
+// Scenario-specific vocabulary for Keyterm Prompting — boosts recognition
+// of words a learner is likely to actually say in that scenario, on top
+// of the brand/name terms above. IMPORTANT LIMITATION: Deepgram's Keyterm
+// Prompting is currently English-only, so this only helps when
+// language === "english" (see the "en" check in transcribeAudio and its
+// call sites) — it cannot help German/Spanish/etc. scenarios yet, which
+// is most of this app's actual usage. Extend this list as more scenarios
+// are added.
+const scenarioKeyterms = {
+  restaurant: [
+    "menu",
+    "appetizer",
+    "entree",
+    "reservation",
+    "check please",
+    "waiter",
+    "vegetarian",
+    "allergy",
+  ],
+  directions: [
+    "intersection",
+    "crosswalk",
+    "landmark",
+    "roundabout",
+    "straight ahead",
+  ],
+  shopping: ["receipt", "fitting room", "discount", "cashier", "size medium"],
+  hotel: ["check-in", "check-out", "reservation", "concierge", "room service"],
+};
+
+async function transcribeAudio(
+  base64Audio,
+  languageKey,
+  keyterms = STEMBRIDGE_KEYTERMS,
+) {
+  const dgLang = (languages[languageKey] || languages.german).dgLang;
+  const buffer = Buffer.from(base64Audio, "base64");
+  const params = new URLSearchParams({
+    model: "nova-3",
+    language: dgLang,
+    smart_format: "true",
+  });
+  // Keyterm Prompting is currently English-only on Deepgram's side, so
+  // it's only added when the audio is being transcribed as English —
+  // harmless to skip for other languages, not a partial failure.
+  if (dgLang === "en") {
+    for (const term of keyterms) {
+      params.append("keyterm", term);
+    }
+  }
+  const res = await fetch(
+    `https://api.deepgram.com/v1/listen?${params.toString()}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+        "Content-Type": "audio/webm",
+      },
+      body: buffer,
+    },
+  );
+  if (!res.ok) {
+    const errText = await res.text().catch(() => "");
+    throw new Error(`Deepgram error ${res.status}: ${errText}`);
+  }
+  const data = await res.json();
+  return (
+    data?.results?.channels?.[0]?.alternatives?.[0]?.transcript || ""
+  ).trim();
+}
+
+// Wraps a promise so it fails fast with a clear error instead of hanging
+// forever — used around calls to Gemini/Deepgram so a flaky network
+// connection surfaces as a real error the frontend can show, not an
+// endless "Getting started..." spinner.
+function withTimeout(promise, ms, label) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(
+      () =>
+        reject(
+          new Error(
+            `${label} timed out after ${ms / 1000}s — check your network connection.`,
+          ),
+        ),
+      ms,
+    );
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
+// The exact prompt /chat/start uses to generate a new chat's opener.
+// Reused below so reconstructed history stays consistent with what
+// actually produced that first model message.
+const OPENER_PROMPT =
+  "Start the conversation naturally, in character, with a short opening line or question — as if the user just walked up to you. Do not wait for the user to speak first.";
+
+// Converts our stored {role, text} messages into Gemini's {role, parts}
+// history format. Gemini's startChat() requires the first turn to be
+// "user" — but our chats often start with a model-generated opener (see
+// /chat/start), so when that's the case we prepend the same prompt that
+// produced that opener as a synthetic leading user turn. This preserves
+// full context for Gemini without violating the API's requirement.
+function toGeminiHistory(messages) {
+  const history = (messages || []).map((m) => ({
+    role: m.role,
+    parts: [{ text: m.text }],
+  }));
+  if (history.length > 0 && history[0].role === "model") {
+    history.unshift({ role: "user", parts: [{ text: OPENER_PROMPT }] });
+  }
+  return history;
+}
+
+const levelGuidance = {
+  A1: "The user is a complete beginner (CEFR A1). Use only the simplest, most common words and very short sentences (3-6 words). Avoid idioms entirely.",
+  A2: "The user is an elementary learner (CEFR A2). Use simple, common vocabulary and short, clear sentences.",
+  B1: "The user is an intermediate learner (CEFR B1). Use everyday vocabulary and natural sentence length. Simple idioms are fine if common.",
+  B2: "The user is an upper-intermediate learner (CEFR B2). Use natural vocabulary and normal sentence complexity, including some idiomatic expressions.",
+  C1: "The user is an advanced learner (CEFR C1), possibly preparing for an exam like IELTS or TOEFL. Use natural, sophisticated vocabulary and idiom. Corrections should focus on nuance, register, and natural phrasing, not just basic grammar.",
+  C2: "The user is near-native (CEFR C2). Speak completely naturally, exactly as you would with a native speaker, full idiom and colloquialism included. Corrections should focus on subtle style and native-level fluency, not basic errors.",
+};
+
+function buildInterviewSystemInstruction(
+  mode,
+  languageKey,
+  levelKey,
+  jobField,
+) {
+  const field =
+    jobField && jobField.trim() ? jobField.trim() : "a general professional";
+
+  if (mode === "star") {
+    return `You are an experienced, warm but professional hiring manager conducting a behavioral job interview in English for a "${field}" position.
+
+Rules:
+- Ask ONE interview question at a time, in natural professional English — the kind a real interviewer would ask (behavioral/situational questions especially: "Tell me about a time when...", "Describe a situation where...").
+- Keep your question itself to 1-2 sentences.
+- After the candidate answers, evaluate their response using the STAR method (Situation, Task, Action, Result). Under a line that says exactly "Feedback:", give 2-3 sentences noting what they covered well and what's missing (e.g. "You described the Situation and Action clearly, but didn't mention the Result — always close with the outcome.").
+- After the feedback, naturally transition to your next question in the same reply.
+- Stay encouraging and constructive, never harsh — this is practice, not a real rejection.
+- Do not repeat a question you've already asked in this session.`;
+  }
+
+  const language = languages[languageKey] || languages.german;
+  const levelText = levelGuidance[levelKey] || levelGuidance.B1;
+  const translationRule =
+    languageKey !== "english"
+      ? `\n- Immediately after your interview question, on a new line, add "Translation:" followed by a natural English translation of your question. This always comes BEFORE any Correction line.`
+      : "";
+
+  return `You are a professional interviewer conducting a job interview in ${language.name} for a "${field}" position. The candidate is a ${language.name} learner practicing for a real interview conducted in this language.
+
+${levelText}
+
+Rules:
+- Ask ONE interview question at a time, in natural professional ${language.name} — the kind a real interviewer would ask.
+- Keep your question to 1-2 sentences.${translationRule}
+- If the candidate made a grammar or vocabulary mistake in their answer, gently note it after your question (and after the translation, if present), under a line that says "Correction:". Keep this to 1-2 sentences. If there's no mistake, skip this line.
+- Stay warm and professional, never harsh.
+- Do not repeat a question you've already asked in this session.`;
+}
+
+const edgeVoices = {
+  german: "de-DE-KatjaNeural",
+  english: "en-US-AriaNeural",
+  spanish: "es-ES-ElviraNeural",
+  mandarin: "zh-CN-XiaoxiaoNeural",
+  russian: "ru-RU-SvetlanaNeural",
+  arabic: "ar-SA-ZariyahNeural",
+  hebrew: "he-IL-HilaNeural",
+};
+
+// A second, contrasting voice per language — used so two-speaker dialogues
+// (see /dialogues.html) actually sound like two different people instead
+// of one narrator reading both parts.
+const edgeVoicesSecondary = {
+  german: "de-DE-ConradNeural",
+  english: "en-US-GuyNeural",
+  spanish: "es-ES-AlvaroNeural",
+  mandarin: "zh-CN-YunxiNeural",
+  russian: "ru-RU-DmitryNeural",
+  arabic: "ar-SA-HamedNeural",
+  hebrew: "he-IL-AvriNeural",
+};
+
+// Deepgram Aura-2 voices — Aura-2 currently covers English, Spanish,
+// German, French, Dutch, Italian, and Japanese. Of our 7 app languages,
+// that's only english/german/spanish; mandarin/russian/arabic/hebrew stay
+// on msedge-tts below since Deepgram has no voices for them yet.
+const deepgramTtsVoices = {
+  english: "aura-2-thalia-en",
+  german: "aura-2-aurelia-de",
+  spanish: "aura-2-antonia-es",
+};
+const deepgramTtsVoicesSecondary = {
+  english: "aura-2-apollo-en",
+  german: "aura-2-fabian-de",
+  spanish: "aura-2-alvaro-es",
+};
+
+// Generates speech with Deepgram Aura-2, returning an MP3 Buffer.
+// Note: Aura-2's REST API has no speaking-rate parameter (unlike
+// msedge-tts's `rate`), so the per-CEFR-level slow-speech feature only
+// applies to the 4 languages still on msedge-tts below. If we want
+// level-based slow-down for EN/DE/ES too, the clean fix is adjusting
+// HTML5 <audio>.playbackRate client-side rather than server-side —
+// worth a follow-up if this is missed in practice.
+async function speakWithDeepgram(text, voiceModel) {
   const res = await fetch(
     `https://api.deepgram.com/v1/speak?model=${voiceModel}`,
     {
@@ -62,74 +365,1378 @@ async function generateWithDeepgram(text, voiceModel, finalPath) {
     throw new Error(`Deepgram TTS error ${res.status}: ${errText}`);
   }
   const arrayBuffer = await res.arrayBuffer();
-  fs.writeFileSync(finalPath, Buffer.from(arrayBuffer));
+  return Buffer.from(arrayBuffer);
 }
 
-async function generateWithMsedge(text, finalPath) {
-  const tts = new MsEdgeTTS();
-  await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+// Generates speech with Deepgram Flux TTS (the newer, conversation-native
+// model — English-only, so this is only ever called for English text).
+// expressivity is a whole number -2 (calmest) to 2 (most animated), 0
+// default; Bridgee uses -1, a touch calmer than the tuned default. Note
+// this is a beta parameter per Deepgram's own docs — worth keeping an
+// eye on output quality since non-default values carry some risk of
+// mispronunciation.
+async function speakWithFlux(text, voiceModel, expressivity) {
+  const params = new URLSearchParams({ model: voiceModel });
+  if (typeof expressivity === "number") {
+    params.set("expressivity", String(expressivity));
+  }
+  const res = await fetch(
+    `https://api.deepgram.com/v2/speak?${params.toString()}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text }),
+    },
+  );
+  if (!res.ok) {
+    const errText = await res.text().catch(() => "");
+    throw new Error(`Deepgram Flux TTS error ${res.status}: ${errText}`);
+  }
+  const arrayBuffer = await res.arrayBuffer();
+  return Buffer.from(arrayBuffer);
+}
+
+const rateByLevel = {
+  A1: "-40%",
+  A2: "-25%",
+  B1: "-10%",
+  B2: "+0%",
+  C1: "+15%",
+  C2: "+30%",
+};
+
+function buildSystemInstruction(scenarioKey, languageKey, mode, levelKey) {
+  const scenarioDescription = scenarios[scenarioKey] || scenarios.restaurant;
+  const language = languages[languageKey] || languages.german;
+  const levelText = levelGuidance[levelKey] || levelGuidance.B1;
+
+  const translationRule =
+    languageKey !== "english"
+      ? `\n- Immediately after your in-character reply, on a new line, add "Translation:" followed by a natural English translation of ONLY your in-character reply (not the correction). This always comes BEFORE any Correction line.`
+      : "";
+
+  const baseRules = `You are a friendly ${language.name} conversation tutor. You are roleplaying as ${scenarioDescription}. The user is a ${language.name} learner practicing this scenario.
+
+${levelText}
+
+Rules:
+- Stay in character throughout, respond naturally in ${language.name} to whatever they say.
+- Keep your in-character reply to ONE short sentence, maximum 15 words — like a real quick back-and-forth, not a monologue.${translationRule}
+- If the user made a grammar or vocabulary mistake, gently note the correction AFTER your in-character reply (and after the translation, if present), under a line that says "Correction:". Keep this to 1-2 sentences max. If there's no mistake, skip this line entirely.
+- Keep the tone warm and encouraging, never harsh.
+- If the user goes off-topic, gently and naturally steer the conversation back to the scenario, still in character.
+- Brevity is critical — the user is listening to this out loud and needs to process it quickly.
+- If — and only if — this exchange brings the scenario to a natural, satisfying close (e.g. the meal is paid for and the customer is leaving, directions were given and confirmed, the item was purchased, check-in is complete), add one final line at the very end, after everything else: "ScenarioComplete: yes". If the scenario is still ongoing, do not add this line at all — omit it entirely rather than writing "no".`;
+
+  if (mode === "audio") {
+    return `${baseRules}
+
+You will receive an audio clip of the user speaking.
+
+CRITICAL RULES for audio mode — follow exactly:
+1. "transcription" must be the EXACT words the user said, in the ORIGINAL language they spoke it in. Do NOT translate it.
+2. "reply" must ALWAYS be written in ${language.name}, regardless of what language the user spoke.
+
+Respond with a JSON object only, no other text, in this exact format:
+{
+  "transcription": "the exact words the user said, in their original language, not translated",
+  "reply": "your ${language.name} in-character reply, plus optional Translation/Correction sections as instructed"
+}`;
+  }
+  return baseRules;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+const MASCOT_NAME = "Bridgee";
+
+function buildTutorSystemInstruction(languageKey, unitTitle, chunkContext) {
+  const language = languages[languageKey] || languages.german;
+  const supportedList = Object.entries(languages)
+    .map(([key, l]) => `${key} (${l.name})`)
+    .join(", ");
+
+  const lessonContext = unitTitle
+    ? `\n\nThe learner is currently on the lesson "${unitTitle}" in the ${language.name} grammar course.${
+        chunkContext
+          ? ` Here is the specific content they're looking at right now, which their question is likely about:\n"""\n${chunkContext}\n"""`
+          : ""
+      }`
+    : "";
+
+  return `You are ${MASCOT_NAME}, the friendly official mascot and AI tutor of STEMBridge Speaks, a free language-learning platform for students. You are a small cartoon chameleon character — warm, encouraging, a little playful, but always clear and genuinely helpful. You are talking to a student who is working through the Learn Grammar section.
+
+You are equally knowledgeable across ALL languages STEMBridge Speaks teaches: ${supportedList}. You are NOT limited to whichever language the student happens to be studying right now — if they ask a question about a completely different language, answer it fully and directly, exactly as you would for the current one. The learner is currently studying ${language.name}, so use that as helpful context, and feel free to compare across languages when it aids understanding (e.g. "this works like German cases" or "unlike English, this verb...").${lessonContext}
+
+Rules:
+- Answer clearly and correctly. Being right matters more than being cute — get grammar facts correct.
+- Keep responses SHORT: 2-4 sentences for a simple question, a short paragraph maximum for something that genuinely needs more explanation. This is a chat bubble, not an essay.
+- Use at most one small, natural touch of personality or encouragement (e.g. a brief "Nice question!" or an emoji) — don't overdo it or pad the answer with fluff.
+- Give a concrete example in the target language when it helps (with a quick English gloss).
+- Treat every question about any of the 7 supported languages as fully in-scope, regardless of what lesson the student currently has open. Only redirect if the topic isn't language learning at all.
+- If the question is completely unrelated to language learning (e.g. general trivia, coding help, personal advice), gently decline and redirect: explain in character that you're focused on helping with language learning, and ask if they have a language question instead. Don't answer the off-topic question.
+- Never claim to be a human tutor or a real person — you're an AI mascot, and that's fine to acknowledge if asked directly.
+- This is a student-facing educational product used by school-age learners. Always keep responses wholesome and classroom-appropriate — no profanity, violence, sexual content, or other material unsuitable for a school setting, regardless of how a question is phrased.
+
+RESPONSE FORMAT — this matters, follow it exactly every single turn:
+Respond with ONLY a JSON object, no other text, no markdown fences, in this exact shape:
+{
+  "reply": "your in-character answer, following all the rules above",
+  "topicLanguage": "one of: ${Object.keys(languages).join(", ")}"
+}
+"topicLanguage" is whichever single language this specific answer is primarily ABOUT — the one the student is really asking about right now, not necessarily the lesson they happen to have open. If the question genuinely isn't about one specific language (e.g. general study-tips advice), use "${languageKey && languages[languageKey] ? languageKey : "german"}" as the default. This field is used to pick a voice accent for reading your reply aloud, so it must always be exactly one of the listed keys, lowercase, nothing else.`;
+}
+
+async function generateChatTitle(userMessage, replyText, attempt = 1) {
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
+    const result = await model.generateContent(
+      `Summarize this exchange into a short 3-5 word conversation title. No punctuation, no quotes, just the title itself.\n\nUser: ${userMessage}\nReply: ${replyText}`,
+    );
+    const title = result.response.text().trim().replace(/["'.]/g, "");
+    return title.slice(0, 50) || userMessage.slice(0, 40);
+  } catch (err) {
+    if (err.status === 503 && attempt < 2) {
+      console.log("Title generation got a 503, retrying once...");
+      await sleep(1500);
+      return generateChatTitle(userMessage, replyText, attempt + 1);
+    }
+    console.error(
+      "Title generation failed, using fallback title:",
+      err.message,
+    );
+    return userMessage.slice(0, 40);
+  }
+}
+
+async function lookupWord(word, languageKey) {
+  const language = languages[languageKey] || languages.german;
+  const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
+
+  const prompt = `You are a comprehensive multilingual dictionary and thesaurus for ${language.name}. Look up "${word}" — this could be a single letter/alphabet character, a single word, a multi-word phrase, or an idiom. Handle ALL of these categories properly; do not reject something just because it isn't a single standalone word.
+
+Respond with ONLY a JSON object, no other text, in this exact format:
+{
+  "entryType": "letter" | "word" | "phrase" | "idiom",
+  "word": "the letter/word/phrase, corrected for spelling if needed",
+  "partOfSpeech": "noun/verb/adjective/etc for a word; empty string for letter/phrase/idiom",
+  "definition": "a clear English explanation — for a letter, describe its sound/pronunciation and common usage; for an idiom, explain the figurative meaning (and literal translation if that helps understanding); for a phrase, explain what it means and when it's used",
+  "exampleSentence": "for word/phrase/idiom: one natural example sentence in ${language.name} using it. For a letter: one common ${language.name} word that starts with or prominently features that letter",
+  "exampleTranslation": "English translation of the example",
+  "notes": "any brief, genuinely useful note — gender/case for a word, formality level, common confusion, regional variation, etc. Empty string if nothing notable."
+}
+
+Only set "entryType" to "not_found" and explain in "definition" that no entry exists, if "${word}" is truly gibberish and not identifiable as a letter, word, phrase, or idiom in ${language.name} or any language.`;
+
+  const result = await model.generateContent(prompt);
+  const raw = result.response.text();
+  const cleaned = raw.replace(/```json|```/g, "").trim();
+  return JSON.parse(cleaned);
+}
+
+app.get("/", (req, res) => {
+  res.send("STEMBridge Speaks backend is running.");
+});
+
+app.get("/languages", (req, res) => {
+  res.json(languages);
+});
+
+// ---------- CHAT MANAGEMENT ----------
+
+app.post("/api/chats", requireAuth, async (req, res) => {
+  try {
+    const { language, scenario, level } = req.body;
+    const chat = {
+      userId: req.userId,
+      title: "New chat",
+      language: language || "german",
+      scenario: scenario || "restaurant",
+      level: level || "B1",
+      messages: [],
+      shareId: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const result = await chatsCollection.insertOne(chat);
+    res.json({ chatId: result.insertedId, ...chat });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not create chat." });
+  }
+});
+
+app.get("/api/chats", requireAuth, async (req, res) => {
+  try {
+    const chats = await chatsCollection
+      .find({ userId: req.userId })
+      .project({ title: 1, language: 1, scenario: 1, updatedAt: 1 })
+      .sort({ updatedAt: -1 })
+      .toArray();
+    res.json(chats);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load chats." });
+  }
+});
+
+app.get("/api/chats/:id", requireAuth, async (req, res) => {
+  try {
+    const chat = await chatsCollection.findOne({
+      _id: new ObjectId(req.params.id),
+      userId: req.userId,
+    });
+    if (!chat) return res.status(404).json({ error: "Chat not found." });
+    res.json(chat);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load chat." });
+  }
+});
+
+app.delete("/api/chats/:id", requireAuth, async (req, res) => {
+  try {
+    await chatsCollection.deleteOne({
+      _id: new ObjectId(req.params.id),
+      userId: req.userId,
+    });
+    res.json({ status: "Chat deleted." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not delete chat." });
+  }
+});
+
+app.post("/api/chats/:id/share", requireAuth, async (req, res) => {
+  try {
+    const chat = await chatsCollection.findOne({
+      _id: new ObjectId(req.params.id),
+      userId: req.userId,
+    });
+    if (!chat) return res.status(404).json({ error: "Chat not found." });
+
+    let shareId = chat.shareId;
+    if (!shareId) {
+      shareId = generateId();
+      await chatsCollection.updateOne({ _id: chat._id }, { $set: { shareId } });
+    }
+    res.json({ shareId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not create share link." });
+  }
+});
+
+// Public read-only view — intentionally NOT behind requireAuth, anyone with the link can view
+app.get("/api/shared/:shareId", async (req, res) => {
+  try {
+    const chat = await chatsCollection.findOne({ shareId: req.params.shareId });
+    if (!chat) return res.status(404).json({ error: "Shared chat not found." });
+    res.json(chat);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load shared chat." });
+  }
+});
+
+// ---------- CONVERSATION (now chat-scoped, not global) ----------
+
+app.post("/chat", requireAuth, async (req, res) => {
+  try {
+    const { chatId, message, scenario, language, level } = req.body;
+
+    const chat = await chatsCollection.findOne({
+      _id: new ObjectId(chatId),
+      userId: req.userId,
+    });
+    if (!chat) return res.status(404).json({ error: "Chat not found." });
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.6-flash",
+      systemInstruction: buildSystemInstruction(
+        scenario,
+        language,
+        "text",
+        level,
+      ),
+    });
+
+    const geminiHistory = toGeminiHistory(chat.messages);
+    const chatSession = model.startChat({ history: geminiHistory });
+    const result = await chatSession.sendMessage(message);
+    const text = result.response.text();
+
+    const newMessages = [
+      ...chat.messages,
+      { role: "user", text: message },
+      { role: "model", text },
+    ];
+
+    const newTitle =
+      chat.title === "New chat"
+        ? await generateChatTitle(message, text)
+        : chat.title;
+
+    await chatsCollection.updateOne(
+      { _id: chat._id },
+      {
+        $set: {
+          messages: newMessages,
+          title: newTitle,
+          updatedAt: new Date(),
+          language,
+          scenario,
+          level,
+        },
+      },
+    );
+
+    res.json({ reply: text, title: newTitle });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+app.post("/chat-audio", requireAuth, async (req, res) => {
+  try {
+    const { chatId, audio, scenario, language, level } = req.body;
+
+    const chat = await chatsCollection.findOne({
+      _id: new ObjectId(chatId),
+      userId: req.userId,
+    });
+    if (!chat) return res.status(404).json({ error: "Chat not found." });
+
+    const transcription = await withTimeout(
+      transcribeAudio(
+        audio,
+        language,
+        STEMBRIDGE_KEYTERMS.concat(scenarioKeyterms[scenario] || []),
+      ),
+      20000,
+      "Deepgram",
+    );
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.6-flash",
+      systemInstruction: buildSystemInstruction(
+        scenario,
+        language,
+        "text",
+        level,
+      ),
+    });
+
+    const geminiHistory = toGeminiHistory(chat.messages);
+    const chatSession = model.startChat({ history: geminiHistory });
+    const result = await withTimeout(
+      chatSession.sendMessage(
+        transcription || "(the user's audio was inaudible or empty)",
+      ),
+      20000,
+      "Gemini",
+    );
+    const reply = result.response.text();
+    const parsed = { transcription, reply };
+
+    const newMessages = [
+      ...chat.messages,
+      { role: "user", text: parsed.transcription },
+      { role: "model", text: parsed.reply },
+    ];
+
+    const newTitle =
+      chat.title === "New chat"
+        ? await generateChatTitle(parsed.transcription, parsed.reply)
+        : chat.title;
+    await chatsCollection.updateOne(
+      { _id: chat._id },
+      {
+        $set: {
+          messages: newMessages,
+          title: newTitle,
+          updatedAt: new Date(),
+          language,
+          scenario,
+          level,
+        },
+      },
+    );
+
+    res.json({ ...parsed, title: newTitle });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Something went wrong processing audio.",
+      transcription: "(error)",
+      reply: "Sorry, something went wrong.",
+    });
+  }
+});
+
+app.post("/chat/start", requireAuth, async (req, res) => {
+  try {
+    const { chatId, scenario, language, level } = req.body;
+    const chat = await chatsCollection.findOne({
+      _id: new ObjectId(chatId),
+      userId: req.userId,
+    });
+    if (!chat) return res.status(404).json({ error: "Chat not found." });
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.6-flash",
+      systemInstruction: buildSystemInstruction(
+        scenario,
+        language,
+        "text",
+        level,
+      ),
+    });
+
+    const result = await withTimeout(
+      model.generateContent(
+        "Start the conversation naturally, in character, with a short opening line or question — as if the user just walked up to you. Do not wait for the user to speak first.",
+      ),
+      20000,
+      "Gemini",
+    );
+    const text = result.response.text();
+
+    const newMessages = [...chat.messages, { role: "model", text }];
+    await chatsCollection.updateOne(
+      { _id: chat._id },
+      {
+        $set: {
+          messages: newMessages,
+          updatedAt: new Date(),
+          language,
+          scenario,
+          level,
+        },
+      },
+    );
+
+    res.json({ reply: text });
+  } catch (err) {
+    console.error(err);
+    res
+      .status(500)
+      .json({ error: "Something went wrong starting the conversation." });
+  }
+});
+
+app.post("/api/interview/start", requireAuth, async (req, res) => {
+  try {
+    const { mode, language, level, jobField } = req.body;
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.6-flash",
+      systemInstruction: buildInterviewSystemInstruction(
+        mode,
+        language,
+        level,
+        jobField,
+      ),
+    });
+    const result = await model.generateContent(
+      "Start the interview with a brief, warm greeting and your first question. Do not wait for the candidate to speak first.",
+    );
+    res.json({ reply: result.response.text() });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not start the interview." });
+  }
+});
+
+app.post("/api/interview/message", requireAuth, async (req, res) => {
+  try {
+    const { mode, language, level, jobField, message, history } = req.body;
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.6-flash",
+      systemInstruction: buildInterviewSystemInstruction(
+        mode,
+        language,
+        level,
+        jobField,
+      ),
+    });
+    const geminiHistory = (history || []).map((m) => ({
+      role: m.role,
+      parts: [{ text: m.text }],
+    }));
+    const chat = model.startChat({ history: geminiHistory });
+    const result = await chat.sendMessage(message);
+    res.json({ reply: result.response.text() });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+app.post("/api/interview/audio", requireAuth, async (req, res) => {
+  try {
+    const { mode, language, level, jobField, audio, history } = req.body;
+
+    // "star" mode interviews always run in English, regardless of `language`.
+    const transcriptionLangKey = mode === "star" ? "english" : language;
+    const transcription = await withTimeout(
+      transcribeAudio(audio, transcriptionLangKey),
+      20000,
+      "Deepgram",
+    );
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.6-flash",
+      systemInstruction: buildInterviewSystemInstruction(
+        mode,
+        language,
+        level,
+        jobField,
+      ),
+    });
+    const geminiHistory = (history || []).map((m) => ({
+      role: m.role,
+      parts: [{ text: m.text }],
+    }));
+    const chat = model.startChat({ history: geminiHistory });
+    const result = await withTimeout(
+      chat.sendMessage(
+        transcription || "(the candidate's audio was inaudible or empty)",
+      ),
+      20000,
+      "Gemini",
+    );
+    res.json({ transcription, reply: result.response.text() });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Something went wrong processing audio.",
+      transcription: "(error)",
+      reply: "Sorry, something went wrong.",
+    });
+  }
+});
+
+app.post("/api/speaking-check", requireAuth, async (req, res) => {
+  try {
+    const { audio, targetText, language } = req.body;
+    if (!audio) {
+      return res.status(400).json({ error: "No audio was received." });
+    }
+    if (!targetText || !targetText.trim()) {
+      return res.status(400).json({ error: "Missing target phrase." });
+    }
+
+    const languageName = (languages[language] || languages.german).name;
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.6-flash",
+      systemInstruction: `You are a pronunciation coach for ${languageName} language learners.
+
+You will receive an audio clip of a learner attempting to say this exact phrase out loud:
+"${targetText}"
+
+Listen carefully and:
+1. Transcribe exactly what the learner actually said, in ${languageName}, using their original words as spoken (not a "corrected" version). If nothing intelligible was said, use an empty string.
+2. Split the TARGET phrase above into its individual words, preserving original order, script, and diacritics. For each word, decide whether the learner pronounced that word correctly — allow for minor, natural accent variation, but mark a word incorrect if it was mispronounced enough to change how it sounds, skipped, or replaced with a different word.
+3. Compute an overall accuracy percentage (0-100) for the attempt as a whole — weigh correct words, but also completeness, word order, and fluency, not just a raw word-match ratio.
+
+Respond with ONLY a JSON object, no other text and no markdown formatting, in this exact format:
+{
+  "transcription": "what the learner actually said",
+  "accuracy": 82,
+  "wordResults": [
+    { "word": "each word from the target phrase, in order", "correct": true }
+  ]
+}
+
+The "wordResults" array must have exactly one entry per word in the target phrase, in the same order, using each word's exact original text.`,
+    });
+
+    const result = await model.generateContent([
+      { inlineData: { mimeType: "audio/webm", data: audio } },
+      {
+        text: "Listen to this audio and evaluate the learner's pronunciation according to your instructions.",
+      },
+    ]);
+
+    const cleaned = result.response
+      .text()
+      .replace(/```json|```/g, "")
+      .trim();
+    const parsed = JSON.parse(cleaned);
+
+    const accuracy = Math.max(
+      0,
+      Math.min(100, Math.round(Number(parsed.accuracy) || 0)),
+    );
+    const wordResults = Array.isArray(parsed.wordResults)
+      ? parsed.wordResults.map((w) => ({
+          word: String((w && w.word) || ""),
+          correct: !!(w && w.correct),
+        }))
+      : [];
+
+    res.json({
+      transcription: (parsed.transcription || "").trim(),
+      accuracy,
+      wordResults,
+    });
+  } catch (err) {
+    console.error("Speaking check error:", err);
+    res.status(500).json({
+      error: "Could not check your pronunciation right now. Please try again.",
+    });
+  }
+});
+
+app.post("/api/writing/review", requireAuth, async (req, res) => {
+  try {
+    const { text, language, level } = req.body;
+    if (!text || !text.trim())
+      return res.status(400).json({ error: "Please write something first." });
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.6-flash",
+      systemInstruction: buildWritingReviewInstruction(language, level),
+    });
+    const result = await model.generateContent(text);
+    const cleaned = result.response
+      .text()
+      .replace(/```json|```/g, "")
+      .trim();
+    const parsed = JSON.parse(cleaned);
+    res.json(parsed);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Could not review your writing right now. Please try again.",
+    });
+  }
+});
+
+// ---------- ESSAY DICTATION (Deepgram async STT + webhook callback) ----------
+// Essay-length recordings can run several minutes, so instead of holding
+// one long HTTP request open (fragile on an unreliable connection), we
+// submit the audio to Deepgram with a callback URL and return
+// immediately. Deepgram POSTs the finished transcript to
+// /api/essay/dictate/webhook whenever it's actually done; the frontend
+// polls /api/essay/dictate/status/:jobId in the meantime.
+//
+// Requires two env vars:
+//   PUBLIC_BASE_URL         the server's own publicly reachable HTTPS
+//                           URL — e.g. https://your-app.onrender.com in
+//                           production, or an ngrok URL for local testing
+//   DEEPGRAM_CALLBACK_SECRET  any random string you choose — used as
+//                           Basic Auth on the callback URL so only a
+//                           genuine Deepgram callback (not a random
+//                           internet request) can complete a job
+
+app.post("/api/essay/dictate/start", requireAuth, async (req, res) => {
+  try {
+    const { audio, language } = req.body;
+    if (!audio) {
+      return res.status(400).json({ error: "No audio was received." });
+    }
+    if (!process.env.PUBLIC_BASE_URL) {
+      return res.status(500).json({
+        error:
+          "PUBLIC_BASE_URL isn't set on the server, so Deepgram has no address to call back to.",
+      });
+    }
+
+    const jobId = crypto.randomBytes(24).toString("hex");
+    await essayDictationCollection.insertOne({
+      jobId,
+      userId: req.userId,
+      status: "pending",
+      transcript: null,
+      errorMessage: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    const dgLang = (languages[language] || languages.german).dgLang;
+    const base = new URL(process.env.PUBLIC_BASE_URL);
+    base.username = "stembridge";
+    base.password = process.env.DEEPGRAM_CALLBACK_SECRET || "";
+    base.pathname = "/api/essay/dictate/webhook";
+    base.search = `?jobId=${jobId}`;
+    const callbackUrl = base.toString();
+
+    const buffer = Buffer.from(audio, "base64");
+    const params = new URLSearchParams({
+      model: "nova-3",
+      language: dgLang,
+      smart_format: "true",
+      callback: callbackUrl,
+      callback_method: "post",
+    });
+    // Same Keyterm Prompting boost as transcribeAudio() — English-only on
+    // Deepgram's side, harmless to skip for other languages.
+    if (dgLang === "en") {
+      for (const term of STEMBRIDGE_KEYTERMS) {
+        params.append("keyterm", term);
+      }
+    }
+    const dgRes = await fetch(
+      `https://api.deepgram.com/v1/listen?${params.toString()}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+          "Content-Type": "audio/webm",
+        },
+        body: buffer,
+      },
+    );
+    if (!dgRes.ok) {
+      const errText = await dgRes.text().catch(() => "");
+      throw new Error(`Deepgram submit failed ${dgRes.status}: ${errText}`);
+    }
+
+    res.json({ jobId });
+  } catch (err) {
+    console.error("Essay dictation start error:", err);
+    res.status(500).json({
+      error: "Could not start transcription right now. Please try again.",
+    });
+  }
+});
+
+// Deepgram calls this directly — it can't send our JWT, so it isn't
+// behind requireAuth. Protected instead by Basic Auth (checked below,
+// matching the secret we embedded in the callback URL) plus an
+// unguessable jobId.
+app.post("/api/essay/dictate/webhook", async (req, res) => {
+  try {
+    const jobId = req.query.jobId;
+    const authHeader = req.headers.authorization || "";
+    const expected =
+      "Basic " +
+      Buffer.from(
+        `stembridge:${process.env.DEEPGRAM_CALLBACK_SECRET || ""}`,
+      ).toString("base64");
+    if (!jobId || authHeader !== expected) {
+      return res.status(401).send("Unauthorized");
+    }
+
+    const job = await essayDictationCollection.findOne({ jobId });
+    if (!job) {
+      // Not necessarily an attack — could be a retry for a job we've
+      // already cleaned up. Acknowledge so Deepgram doesn't keep retrying.
+      return res.status(200).send("OK");
+    }
+
+    const transcript =
+      req.body?.results?.channels?.[0]?.alternatives?.[0]?.transcript || "";
+
+    if (!transcript && req.body?.err_msg) {
+      await essayDictationCollection.updateOne(
+        { jobId },
+        {
+          $set: {
+            status: "error",
+            errorMessage: req.body.err_msg,
+            updatedAt: new Date(),
+          },
+        },
+      );
+    } else {
+      await essayDictationCollection.updateOne(
+        { jobId },
+        {
+          $set: {
+            status: "done",
+            transcript: transcript.trim(),
+            updatedAt: new Date(),
+          },
+        },
+      );
+    }
+
+    res.status(200).send("OK");
+  } catch (err) {
+    console.error("Essay dictation webhook error:", err);
+    // Still 200 — a 500 here just makes Deepgram retry a request that
+    // will fail the exact same way again.
+    res.status(200).send("OK");
+  }
+});
+
+app.get("/api/essay/dictate/status/:jobId", requireAuth, async (req, res) => {
+  try {
+    const job = await essayDictationCollection.findOne({
+      jobId: req.params.jobId,
+      userId: req.userId,
+    });
+    if (!job) return res.status(404).json({ error: "Job not found." });
+    res.json({
+      status: job.status,
+      transcript: job.transcript,
+      errorMessage: job.errorMessage,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not check transcription status." });
+  }
+});
+
+app.post("/api/translate-speech", requireAuth, async (req, res) => {
+  try {
+    const { audio, sourceLanguage, targetLanguage } = req.body;
+    if (!audio) {
+      return res.status(400).json({ error: "No audio was received." });
+    }
+    if (!sourceLanguage || !languages[sourceLanguage]) {
+      return res.status(400).json({ error: "Invalid source language." });
+    }
+    if (!targetLanguage || !languages[targetLanguage]) {
+      return res.status(400).json({ error: "Invalid target language." });
+    }
+
+    const originalText = await withTimeout(
+      transcribeAudio(audio, sourceLanguage),
+      20000,
+      "Deepgram",
+    );
+
+    if (!originalText) {
+      return res.json({
+        originalText: "",
+        translatedText: "",
+        sourceLanguage,
+        targetLanguage,
+      });
+    }
+
+    // Deepgram transcribes; it doesn't translate. Gemini does the actual
+    // translation — right tool for each job, same split we use elsewhere
+    // (Deepgram for "what was said", Gemini for anything that requires
+    // understanding or generating language, not just recognizing sound).
+    const sourceLangName = languages[sourceLanguage].name;
+    const targetLangName = languages[targetLanguage].name;
+    const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
+    const result = await withTimeout(
+      model.generateContent(
+        `Translate the following ${sourceLangName} text into natural, fluent ${targetLangName}. Respond with ONLY the translation itself — no quotes, no explanation, no repeating the original text.\n\nText: ${originalText}`,
+      ),
+      20000,
+      "Gemini",
+    );
+    const translatedText = result.response.text().trim();
+
+    res.json({ originalText, translatedText, sourceLanguage, targetLanguage });
+  } catch (err) {
+    console.error("Speech translation error:", err);
+    res.status(500).json({
+      error: "Could not translate that right now. Please try again.",
+    });
+  }
+});
+
+app.post("/api/deepgram/token", requireAuth, async (req, res) => {
+  try {
+    const dgRes = await fetch("https://api.deepgram.com/v1/auth/grant", {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ttl_seconds: 30 }),
+    });
+    if (!dgRes.ok) {
+      const errText = await dgRes.text().catch(() => "");
+      throw new Error(
+        `Deepgram token grant failed ${dgRes.status}: ${errText}`,
+      );
+    }
+    const data = await dgRes.json();
+    res.json({ token: data.access_token });
+  } catch (err) {
+    console.error("Deepgram token grant error:", err);
+    res.status(500).json({ error: "Could not start live captions right now." });
+  }
+});
+
+// Normalizes perceived loudness across all TTS output, regardless of
+// which backend generated it. Different voices — even within the same
+// TTS model — can have noticeably different natural loudness (e.g.
+// Aura-2's German voice sounding quieter than its English voice), which
+// is jarring for someone switching languages. Single-pass EBU R128
+// loudness normalization via ffmpeg, targeting -16 LUFS (a common
+// streaming-loudness standard). This adds a small amount of processing
+// time per request — on the short clips this app generates, that should
+// be modest, but it's a real trade-off against response latency worth
+// keeping an eye on rather than assuming away.
+async function normalizeAudioVolume(inputBuffer) {
   const tempDir = path.join(
     os.tmpdir(),
-    "stembridge-tts-" + Date.now() + "-" + Math.random().toString(36).slice(2),
+    "stembridge-normalize-" +
+      Date.now() +
+      "-" +
+      Math.random().toString(36).slice(2),
   );
   fs.mkdirSync(tempDir, { recursive: true });
-  const { audioFilePath } = await tts.toFile(tempDir, text, { rate: "-30%" }); // moderate, learner-friendly pace
-  fs.renameSync(audioFilePath, finalPath);
-  fs.rmSync(tempDir, { recursive: true, force: true });
+  const inputPath = path.join(tempDir, "input.mp3");
+  const outputPath = path.join(tempDir, "output.mp3");
+  try {
+    fs.writeFileSync(inputPath, inputBuffer);
+    await execFileAsync(ffmpegPath, [
+      "-y",
+      "-i",
+      inputPath,
+      "-af",
+      "loudnorm=I=-16:TP=-1.5:LRA=11",
+      outputPath,
+    ]);
+    return fs.readFileSync(outputPath);
+  } catch (err) {
+    console.error(
+      "Audio normalization failed, returning unnormalized audio:",
+      err.message,
+    );
+    return inputBuffer; // better an inconsistent volume than a broken clip
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
 }
 
-async function generateAudio(rawText, finalPath) {
-  if (fs.existsSync(finalPath)) {
-    console.log("Skipping (already exists):", path.basename(finalPath));
-    return;
-  }
-  const text = sanitizeForSpeech(rawText);
-  if (!text) {
-    console.log("Skipping empty text:", path.basename(finalPath));
-    return;
-  }
+app.post("/tts", async (req, res) => {
+  try {
+    const { text, level, language, speaker, mascotVoice } = req.body;
 
-  const dgVoice = deepgramVoiceByLangCode[langCode];
-  if (dgVoice && process.env.DEEPGRAM_API_KEY) {
-    try {
-      await generateWithDeepgram(text, dgVoice, finalPath);
-      console.log("Generated (Deepgram):", path.basename(finalPath));
-      return;
-    } catch (err) {
-      console.error(
-        "Deepgram TTS failed, falling back to msedge-tts:",
-        err.message,
-      );
-      // fall through to msedge-tts below
-    }
-  }
-
-  await generateWithMsedge(text, finalPath);
-  console.log("Generated (msedge-tts):", path.basename(finalPath));
-}
-
-async function main() {
-  const outDir = path.join(__dirname, `../public/audio/${langCode}`);
-  fs.mkdirSync(outDir, { recursive: true });
-
-  for (const unit of courseData.units) {
-    for (const chunk of unit.teaching) {
-      if (chunk.ex && chunk.audioId) {
-        await generateAudio(
-          chunk.ex,
-          path.join(outDir, `${chunk.audioId}.mp3`),
+    // Bridgee's own voice: Deepgram Flux TTS ("Bruce", expressivity -1 —
+    // a touch calmer than default). Flux only serves English, so this
+    // only applies when the reply is in English; every other language,
+    // and any non-mascot read-aloud, falls through to Aura-2/msedge-tts
+    // below exactly as before.
+    if (mascotVoice && language === "english") {
+      try {
+        const audioBuffer = await withTimeout(
+          speakWithFlux(text, "flux-bruce-en", -1),
+          15000,
+          "Deepgram Flux TTS",
         );
-        await sleep(400);
+        const normalized = await normalizeAudioVolume(audioBuffer);
+        return res.json({ audio: normalized.toString("base64") });
+      } catch (fluxErr) {
+        console.error(
+          "Flux TTS failed, falling back to Aura-2/msedge-tts:",
+          fluxErr.message,
+        );
+        // fall through below
       }
     }
-    for (const q of unit.quiz) {
-      if (q.q && q.audioId) {
-        await generateAudio(q.q, path.join(outDir, `${q.audioId}.mp3`));
-        await sleep(400);
+
+    // Try Deepgram Aura-2 first for the languages it covers.
+    const dgVoiceMap =
+      speaker === 2 ? deepgramTtsVoicesSecondary : deepgramTtsVoices;
+    const dgVoice = dgVoiceMap[language];
+    if (dgVoice) {
+      try {
+        const audioBuffer = await withTimeout(
+          speakWithDeepgram(text, dgVoice),
+          15000,
+          "Deepgram TTS",
+        );
+        const normalized = await normalizeAudioVolume(audioBuffer);
+        return res.json({ audio: normalized.toString("base64") });
+      } catch (dgErr) {
+        console.error(
+          "Deepgram TTS failed, falling back to msedge-tts:",
+          dgErr.message,
+        );
+        // fall through to msedge-tts below
       }
     }
+
+    const voiceMap = speaker === 2 ? edgeVoicesSecondary : edgeVoices;
+    const voice = voiceMap[language] || voiceMap.german;
+    const rate = rateByLevel[level] || rateByLevel.B1;
+
+    const tts = new MsEdgeTTS();
+    await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+
+    const tempDir = path.join(
+      os.tmpdir(),
+      "stembridge-live-tts-" +
+        Date.now() +
+        "-" +
+        Math.random().toString(36).slice(2),
+    );
+    fs.mkdirSync(tempDir, { recursive: true });
+
+    const { audioFilePath } = await tts.toFile(tempDir, text, { rate });
+    const audioBuffer = fs.readFileSync(audioFilePath);
+    fs.rmSync(tempDir, { recursive: true, force: true });
+
+    const normalized = await normalizeAudioVolume(audioBuffer);
+    res.json({ audio: normalized.toString("base64") });
+  } catch (err) {
+    console.error("TTS error:", err);
+    res.status(500).json({ error: "Speech generation failed." });
   }
-  console.log(`All done for ${langCode}.`);
+});
+
+app.post("/feedback", async (req, res) => {
+  try {
+    const { rating, comment, scenario, language, userMessage, tutorReply } =
+      req.body;
+    const entry = {
+      timestamp: new Date(),
+      rating,
+      comment: comment || "",
+      scenario: scenario || "unknown",
+      language: language || "unknown",
+      userMessage: userMessage || "",
+      tutorReply: tutorReply || "",
+    };
+    await feedbackCollection.insertOne(entry);
+    res.json({ status: "Feedback recorded. Thank you!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not save feedback." });
+  }
+});
+
+app.post("/api/tutor-help", async (req, res) => {
+  try {
+    const { message, language, unitTitle, chunkContext, history } = req.body;
+    if (!message || !message.trim()) {
+      return res.status(400).json({ error: "No question provided." });
+    }
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.6-flash",
+      systemInstruction: buildTutorSystemInstruction(
+        language,
+        unitTitle,
+        chunkContext,
+      ),
+    });
+
+    // Client sends a short rolling window of prior turns for continuity;
+    // no server-side persistence needed for this feature.
+    const geminiHistory = Array.isArray(history)
+      ? history.slice(-10).map((m) => ({
+          role: m.role === "assistant" ? "model" : "user",
+          parts: [{ text: String(m.text || "").slice(0, 2000) }],
+        }))
+      : [];
+
+    const chatSession = model.startChat({ history: geminiHistory });
+    const result = await chatSession.sendMessage(message.slice(0, 1000));
+    const rawText = result.response.text();
+
+    let reply = rawText.trim();
+    let topicLanguage = languages[language] ? language : "german";
+    try {
+      const cleaned = rawText.replace(/```json|```/g, "").trim();
+      const parsed = JSON.parse(cleaned);
+      if (parsed.reply) reply = parsed.reply;
+      if (parsed.topicLanguage && languages[parsed.topicLanguage]) {
+        topicLanguage = parsed.topicLanguage;
+      }
+    } catch (parseErr) {
+      // Model didn't return valid JSON this turn — fall back to the raw
+      // text as the reply and the current lesson language as the accent,
+      // rather than failing the whole request.
+      console.error(
+        "Tutor help: couldn't parse structured reply, using raw text:",
+        parseErr.message,
+      );
+    }
+
+    res.json({ reply, topicLanguage, mascot: MASCOT_NAME });
+  } catch (err) {
+    console.error("Tutor help failed:", err);
+    res.status(500).json({
+      error: `${MASCOT_NAME} couldn't answer that just now — please try again.`,
+    });
+  }
+});
+
+app.post("/api/dictionary", async (req, res) => {
+  try {
+    const { word, language } = req.body;
+    if (!word || !word.trim()) {
+      return res.status(400).json({ error: "No word provided." });
+    }
+    const entry = await lookupWord(word.trim(), language);
+    res.json(entry);
+  } catch (err) {
+    console.error("Dictionary lookup failed:", err);
+    res.status(500).json({ error: "Could not look up that word right now." });
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+
+// ---------- AUTHENTICATION ----------
+
+function generateToken(userId) {
+  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "30d" });
 }
 
-main();
+function requireAuth(req, res, next) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "Not logged in." });
+  }
+  try {
+    const token = authHeader.split(" ")[1];
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = payload.userId;
+    next();
+  } catch (err) {
+    return res
+      .status(401)
+      .json({ error: "Session expired. Please log in again." });
+  }
+}
+
+app.post("/api/auth/register", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      return res
+        .status(400)
+        .json({ error: "Name, email, and password are all required." });
+    }
+    if (password.length < 8) {
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 8 characters." });
+    }
+
+    const existing = await usersCollection.findOne({
+      email: email.toLowerCase(),
+    });
+    if (existing) {
+      return res
+        .status(409)
+        .json({ error: "An account with that email already exists." });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const user = {
+      name,
+      email: email.toLowerCase(),
+      passwordHash,
+      isPublic: false,
+      createdAt: new Date(),
+    };
+    const result = await usersCollection.insertOne(user);
+    const token = generateToken(result.insertedId);
+
+    res.json({
+      token,
+      user: { id: result.insertedId, name: user.name, email: user.email },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not create account." });
+  }
+});
+
+app.post("/api/auth/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ error: "Email and password are required." });
+    }
+
+    const user = await usersCollection.findOne({ email: email.toLowerCase() });
+    if (!user) {
+      return res.status(401).json({ error: "Incorrect email or password." });
+    }
+    const validPassword = await bcrypt.compare(password, user.passwordHash);
+    if (!validPassword) {
+      return res.status(401).json({ error: "Incorrect email or password." });
+    }
+
+    const token = generateToken(user._id);
+    res.json({
+      token,
+      user: { id: user._id, name: user.name, email: user.email },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not log in." });
+  }
+});
+
+app.get("/api/auth/me", requireAuth, async (req, res) => {
+  try {
+    const user = await usersCollection.findOne({
+      _id: new ObjectId(req.userId),
+    });
+    if (!user) return res.status(404).json({ error: "User not found." });
+    res.json({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      isPublic: user.isPublic,
+      createdAt: user.createdAt,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load account." });
+  }
+});
+
+// ---------- LEARN PROGRESS ----------
+
+app.get("/api/progress", requireAuth, async (req, res) => {
+  try {
+    const doc = await progressCollection.findOne({ userId: req.userId });
+    res.json(doc ? doc.data : {});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load progress." });
+  }
+});
+
+app.post("/api/progress", requireAuth, async (req, res) => {
+  try {
+    const { language, unitId } = req.body;
+    if (!language || !unitId)
+      return res
+        .status(400)
+        .json({ error: "language and unitId are required." });
+
+    await progressCollection.updateOne(
+      { userId: req.userId },
+      { $set: { [`data.${language}.${unitId}`]: true, updatedAt: new Date() } },
+      { upsert: true },
+    );
+    res.json({ status: "Progress saved." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not save progress." });
+  }
+});
+
+// ---------- DICTIONARY HISTORY ----------
+
+app.get("/api/dictionary-history", requireAuth, async (req, res) => {
+  try {
+    const doc = await dictionaryHistoryCollection.findOne({
+      userId: req.userId,
+    });
+    res.json(doc ? doc.recent : []);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load history." });
+  }
+});
+
+app.post("/api/dictionary-history", requireAuth, async (req, res) => {
+  try {
+    const { word, lang } = req.body;
+    if (!word || !lang)
+      return res.status(400).json({ error: "word and lang are required." });
+
+    const doc = await dictionaryHistoryCollection.findOne({
+      userId: req.userId,
+    });
+    let recent = doc ? doc.recent : [];
+    recent = recent.filter((r) => !(r.word === word && r.lang === lang));
+    recent.unshift({ word, lang, timestamp: new Date() });
+    recent = recent.slice(0, 15);
+
+    await dictionaryHistoryCollection.updateOne(
+      { userId: req.userId },
+      { $set: { recent, updatedAt: new Date() } },
+      { upsert: true },
+    );
+    res.json({ status: "Saved.", recent });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not save history." });
+  }
+});
+
+app.delete("/api/dictionary-history", requireAuth, async (req, res) => {
+  try {
+    await dictionaryHistoryCollection.updateOne(
+      { userId: req.userId },
+      { $set: { recent: [], updatedAt: new Date() } },
+      { upsert: true },
+    );
+    res.json({ status: "Cleared." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not clear history." });
+  }
+});
+
+// ---------- ONE-TIME MIGRATION FROM LOCALSTORAGE-ERA DATA ----------
+
+app.post("/api/migrate", requireAuth, async (req, res) => {
+  try {
+    const { clientId, learnProgress, recentWords } = req.body;
+    let migratedChats = 0;
+
+    if (clientId) {
+      const result = await chatsCollection.updateMany(
+        { clientId, userId: { $exists: false } },
+        { $set: { userId: req.userId } },
+      );
+      migratedChats = result.modifiedCount;
+    }
+
+    if (learnProgress && typeof learnProgress === "object") {
+      const existing = await progressCollection.findOne({ userId: req.userId });
+      const merged = existing ? { ...existing.data } : {};
+      for (const lang in learnProgress) {
+        merged[lang] = { ...(merged[lang] || {}), ...learnProgress[lang] };
+      }
+      await progressCollection.updateOne(
+        { userId: req.userId },
+        { $set: { data: merged, updatedAt: new Date() } },
+        { upsert: true },
+      );
+    }
+
+    if (Array.isArray(recentWords) && recentWords.length > 0) {
+      const existing = await dictionaryHistoryCollection.findOne({
+        userId: req.userId,
+      });
+      let recent = existing ? existing.recent : [];
+      recentWords.forEach((r) => {
+        if (
+          !recent.some(
+            (existingR) =>
+              existingR.word === r.word && existingR.lang === r.lang,
+          )
+        ) {
+          recent.push({ word: r.word, lang: r.lang, timestamp: new Date() });
+        }
+      });
+      recent = recent.slice(0, 15);
+      await dictionaryHistoryCollection.updateOne(
+        { userId: req.userId },
+        { $set: { recent, updatedAt: new Date() } },
+        { upsert: true },
+      );
+    }
+
+    res.json({ status: "Migration complete.", migratedChats });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Migration failed." });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});

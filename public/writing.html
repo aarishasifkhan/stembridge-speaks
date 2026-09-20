@@ -530,10 +530,23 @@
 
         <textarea id="writingInput" placeholder="Start writing..."></textarea>
         <div class="word-count" id="wordCount">0 words</div>
-        <button class="submit-btn" id="dictateBtn" type="button" style="background:#8c4a3a; margin-bottom:10px;">
+        <button
+          class="submit-btn"
+          id="dictateBtn"
+          type="button"
+          style="background: #8c4a3a; margin-bottom: 10px"
+        >
           🎙️ Dictate my essay instead
         </button>
-        <div id="dictateStatus" style="text-align:center; font-size:14px; color:#4a5049; min-height:1.3em;"></div>
+        <div
+          id="dictateStatus"
+          style="
+            text-align: center;
+            font-size: 14px;
+            color: #4a5049;
+            min-height: 1.3em;
+          "
+        ></div>
 
         <button class="submit-btn" id="submitBtn">Get Feedback →</button>
       </div>
@@ -686,8 +699,10 @@
           .trim()
           .split(/\s+/)
           .filter(Boolean).length;
-        document.getElementById("wordCount").textContent =
-          `${words} word${words === 1 ? "" : "s"}`;
+        const chars = writingInput.value.length;
+        const wordCountEl = document.getElementById("wordCount");
+        wordCountEl.textContent = `${words} word${words === 1 ? "" : "s"} (${chars}/6000 characters)`;
+        wordCountEl.style.color = chars > 6000 ? "#8c4a3a" : "";
       });
 
       // ---------- Dictate essay (Deepgram async STT + webhook) ----------
@@ -716,7 +731,8 @@
           dictateRecorder.start();
           dictateIsRecording = true;
           dictateBtn.textContent = "⏹️ Stop dictating";
-          dictateStatus.textContent = "Recording — speak your essay, then click Stop.";
+          dictateStatus.textContent =
+            "Recording — speak your essay, then click Stop.";
         } else {
           dictateRecorder.stop();
           dictateIsRecording = false;
@@ -744,7 +760,9 @@
                 });
                 const data = await res.json();
                 if (!res.ok)
-                  throw new Error(data.error || "Could not start transcription.");
+                  throw new Error(
+                    data.error || "Could not start transcription.",
+                  );
                 pollDictationStatus(data.jobId);
               } catch (err) {
                 dictateStatus.textContent = err.message;
@@ -770,13 +788,15 @@
             if (data.status === "done") {
               writingInput.value = data.transcript || "";
               writingInput.dispatchEvent(new Event("input"));
-              dictateStatus.textContent = "Done — your essay is filled in below.";
+              dictateStatus.textContent =
+                "Done — your essay is filled in below.";
               dictateBtn.disabled = false;
               return;
             }
             if (data.status === "error") {
               dictateStatus.textContent =
-                "Transcription failed: " + (data.errorMessage || "unknown error");
+                "Transcription failed: " +
+                (data.errorMessage || "unknown error");
               dictateBtn.disabled = false;
               return;
             }
