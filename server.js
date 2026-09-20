@@ -522,27 +522,57 @@ async function generateChatTitle(userMessage, replyText, attempt = 1) {
 
 async function lookupWord(word, languageKey) {
   const language = languages[languageKey] || languages.german;
-  const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
+  const model = genAI.getGenerativeModel({
+    model: "gemini-3.6-flash",
+    generationConfig: { maxOutputTokens: 2048 },
+  });
 
-  const prompt = `You are a comprehensive multilingual dictionary and thesaurus for ${language.name}. Look up "${word}" — this could be a single letter/alphabet character, a single word, a multi-word phrase, or an idiom. Handle ALL of these categories properly; do not reject something just because it isn't a single standalone word.
+  const prompt = `You are a comprehensive multilingual dictionary and thesaurus for ${language.name}. Look up "${word}" — this could be a single letter/alphabet character, a single word, a multi-word phrase, an idiom, or a complete sentence. Handle ALL of these categories properly; do not reject something just because it isn't a single standalone word.
 
 Respond with ONLY a JSON object, no other text, in this exact format:
 {
-  "entryType": "letter" | "word" | "phrase" | "idiom",
-  "word": "the letter/word/phrase, corrected for spelling if needed",
-  "partOfSpeech": "noun/verb/adjective/etc for a word; empty string for letter/phrase/idiom",
-  "definition": "a clear English explanation — for a letter, describe its sound/pronunciation and common usage; for an idiom, explain the figurative meaning (and literal translation if that helps understanding); for a phrase, explain what it means and when it's used",
-  "exampleSentence": "for word/phrase/idiom: one natural example sentence in ${language.name} using it. For a letter: one common ${language.name} word that starts with or prominently features that letter",
+  "entryType": "letter" | "word" | "phrase" | "idiom" | "sentence",
+  "word": "the letter/word/phrase/sentence, corrected for spelling if needed",
+  "partOfSpeech": "noun/verb/adjective/etc for a word; empty string for letter/phrase/idiom/sentence",
+  "definition": "a clear English explanation — for a letter, describe its sound/pronunciation and common usage; for an idiom, explain the figurative meaning (and literal translation if that helps understanding); for a phrase, explain what it means and when it's used; for a sentence, give a natural English translation plus a one-line note on its overall meaning or register",
+  "exampleSentence": "for word/phrase/idiom: one natural example sentence in ${language.name} using it. For a letter: one common ${language.name} word that starts with or prominently features that letter. For a sentence entry, repeat the input sentence itself here.",
   "exampleTranslation": "English translation of the example",
-  "notes": "any brief, genuinely useful note — gender/case for a word, formality level, common confusion, regional variation, etc. Empty string if nothing notable."
+  "notes": "any brief, genuinely useful note — gender/case for a word, formality level, common confusion, regional variation, notable grammar in a sentence, etc. Empty string if nothing notable."
 }
 
-Only set "entryType" to "not_found" and explain in "definition" that no entry exists, if "${word}" is truly gibberish and not identifiable as a letter, word, phrase, or idiom in ${language.name} or any language.`;
+Only set "entryType" to "not_found" and explain in "definition" that no entry exists, if "${word}" is truly gibberish and not identifiable as a letter, word, phrase, idiom, or sentence in ${language.name} or any language.`;
 
-  const result = await model.generateContent(prompt);
+  const result = await withTimeout(
+    model.generateContent(prompt),
+    30000,
+    "Gemini",
+  );
   const raw = result.response.text();
-  const cleaned = raw.replace(/```json|```/g, "").trim();
-  return JSON.parse(cleaned);
+  let cleaned = raw.replace(/```json|```/g, "").trim();
+  // Defensive: some responses include a stray word of prose around the
+  // JSON despite instructions not to — extract just the object itself
+  // rather than assuming the whole cleaned string is valid JSON.
+  const firstBrace = cleaned.indexOf("{");
+  const lastBrace = cleaned.lastIndexOf("}");
+  if (firstBrace !== -1 && lastBrace > firstBrace) {
+    cleaned = cleaned.slice(firstBrace, lastBrace + 1);
+  }
+
+  try {
+    return JSON.parse(cleaned);
+  } catch (parseErr) {
+    console.error(
+      "Dictionary lookup: failed to parse Gemini response for word:",
+      JSON.stringify(word),
+      "error:",
+      parseErr.message,
+      "raw response (first 500 chars):",
+      raw.slice(0, 500),
+    );
+    throw new Error(
+      "The dictionary couldn't process that entry — please try again.",
+    );
+  }
 }
 
 app.get("/", (req, res) => {
@@ -1566,11 +1596,46 @@ app.post("/api/dictionary", async (req, res) => {
     if (!word || !word.trim()) {
       return res.status(400).json({ error: "No word provided." });
     }
-    const entry = await lookupWord(word.trim(), language);
+    const trimmed = word.trim();
+    const MAX_LOOKUP_CHARS = 300;
+    if (trimmed.length > MAX_LOOKUP_CHARS) {
+      return res.status(400).json({
+        error: `That's a bit long for a single dictionary lookup (${trimmed.length} characters, ${MAX_LOOKUP_CHARS} max) — try a shorter phrase or sentence.`,
+      });
+    }
+    const entry = await lookupWord(trimmed, language);
     res.json(entry);
   } catch (err) {
-    console.error("Dictionary lookup failed:", err);
-    res.status(500).json({ error: "Could not look up that word right now." });
+    console.error("Dictionary lookup failed:", err.message);
+    res.status(500).json({
+      error: err.message || "Could not look up that word right now.",
+    });
+  }
+});
+
+app.post("/api/dictionary/audio", async (req, res) => {
+  try {
+    const { audio, language } = req.body;
+    if (!audio) {
+      return res.status(400).json({ error: "No audio was received." });
+    }
+    const transcription = await withTimeout(
+      transcribeAudio(audio, language),
+      20000,
+      "Deepgram",
+    );
+    if (!transcription) {
+      return res.status(400).json({
+        error: "Didn't catch that — try speaking a bit closer to the mic.",
+      });
+    }
+    const entry = await lookupWord(transcription, language);
+    res.json({ ...entry, transcription });
+  } catch (err) {
+    console.error("Dictionary audio lookup failed:", err.message);
+    res.status(500).json({
+      error: err.message || "Could not look up that right now.",
+    });
   }
 });
 

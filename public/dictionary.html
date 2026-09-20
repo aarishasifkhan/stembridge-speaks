@@ -640,7 +640,8 @@
         <input
           type="text"
           id="wordInput"
-          placeholder="Type a word, phrase, or idiom..."
+          placeholder="Type a word, phrase, or sentence..."
+          maxlength="300"
         />
         <select id="langSelect">
           <option value="german">🇩🇪 German</option>
@@ -651,8 +652,33 @@
           <option value="arabic">🇸🇦 Arabic</option>
           <option value="hebrew">🇮🇱 Hebrew</option>
         </select>
+        <button
+          id="dictMicBtn"
+          type="button"
+          title="Speak your lookup instead"
+          style="
+            background: #8c4a3a;
+            color: #fbf7ee;
+            border: none;
+            border-radius: 8px;
+            padding: 0 14px;
+            cursor: pointer;
+            font-size: 16px;
+          "
+        >
+          🎤
+        </button>
         <button id="searchBtn">Search</button>
       </div>
+      <div
+        id="dictMicStatus"
+        style="
+          text-align: center;
+          font-size: 13px;
+          color: #4a5049;
+          min-height: 1.2em;
+        "
+      ></div>
       <div class="category-hint reveal">
         <span>Words</span><span>Phrases</span><span>Idioms</span
         ><span>Letters</span>
@@ -788,6 +814,47 @@
         });
       }
 
+      function renderEntry(data, language) {
+        lastLookup = { word: data.word, language };
+        document.getElementById("resultWord").textContent = data.word;
+
+        const typeLabels = {
+          letter: "Letter",
+          word: data.partOfSpeech || "Word",
+          phrase: "Phrase",
+          idiom: "Idiom",
+          sentence: "Sentence",
+        };
+        document.getElementById("resultPos").textContent =
+          typeLabels[data.entryType] || data.partOfSpeech || "";
+        document.getElementById("resultPos").style.display = "inline-block";
+        document.getElementById("resultDefinition").textContent =
+          data.definition;
+
+        const exampleBox = document.getElementById("exampleBox");
+        if (data.exampleSentence) {
+          exampleBox.style.display = "block";
+          document.getElementById("exampleOriginal").textContent =
+            data.exampleSentence;
+          document.getElementById("exampleTranslation").textContent =
+            data.exampleTranslation || "";
+        } else {
+          exampleBox.style.display = "none";
+        }
+
+        const notesEl = document.getElementById("resultNotes");
+        if (data.notes) {
+          notesEl.style.display = "block";
+          notesEl.textContent = "Note: " + data.notes;
+        } else {
+          notesEl.style.display = "none";
+        }
+
+        resultCard.classList.add("show");
+        requestAnimationFrame(() => resultCard.classList.add("animate-in"));
+        saveRecent(data.word, language);
+      }
+
       async function search() {
         const word = wordInput.value.trim();
         if (!word) return;
@@ -817,43 +884,7 @@
             return;
           }
 
-          lastLookup = { word: data.word, language };
-          document.getElementById("resultWord").textContent = data.word;
-
-          const typeLabels = {
-            letter: "Letter",
-            word: data.partOfSpeech || "Word",
-            phrase: "Phrase",
-            idiom: "Idiom",
-          };
-          document.getElementById("resultPos").textContent =
-            typeLabels[data.entryType] || data.partOfSpeech || "";
-          document.getElementById("resultPos").style.display = "inline-block";
-          document.getElementById("resultDefinition").textContent =
-            data.definition;
-
-          const exampleBox = document.getElementById("exampleBox");
-          if (data.exampleSentence) {
-            exampleBox.style.display = "block";
-            document.getElementById("exampleOriginal").textContent =
-              data.exampleSentence;
-            document.getElementById("exampleTranslation").textContent =
-              data.exampleTranslation || "";
-          } else {
-            exampleBox.style.display = "none";
-          }
-
-          const notesEl = document.getElementById("resultNotes");
-          if (data.notes) {
-            notesEl.style.display = "block";
-            notesEl.textContent = "Note: " + data.notes;
-          } else {
-            notesEl.style.display = "none";
-          }
-
-          resultCard.classList.add("show");
-          requestAnimationFrame(() => resultCard.classList.add("animate-in"));
-          saveRecent(data.word, language);
+          renderEntry(data, language);
         } catch (err) {
           loadingMsg.classList.remove("show");
           searchBtn.disabled = false;
@@ -863,6 +894,82 @@
       }
 
       searchBtn.addEventListener("click", search);
+
+      // ---------- Voice lookup ----------
+      const dictMicBtn = document.getElementById("dictMicBtn");
+      const dictMicStatus = document.getElementById("dictMicStatus");
+      let dictMediaRecorder = null;
+      let dictAudioChunks = [];
+      let dictIsRecording = false;
+
+      dictMicBtn.addEventListener("click", async () => {
+        if (!dictIsRecording) {
+          let stream;
+          try {
+            stream = await navigator.mediaDevices.getUserMedia({
+              audio: true,
+            });
+          } catch (err) {
+            dictMicStatus.textContent = "Microphone access is needed.";
+            return;
+          }
+          dictAudioChunks = [];
+          dictMediaRecorder = new MediaRecorder(stream);
+          dictMediaRecorder.ondataavailable = (e) =>
+            dictAudioChunks.push(e.data);
+          dictMediaRecorder.start();
+          dictIsRecording = true;
+          dictMicBtn.textContent = "⏹️";
+          dictMicStatus.textContent =
+            "Listening — say a word or phrase, then tap again.";
+        } else {
+          dictMediaRecorder.stop();
+          dictIsRecording = false;
+          dictMicBtn.textContent = "🎤";
+          dictMicBtn.disabled = true;
+
+          dictMediaRecorder.onstop = async () => {
+            const blob = new Blob(dictAudioChunks, { type: "audio/webm" });
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = async () => {
+              const base64Audio = reader.result.split(",")[1];
+              const language = langSelect.value;
+              dictMicStatus.textContent = "Looking that up…";
+              resultCard.classList.remove("show", "animate-in");
+              errorMsg.classList.remove("show");
+
+              try {
+                const res = await fetch("/api/dictionary/audio", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ audio: base64Audio, language }),
+                });
+                const data = await res.json();
+                dictMicBtn.disabled = false;
+                dictMicStatus.textContent = "";
+
+                if (!res.ok || data.entryType === "not_found") {
+                  errorMsg.textContent =
+                    data.definition ||
+                    data.error ||
+                    "Could not find an entry for that.";
+                  errorMsg.classList.add("show");
+                  return;
+                }
+
+                wordInput.value = data.transcription || data.word;
+                renderEntry(data, language);
+              } catch (err) {
+                dictMicBtn.disabled = false;
+                dictMicStatus.textContent = "";
+                errorMsg.textContent = "Could not reach the server. Try again.";
+                errorMsg.classList.add("show");
+              }
+            };
+          };
+        }
+      });
       wordInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter") search();
       });
