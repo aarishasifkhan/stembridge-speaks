@@ -130,7 +130,17 @@ const languages = {
 // node_modules/@deepgram/sdk/dist/cjs/core/fetcher/makeRequest.js).
 // Plain fetch with a Buffer body has no such conflict — Node computes
 // Content-Length correctly on its own.
-async function transcribeAudio(base64Audio, languageKey) {
+// Words/phrases Deepgram is likely to otherwise mishear — proper nouns
+// aren't well represented in any STT model's training data. Applied via
+// Keyterm Prompting below, which biases Nova-3 toward recognizing these
+// specific terms correctly.
+const STEMBRIDGE_KEYTERMS = ["STEMBridge Speaks", "Aarish Asif Khan"];
+
+async function transcribeAudio(
+  base64Audio,
+  languageKey,
+  keyterms = STEMBRIDGE_KEYTERMS,
+) {
   const dgLang = (languages[languageKey] || languages.german).dgLang;
   const buffer = Buffer.from(base64Audio, "base64");
   const params = new URLSearchParams({
@@ -138,6 +148,14 @@ async function transcribeAudio(base64Audio, languageKey) {
     language: dgLang,
     smart_format: "true",
   });
+  // Keyterm Prompting is currently English-only on Deepgram's side, so
+  // it's only added when the audio is being transcribed as English —
+  // harmless to skip for other languages, not a partial failure.
+  if (dgLang === "en") {
+    for (const term of keyterms) {
+      params.append("keyterm", term);
+    }
+  }
   const res = await fetch(
     `https://api.deepgram.com/v1/listen?${params.toString()}`,
     {
@@ -1021,6 +1039,13 @@ app.post("/api/essay/dictate/start", requireAuth, async (req, res) => {
       callback: callbackUrl,
       callback_method: "post",
     });
+    // Same Keyterm Prompting boost as transcribeAudio() — English-only on
+    // Deepgram's side, harmless to skip for other languages.
+    if (dgLang === "en") {
+      for (const term of STEMBRIDGE_KEYTERMS) {
+        params.append("keyterm", term);
+      }
+    }
     const dgRes = await fetch(
       `https://api.deepgram.com/v1/listen?${params.toString()}`,
       {

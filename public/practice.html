@@ -1270,7 +1270,12 @@
 
       async function startConversationOpener() {
         removeEmptyState();
-        addSystemMessage("Getting started...");
+        // Hold a direct reference to this placeholder rather than assuming
+        // it's still chatInner.lastChild once the request resolves — if
+        // the tab was backgrounded and something else touched chatInner
+        // in the meantime (or simply if timing shifts), "last child" can
+        // silently be the wrong element, or even null.
+        const processingRow = addSystemMessage("Getting started...");
         try {
           const res = await fetch("/chat/start", {
             method: "POST",
@@ -1287,12 +1292,12 @@
             throw new Error(
               data.error || "Server error starting the conversation.",
             );
-          chatInner.lastChild.remove();
+          processingRow.remove();
           addTutorMessage(data.reply, "", false, true);
           chatIsOpenerOnly = true;
           loadChatList();
         } catch (err) {
-          chatInner.lastChild.remove();
+          processingRow.remove();
           console.error("chat/start failed:", err);
           addSystemMessage(
             "Couldn't start automatically (" +
@@ -1314,7 +1319,26 @@
 
       document
         .getElementById("newChatBtn")
-        .addEventListener("click", createNewChat);
+        .addEventListener("click", async () => {
+          // Give the user a chance to change scenario/language/level before
+          // committing to them, rather than silently reusing whatever the
+          // dropdowns happened to still say from the previous chat.
+          if (currentChatId) {
+            const currentSettings = `${scenarioSelect.options[scenarioSelect.selectedIndex].text} / ${languageSelect.options[languageSelect.selectedIndex].text} / ${levelSelect.value}`;
+            const keepSame = confirm(
+              `Start a new chat with the same settings (${currentSettings})?\n\nClick Cancel to change the scenario, language, or level above first — the new chat will begin as soon as you send a message or adjust a setting.`,
+            );
+            if (!keepSame) {
+              currentChatId = null;
+              chatIsOpenerOnly = false;
+              currentChatTitle.textContent = "New chat";
+              showEmptyChat();
+              closeSidebar();
+              return;
+            }
+          }
+          await createNewChat();
+        });
 
       document
         .getElementById("shareBtn")
@@ -1340,6 +1364,7 @@
         row.innerHTML = `<div class="bubble system" data-lang="english">${text}</div>`;
         chatInner.appendChild(row);
         scrollToBottom();
+        return row;
       }
 
       function addUserMessage(text, skipRemoveEmpty) {
@@ -1613,6 +1638,7 @@
       let dgSocket = null;
       let captionRecorder = null;
       let liveCaptionEl = null;
+      let liveTranscriptFinal = "";
 
       function showLiveCaption(text) {
         if (!liveCaptionEl) {
@@ -1643,6 +1669,7 @@
             throw new Error(tokenData.error || "Could not get token.");
 
           const dgLang = dgLangCodes[languageKey] || "en";
+          liveTranscriptFinal = "";
           dgSocket = new WebSocket(
             `wss://api.deepgram.com/v1/listen?model=nova-3&language=${dgLang}&interim_results=true&smart_format=true&punctuate=true`,
             ["token", tokenData.token],
@@ -1652,7 +1679,23 @@
             try {
               const msg = JSON.parse(event.data);
               const transcript = msg?.channel?.alternatives?.[0]?.transcript;
-              if (transcript) showLiveCaption(transcript);
+              if (!transcript) return;
+              if (msg.is_final) {
+                // Finalized segment — Deepgram won't revise this further,
+                // so it's safe to lock in as part of the real transcript
+                // we'll actually submit (see the mic button's stop
+                // handler), skipping a redundant re-transcription call.
+                liveTranscriptFinal = (
+                  liveTranscriptFinal +
+                  " " +
+                  transcript
+                ).trim();
+                showLiveCaption(liveTranscriptFinal);
+              } else {
+                showLiveCaption(
+                  (liveTranscriptFinal + " " + transcript).trim(),
+                );
+              }
             } catch (e) {
               // non-JSON/control frame — ignore
             }
@@ -1723,19 +1766,74 @@
           mediaRecorder.stop();
           isRecording = false;
           micBtn.classList.remove("recording");
-          stopLiveCaptions();
+
+          // Ask Deepgram to flush any trailing final transcript segment
+          // before we decide whether the live-captured transcript is
+          // complete enough to submit directly (skipping a second,
+          // redundant transcription round-trip through /chat-audio).
+          if (dgSocket && dgSocket.readyState === WebSocket.OPEN) {
+            dgSocket.send(JSON.stringify({ type: "CloseStream" }));
+          }
+          if (captionRecorder && captionRecorder.state !== "inactive") {
+            captionRecorder.stop();
+          }
+          captionRecorder = null;
 
           mediaRecorder.onstop = async () => {
             await ensureChatExists();
             chatIsOpenerOnly = false;
             const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-            addSystemMessage("Processing your speech...");
+            const processingRow = addSystemMessage("Processing your speech...");
 
-            const reader = new FileReader();
-            reader.readAsDataURL(audioBlob);
-            reader.onloadend = async () => {
-              const base64Audio = reader.result.split(",")[1];
-              try {
+            // Brief grace period for Deepgram's trailing final segment(s)
+            // to arrive after CloseStream before we trust the transcript.
+            await new Promise((resolve) => setTimeout(resolve, 900));
+            const capturedTranscript = liveTranscriptFinal.trim();
+            clearLiveCaption();
+            if (dgSocket) {
+              const socketToClose = dgSocket;
+              dgSocket = null;
+              socketToClose.close();
+            }
+
+            try {
+              let data;
+              if (capturedTranscript) {
+                // We already have a full transcript from live captions —
+                // send it straight to Gemini via the existing text
+                // endpoint instead of re-uploading and re-transcribing
+                // the same audio through Deepgram a second time.
+                const response = await fetch("/chat", {
+                  method: "POST",
+                  headers: {
+                    ...authHeaders(),
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    chatId: currentChatId,
+                    message: capturedTranscript,
+                    scenario: scenarioSelect.value,
+                    language: languageSelect.value,
+                    level: levelSelect.value,
+                  }),
+                });
+                const resData = await response.json();
+                if (!response.ok)
+                  throw new Error(
+                    resData.error || "Server error sending message.",
+                  );
+                data = { transcription: capturedTranscript, ...resData };
+              } else {
+                // Live captions didn't produce usable text (failed to
+                // start, or genuinely silent audio) — fall back to the
+                // original full pipeline: upload the audio and let the
+                // server transcribe it via Deepgram directly.
+                const base64Audio = await new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.onloadend = () => resolve(reader.result.split(",")[1]);
+                  reader.onerror = reject;
+                  reader.readAsDataURL(audioBlob);
+                });
                 const response = await fetch("/chat-audio", {
                   method: "POST",
                   headers: {
@@ -1750,22 +1848,23 @@
                     level: levelSelect.value,
                   }),
                 });
-                const data = await response.json();
+                data = await response.json();
                 if (!response.ok)
                   throw new Error(
                     data.error || "Server error processing audio.",
                   );
-                chatInner.lastChild.remove();
-                addUserMessage(data.transcription);
-                addTutorMessage(data.reply, data.transcription);
-                checkExchangeLimit();
-                if (data.title) currentChatTitle.textContent = data.title;
-                loadChatList();
-              } catch (err) {
-                chatInner.lastChild.remove();
-                addSystemMessage("Error: " + err.message);
               }
-            };
+
+              processingRow.remove();
+              addUserMessage(data.transcription);
+              addTutorMessage(data.reply, data.transcription);
+              checkExchangeLimit();
+              if (data.title) currentChatTitle.textContent = data.title;
+              loadChatList();
+            } catch (err) {
+              processingRow.remove();
+              addSystemMessage("Error: " + err.message);
+            }
           };
         }
       });
