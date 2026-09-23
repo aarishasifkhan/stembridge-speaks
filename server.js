@@ -76,6 +76,7 @@ let usersCollection;
 let progressCollection;
 let dictionaryHistoryCollection;
 let essayDictationCollection;
+let certificatesCollection;
 
 async function connectDB() {
   try {
@@ -90,6 +91,21 @@ async function connectDB() {
     essayDictationCollection = mongoClient
       .db("stembridge")
       .collection("essayDictationJobs");
+    certificatesCollection = mongoClient
+      .db("stembridge")
+      .collection("certificates");
+    // Enforced at the DB layer, not just in application code: one
+    // certificate per user per language, and every credentialId unique.
+    // This closes the race-condition window where two near-simultaneous
+    // issue requests could otherwise both succeed.
+    await certificatesCollection.createIndex(
+      { userId: 1, language: 1 },
+      { unique: true },
+    );
+    await certificatesCollection.createIndex(
+      { credentialId: 1 },
+      { unique: true },
+    );
     console.log("Connected to MongoDB");
   } catch (err) {
     console.error("MongoDB connection failed:", err);
@@ -1785,6 +1801,251 @@ app.post("/api/progress", requireAuth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Could not save progress." });
+  }
+});
+
+// ---------- CERTIFICATES ----------
+
+// The only language keys a certificate can ever be issued for, mapped to
+// the course-data file code (matches langCodes in public/learn.html).
+// Every certificate route validates its :language param against this
+// object with hasOwnProperty — never a plain CERTIFICATE_LANGUAGES[key]
+// truthy check, which would let a key like "constructor" or "__proto__"
+// slip through as if it were a real language. The resulting value is the
+// ONLY thing ever used to build a file path or a Mongo query field, so
+// there's no user-controlled input reaching either.
+const CERTIFICATE_LANGUAGES = {
+  german: "de",
+  english: "en",
+  spanish: "es",
+  mandarin: "zh",
+  russian: "ru",
+  arabic: "ar",
+  hebrew: "he",
+};
+
+function isKnownCertificateLanguage(langKey) {
+  return (
+    typeof langKey === "string" &&
+    Object.prototype.hasOwnProperty.call(CERTIFICATE_LANGUAGES, langKey)
+  );
+}
+
+// Canonical unit-ID lists per language, read once at startup from the same
+// course JSON files the frontend uses. A learner's completion is always
+// checked against this server-side copy of "what the full course is" —
+// never against a count or a "done" flag sent by the client.
+const courseUnitIds = {};
+for (const [langKey, code] of Object.entries(CERTIFICATE_LANGUAGES)) {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "public",
+      "data",
+      `${code}-course.json`,
+    );
+    const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    courseUnitIds[langKey] = (parsed.units || []).map((u) => u.id);
+  } catch (err) {
+    console.error(
+      `[certificates] Could not load course data for ${langKey}:`,
+      err.message,
+    );
+    courseUnitIds[langKey] = [];
+  }
+}
+
+// Recomputes completion server-side from the same progress document
+// /api/progress already reads. `langKey` must already be validated by
+// isKnownCertificateLanguage() before this is called.
+function getCertificateProgress(progressData, langKey) {
+  const unitIds = courseUnitIds[langKey] || [];
+  const langProgress = (progressData && progressData[langKey]) || {};
+  const completed = unitIds.filter((id) => langProgress[id] === true).length;
+  return {
+    completed,
+    total: unitIds.length,
+    unlocked: unitIds.length > 0 && completed === unitIds.length,
+  };
+}
+
+// Shape returned to the certificate's owner and, in reduced form, to the
+// public verification endpoint. Deliberately excludes _id and userId.
+function publicCertificateView(cert) {
+  return {
+    language: cert.language,
+    languageName: languages[cert.language]
+      ? languages[cert.language].name
+      : cert.language,
+    credentialId: cert.credentialId,
+    recipientName: cert.recipientName,
+    issuedAt: cert.issuedAt,
+    totalUnits: cert.totalUnits,
+  };
+}
+
+// Where a learner stands for one language: how many units are done, and
+// whether a certificate already exists. Safe to poll on every page load.
+app.get(
+  "/api/certificate/:language/status",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const langKey = req.params.language;
+      if (!isKnownCertificateLanguage(langKey)) {
+        return res.status(400).json({ error: "Unknown language." });
+      }
+
+      const progressDoc = await progressCollection.findOne({
+        userId: req.userId,
+      });
+      const { completed, total, unlocked } = getCertificateProgress(
+        progressDoc ? progressDoc.data : null,
+        langKey,
+      );
+
+      const existing = await certificatesCollection.findOne({
+        userId: req.userId,
+        language: langKey,
+      });
+
+      res.json({
+        language: langKey,
+        completed,
+        total,
+        unlocked,
+        alreadyIssued: !!existing,
+        credentialId: existing ? existing.credentialId : null,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Could not check certificate status." });
+    }
+  },
+);
+
+// Issues (or, if one already exists, simply returns) this user's
+// certificate for a language. Completion is re-derived from the DB on
+// every call — the request body is never trusted for it, so there's no
+// way to unlock a certificate early by forging a client-side flag.
+app.post("/api/certificate/:language/issue", requireAuth, async (req, res) => {
+  try {
+    const langKey = req.params.language;
+    if (!isKnownCertificateLanguage(langKey)) {
+      return res.status(400).json({ error: "Unknown language." });
+    }
+
+    const existing = await certificatesCollection.findOne({
+      userId: req.userId,
+      language: langKey,
+    });
+    if (existing) {
+      return res.json(publicCertificateView(existing));
+    }
+
+    const progressDoc = await progressCollection.findOne({
+      userId: req.userId,
+    });
+    const { completed, total, unlocked } = getCertificateProgress(
+      progressDoc ? progressDoc.data : null,
+      langKey,
+    );
+    if (!unlocked) {
+      return res
+        .status(403)
+        .json({ error: "Course not yet completed.", completed, total });
+    }
+
+    const user = await usersCollection.findOne({
+      _id: new ObjectId(req.userId),
+    });
+    if (!user) return res.status(404).json({ error: "User not found." });
+
+    const cert = {
+      userId: req.userId,
+      language: langKey,
+      credentialId: generateId(),
+      // Name is snapshotted at issue time from the account record (never
+      // taken from the request body) so a certificate can't be minted
+      // under an arbitrary name, and so it stays correct even if the
+      // account is later renamed.
+      recipientName: (user.name || "").trim() || "STEMBridge Speaks Learner",
+      totalUnits: total,
+      issuedAt: new Date(),
+      revoked: false,
+    };
+
+    try {
+      await certificatesCollection.insertOne(cert);
+    } catch (err) {
+      // Unique-index race: another request for the same user+language
+      // won between our existence check and this insert. Not an error —
+      // just hand back whichever one actually landed.
+      if (err.code === 11000) {
+        const winner = await certificatesCollection.findOne({
+          userId: req.userId,
+          language: langKey,
+        });
+        if (winner) return res.json(publicCertificateView(winner));
+      }
+      throw err;
+    }
+
+    res.json(publicCertificateView(cert));
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not issue certificate." });
+  }
+});
+
+// This user's already-issued certificate for a language (404 if none yet).
+app.get("/api/certificate/:language", requireAuth, async (req, res) => {
+  try {
+    const langKey = req.params.language;
+    if (!isKnownCertificateLanguage(langKey)) {
+      return res.status(400).json({ error: "Unknown language." });
+    }
+    const cert = await certificatesCollection.findOne({
+      userId: req.userId,
+      language: langKey,
+    });
+    if (!cert)
+      return res.status(404).json({ error: "Certificate not yet issued." });
+    res.json(publicCertificateView(cert));
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not load certificate." });
+  }
+});
+
+// Public, unauthenticated — this is what the verification link/QR on the
+// certificate points to, for employers/universities/anyone to check.
+// Intentionally returns nothing beyond what the printed certificate
+// itself shows: no email, no account ID, nothing else from the user doc.
+app.get("/api/verify/:credentialId", async (req, res) => {
+  try {
+    const credentialId = req.params.credentialId;
+    // generateId() always produces 24 lowercase hex chars — reject
+    // anything else before it ever reaches a DB query.
+    if (!/^[a-f0-9]{24}$/.test(credentialId)) {
+      return res.status(400).json({ valid: false, error: "Malformed credential ID." });
+    }
+
+    const cert = await certificatesCollection.findOne({ credentialId });
+    if (!cert) return res.status(404).json({ valid: false });
+
+    res.json({
+      valid: !cert.revoked,
+      recipientName: cert.recipientName,
+      language: languages[cert.language]
+        ? languages[cert.language].name
+        : cert.language,
+      issuedAt: cert.issuedAt,
+      issuer: "STEMBridge Speaks",
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ valid: false, error: "Could not verify certificate." });
   }
 });
 

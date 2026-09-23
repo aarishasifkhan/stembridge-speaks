@@ -445,6 +445,17 @@
         border-radius: 4px;
         transition: width 0.6s ease;
       }
+      .lang-pick .cert-link {
+        display: block;
+        margin-top: 10px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--forest);
+        text-decoration: none;
+      }
+      .lang-pick .cert-link:hover {
+        text-decoration: underline;
+      }
 
       .path-header {
         display: flex;
@@ -1507,9 +1518,15 @@
         <span class="flag">${lang.flag}</span><h3>${lang.name}</h3>
         <p>${lang.available ? total + " lessons" : "Coming soon"}</p>
         ${lang.available ? `<div class="mini-bar"><div class="mini-bar-fill" style="width:${pct}%"></div></div>` : ""}
+        ${pct === 100 ? `<a class="cert-link" href="/certificate.html?lang=${key}">🎓 View Certificate</a>` : ""}
       `;
           if (lang.available)
-            btn.addEventListener("click", () => selectLanguage(key));
+            btn.addEventListener("click", (e) => {
+              // Let the certificate link (once it exists) navigate on its
+              // own instead of triggering language selection underneath it.
+              if (e.target.closest(".cert-link")) return;
+              selectLanguage(key);
+            });
           grid.appendChild(btn);
         });
       }
