@@ -11,7 +11,7 @@
     </title>
     <meta
       name="description"
-      content="Free structured grammar courses for German, English, Spanish, Mandarin, Russian, and Hebrew — 16 lessons each, from foundations to advanced topics, with quizzes and pronunciation audio for every example."
+      content="Free structured grammar courses for German, English, Spanish, Mandarin, Russian, Arabic, and Hebrew — 16 lessons each, from foundations to advanced topics, with quizzes and pronunciation audio for every example."
     />
     <link
       rel="canonical"
@@ -47,7 +47,7 @@
         "@context": "https://schema.org",
         "@type": "Course",
         "name": "STEMBridge Speaks Grammar Course",
-        "description": "16 structured grammar lessons covering foundations through advanced topics, with quizzes and pronunciation audio, available in German, English, Spanish, Mandarin, Russian, and Hebrew.",
+        "description": "16 structured grammar lessons covering foundations through advanced topics, with quizzes and pronunciation audio, available in German, English, Spanish, Mandarin, Russian, Arabic, and Hebrew.",
         "provider": {
           "@type": "Organization",
           "name": "STEMBridge",
@@ -1156,6 +1156,7 @@
         spanish: { name: "Spanish", flag: "🇪🇸", available: true, units: [] },
         mandarin: { name: "Mandarin", flag: "🇨🇳", available: true, units: [] },
         russian: { name: "Russian", flag: "🇷🇺", available: true, units: [] },
+        arabic: { name: "Arabic", flag: "🇸🇦", available: true, units: [] },
         hebrew: { name: "Hebrew", flag: "🇮🇱", available: true, units: [] },
       };
       const langCodes = {
@@ -1164,6 +1165,7 @@
         spanish: "es",
         mandarin: "zh",
         russian: "ru",
+        arabic: "ar",
         hebrew: "he",
       };
       const FOUNDATIONS_COUNT = 5;
@@ -1292,7 +1294,8 @@
         const steps = unit.teaching;
         const chunk = steps[currentLessonStep];
         const lang = langCodes[currentLang];
-        const exDir = currentLang === "hebrew" ? "rtl" : "ltr";
+        const exDir =
+          currentLang === "hebrew" || currentLang === "arabic" ? "rtl" : "ltr";
 
         const indicator = document.getElementById("lessonStepIndicator");
         indicator.innerHTML = steps
