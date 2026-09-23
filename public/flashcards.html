@@ -102,6 +102,101 @@
         white-space: nowrap;
       }
 
+      /* Fixed width so the loading state (opacity change only, no text
+         change) never causes the button to shift or reflow when clicked. */
+      #pronounceBtn {
+        width: 110px;
+        transition: opacity 0.15s ease;
+      }
+      #pronounceBtn.loading {
+        opacity: 0.55;
+        cursor: wait;
+      }
+
+      .feedback-toast {
+        position: absolute;
+        top: -14px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px);
+        background: var(--forest);
+        color: var(--cream, #fbf7ee);
+        padding: 8px 18px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 600;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.2s ease,
+          transform 0.2s ease;
+        white-space: nowrap;
+        z-index: 5;
+        box-shadow: 0 6px 16px rgba(27, 67, 50, 0.25);
+      }
+      .feedback-toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .feedback-toast.incorrect {
+        background: #8c4a3a;
+      }
+
+      .summary-stats-row {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        margin: 18px 0;
+      }
+      .summary-stat-num {
+        font-size: 28px;
+        font-weight: 700;
+        font-family: "Fraunces", serif;
+      }
+      .summary-stat-num.correct {
+        color: var(--forest);
+      }
+      .summary-stat-num.incorrect {
+        color: #8c4a3a;
+      }
+      .summary-stat-label {
+        font-size: 12px;
+        color: #4a5049;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-top: 2px;
+      }
+      .summary-topics {
+        text-align: left;
+        margin: 20px 0;
+      }
+      .summary-topics h3 {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--forest-dark, var(--forest));
+        margin-bottom: 8px;
+      }
+      .topic-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: rgba(27, 67, 50, 0.05);
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+      .topic-score {
+        color: #4a5049;
+        white-space: nowrap;
+      }
+      .topic-empty {
+        font-size: 13px;
+        color: #4a5049;
+        font-style: italic;
+        padding: 4px 0;
+      }
+
       /* Hamburger button: hidden on wide desktop, shown once the nav can't fit comfortably */
       .hamburger-btn {
         display: none;
@@ -283,6 +378,7 @@
         perspective: 1200px;
         height: 260px;
         margin-bottom: 20px;
+        position: relative;
       }
       .card {
         position: relative;
@@ -707,6 +803,7 @@
               <div class="card-sub" id="cardBackSub"></div>
             </div>
           </div>
+          <div id="feedbackToast" class="feedback-toast"></div>
         </div>
 
         <div class="rate-row">
@@ -719,8 +816,28 @@
 
       <div id="view-summary" class="hidden">
         <div class="summary-card">
-          <div class="big" id="summaryScore">0/0</div>
-          <p>cards marked "Got it" this session.</p>
+          <div class="big" id="summaryPercentage">0%</div>
+          <p id="summaryScoreLine">0/0 correct this session.</p>
+          <div class="summary-stats-row">
+            <div class="summary-stat">
+              <div class="summary-stat-num correct" id="summaryCorrect">0</div>
+              <div class="summary-stat-label">Correct</div>
+            </div>
+            <div class="summary-stat">
+              <div class="summary-stat-num incorrect" id="summaryIncorrect">0</div>
+              <div class="summary-stat-label">Still learning</div>
+            </div>
+          </div>
+
+          <div class="summary-topics">
+            <h3>Strong areas</h3>
+            <div id="summaryStrongTopics"></div>
+          </div>
+          <div class="summary-topics">
+            <h3>Areas to focus on next</h3>
+            <div id="summaryWeakTopics"></div>
+          </div>
+
           <div class="summary-actions">
             <button class="btn btn-gold" id="restartBtn">Try Again</button>
             <a href="/learn.html" class="btn btn-outline">Back to Lessons</a>
@@ -758,6 +875,21 @@
       let deckIndex = 0;
       let flashcardAudio = null;
 
+      // Strips formatting that shouldn't be spoken aloud — parenthetical
+      // asides, stray dashes/underscores used as blanks, and extra
+      // whitespace — same approach used for pre-generated lesson audio
+      // (scripts/generate-audio.js). Grammar/assessment content often has
+      // editorial notes in parens (e.g. "(literally: ...)") that read
+      // naturally on screen but sound wrong spoken verbatim.
+      function sanitizeForSpeech(text) {
+        if (!text) return text;
+        let clean = text.replace(/\([^)]*\)/g, "");
+        clean = clean.replace(/_{2,}/g, ", blank,");
+        clean = clean.replace(/[*_#>]/g, "");
+        clean = clean.replace(/\s{2,}/g, " ").trim();
+        return clean;
+      }
+
       async function pronounceCurrentCard() {
         const card = deck[deckIndex];
         if (!card || !card.front) return;
@@ -767,14 +899,14 @@
           flashcardAudio = null;
         }
         btn.disabled = true;
-        btn.textContent = "🔊 Loading…";
+        btn.classList.add("loading");
         try {
           const res = await fetch("/tts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              text: card.front,
-              language: langSelect.value,
+              text: sanitizeForSpeech(card.front),
+              language: card.cardLang || langSelect.value,
             }),
           });
           const data = await res.json();
@@ -782,16 +914,17 @@
           flashcardAudio = new Audio("data:audio/mp3;base64," + data.audio);
           flashcardAudio.onended = () => {
             btn.disabled = false;
-            btn.textContent = "🔊 Listen";
+            btn.classList.remove("loading");
           };
           await flashcardAudio.play();
         } catch (err) {
           console.error("Flashcard pronunciation failed:", err);
           btn.disabled = false;
-          btn.textContent = "🔊 Listen";
+          btn.classList.remove("loading");
         }
       }
       let score = 0;
+      let sessionResults = [];
       let selectedDifficulty = "easy";
       let currentSource = "grammar";
       let examsData = [];
@@ -919,10 +1052,27 @@
           examFilter === "all" ? true : e.id === examFilter,
         );
 
+        // Maps assessments.json's display language names to our internal
+        // lowercase language keys, used for TTS/RTL — exams span all 7
+        // languages, so each card must carry its own correct language
+        // rather than trusting whatever the page's langSelect happens to
+        // be set to (which caused wrong-language pronunciation whenever
+        // it didn't match a given exam's actual language).
+        const examLangToKey = {
+          German: "german",
+          English: "english",
+          Spanish: "spanish",
+          Mandarin: "mandarin",
+          Russian: "russian",
+          Arabic: "arabic",
+          Hebrew: "hebrew",
+        };
+
         let cards = [];
         relevantExams.forEach((exam) => {
           const isRTL =
             exam.language === "Hebrew" || exam.language === "Arabic";
+          const cardLang = examLangToKey[exam.language] || "english";
           exam.practice.forEach((q) => {
             cards.push({
               type: "assessment",
@@ -933,6 +1083,7 @@
               sub: q.explanation,
               lesson: `${exam.flag} ${exam.name} · ${q.section}`,
               rtl: isRTL,
+              cardLang,
             });
           });
         });
@@ -951,6 +1102,9 @@
           if (lessonFilter !== "all") return u.id === lessonFilter;
           return true;
         });
+        // Captured at build time so changing langSelect later doesn't
+        // retroactively mismatch an already-built, in-progress deck.
+        const cardLang = langSelect.value;
 
         let cards = [];
         relevantUnits.forEach((unit, globalIdx) => {
@@ -969,6 +1123,7 @@
                   back: chunk.exTranslation,
                   sub: chunk.h,
                   lesson: unit.title,
+                  cardLang,
                 });
               }
             });
@@ -984,6 +1139,7 @@
                 back: q.answer,
                 sub: "",
                 lesson: unit.title,
+                cardLang,
               });
             });
           }
@@ -1014,6 +1170,7 @@
         if (deck.length === 0) return;
         deckIndex = 0;
         score = 0;
+        sessionResults = [];
         document.getElementById("view-setup").classList.add("hidden");
         document.getElementById("view-session").classList.remove("hidden");
         document.getElementById("view-summary").classList.add("hidden");
@@ -1025,7 +1182,7 @@
         const isRTL =
           card.type === "assessment"
             ? !!card.rtl
-            : rtlLanguages.includes(langSelect.value);
+            : rtlLanguages.includes(card.cardLang || langSelect.value);
         const flashcardEl = document.getElementById("flashcard");
         flashcardEl.classList.remove("flipped");
 
@@ -1076,12 +1233,44 @@
 
       function nextCard(gotIt) {
         if (gotIt) score++;
-        deckIndex++;
-        if (deckIndex >= deck.length) {
-          showSummary();
-        } else {
-          showCard();
-        }
+        sessionResults.push({ lesson: deck[deckIndex].lesson, correct: gotIt });
+        showFeedbackToast(gotIt);
+        document.getElementById("rateYes").disabled = true;
+        document.getElementById("rateNo").disabled = true;
+        setTimeout(() => {
+          deckIndex++;
+          if (deckIndex >= deck.length) {
+            showSummary();
+          } else {
+            showCard();
+          }
+        }, 1100);
+      }
+
+      const encouragingMessages = [
+        "Nice work! 🎉",
+        "You got it! ✨",
+        "Great job! 👏",
+        "Exactly right! 🙌",
+        "Well done! 💫",
+      ];
+      const supportiveMessages = [
+        "Better luck next time! 💪",
+        "Almost there — keep going! 🌱",
+        "No worries, you'll get the next one! 🙂",
+        "Good try — worth reviewing this one! 📘",
+      ];
+
+      function showFeedbackToast(correct) {
+        const messages = correct ? encouragingMessages : supportiveMessages;
+        const msg = messages[Math.floor(Math.random() * messages.length)];
+        const toast = document.getElementById("feedbackToast");
+        toast.textContent = msg;
+        toast.className =
+          "feedback-toast show " + (correct ? "correct" : "incorrect");
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 950);
       }
 
       document
@@ -1091,11 +1280,76 @@
         .getElementById("rateNo")
         .addEventListener("click", () => nextCard(false));
 
+      function renderTopicList(elId, topics, emptyText) {
+        const el = document.getElementById(elId);
+        if (topics.length === 0) {
+          el.innerHTML = `<div class="topic-empty">${escapeHtml(emptyText)}</div>`;
+          return;
+        }
+        el.innerHTML = topics
+          .map(
+            (t) =>
+              `<div class="topic-row"><span class="topic-name">${escapeHtml(t.lesson)}</span><span class="topic-score">${t.correct}/${t.total} (${Math.round(t.accuracy * 100)}%)</span></div>`,
+          )
+          .join("");
+      }
+
       function showSummary() {
         document.getElementById("view-session").classList.add("hidden");
         document.getElementById("view-summary").classList.remove("hidden");
-        document.getElementById("summaryScore").textContent =
-          `${score}/${deck.length}`;
+
+        const total = deck.length;
+        const correctCount = sessionResults.filter((r) => r.correct).length;
+        const incorrectCount = total - correctCount;
+        const percentage =
+          total > 0 ? Math.round((correctCount / total) * 100) : 0;
+
+        document.getElementById("summaryPercentage").textContent =
+          `${percentage}%`;
+        document.getElementById("summaryScoreLine").textContent =
+          `${correctCount}/${total} correct this session.`;
+        document.getElementById("summaryCorrect").textContent = correctCount;
+        document.getElementById("summaryIncorrect").textContent =
+          incorrectCount;
+
+        // Aggregate accuracy by topic (card.lesson — the unit title for
+        // grammar cards, or "flag exam · section" for assessment cards)
+        // so the person sees exactly which areas to revisit, not just a
+        // single overall number.
+        const topicStats = {};
+        sessionResults.forEach((r) => {
+          if (!topicStats[r.lesson])
+            topicStats[r.lesson] = { correct: 0, total: 0 };
+          topicStats[r.lesson].total++;
+          if (r.correct) topicStats[r.lesson].correct++;
+        });
+
+        const topicEntries = Object.entries(topicStats).map(
+          ([lesson, stats]) => ({
+            lesson,
+            accuracy: stats.correct / stats.total,
+            correct: stats.correct,
+            total: stats.total,
+          }),
+        );
+
+        const strongTopics = topicEntries
+          .filter((t) => t.accuracy >= 0.7)
+          .sort((a, b) => b.accuracy - a.accuracy);
+        const weakTopics = topicEntries
+          .filter((t) => t.accuracy < 0.7)
+          .sort((a, b) => a.accuracy - b.accuracy);
+
+        renderTopicList(
+          "summaryStrongTopics",
+          strongTopics,
+          "No standout strong areas yet — keep practicing and they'll show up here.",
+        );
+        renderTopicList(
+          "summaryWeakTopics",
+          weakTopics,
+          "No weak areas found — great session!",
+        );
       }
 
       document.getElementById("restartBtn").addEventListener("click", () => {

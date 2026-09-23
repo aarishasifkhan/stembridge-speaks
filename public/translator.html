@@ -547,8 +547,13 @@
             throw new Error(tokenData.error || "Could not get token.");
 
           const dgLang = dgLangCodes[languageKey] || "en";
+          // endpointing/utterance_end_ms/vad_events tuned for faster
+          // caption updates (inspired by a Deepgram dev-chat post
+          // comparing Nova-3 streaming latency against another
+          // provider); mip_opt_out excludes this audio from Deepgram's
+          // model-training data.
           dgSocket = new WebSocket(
-            `wss://api.deepgram.com/v1/listen?model=nova-3&language=${dgLang}&interim_results=true&smart_format=true&punctuate=true`,
+            `wss://api.deepgram.com/v1/listen?model=nova-3&language=${dgLang}&interim_results=true&smart_format=true&punctuate=true&endpointing=500&utterance_end_ms=1000&vad_events=true&mip_opt_out=true`,
             ["token", tokenData.token],
           );
           dgSocket.onmessage = (event) => {
@@ -569,7 +574,7 @@
                 dgSocket.send(e.data);
               }
             };
-            captionRecorder.start(250);
+            captionRecorder.start(100);
           };
         } catch (err) {
           console.error("Could not start live captions:", err);
